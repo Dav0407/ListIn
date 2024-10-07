@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: ListIn
+  datasource:
+    url: jdbc:postgresql://localhost:5432/list_in
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1036878431200-p23es5g8p7g4qa70uel9h4uddjnmbr7o.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            client-authentication-method: post
+            authorization-grant-type: authorization_code
+
+          facebook:
+            client-id: YOUR_FACEBOOK_CLIENT_ID
+            client-secret: YOUR_FACEBOOK_CLIENT_SECRET
+            scope: public_profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
+            client-authentication-method: post
+            authorization-grant-type: authorization_code
