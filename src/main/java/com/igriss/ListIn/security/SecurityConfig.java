@@ -1,6 +1,7 @@
 package com.igriss.ListIn.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -14,37 +15,30 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true)
-public class SecurityConfig {
+@Slf4j
+public class SecurityConfig  {
+
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        log.info("Configuring security filter chain...");
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
-                        request ->
-                                request
-                                        .requestMatchers("/", "/login**", "/error**")
-                                        .permitAll()
-                                        .requestMatchers(
-                                                "/auth/**",
-                                                "/v2/api-docs",
-                                                "/v3/api-docs",
-                                                "/v3/api-docs/**",
-                                                "/swagger-resources",
-                                                "/swagger-resources/**",
-                                                "/configuration/ui",
-                                                "/configuration/security",
-                                                "/swagger-ui/**",
-                                                "/webjars/**",
-                                                "/swagger-ui.html"
-                                        )
-                                        .permitAll()
-                                        .anyRequest()
-                                        .authenticated()
+                        request -> request
+                                .requestMatchers("/login/**", "/error/**","/swagger-ui/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
                 )
                 .oauth2Login(oauth -> oauth
-                        .defaultSuccessUrl("/api/v1/demo", true));
+                        .successHandler(oAuth2LoginSuccessHandler)
+
+                );
 
         return http.build();
     }
+
 }

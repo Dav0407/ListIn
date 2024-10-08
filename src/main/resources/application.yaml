@@ -24,7 +24,6 @@ spring:
             client-secret: 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
             scope: profile, email
             redirect-uri: "{baseUrl}/login/oauth2/code/google"
-            client-authentication-method: post
             authorization-grant-type: authorization_code
 
           facebook:
@@ -34,3 +33,14 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
             client-authentication-method: post
             authorization-grant-type: authorization_code
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    display-request-duration: true
+server:
+  port: 8000
+  error:
+    path: error.jsp

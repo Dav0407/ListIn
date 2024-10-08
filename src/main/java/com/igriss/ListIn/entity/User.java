@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
@@ -22,8 +23,8 @@ import java.util.stream.Collectors;
 public class User implements UserDetails { // Agar UserDetails dan implement qilsak Spring shu classni taniydi
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID userId;
 
     @Column(nullable = false)
     private String firstName;
@@ -31,13 +32,11 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
     private String phoneNumber;
 
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
