@@ -19,7 +19,7 @@ public class Category {
     private UUID id;
     private String name;
     private String previewText;
-    private String imageResId;// Assuming images are stored as URLs or identifiers
+    private String imagePath;// Assuming images are stored as URLs or identifiers
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
