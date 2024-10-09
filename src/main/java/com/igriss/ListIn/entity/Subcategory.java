@@ -6,33 +6,22 @@ import lombok.*;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@Table(name = "subcategory")
+@Builder
 @Entity
 public class Subcategory {
+
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private UUID id;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private String previewText;
+    private String imageResId;  // Assuming images are stored as URLs or identifiers
 
-    @Column(nullable = false)
-    private String imageResId;
-
-    @ManyToOne
-    @JoinColumn(name = "categoryId", nullable = false)
-    private Category category;
-
-    @Column(nullable = false)
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subcategory_id")
     private List<Attribute> attributes;
 }

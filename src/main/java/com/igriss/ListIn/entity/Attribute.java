@@ -1,35 +1,24 @@
 package com.igriss.ListIn.entity;
 
-
-import com.igriss.ListIn.entity.types.AttributeType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.CollectionType;
-import org.hibernate.annotations.Columns;
 
 import java.util.List;
-import java.util.UUID;
-
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@Table(name = "attribute")
+@Builder
 @Entity
 public class Attribute {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
     private String name;
-
-    @Column(nullable = false)
-    private AttributeType type;
+    private String type;  // 'select', 'multiselect', 'selectColor'
 
     @ElementCollection
-    @Column(nullable = false)
+    @CollectionTable(name = "attribute_options", joinColumns = @JoinColumn(name = "attribute_id"))
+    @Column(name = "option")
     private List<String> options;
 }
