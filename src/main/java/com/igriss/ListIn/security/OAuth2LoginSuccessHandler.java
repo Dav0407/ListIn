@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -28,10 +29,10 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             log.info("Authenticated OAuth2 user logged in:\n [{}],\n Email: [{}],\n Name: [{}]",
                     authentication.getAuthorities().toString(), email, firstname+" "+lastname);
 
-            User existingUser = repo.findByEmail(email);
-            if (existingUser!=null) {
+            Optional<User> existingUser = repo.findByEmail(email);
+            if (existingUser.isPresent())
                 log.info("User already exists. Proceeding with login.");
-            } else {
+             else {
                 User newUser = new User();
                 newUser.setEmail(email);
                 newUser.setFirstName(firstname);
@@ -40,7 +41,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 log.info("New user created and saved: [{}] [{}] [{}]", firstname,lastname, email);
             }
         }
-        response.sendRedirect("/user/api/v1/demo");
+        response.sendRedirect("/");
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

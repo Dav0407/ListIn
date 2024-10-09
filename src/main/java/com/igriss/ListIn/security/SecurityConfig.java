@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig  {
 
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+    private final JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         log.info("Configuring security filter chain...");
@@ -33,10 +35,8 @@ public class SecurityConfig  {
                                 .anyRequest()
                                 .authenticated()
                 )
-                .oauth2Login(oauth -> oauth
-                        .successHandler(oAuth2LoginSuccessHandler)
-
-                );
+                .oauth2Login(oauth -> oauth.successHandler(oAuth2LoginSuccessHandler))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

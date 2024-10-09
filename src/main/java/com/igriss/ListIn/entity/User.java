@@ -29,6 +29,10 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String firstName;
 
+    private Integer age;
+
+
+
     @Column(nullable = false)
     private String lastName;
 
@@ -38,6 +42,8 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     private String email;
 
     private String password;
+
+    private String profileImagePath;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Roles> roles;
