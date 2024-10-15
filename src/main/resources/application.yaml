@@ -1,6 +1,7 @@
 spring:
   application:
     name: ListIn
+
   datasource:
     url: jdbc:postgresql://localhost:5432/list_in
     username: postgres
@@ -40,6 +41,17 @@ spring:
     path: /swagger-ui.html
     operationsSorter: method
     display-request-duration: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ______________
+    password: ______________
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: 8000
   error:

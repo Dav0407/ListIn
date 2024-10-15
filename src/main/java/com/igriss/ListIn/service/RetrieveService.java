@@ -1,4 +1,4 @@
-package com.igriss.ListIn.services;
+package com.igriss.ListIn.service;
 
 import com.igriss.ListIn.entity.Category;
 import com.igriss.ListIn.repository.CategoryRepo;
