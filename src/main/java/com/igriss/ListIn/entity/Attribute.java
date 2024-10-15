@@ -15,10 +15,10 @@ public class Attribute {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String name;
-    private String type;  // 'select', 'multiselect', 'selectColor'
+    private String type;
 
     @ElementCollection
     @CollectionTable(name = "attribute_options", joinColumns = @JoinColumn(name = "attribute_id"))
-    @Column(name = "option")
+    @Column(name = "options")
     private List<String> options;
 }

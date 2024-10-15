@@ -1,7 +1,8 @@
 package com.igriss.ListIn.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.*;
+
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -46,12 +46,11 @@ public class JwtServices {
             return createToken(username);
     }
 
-    public String createToken(String username){
-        Map<String,Object> map=new HashMap<>();
+    private String createToken(String username){
               return   Jwts
                 .builder()
                 .claims()
-                .add(map)
+                .add(new HashMap<>())
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+60*60*1000))
