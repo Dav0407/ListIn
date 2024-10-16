@@ -1,27 +1,17 @@
 package com.igriss.ListIn.dto;
 
-import jakarta.validation.constraints.Email;
+import com.igriss.ListIn.security.roles.Role;
 import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegisterRequestDTO {
-    private String firstName;
-
-    private Integer age;
-
-    private String lastName;
-
+    private String firstname;
+    private String lastname;
     private String phoneNumber;
-
-    @Email
     private String email;
-
     private String password;
-
-    private String profileImagePath;
-
+    private Role roles;
 }

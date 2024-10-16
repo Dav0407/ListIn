@@ -3,7 +3,6 @@ package com.igriss.ListIn.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -19,9 +18,9 @@ public class Subcategory {
     private UUID id;
     private String name;
     private String previewText;
-    private String imageResId;  // Assuming images are stored as URLs or identifiers
+    private String imagePath;  // Assuming images are stored as URLs or identifiers
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subcategory_id")
-    private List<Attribute> attributes;
+    private DetailsDTO details;
 }

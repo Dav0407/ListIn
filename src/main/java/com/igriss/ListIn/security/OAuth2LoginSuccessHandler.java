@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    private final UserRepository repo;
+    private final UserRepository repository;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (authentication.getPrincipal() instanceof OAuth2User oAuth2User) {
@@ -29,7 +29,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             log.info("Authenticated OAuth2 user logged in:\n [{}],\n Email: [{}],\n Name: [{}]",
                     authentication.getAuthorities().toString(), email, firstname+" "+lastname);
 
-            Optional<User> existingUser = repo.findByEmail(email);
+            Optional<User> existingUser = repository.findByEmail(email);
             if (existingUser.isPresent())
                 log.info("User already exists. Proceeding with login.");
              else {
@@ -37,7 +37,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 newUser.setEmail(email);
                 newUser.setFirstName(firstname);
                 newUser.setLastName(lastname);
-                repo.save(newUser);
+                repository.save(newUser);
                 log.info("New user created and saved: [{}] [{}] [{}]", firstname,lastname, email);
             }
         }

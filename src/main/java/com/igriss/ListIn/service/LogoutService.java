@@ -1,4 +1,4 @@
 package com.igriss.ListIn.service;
 
-public interface AttributeService {
+public interface LogoutService {
 }

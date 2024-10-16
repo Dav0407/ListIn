@@ -1,7 +1,7 @@
 package com.igriss.ListIn.entity;
 
 
-import com.igriss.ListIn.security.roles.Roles;
+import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,6 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     private Integer age;
 
 
-
     @Column(nullable = false)
     private String lastName;
 
@@ -45,12 +43,13 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     private String profileImagePath;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Roles> roles;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
+        return role.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
