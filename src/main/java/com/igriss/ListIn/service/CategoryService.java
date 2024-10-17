@@ -1,4 +1,4 @@
 package com.igriss.ListIn.service;
 
-public class CategoryService {
+public interface CategoryService {
 }
