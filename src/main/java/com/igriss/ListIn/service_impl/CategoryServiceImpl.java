@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service.service_impl;
+package com.igriss.ListIn.service_impl;
 
 
 import org.springframework.stereotype.Service;

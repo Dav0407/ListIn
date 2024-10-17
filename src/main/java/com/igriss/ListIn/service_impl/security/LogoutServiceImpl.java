@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service.service_impl;
+package com.igriss.ListIn.service_impl.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,13 +11,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LogoutServiceImpl implements LogoutHandler {
 
+    private final JwtServiceImpl jwtService;
+
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
+
         if(authHeader == null || !authHeader.startsWith("Bearer "))
             return;
+
         jwt = authHeader.substring(7);
 
+        jwtService.blackListToken(jwt);
     }
 }

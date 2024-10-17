@@ -20,7 +20,5 @@ public class Subcategory {
     private String previewText;
     private String imagePath;  // Assuming images are stored as URLs or identifiers
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "subcategory_id")
-    private DetailsDTO details;
+
 }

@@ -3,9 +3,10 @@ package com.igriss.ListIn.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -22,6 +23,7 @@ public class Post {
 
     private String title;
     private String description;
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -34,15 +36,10 @@ public class Post {
     @ElementCollection
     @CollectionTable(name = "image_urls", joinColumns = @JoinColumn(name = "post_id"))
     @Column(name = "image_url")
-    private List<String> imageUrls;  // Store URL or identifier for the post image
+    private List<String> imagePaths;  // Store URL or identifier for the post image
 
-    @ElementCollection
-    @CollectionTable(name = "post_attributes", joinColumns = @JoinColumn(name = "post_id"))
-    @MapKeyJoinColumn(name = "attribute_id")
-    @Column(name = "attribute_value")
-    private Map<Attribute, String> attributes; // Map for storing attribute-value pairs for the post
-
-    private double price;  // Assuming a price field for the post
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Attribute> attributes = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -2,7 +2,6 @@ package com.igriss.ListIn.security.verification;
 
 import com.igriss.ListIn.dto.RegisterRequestDTO;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;

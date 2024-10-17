@@ -5,12 +5,10 @@ import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,7 +28,6 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     private Integer age;
 
-
     @Column(nullable = false)
     private String lastName;
 
@@ -49,9 +46,7 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+        return role.getAuthorities();
     }
 
     @Override

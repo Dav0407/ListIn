@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service.service_impl;
+package com.igriss.ListIn.service_impl.security;
 
 import com.igriss.ListIn.service.JwtService;
 import io.jsonwebtoken.Claims;
@@ -6,7 +6,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,14 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService {
+
+    private final RedisTemplate<String, Object> redisTemplate;
 
     //decryption phrase for secret_key = Hello, hello my name is Igris004
     @Value("${application.security.jwt.secret-key}")
@@ -28,6 +34,9 @@ public class JwtServiceImpl implements JwtService {
 
     @Value("${application.security.jwt.refresh-token.expiration}")
     private long refreshExpiration;
+
+    @Value("${application.security.jwt.blacklist.expiration}")
+    private long blackListExpiration;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -62,6 +71,10 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails){
+
+        if (isTokenBlacklisted(token)){
+            return false;
+        }
         String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
@@ -86,5 +99,16 @@ public class JwtServiceImpl implements JwtService {
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    //Tokenni blacklistga qo'yish
+    public void blackListToken(String token){
+        long expiration = extractExpiration(token).getTime() - System.currentTimeMillis();
+        redisTemplate.opsForValue().set(token, "blacklisted", expiration, TimeUnit.MILLISECONDS);
+    }
+
+    //Agar token blacklistga tushgan bo'lsa
+    private boolean isTokenBlacklisted(String token){
+        return redisTemplate.hasKey(token);
     }
 }
