@@ -1,7 +1,7 @@
 package com.igriss.ListIn.service;
 
 
-import com.igriss.ListIn.dto.ChangePasswordRequestDTO;
+import com.igriss.ListIn.dto.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.entity.User;
 
 import java.security.Principal;

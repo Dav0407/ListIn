@@ -1,4 +1,4 @@
-package com.igriss.ListIn.dto.security;
+package com.igriss.ListIn.dto.security_dto;
 
 import lombok.Builder;
 import lombok.Getter;
