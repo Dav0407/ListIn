@@ -1,7 +1,7 @@
 package com.igriss.ListIn.service_impl;
 
 
-import com.igriss.ListIn.dto.ChangePasswordRequestDTO;
+import com.igriss.ListIn.dto.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.entity.User;
 import com.igriss.ListIn.repository.UserRepository;
 import com.igriss.ListIn.service.UserService;

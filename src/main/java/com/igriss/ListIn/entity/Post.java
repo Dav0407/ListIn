@@ -34,9 +34,6 @@ public class Post {
     private Subcategory subcategory;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Image> images = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attribute> attributes = new ArrayList<>();
 
     @ManyToOne
