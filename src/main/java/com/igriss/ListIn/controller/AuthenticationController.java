@@ -22,6 +22,7 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponseDTO> registerUser(@RequestBody RegisterRequestDTO request) {
         return ResponseEntity.ok(authenticationService.register(request));

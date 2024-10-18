@@ -21,7 +21,6 @@ public class Category {
     private String previewText;
     private String imagePath;// Assuming images are stored as URLs or identifiers
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Subcategory> subcategories;
 }

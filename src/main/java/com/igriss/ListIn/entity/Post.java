@@ -33,10 +33,8 @@ public class Post {
     @JoinColumn(name = "subcategory_id")
     private Subcategory subcategory;
 
-    @ElementCollection
-    @CollectionTable(name = "image_urls", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "image_url")
-    private List<String> imagePaths;  // Store URL or identifier for the post image
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attribute> attributes = new ArrayList<>();
