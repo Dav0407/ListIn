@@ -1,4 +1,4 @@
-package com.igriss.ListIn.dto;
+package com.igriss.ListIn.dto.security;
 
 import lombok.*;
 

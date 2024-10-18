@@ -1,9 +1,9 @@
 package com.igriss.ListIn.service_impl.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.igriss.ListIn.dto.AuthenticationRequestDTO;
-import com.igriss.ListIn.dto.AuthenticationResponseDTO;
-import com.igriss.ListIn.dto.RegisterRequestDTO;
+import com.igriss.ListIn.dto.security.AuthenticationRequestDTO;
+import com.igriss.ListIn.dto.security.AuthenticationResponseDTO;
+import com.igriss.ListIn.dto.security.RegisterRequestDTO;
 import com.igriss.ListIn.entity.User;
 import com.igriss.ListIn.repository.UserRepository;
 import com.igriss.ListIn.service.AuthenticationService;
