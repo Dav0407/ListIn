@@ -1,6 +1,6 @@
 package com.igriss.ListIn.security;
 
-import com.igriss.ListIn.service_impl.security.JwtServiceImpl;
+import com.igriss.ListIn.service_impl.security_service.JwtServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

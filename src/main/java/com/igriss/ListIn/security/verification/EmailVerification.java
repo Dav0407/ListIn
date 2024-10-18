@@ -1,6 +1,6 @@
 package com.igriss.ListIn.security.verification;
 
-import com.igriss.ListIn.dto.RegisterRequestDTO;
+import com.igriss.ListIn.dto.security_dto.RegisterRequestDTO;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

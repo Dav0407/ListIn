@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service_impl.security;
+package com.igriss.ListIn.service_impl.security_service;
 
 import com.igriss.ListIn.service.JwtService;
 import io.jsonwebtoken.Claims;

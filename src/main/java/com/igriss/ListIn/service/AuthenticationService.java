@@ -1,9 +1,9 @@
 package com.igriss.ListIn.service;
 
 
-import com.igriss.ListIn.dto.AuthenticationRequestDTO;
-import com.igriss.ListIn.dto.AuthenticationResponseDTO;
-import com.igriss.ListIn.dto.RegisterRequestDTO;
+import com.igriss.ListIn.dto.security_dto.AuthenticationRequestDTO;
+import com.igriss.ListIn.dto.security_dto.AuthenticationResponseDTO;
+import com.igriss.ListIn.dto.security_dto.RegisterRequestDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

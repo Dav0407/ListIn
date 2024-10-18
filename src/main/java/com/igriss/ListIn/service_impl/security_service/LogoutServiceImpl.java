@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service_impl.security;
+package com.igriss.ListIn.service_impl.security_service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
