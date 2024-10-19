@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service_impl.security_service;
+package com.igriss.ListIn.service_impl.security;
 
 import com.igriss.ListIn.dto.security_dto.EmailVerificationRequestDTO;
 import com.igriss.ListIn.exceptions.EmailNotFoundException;
@@ -9,8 +9,6 @@ import com.igriss.ListIn.security.verification.EmailVerification;
 import com.igriss.ListIn.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor

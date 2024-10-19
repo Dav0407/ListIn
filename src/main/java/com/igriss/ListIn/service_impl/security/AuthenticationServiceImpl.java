@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service_impl.security_service;
+package com.igriss.ListIn.service_impl.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.igriss.ListIn.dto.security_dto.AuthenticationRequestDTO;
