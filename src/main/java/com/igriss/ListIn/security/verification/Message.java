@@ -30,7 +30,7 @@ public class Message {
                 "            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n" +
                 "        }\n" +
                 "        .header {\n" +
-                "            background-color: #007bff;\n" +
+                "            background-color: #274646;\n" +
                 "            color: white;\n" +
                 "            padding: 10px;\n" +
                 "            border-top-left-radius: 8px;\n" +
@@ -53,9 +53,9 @@ public class Message {
                 "        .code {\n" +
                 "            font-size: 22px;\n" +
                 "            font-weight: bold;\n" +
-                "            color: #007bff;\n" +
+                "            color: #274646;\n" +
                 "            margin: 20px 0;\n" +
-                "            background-color: #e9f7ff;\n" +
+                "            background-color: #cbe7e7;\n" +
                 "            padding: 10px;\n" +
                 "            border-radius: 8px;\n" +
                 "            display: inline-block;\n" +

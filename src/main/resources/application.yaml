@@ -64,4 +64,19 @@ application:
       blacklist:
         expiration: 31536000000
 
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA47CR3SCNNPWHF4MY
+      secret-key: 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
+    s3:
+      bucket:
+        bucket-list-in
+
+aws:
+  s3:
+    bucket:
+      link:
+        bucket-list-in.s3.eu-central-1.amazonaws.com
+
 
