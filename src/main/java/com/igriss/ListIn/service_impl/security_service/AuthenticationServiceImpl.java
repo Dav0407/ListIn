@@ -65,7 +65,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
     }
 
-
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
@@ -88,4 +87,5 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             }
         }
     }
+
 }

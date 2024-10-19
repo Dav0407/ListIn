@@ -26,16 +26,17 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String firstName;
 
-    private Integer age;
-
     @Column(nullable = false)
     private String lastName;
+
+    private Integer age;
 
     private String phoneNumber;
 
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     private String profileImagePath;
@@ -46,7 +47,7 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities();
+        return this.role.getAuthorities();
     }
 
     @Override
@@ -60,6 +61,6 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     }
 
     public String fullName() {
-        return firstName + " " + lastName;
+        return this.firstName + " " + this.lastName;
     }
 }

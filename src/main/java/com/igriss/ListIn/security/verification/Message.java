@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Message {
-    public static String PASSWORD;
+    public static String CODE;
     public static String VerificationMessage(){
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
@@ -86,7 +86,7 @@ public class Message {
                 "        </div>\n" +
                 "        <div class=\"content\">\n" +
                 "            <p>Your email verification code is:</p>\n" +
-                "            <div class=\"code\">"+ Message.PASSWORD +"</div>\n" +
+                "            <div class=\"code\">"+ Message.CODE +"</div>\n" +
                 "            <p class=\"note\">Please do not share this code with anyone for your security.</p>\n" +
                 "        </div>\n" +
                 "        <div class=\"footer\">\n" +
