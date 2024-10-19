@@ -1,4 +1,5 @@
 package com.igriss.ListIn.config.Images;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,9 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class S3Service {
@@ -23,6 +26,7 @@ public class S3Service {
     private String bucketLink;
 
     public Map<String, Object> uploadFile(MultipartFile file) throws IOException {
+
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         String fileName = System.currentTimeMillis() + "." + extension;
 

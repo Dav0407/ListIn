@@ -34,11 +34,17 @@ spring:
             client-authentication-method: post
             authorization-grant-type: authorization_code
 
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    display-request-duration: true
   mail:
     host: smtp.gmail.com
     port: 587
-    username: listinofficialservice@gmail.com
-    password: ghnoklzxuiolmkwx
+    username: ______________
+    password: ______________
     properties:
       mail:
         smtp:
@@ -63,20 +69,5 @@ application:
         expiration: 31536000000 # 365 days| 604800000 # 7 days
       blacklist:
         expiration: 31536000000
-
-cloud:
-  aws:
-    credentials:
-      access-key: AKIA47CR3SCNNPWHF4MY
-      secret-key: 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
-    s3:
-      bucket:
-        bucket-list-in
-
-aws:
-  s3:
-    bucket:
-      link:
-        bucket-list-in.s3.eu-central-1.amazonaws.com
 
 
