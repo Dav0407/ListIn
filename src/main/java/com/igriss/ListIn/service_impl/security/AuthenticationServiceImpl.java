@@ -1,4 +1,4 @@
-package com.igriss.ListIn.service_impl.security_service;
+package com.igriss.ListIn.service_impl.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.igriss.ListIn.dto.security_dto.AuthenticationRequestDTO;
@@ -24,7 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final com.igriss.ListIn.service_impl.security.JwtServiceImpl jwtService;
+    private final JwtServiceImpl jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponseDTO register(RegisterRequestDTO request) {
