@@ -17,6 +17,6 @@ public class PostRequestDTO {
     private BigDecimal price;
     private UUID categoryId;
     private UUID subcategoryId;
-    //private List<AttributeDTO> attributes;
+    private List<AttributeDTO> attributes;
     private List<String> imageUrls;  // URLs for the images
 }
