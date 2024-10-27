@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.igriss.ListIn.dto.security_dto.AuthenticationRequestDTO;
 import com.igriss.ListIn.dto.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.dto.security_dto.RegisterRequestDTO;
-import com.igriss.ListIn.entity.User;
+import com.igriss.ListIn.entity.Users;
 import com.igriss.ListIn.repository.UserRepository;
 import com.igriss.ListIn.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponseDTO register(RegisterRequestDTO request) {
-        var user = User.builder()
+        var user = Users.builder()
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
                 .age(request.getAge())

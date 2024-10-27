@@ -17,7 +17,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "users")
-public class User implements UserDetails { // Agar UserDetails dan implement qilsak Spring shu classni taniydi
+public class Users implements UserDetails { // Agar UserDetails dan implement qilsak Spring shu classni taniydi
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

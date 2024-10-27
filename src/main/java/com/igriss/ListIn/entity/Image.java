@@ -22,7 +22,7 @@ public class Image {
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = true)
-    private Post post; // Image associated with a post
+    private Publication post; // Image associated with a post
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
