@@ -1,10 +1,10 @@
 package com.igriss.ListIn.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -12,15 +12,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "categories")
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private UUID id;
+    @Column(name = "category_id")
+    private Integer id;
     private String name;
-    private String previewText;
-    private String imagePath;// Assuming images are stored as URLs or identifiers
+    private String description;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Subcategory> subcategories;
+    @OneToMany
+    @JoinColumn(name = "parent_id")
+    private List<Category> parent_id;
 }

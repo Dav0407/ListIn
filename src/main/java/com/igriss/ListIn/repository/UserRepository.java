@@ -1,6 +1,6 @@
 package com.igriss.ListIn.repository;
 
-import com.igriss.ListIn.entity.User;
+import com.igriss.ListIn.entity.Users;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,15 +12,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<Users, UUID> {
 
-   Optional<User> findByEmail(String email);
+   Optional<Users> findByEmail(String email);
 
    void deleteByEmail(String email);
 
    @Modifying
    @Transactional
-   @Query("UPDATE User u SET u.password = :password WHERE u.email = :email")
+   @Query("UPDATE Users u SET u.password = :password WHERE u.email = :email")
    void updatePassword(@Param("email") String email, @Param("password") String password);
 
    Users getUserByUserId(UUID userId);
