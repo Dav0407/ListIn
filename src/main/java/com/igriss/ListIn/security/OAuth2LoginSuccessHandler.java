@@ -1,6 +1,6 @@
 package com.igriss.ListIn.security;
 
-import com.igriss.ListIn.entity.User;
+import com.igriss.ListIn.entity.Users;
 import com.igriss.ListIn.repository.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,11 +29,11 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             log.info("Authenticated OAuth2 user logged in:\n [{}],\n Email: [{}],\n Name: [{}]",
                     authentication.getAuthorities().toString(), email, firstname+" "+lastname);
 
-            Optional<User> existingUser = repository.findByEmail(email);
+            Optional<Users> existingUser = repository.findByEmail(email);
             if (existingUser.isPresent())
                 log.info("User already exists. Proceeding with login.");
              else {
-                User newUser = new User();
+                Users newUser = new Users();
                 newUser.setEmail(email);
                 newUser.setFirstName(firstname);
                 newUser.setLastName(lastname);

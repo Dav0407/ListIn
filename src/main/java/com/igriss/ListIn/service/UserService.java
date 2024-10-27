@@ -2,7 +2,7 @@ package com.igriss.ListIn.service;
 
 
 import com.igriss.ListIn.dto.security_dto.ChangePasswordRequestDTO;
-import com.igriss.ListIn.entity.User;
+import com.igriss.ListIn.entity.Users;
 
 import java.security.Principal;
 import java.util.UUID;
@@ -10,9 +10,9 @@ import java.util.UUID;
 public interface UserService {
     void changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
 
-    User findByEmail(String username);
+    Users findByEmail(String username);
 
-    User findById(UUID id);
+    Users findById(UUID id);
 
-    User getUserById(UUID userId);
+    Users getUserById(UUID userId);
 }

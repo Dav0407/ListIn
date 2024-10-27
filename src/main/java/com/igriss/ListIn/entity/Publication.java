@@ -54,4 +54,12 @@ public class Publication {
     @JoinColumn(name = "user_id")
     private Users sellerId;
 
+    @ManyToOne
+    @JoinColumn(name = "publication_type_id")
+    private PublicationType publicationTypeId;
+
+    @ManyToOne
+    @JoinColumn(name = "publication_status_id")
+    private PublicationStatus publicationStatusId;
+
 }

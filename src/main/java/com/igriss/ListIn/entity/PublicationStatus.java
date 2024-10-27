@@ -2,9 +2,9 @@ package com.igriss.ListIn.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
 import java.util.UUID;
-
 
 @Getter
 @Setter
@@ -12,17 +12,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "attribute_values")
-public class AttributeValue {
-
+@Table(name = "publication_statuses")
+public class PublicationStatus{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "publication_status_id")
     private UUID id;
 
     @Column(nullable = false)
-    private String value;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "attribute_id")
-    private AttributeKey attributeId;
+    @Column(nullable = false)
+    private String description;
+
 }

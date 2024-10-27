@@ -1,10 +1,10 @@
 package com.igriss.ListIn.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
-
 
 @Getter
 @Setter
@@ -12,17 +12,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "attribute_values")
-public class AttributeValue {
-
+@Table(name = "publication_types")
+public class PublicationType {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "publication_type_id")
     private UUID id;
 
     @Column(nullable = false)
-    private String value;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "attribute_id")
-    private AttributeKey attributeId;
+    @Column(nullable = false)
+    private String description;
 }

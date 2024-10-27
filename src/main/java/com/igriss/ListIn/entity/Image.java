@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "publication_images")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +22,14 @@ public class Image {
     private LocalDateTime uploadedAt;
 
     @ManyToOne
-    @JoinColumn(name = "post_id", nullable = true)
-    private Publication post; // Image associated with a post
+    @JoinColumn(name = "publication_id")
+    private Publication publicationId; // Image associated with a post
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
-    private User user; // Image associated with a user profile picture
+    @JoinColumn(name = "user_id")
+    private Users user; // Image associated with a user profile picture
 
+    @Column(nullable = false)
+    private Boolean isPrimary;
     // Additional metadata can be added here
 }

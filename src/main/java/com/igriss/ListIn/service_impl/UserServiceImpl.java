@@ -2,7 +2,7 @@ package com.igriss.ListIn.service_impl;
 
 
 import com.igriss.ListIn.dto.security_dto.ChangePasswordRequestDTO;
-import com.igriss.ListIn.entity.User;
+import com.igriss.ListIn.entity.Users;
 import com.igriss.ListIn.repository.UserRepository;
 import com.igriss.ListIn.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
-        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        var user = (Users) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
         //check if users password is correct
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
@@ -41,19 +41,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String username) {
+    public Users findByEmail(String username) {
         return userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Override
-    public User findById(UUID userId) {
+    public Users findById(UUID userId) {
         return userRepository.findById(userId)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
 
     @Override
-    public User getUserById(UUID userId) {
+    public Users getUserById(UUID userId) {
         return userRepository.getUserByUserId(userId);
     }
 }
