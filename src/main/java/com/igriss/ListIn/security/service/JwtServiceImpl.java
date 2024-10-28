@@ -34,9 +34,6 @@ public class JwtServiceImpl implements JwtService {
     @Value("${application.security.jwt.refresh-token.expiration}")
     private long refreshExpiration;
 
-    @Value("${application.security.jwt.blacklist.expiration}")
-    private long blackListExpiration;
-
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -108,6 +105,6 @@ public class JwtServiceImpl implements JwtService {
 
     //Agar token blacklistga tushgan bo'lsa
     private boolean isTokenBlacklisted(String token){
-        return redisTemplate.hasKey(token);
+        return Boolean.TRUE.equals(redisTemplate.hasKey(token));
     }
 }
