@@ -1,7 +1,7 @@
 package com.igriss.ListIn.security;
 
-import com.igriss.ListIn.entity.User;
-import com.igriss.ListIn.repository.UserRepository;
+import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

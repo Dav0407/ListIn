@@ -61,8 +61,6 @@ application:
       expiration: 31536000000 # 365 days | 86400000 # 1 day  | 60000 1 minute (for testing)
       refresh-token:
         expiration: 31536000000 # 365 days| 604800000 # 7 days
-      blacklist:
-        expiration: 31536000000
 
 cloud:
   aws:
