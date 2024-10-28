@@ -17,19 +17,18 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String imageUrl; // The URL or file path of the image
+    private String imageUrl;
 
     private LocalDateTime uploadedAt;
 
     @ManyToOne
     @JoinColumn(name = "publication_id")
-    private Publication publicationId; // Image associated with a post
+    private Publication publicationId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user; // Image associated with a user profile picture
+    private Users user;
 
     @Column(nullable = false)
     private Boolean isPrimary;
-    // Additional metadata can be added here
 }
