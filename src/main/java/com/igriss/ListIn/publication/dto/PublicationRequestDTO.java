@@ -1,6 +1,5 @@
 package com.igriss.ListIn.publication.dto;
 
-import com.igriss.ListIn.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

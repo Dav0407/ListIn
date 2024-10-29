@@ -1,7 +1,6 @@
 package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.service.PublicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
