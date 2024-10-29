@@ -19,10 +19,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "category_id")
     private UUID id;
+
+    @Column(name = "category_name")
     private String name;
+
     private String description;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "parent_id")
-    private List<Category> parentId;
+    private Category parentCategory;
 }

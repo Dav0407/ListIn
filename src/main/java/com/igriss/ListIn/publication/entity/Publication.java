@@ -31,7 +31,7 @@ public class Publication {
     private String description;
 
     @Column(nullable = false)
-    private BigDecimal price;
+    private Float price;
 
     @Column(nullable=false)
     private Integer stockQuantity;
@@ -49,18 +49,18 @@ public class Publication {
 
     @ManyToOne
     @JoinColumn(name =  "condition_id")
-    private ProductCondition conditionId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User sellerId;
+    private ProductCondition productCondition;
 
     @ManyToOne
     @JoinColumn(name = "publication_type_id")
-    private PublicationType publicationTypeId;
+    private PublicationType publicationType;
 
     @ManyToOne
     @JoinColumn(name = "publication_status_id")
-    private PublicationStatus publicationStatusId;
+    private PublicationStatus publicationStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User seller;
 
 }
