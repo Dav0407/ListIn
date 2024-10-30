@@ -1,5 +1,7 @@
 package com.igriss.ListIn.publication.dto;
 
+import com.igriss.ListIn.user.dto.UserResponseDTO;
+import com.igriss.ListIn.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +12,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder//todo -> add a jakarta validation to each field
+@Builder
+//todo -> add a jakarta validation to each field
 public class PublicationResponseDTO {
 
     private UUID id;
@@ -35,5 +38,5 @@ public class PublicationResponseDTO {
 
     private String publicationStatus;
 
-    private String seller;
+    private UserResponseDTO seller;
 }

@@ -11,9 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder//todo -> add a jakarta validation to each field
-public class PublicationRequestDTO {
-
-    private UUID id;
+public class PublicationUploadRequestDTO {
 
     private String title;
 
@@ -22,10 +20,6 @@ public class PublicationRequestDTO {
     private Float price;
 
     private Integer stockQuantity;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 
     private List<CategoryResponseDTO> categories;
 

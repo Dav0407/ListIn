@@ -1,8 +1,8 @@
 package com.igriss.ListIn.publication.service;
 
-import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationUploadRequestDTO;
 import org.springframework.security.core.Authentication;
 
 public interface PublicationService {
-    void savePublication(PublicationRequestDTO request, Authentication connectedUser);
+    void savePublication(PublicationUploadRequestDTO request, Authentication connectedUser);
 }

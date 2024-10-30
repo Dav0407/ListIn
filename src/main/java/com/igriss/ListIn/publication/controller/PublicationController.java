@@ -1,6 +1,6 @@
 package com.igriss.ListIn.publication.controller;
 
-import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationUploadRequestDTO;
 import com.igriss.ListIn.publication.service.PublicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class PublicationController {
     private final PublicationService publicationService;
     //todo -> add a service layer
     @PostMapping()
-    public ResponseEntity<Void> savePublication(@RequestBody PublicationRequestDTO request, Authentication connectedUser) {
+    public ResponseEntity<Void> savePublication(@RequestBody PublicationUploadRequestDTO request, Authentication connectedUser) {
          publicationService.savePublication(request, connectedUser);
          return ResponseEntity.status(HttpStatus.CREATED).build();
     }
