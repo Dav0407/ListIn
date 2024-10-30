@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ChangePasswordRequestDTO {
-    private String currentPassword;
+    private String currentPassword;//todo -> email verification
     private String newPassword;
     private String confirmationPassword;
 }

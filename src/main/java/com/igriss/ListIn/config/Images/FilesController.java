@@ -1,12 +1,14 @@
 
 package com.igriss.ListIn.config.Images;
 
+import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/files")
@@ -20,5 +22,16 @@ public class FilesController {
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws IOException {
 
         return ResponseEntity.ok(s3Service.uploadFile(file));
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<String> getFileUrl(@RequestParam("user") User user) {
+        return ResponseEntity.ok(s3Service.getFileUrl(user).toString());
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteFile(@RequestParam("file") UUID fileName) {
+        s3Service.deleteFile(fileName);
+        return ResponseEntity.ok("File deleted successfully");
     }
 }
