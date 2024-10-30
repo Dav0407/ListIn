@@ -29,7 +29,7 @@ public class PublicationServiceImpl implements PublicationService {
         UUID userId = user.getUserId();
 
 
-        service.uploadFile(postId,userId,multipartFiles);
+        service.uploadFile(userId,multipartFiles);
 
     }
 }

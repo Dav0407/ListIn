@@ -1,6 +1,5 @@
 package com.igriss.ListIn.config.Images;
 
-import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
@@ -30,31 +29,38 @@ public class S3Service {
     @Value("${aws.s3.bucket.link}")
     private String bucketLink;
 
-    public Map<String, Object> uploadFile(UUID postId, UUID userId, List<MultipartFile> files) throws IOException {
-        User u = new User();
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        String fileName = u.getUserId() + "_" + System.currentTimeMillis() + "." + extension;
+    public List<Map<String, String>> uploadFile(UUID uuid, List<MultipartFile> files) {
+        return files.stream().map(file->{
 
-        s3Client.putObject(
-                PutObjectRequest.builder()
-                        .bucket(bucketName)
-                        .key(fileName)
-                        .contentType(file.getContentType())
-                        .cacheControl("public, max-age=2592000")
-                        .build(),
-                RequestBody.fromInputStream(file.getInputStream(), file.getSize())
-        );
+            String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+            String fileName = uuid + "_" + System.currentTimeMillis() + "." +ext;
+            try {
 
-        String fileUrl = String.format("%s/%s", bucketLink, fileName);
+                s3Client.putObject(PutObjectRequest.builder()
+                                .bucket(bucketName)
+                                .bucket(bucketName)
+                                .key(fileName)
+                                .contentType(file.getContentType())
+                                .cacheControl("public, max-age=2592000")
+                                .build(),
+                        RequestBody.fromInputStream(file.getInputStream(),file.getSize())
+                        );
+                String fileUrl = String.format("%s/%s", bucketLink, fileName);
+                return Collections.singletonMap("fileName", fileUrl);
 
-        return Collections.singletonMap("fileName", fileUrl);
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+
+            }
+        }).collect(Collectors.toList());
     }
 
-    public List<String> getFileUrl(User user) {
+    public List<String> getFileUrl(UUID uuid) {
 
         ListObjectsV2Request request = ListObjectsV2Request.builder()
                 .bucket(bucketName)
-                .prefix(user.getUserId().toString() + "_")
+                .prefix(uuid + "_")
                 .build();
         ListObjectsV2Response response = s3Client.listObjectsV2(request);
 

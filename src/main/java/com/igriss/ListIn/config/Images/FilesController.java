@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,13 +20,13 @@ public class FilesController {
     private final S3Service s3Service;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<?> upload(@RequestParam("file") List<MultipartFile> file,UUID postId, UUID userId) throws IOException {
 
-        return ResponseEntity.ok(s3Service.uploadFile(file));
+        return ResponseEntity.ok(s3Service.uploadFile(postId,file));
     }
 
     @GetMapping("/download")
-    public ResponseEntity<String> getFileUrl(@RequestParam("user") User user) {
+    public ResponseEntity<String> getFileUrl(@RequestParam("user") UUID user) {
         return ResponseEntity.ok(s3Service.getFileUrl(user).toString());
     }
 
