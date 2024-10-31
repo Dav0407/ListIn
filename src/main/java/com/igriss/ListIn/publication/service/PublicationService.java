@@ -2,7 +2,10 @@ package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.publication.dto.PublicationUploadRequestDTO;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface PublicationService {
-    void savePublication(PublicationUploadRequestDTO request, Authentication connectedUser);
+    void savePublication(PublicationRequestDTO request, Authentication connectedUser, List<MultipartFile> files);
 }

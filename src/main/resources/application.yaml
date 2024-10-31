@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   application:
     name: ListIn
   datasource:
@@ -75,3 +79,4 @@ aws:
     bucket:
       link:
         bucket-list-in.s3.eu-central-1.amazonaws.com
+
