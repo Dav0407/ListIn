@@ -1,6 +1,6 @@
 package com.igriss.ListIn.publication.service;
 
-import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationUploadRequestDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 

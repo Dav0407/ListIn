@@ -1,7 +1,8 @@
 package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.config.Images.S3Service;
-import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationUploadRequestDTO;
+
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.user.entity.User;

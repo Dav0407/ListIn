@@ -1,0 +1,29 @@
+package com.igriss.ListIn.user.dto;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.UUID;
+
+@Getter
+@Setter
+@Builder
+//todo -> add a jakarta validation to each field
+public class UserResponseDTO {
+
+    private UUID id;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String phoneNumber;
+
+    private String profileImagePath;
+
+    private String businessName;
+
+    private Float rating;
+
+}
