@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "attribute_key")
+@Table(name = "attribute_keys")
 public class AttributeKey {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -42,7 +42,7 @@ public class Publication {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "parentCategory")
+    @OneToMany
     private List<Category> categories;
 
     @ManyToOne
