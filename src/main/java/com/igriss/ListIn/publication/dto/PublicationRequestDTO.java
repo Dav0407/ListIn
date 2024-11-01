@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder//todo -> add a jakarta validation to each field
-public class PublicationUploadRequestDTO {
+public class PublicationRequestDTO {
 
     private String title;
 

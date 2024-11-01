@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PublicationTypeMapper {
+
     public PublicationType toPublicationType(String publicationType) {
         return PublicationType.builder()
                 .name(publicationType)
