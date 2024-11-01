@@ -73,8 +73,8 @@ cloud:
       secret-key: ~~~~~~~~~~~~~~~~~
     s3:
       bucket:
-        list-in-storage
-      region: eu-north-1
+        ~~~~~~~~~~~~~~~~~
+      region: ~~~~~~~~~~~~~~~~~
       cache-control: "public, max-age=2592000"
 
 
@@ -82,5 +82,5 @@ aws:
   s3:
     bucket:
       link:
-        list-in-storage.s3.eu-north-1.amazonaws.com
+        ~~~~~~~~~~~~~~~~~
 
