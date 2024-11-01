@@ -1,21 +1,15 @@
 package com.igriss.ListIn.publication.dto;
 
-import com.igriss.ListIn.user.dto.UserResponseDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
-//todo -> add a jakarta validation to each field
-public class PublicationRequestDTO {
-
-    private UUID id;
+@Builder//todo -> add a jakarta validation to each field
+public class PublicationUploadRequestDTO {
 
     private String title;
 
@@ -25,10 +19,6 @@ public class PublicationRequestDTO {
 
     private Integer stockQuantity;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
     private List<CategoryResponseDTO> categories;
 
     private String productCondition;
@@ -36,7 +26,5 @@ public class PublicationRequestDTO {
     private String publicationType;
 
     private String publicationStatus;
-
-    private UserResponseDTO seller;
 
 }
