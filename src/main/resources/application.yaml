@@ -69,12 +69,12 @@ application:
 cloud:
   aws:
     credentials:
-      access-key: ~~~~~~~~~~~~~~~~~
-      secret-key: ~~~~~~~~~~~~~~~~~
+      access-key: ``````````````````````
+      secret-key: ``````````````````````
     s3:
       bucket:
-        ~~~~~~~~~~~~~~~~~
-      region: ~~~~~~~~~~~~~~~~~
+        list-in-storage
+      region: eu-north-1
       cache-control: "public, max-age=2592000"
 
 
@@ -82,5 +82,5 @@ aws:
   s3:
     bucket:
       link:
-        ~~~~~~~~~~~~~~~~~
+        ``````````````````````
 
