@@ -1,6 +1,7 @@
 package com.igriss.ListIn.config.Images;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class S3Service {
 
     private final S3Client s3Client;
@@ -31,38 +34,41 @@ public class S3Service {
     @Value("${aws.s3.bucket.link}")
     private String bucketLink;
 
-    public List<Map<String, String>> uploadFile(UUID uuid, List<MultipartFile> files) {
-        return files.stream().map(file->{
+    @Value("${cloud.aws.s3.cache-control}")
+    private String cached;
 
-            String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-            String fileName = uuid + "_" + System.currentTimeMillis() + "." +ext;
-            try {
+    public List<Map<String, String>> uploadFile(List<String> uuids, List<MultipartFile> files) {
+        return IntStream.range(0, files.size())
+                .mapToObj(i -> {
+                    var file = files.get(i);
+                    String id = uuids.get(i);
 
-                s3Client.putObject(PutObjectRequest.builder()
-                                .bucket(bucketName)
-                                .bucket(bucketName)
-                                .key(fileName)
-                                .contentType(file.getContentType())
-                                .cacheControl("public, max-age=2592000")
-                                .build(),
-                        RequestBody.fromInputStream(file.getInputStream(),file.getSize())
+                    log.info("generated uuid: {}", id);
+                    String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+                    String fileName = id + "." + ext;
+
+                    try {
+                        s3Client.putObject(PutObjectRequest.builder()
+                                        .bucket(bucketName)
+                                        .key(fileName)
+                                        .contentType(file.getContentType())
+                                        .cacheControl(cached)
+                                        .build(),
+                                RequestBody.fromInputStream(file.getInputStream(), file.getSize())
                         );
-                String fileUrl = String.format("%s/%s", bucketLink, fileName);
-                return Collections.singletonMap("fileName", fileUrl);
-
-            } catch (IOException e) {
-
-                throw new RuntimeException(e);
-
-            }
-        }).collect(Collectors.toList());
+                        String fileUrl = String.format("%s/%s", bucketLink, fileName);
+                        return Collections.singletonMap("fileName", fileUrl);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).toList();
     }
 
-    public List<String> getFileUrl(UUID uuid) {
+    public List<String> getFileUrl(String uuid) {
 
         ListObjectsV2Request request = ListObjectsV2Request.builder()
                 .bucket(bucketName)
-                .prefix(uuid + "_")
+                .prefix(uuid)
                 .build();
         ListObjectsV2Response response = s3Client.listObjectsV2(request);
 
@@ -73,12 +79,12 @@ public class S3Service {
                 .collect(Collectors.toList());
     }
 
-    public void deleteFile(UUID postId) {
+    public void deleteFile(String id) {
 
         DeleteObjectRequest request = DeleteObjectRequest
                 .builder()
                 .bucket(bucketName)
-                .key(postId.toString())
+                .key(id)
                 .build();
         s3Client.deleteObject(request);
     }

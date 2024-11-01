@@ -69,14 +69,18 @@ application:
 cloud:
   aws:
     credentials:
-      access-key: AKIA47CR3SCNNPWHF4MY
-      secret-key: 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
+      access-key: AKIAXEFUNPWVUMI7JFHG
+      secret-key: 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
     s3:
       bucket:
-        bucket-list-in
+        list-in-storage
+      region: eu-north-1
+      cache-control: "public, max-age=2592000"
+
+
 aws:
   s3:
     bucket:
       link:
-        bucket-list-in.s3.eu-central-1.amazonaws.com
+        list-in-storage.s3.eu-north-1.amazonaws.com
 

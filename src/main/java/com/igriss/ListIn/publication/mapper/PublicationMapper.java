@@ -2,7 +2,7 @@ package com.igriss.ListIn.publication.mapper;
 
 
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
-import com.igriss.ListIn.publication.dto.PublicationUploadRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class PublicationMapper {
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
 
-    public Publication toPublication(PublicationUploadRequestDTO requestDTO) {
+    public Publication toPublication(PublicationRequestDTO requestDTO) {
         return Publication.builder()
                 .title(requestDTO.getTitle())
                 .description(requestDTO.getDescription())
