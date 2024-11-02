@@ -35,6 +35,9 @@ public class Publication {
     @Column(nullable=false)
     private Integer stockQuantity;
 
+    @OneToMany(mappedBy = "publication")
+    private List<ProductImage> images;
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;

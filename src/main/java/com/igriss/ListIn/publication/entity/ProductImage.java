@@ -17,9 +17,6 @@ public class ProductImage {
 
     private String imageUrl;
 
-    @Column(nullable = false)
-    private Boolean isPrimary;
-
     @ManyToOne
     @JoinColumn(name = "publication_id")
     private Publication publication;
