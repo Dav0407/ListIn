@@ -1,5 +1,9 @@
 package com.igriss.ListIn.publication.entity;
 
+import com.igriss.ListIn.publication.entity.static_entity.Category;
+import com.igriss.ListIn.publication.entity.static_entity.ProductCondition;
+import com.igriss.ListIn.publication.entity.static_entity.PublicationStatus;
+import com.igriss.ListIn.publication.entity.static_entity.PublicationType;
 import com.igriss.ListIn.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;

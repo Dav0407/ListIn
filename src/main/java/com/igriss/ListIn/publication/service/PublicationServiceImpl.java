@@ -5,7 +5,7 @@ import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.entity.ProductImage;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.ProductImageRepository;
+import com.igriss.ListIn.publication.repository.ProductConditionRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.services.s3.endpoints.internal.Value;
-
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -27,16 +23,19 @@ public class PublicationServiceImpl implements PublicationService {
     private final S3Service service;
     private final PublicationRepository publicationRepository;
     private final PublicationMapper publicationMapper;
-    private final ProductImageRepository productImageRepository;
+    private final ProductImageService productImageService;
 
-    @Override //todo -> to write a more robust savePublication method with a completely working s3service and ProductImageService used
-    public void savePublication(PublicationRequestDTO request, Authentication authentication, List<MultipartFile> multipartFiles) {
+    @Override
+    //todo -> to write a more robust savePublication method with a completely working s3service and ProductImageService used
+    public void savePublication(PublicationRequestDTO request, Authentication authentication) {
+
         User connectedUser = (User) authentication.getPrincipal();
-        log.info(connectedUser.toString());
-        UUID userId = connectedUser.getUserId();
 
-        service.uploadFile(userId, multipartFiles);
-        Publication publication = publicationMapper.toPublication(request, connectedUser);
+        List<String> imageUrls = request.getImageUrls();
+        Publication publication = publicationMapper.toPublication(request, connectedUser, imageUrls);
+        List<ProductImage> images = publication.getImages();
+        productImageService.saveImages(images);
+
         publicationRepository.save(publication);
     }
 }

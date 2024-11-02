@@ -1,15 +1,17 @@
 package com.igriss.ListIn.publication.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Builder//todo -> add a jakarta validation to each field
-public class CategoryResponseDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoryResponseDTO implements Serializable {
 
     private String name;
 
-    private CategoryResponseDTO parentCategory;
+    private String parentCategory;
 }

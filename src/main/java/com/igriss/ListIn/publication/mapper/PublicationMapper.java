@@ -4,7 +4,7 @@ package com.igriss.ListIn.publication.mapper;
 import com.igriss.ListIn.publication.dto.CategoryResponseDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.entity.Category;
+import com.igriss.ListIn.publication.entity.static_entity.Category;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.mapper.UserMapper;
@@ -25,7 +25,7 @@ public class PublicationMapper {
     private final PublicationTypeMapper publicationTypeMapper;
     private final PublicationStatusMapper publicationStatusMapper;
     private final ProductImageMapper productImageMapper;
-
+    private final ProductConditionMapper productConditionMapper;
 
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser, List<String> imageUrls) {
 
@@ -35,6 +35,7 @@ public class PublicationMapper {
                 .price(requestDTO.getPrice())
                 .stockQuantity(requestDTO.getStockQuantity())
                 .categories(mapCategories(requestDTO))
+                .productCondition(productConditionMapper.toProductCondition(requestDTO.getProductCondition()))
                 .publicationType(publicationTypeMapper.toPublicationType(requestDTO.getPublicationType()))
                 .publicationStatus(publicationStatusMapper.toPublicationStatus(requestDTO.getPublicationStatus()))
                 .seller(connectedUser)

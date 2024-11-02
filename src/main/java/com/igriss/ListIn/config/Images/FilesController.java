@@ -18,10 +18,8 @@ public class FilesController {
     private final S3Service s3Service;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestParam("file") List<MultipartFile> file, ArrayList<String> id) {
-        id.add(UUID.randomUUID().toString());
-        id.add(UUID.randomUUID().toString());
-        return ResponseEntity.ok(s3Service.uploadFile(id, file));
+    public ResponseEntity<?> upload(@RequestParam("file") List<MultipartFile> file) {
+        return ResponseEntity.ok(s3Service.uploadFile(file));
     }
 
     @GetMapping("/download")

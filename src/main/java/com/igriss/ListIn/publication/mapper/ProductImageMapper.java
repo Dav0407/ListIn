@@ -11,7 +11,8 @@ public class ProductImageMapper {
 
     public ProductImage toProductImage(String imageUrl) {
         return ProductImage.builder()
-                .imageUrl(imageUrl)
+                .imageUrl(imageUrl)//for id see bellow
+                .imageName(imageUrl.substring(imageUrl.lastIndexOf("/") + 1))
                 .build();
     }
 
@@ -19,7 +20,7 @@ public class ProductImageMapper {
         return imageUrls.stream()
                 .map(url -> {
                     ProductImage productImage = toProductImage(url);
-                    productImage.setPublication(publication);
+                    productImage.setPublication(publication);//id is assigned here
                     return productImage;
                 }).toList();
     }
