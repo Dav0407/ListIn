@@ -1,9 +1,12 @@
 package com.igriss.ListIn.config.Images;
 
+import io.netty.util.concurrent.CompleteFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -14,10 +17,10 @@ import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -36,32 +39,38 @@ public class S3Service {
 
     @Value("${cloud.aws.s3.cache-control}")
     private String cached;
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public List<Map<String, String>> uploadFile(List<String> uuids, List<MultipartFile> files) {
-        return IntStream.range(0, files.size())
-                .mapToObj(i -> {
-                    var file = files.get(i);
-                    String id = uuids.get(i);
 
-                    log.info("generated uuid: {}", id);
-                    String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-                    String fileName = id + "." + ext;
+    public List<String> uploadFile(List<String> uuids, List<MultipartFile> files) {
+        List<String> urls =new ArrayList<>();
 
-                    try {
-                        s3Client.putObject(PutObjectRequest.builder()
-                                        .bucket(bucketName)
-                                        .key(fileName)
-                                        .contentType(file.getContentType())
-                                        .cacheControl(cached)
-                                        .build(),
-                                RequestBody.fromInputStream(file.getInputStream(), file.getSize())
-                        );
-                        String fileUrl = String.format("%s/%s", bucketLink, fileName);
-                        return Collections.singletonMap("fileName", fileUrl);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }).toList();
+        for (int i=0;i<files.size();i++) {
+            var file = files.get(i);
+            String id = uuids.get(i);
+            log.info("generated uuid: {}", id);
+            String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+            String fileName = id + "." + ext;
+            urls.add(String.format("%s/%s", bucketLink, fileName));
+            CompletableFuture.runAsync(()->saveFiles(fileName,file),executorService);
+        }
+        return urls;
+    }
+
+
+    @Async
+    public void saveFiles(String fileName, MultipartFile file){
+        try {
+            s3Client.putObject(PutObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key(fileName)
+                            .contentType(file.getContentType())
+                            .cacheControl(cached)
+                            .build(),
+                    RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<String> getFileUrl(String uuid) {
@@ -79,13 +88,15 @@ public class S3Service {
                 .collect(Collectors.toList());
     }
 
-    public void deleteFile(String id) {
-
-        DeleteObjectRequest request = DeleteObjectRequest
-                .builder()
-                .bucket(bucketName)
-                .key(id)
-                .build();
-        s3Client.deleteObject(request);
+    @Async
+    public void deleteFiles(List<String> id) {
+        id.forEach(uuid -> {
+            DeleteObjectRequest request = DeleteObjectRequest
+                    .builder()
+                    .bucket(bucketName)
+                    .key(uuid)
+                    .build();
+            s3Client.deleteObject(request);
+        });
     }
 }

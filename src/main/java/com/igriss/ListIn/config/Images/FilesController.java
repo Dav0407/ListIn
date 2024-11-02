@@ -1,20 +1,12 @@
 
 package com.igriss.ListIn.config.Images;
 
-import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 @RestController
@@ -27,6 +19,8 @@ public class FilesController {
 
     @PostMapping("/upload")
     public ResponseEntity<?> upload(@RequestParam("file") List<MultipartFile> file, ArrayList<String> id) {
+        id.add(UUID.randomUUID().toString());
+        id.add(UUID.randomUUID().toString());
         return ResponseEntity.ok(s3Service.uploadFile(id, file));
     }
 
@@ -37,7 +31,9 @@ public class FilesController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteFile(@RequestParam("id") String id) {
-        s3Service.deleteFile(id);
+
+        s3Service.deleteFiles(Collections.singletonList(id));
+
         return ResponseEntity.ok("File deleted successfully");
     }
 }

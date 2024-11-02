@@ -69,8 +69,8 @@ application:
 cloud:
   aws:
     credentials:
-      access-key: ``````````````````````
-      secret-key: ``````````````````````
+      access-key: AKIAXEFUNPWVUMI7JFHG
+      secret-key: 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
     s3:
       bucket:
         list-in-storage
@@ -82,5 +82,5 @@ aws:
   s3:
     bucket:
       link:
-        ``````````````````````
+        list-in-storage.s3.eu-north-1.amazonaws.com
 
