@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -32,7 +33,7 @@ public class PublicationServiceImpl implements PublicationService {
         log.info(connectedUser.toString());
         UUID userId = connectedUser.getUserId();
 
-        service.uploadFile(userId,multipartFiles);
+        service.uploadFile(userId, multipartFiles);
         Publication publication = publicationMapper.toPublication(request, connectedUser);
         publicationRepository.save(publication);
     }
