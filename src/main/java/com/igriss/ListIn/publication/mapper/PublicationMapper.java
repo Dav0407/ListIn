@@ -26,6 +26,7 @@ public class PublicationMapper {
     private final PublicationStatusMapper publicationStatusMapper;
     private final ProductImageMapper productImageMapper;
 
+
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser, List<String> imageUrls) {
 
         Publication publication = Publication.builder()
