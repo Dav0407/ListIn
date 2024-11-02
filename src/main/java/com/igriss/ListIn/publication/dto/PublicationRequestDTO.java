@@ -4,12 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @Builder//todo -> add a jakarta validation to each field
-public class PublicationRequestDTO {
+public class PublicationRequestDTO implements Serializable {
 
     private String title;
 
@@ -18,6 +19,8 @@ public class PublicationRequestDTO {
     private Float price;
 
     private Integer stockQuantity;
+
+    private List<String> imageUrls;
 
     private List<CategoryResponseDTO> categories;
 

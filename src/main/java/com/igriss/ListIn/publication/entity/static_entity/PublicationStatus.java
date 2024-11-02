@@ -1,5 +1,4 @@
-package com.igriss.ListIn.publication.entity;
-
+package com.igriss.ListIn.publication.entity.static_entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,16 +11,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "product_conditions")
-public class ProductCondition {
+@Table(name = "publication_statuses")
+public class PublicationStatus{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "condition_id")
+    @Column(name = "publication_status_id")
     private UUID id;
 
-    @Column(name = "condition_name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private String description;
+
 }

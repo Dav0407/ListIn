@@ -1,4 +1,4 @@
-package com.igriss.ListIn.publication.entity;
+package com.igriss.ListIn.publication.entity.static_entity;
 
 
 import jakarta.persistence.*;
@@ -12,19 +12,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "publication_types")
+public class PublicationType {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "category_id")
+    @Column(name = "publication_type_id")
     private UUID id;
 
-    @Column(name = "category_name")
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Category parentCategory;
 }

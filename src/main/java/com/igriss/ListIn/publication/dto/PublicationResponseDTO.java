@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Builder
 //todo -> add a jakarta validation to each field
-public class PublicationResponseDTO {
+public class PublicationResponseDTO implements Serializable {
 
     private UUID id;
 
@@ -25,7 +26,7 @@ public class PublicationResponseDTO {
 
     private Integer stockQuantity;
 
-    private String productImages;
+    private List<String> productImages;
 
     private LocalDateTime createdAt;
 
