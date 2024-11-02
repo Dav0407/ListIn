@@ -26,7 +26,7 @@ public class PublicationResponseDTO implements Serializable {
 
     private Integer stockQuantity;
 
-    private String productImages;
+    private List<String> productImages;
 
     private LocalDateTime createdAt;
 

@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,10 +22,11 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "publications")
+@EntityListeners(AuditingEntityListener.class)
 public class Publication {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
@@ -38,9 +40,6 @@ public class Publication {
 
     @Column(nullable=false)
     private Integer stockQuantity;
-
-    @OneToMany(mappedBy = "publication")
-    private List<ProductImage> images;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)

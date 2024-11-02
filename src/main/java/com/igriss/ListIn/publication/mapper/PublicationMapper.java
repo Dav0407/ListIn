@@ -2,10 +2,10 @@ package com.igriss.ListIn.publication.mapper;
 
 
 import com.igriss.ListIn.publication.dto.CategoryResponseDTO;
-import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.entity.static_entity.Category;
+import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.Publication;
+import com.igriss.ListIn.publication.entity.static_entity.Category;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,9 @@ public class PublicationMapper {
     private final ProductImageMapper productImageMapper;
     private final ProductConditionMapper productConditionMapper;
 
-    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser, List<String> imageUrls) {
+    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
-        Publication publication = Publication.builder()
+        return Publication.builder()
                 .title(requestDTO.getTitle())
                 .description(requestDTO.getDescription())
                 .price(requestDTO.getPrice())
@@ -40,9 +40,6 @@ public class PublicationMapper {
                 .publicationStatus(publicationStatusMapper.toPublicationStatus(requestDTO.getPublicationStatus()))
                 .seller(connectedUser)
                 .build();
-
-        publication.setImages(productImageMapper.toProductImageList(imageUrls, publication));
-        return publication;
     }
 
     public PublicationResponseDTO toPublicationResponseDTO(Publication publication) {
