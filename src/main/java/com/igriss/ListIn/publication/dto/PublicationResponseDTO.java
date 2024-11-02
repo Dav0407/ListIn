@@ -1,7 +1,6 @@
 package com.igriss.ListIn.publication.dto;
 
 import com.igriss.ListIn.user.dto.UserResponseDTO;
-import com.igriss.ListIn.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +24,8 @@ public class PublicationResponseDTO {
     private Float price;
 
     private Integer stockQuantity;
+
+    private String productImages;
 
     private LocalDateTime createdAt;
 

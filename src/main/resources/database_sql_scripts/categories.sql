@@ -82,7 +82,7 @@ INSERT INTO categories (category_id, parent_id, category_name, description) VALU
 
 
 
-/*68b0c4d5-3ecf-4a5a-bde6-c68205dfd5cd
+/*
 f77fd8e5-7f9c-429a-bc8f-16bb3ba0a117
 b2766ba5-8945-4992-a5ec-a31c35b7aec6
 319edb06-30df-448d-a388-60faa4774224
