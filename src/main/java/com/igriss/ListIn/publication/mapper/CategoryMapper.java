@@ -31,7 +31,7 @@ public class CategoryMapper {
 
         return CategoryResponseDTO.builder()
                 .name(category.getName())
-                .parentCategory(category.getParentCategory() != null ? toCategoryResponseDTO(category.getParentCategory()) : null)
+                .parentCategory(category.getParentCategory() != null ? category.getParentCategory().getName() : null)//to prevent NullPointerException
                 .build();
     }
 }
