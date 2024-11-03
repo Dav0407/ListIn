@@ -2,7 +2,6 @@ package com.igriss.ListIn.config.Images;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -16,12 +15,13 @@ import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +52,7 @@ public class S3Service {
             String fileName = fileId + "." + ext;
             urls.add(String.format("%s/%s", bucketLink, fileName));
             CompletableFuture.runAsync(() -> saveFiles(fileName, file), executorService);
-        }
+        }//todo -> save these urls to db as ProductImage Entity without publication relation
         return urls;
     }
 
