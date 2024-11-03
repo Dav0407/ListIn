@@ -1,34 +1,24 @@
 package com.igriss.ListIn.publication.service;
 
-import com.igriss.ListIn.config.Images.S3Service;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.entity.ProductImage;
 import com.igriss.ListIn.publication.entity.Publication;
-import com.igriss.ListIn.publication.mapper.ProductImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.ProductConditionRepository;
-import com.igriss.ListIn.publication.repository.ProductImageRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class PublicationServiceImpl implements PublicationService {
-    private final S3Service service;
     private final PublicationRepository publicationRepository;
     private final PublicationMapper publicationMapper;
-    private final ProductImageService productImageService;
-    private final ProductImageMapper productImageMapper;
-    private final ProductImageRepository productImageRepository;
+    private final ProductFileService productFileService;
 
     @Override
     //todo -> to write a more robust savePublication method with a completely working s3service and ProductImageService used
@@ -41,6 +31,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         List<String> imageUrls = request.getImageUrls();
 
-        productImageService.saveImages(imageUrls, publication);
+        productFileService.saveImages(imageUrls, publication);
     }
 }

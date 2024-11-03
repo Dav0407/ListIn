@@ -1,13 +1,14 @@
 
 package com.igriss.ListIn.config.Images;
 
+import com.igriss.ListIn.publication.service.ProductFileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/files")
@@ -16,10 +17,11 @@ import java.util.*;
 public class FilesController {
 
     private final S3Service s3Service;
+    private final ProductFileService productFileService;
 
     @PostMapping("/upload")
     public ResponseEntity<?> upload(@RequestParam("file") List<MultipartFile> file) {
-        return ResponseEntity.ok(s3Service.uploadFile(file));
+        return ResponseEntity.ok(productFileService.saveFileURLs(file));
     }
 
     @GetMapping("/download")
