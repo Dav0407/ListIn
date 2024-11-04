@@ -48,8 +48,9 @@ public class Publication {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @OneToMany
-    private List<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name =  "condition_id")

@@ -22,7 +22,7 @@ public class PublicationRequestDTO implements Serializable {
 
     private List<String> imageUrls;
 
-    private List<CategoryResponseDTO> categories;
+    private CategoryResponseDTO categories;
 
     private String productCondition;
 

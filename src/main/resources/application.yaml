@@ -54,7 +54,13 @@ spring:
       host: localhost
       port: 6379
 server:
-  port: 8000
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: davron2004
+    key-store-type: PKCS12
+    key-alias: myapp
   error:
     path: error.jsp
 

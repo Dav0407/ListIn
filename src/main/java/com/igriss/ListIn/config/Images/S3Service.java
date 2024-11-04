@@ -47,7 +47,6 @@ public class S3Service {
 
         for (MultipartFile file : files) {
             String fileId = UUID.randomUUID() + "_" + System.currentTimeMillis();
-            log.info("generated uuid: {}", fileId);
             String ext = FilenameUtils.getExtension(file.getOriginalFilename());
             String fileName = fileId + "." + ext;
             urls.add(String.format("%s/%s", bucketLink, fileName));
