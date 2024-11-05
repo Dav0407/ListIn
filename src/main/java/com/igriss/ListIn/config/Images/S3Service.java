@@ -39,19 +39,22 @@ public class S3Service {
     @Value("${cloud.aws.s3.cache-control}")
     private String cached;
 
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final ExecutorService uploadExecutorService = Executors.newCachedThreadPool();
 
     //todo -> handle the case where S3 is out of memory
     public List<String> uploadFile(List<MultipartFile> files) {
         List<String> urls = new ArrayList<>();
 
         for (MultipartFile file : files) {
+
             String fileId = UUID.randomUUID() + "_" + System.currentTimeMillis();
             String ext = FilenameUtils.getExtension(file.getOriginalFilename());
             String fileName = fileId + "." + ext;
             urls.add(String.format("%s/%s", bucketLink, fileName));
-            CompletableFuture.runAsync(() -> saveFiles(fileName, file), executorService);
-        }//todo -> save these urls to db as ProductImage Entity without publication relation
+            MultipartFile compressedFile = FileCompressor.compressFile(file);
+            CompletableFuture.runAsync(() -> saveFiles(fileName, compressedFile), uploadExecutorService);
+
+        }
         return urls;
     }
 

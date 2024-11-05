@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ProductFileService {
     void saveImages(List<String> imageUrls, Publication publication);
-    List<String> saveFileURLs(List<MultipartFile> files);
+    List<String> saveFileURLs(List<MultipartFile> files) ;
 }
