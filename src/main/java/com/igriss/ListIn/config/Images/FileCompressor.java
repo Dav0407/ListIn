@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.zip.ZipOutputStream;
 
 
 @Slf4j
@@ -18,7 +17,6 @@ public class FileCompressor {
         return switch (Objects.requireNonNull(FilenameUtils.getExtension(file.getOriginalFilename())).toLowerCase()) {
             case "jpg", "jpeg", "png" ->
                     compressImage(file);
-            case "mp4", "mov" -> compressVideo(file);
             default -> compressWithDefault(file);
         };
     }
@@ -36,18 +34,6 @@ public class FileCompressor {
         }
 
         return convertIntoMultipart(file,outputStream);
-    }
-
-    private static MultipartFile compressVideo(MultipartFile file) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            ZipOutputStream gzipOutputStream = new ZipOutputStream(byteArrayOutputStream);
-            gzipOutputStream.setLevel(1);
-            gzipOutputStream.write(file.getBytes());
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-        return convertIntoMultipart(file, byteArrayOutputStream);
     }
 
     private static MultipartFile compressWithDefault(MultipartFile file) {
