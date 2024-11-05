@@ -20,6 +20,14 @@ public class PublicationRequestDTO implements Serializable {
 
     private Integer stockQuantity;
 
+    private Boolean bargain;
+
+    private String locationName;
+
+    private String latitude;
+
+    private String longitude;
+
     private List<String> imageUrls;
 
     private CategoryResponseDTO categories;

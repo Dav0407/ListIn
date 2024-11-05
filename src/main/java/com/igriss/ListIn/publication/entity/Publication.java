@@ -12,7 +12,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -38,8 +37,20 @@ public class Publication {
     @Column(nullable = false)
     private Float price;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Integer stockQuantity;
+
+    @Column(nullable = false)
+    private Boolean bargain;
+
+    @Column(nullable = false)
+    private String locationName;
+
+    @Column(nullable = false)
+    private String latitude;
+
+    @Column(nullable = false)
+    private String longitude;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
@@ -53,7 +64,7 @@ public class Publication {
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name =  "condition_id")
+    @JoinColumn(name = "condition_id")
     private ProductCondition productCondition;
 
     @ManyToOne
