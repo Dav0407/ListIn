@@ -24,10 +24,10 @@ spring:
       client:
         registration:
           google:
-            client-id: 1036878431200-p23es5g8p7g4qa70uel9h4uddjnmbr7o.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${OAUTH2_GOOGLE_CLIENT_ID}
+            client-secret: ${OAUTH2_GOOGLE_CLIENT_SECRET}
             scope: profile, email
-            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            redirect-uri: ${OAUTH2_REDIRECT_PAGE_URI}
             authorization-grant-type: authorization_code
 
           facebook:
@@ -41,8 +41,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: listinofficialservice@gmail.com
-    password: ghnoklzxuiolmkwx
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
     properties:
       mail:
         smtp:
@@ -57,15 +57,15 @@ server:
   port: 8000
   ssl:
     enabled: true
-    key-store: classpath:keystore.p12
-    key-store-password: davron2004
-    key-store-type: PKCS12
-    key-alias: myapp
+    key-store: ${SERVER_SSL_KEY_STORE}
+    key-store-password: ${SERVER_SSL_KEY_STORE_PASSWORD}
+    key-store-type: ${SERVER_SSL_KEY_STORE_TYPE}
+    key-alias: ${SERVER_SSL_KEY_ALIAS}
 
 application:
   security:
     jwt:
-      secret-key: 48656c6c6f2c2068656c6c6f206d79206e616d65206973204967726973303034
+      secret-key: ${JWT_SECRET_KEY}
       expiration: 31536000000 # 365 days | 86400000 # 1 day  | 60000 1 minute (for testing)
       refresh-token:
         expiration: 31536000000 # 365 days| 604800000 # 7 days
@@ -73,12 +73,12 @@ application:
 cloud:
   aws:
     credentials:
-      access-key: AKIAXEFUNPWVUMI7JFHG
-      secret-key: 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
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
     s3:
       bucket:
-        list-in-storage
-      region: eu-north-1
+        ${AWS_BUCKET_NAME}
+      region: ${AWS_BUCKET_REGION}
       cache-control: "public, max-age=2592000"
 
 
@@ -86,5 +86,5 @@ aws:
   s3:
     bucket:
       link:
-        list-in-storage.s3.eu-north-1.amazonaws.com
+        ${AWS_BUCKET_LINK}
 
