@@ -1,10 +1,10 @@
 package com.igriss.ListIn.attribute.entity;
 
+import com.igriss.ListIn.publication.entity.static_entity.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
-
 
 @Getter
 @Setter
@@ -12,15 +12,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "attribute_values")
-public class AttributeValue {
-
+@Table(name = "category_attributes")
+public class CategoryAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name="category_attribute_id")
     private UUID id;
 
-    @Column(nullable = false)
-    private String value;
+    @ManyToOne
+    @JoinColumn(name ="category_id")
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "attribute_id")

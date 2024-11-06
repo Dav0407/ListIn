@@ -15,10 +15,16 @@ import java.util.UUID;
 @Table(name = "attribute_keys")
 public class AttributeKey {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "attribute_id")
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "publication_id")
-    private Publication publicationId;
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String helperText;
+
+    @Column(nullable = false)
+    private String dataType;
 }

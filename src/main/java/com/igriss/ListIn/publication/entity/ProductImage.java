@@ -3,6 +3,8 @@ package com.igriss.ListIn.publication.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,8 +14,8 @@ import lombok.*;
 @Table(name = "publication_images")
 public class ProductImage {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imageId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID imageId;
 
     private String imageName;
 
