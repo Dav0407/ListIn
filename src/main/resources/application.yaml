@@ -6,9 +6,9 @@ spring:
   application:
     name: ListIn
   datasource:
-    url: jdbc:postgresql://localhost:5432/list_in
-    username: postgres
-    password: 123
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
