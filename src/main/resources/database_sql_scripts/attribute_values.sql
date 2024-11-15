@@ -1,4 +1,4 @@
-----Smartphones value attributes
+----Smartphones brand value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6f26e603-1401-47c3-8c70-1a45dd82c915','bd4dbd51-8e3a-4725-93cd-61179b328245','Apple');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('165524e3-be60-41cb-b725-46bffb9eb3f5','bd4dbd51-8e3a-4725-93cd-61179b328245','Samsung');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('17b7e998-f84b-4660-bc77-ed3e153f46c3','bd4dbd51-8e3a-4725-93cd-61179b328245','Xiaomi');
@@ -35,7 +35,5 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('51c95626-3266-494c-9485-a1f038600790','bd4dbd51-8e3a-4725-93cd-61179b328245','Kyocera');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d47ec083-2ea0-4eee-9406-95213f87f5c2','bd4dbd51-8e3a-4725-93cd-61179b328245','UMi');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('22e3e60c-bb69-4189-88a0-ea753f3db686','bd4dbd51-8e3a-4725-93cd-61179b328245','AGM');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('e2c869da-d574-4ab2-970b-94976baf528c','bd4dbd51-8e3a-4725-93cd-61179b328245','Sonim');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2e842087-307a-4d3c-8eab-a56dca109d78','bd4dbd51-8e3a-4725-93cd-61179b328245','Energizer');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('ed90444d-5db2-4b3b-836c-e29f8780783f','bd4dbd51-8e3a-4725-93cd-61179b328245','Cat');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('4753e35c-47ec-4cae-ab24-c5771e99368e','bd4dbd51-8e3a-4725-93cd-61179b328245','Palm');

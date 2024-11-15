@@ -2,7 +2,9 @@ package com.igriss.ListIn.database_initializer;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -11,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DatabaseInitializer {
@@ -24,9 +27,9 @@ public class DatabaseInitializer {
             "/database_sql_scripts/publication_types.sql",
             "/database_sql_scripts/attribute_keys.sql",
             "/database_sql_scripts/attribute_values.sql",
-            "/database_sql_scripts/category_attributes.sql"
+            "/database_sql_scripts/category_attributes.sql",
+            "/database_sql_scripts/brand_models.sql"
     );
-
     @PostConstruct
     public void init() {
         for (String script : scripts) {
@@ -44,7 +47,7 @@ public class DatabaseInitializer {
             }
             jdbcTemplate.execute(sql.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 }
