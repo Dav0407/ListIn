@@ -18,13 +18,13 @@ public class DatabaseInitializer {
     private final JdbcTemplate jdbcTemplate;
 
     private final List<String> scripts = List.of(
-            "/database_sql_scripts/categories.sql",
-            "/database_sql_scripts/product_condition.sql",
-            "/database_sql_scripts/publication_statuses.sql",
-            "/database_sql_scripts/publication_types.sql",
-            "/database_sql_scripts/attribute_keys.sql",
-            "/database_sql_scripts/attribute_values.sql",
-            "/database_sql_scripts/category_attributes.sql"
+            "/static/database_sql_scripts/categories.sql",
+            "/static/database_sql_scripts/product_condition.sql",
+            "/static/database_sql_scripts/publication_statuses.sql",
+            "/static/database_sql_scripts/publication_types.sql",
+            "/static/database_sql_scripts/attribute_keys.sql",
+            "/static/database_sql_scripts/attribute_values.sql",
+            "/static/database_sql_scripts/category_attributes.sql"
     );
 
     @PostConstruct
