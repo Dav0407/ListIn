@@ -29,6 +29,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/category_attributes.sql",
             "/database_sql_scripts/brand_models.sql"
     );
+
     @PostConstruct
     public void init() {
         for (String script : scripts) {
@@ -46,7 +47,7 @@ public class DatabaseInitializer {
             }
             jdbcTemplate.execute(sql.toString());
         } catch (Exception e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
         }
     }
 }
