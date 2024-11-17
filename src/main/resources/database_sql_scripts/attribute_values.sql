@@ -30,10 +30,7 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('5d1b3002-8c69-400d-a922-ecc3ac761fe9','bd4dbd51-8e3a-4725-93cd-61179b328245','Cat');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('e8bdf353-d07b-41b1-a162-a8ee6b58f7b2','bd4dbd51-8e3a-4725-93cd-61179b328245','Alcatel');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('448508ce-a701-4adf-be6f-d372bfd67355','bd4dbd51-8e3a-4725-93cd-61179b328245','Wiko');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('41b9947f-5f0b-4001-9cce-a9928346125c','bd4dbd51-8e3a-4725-93cd-61179b328245','HMD');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('aaa5138e-2dcd-4dc4-8bcc-0aecc82baf92','bd4dbd51-8e3a-4725-93cd-61179b328245','Sharp');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('51c95626-3266-494c-9485-a1f038600790','bd4dbd51-8e3a-4725-93cd-61179b328245','Kyocera');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d47ec083-2ea0-4eee-9406-95213f87f5c2','bd4dbd51-8e3a-4725-93cd-61179b328245','UMi');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('22e3e60c-bb69-4189-88a0-ea753f3db686','bd4dbd51-8e3a-4725-93cd-61179b328245','AGM');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2e842087-307a-4d3c-8eab-a56dca109d78','bd4dbd51-8e3a-4725-93cd-61179b328245','Energizer');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('4753e35c-47ec-4cae-ab24-c5771e99368e','bd4dbd51-8e3a-4725-93cd-61179b328245','Palm');

@@ -4,6 +4,8 @@ import com.igriss.ListIn.publication.entity.static_entity.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.swing.text.html.HTMLDocument;
+import java.util.Iterator;
 import java.util.UUID;
 
 @Getter
