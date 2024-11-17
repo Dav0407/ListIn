@@ -5,7 +5,6 @@ import com.igriss.ListIn.publication.entity.ProductImage;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.mapper.ProductImageMapper;
 import com.igriss.ListIn.publication.repository.ProductImageRepository;
-import kotlin.HashCodeKt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

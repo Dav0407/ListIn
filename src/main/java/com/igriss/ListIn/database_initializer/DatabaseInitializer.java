@@ -4,9 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
