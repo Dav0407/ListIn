@@ -46,12 +46,12 @@ public class AuthenticationController {
         authenticationService.refreshToken(request, response);
     }
     @PostMapping("/send/mail")
-    public ResponseEntity<EmailVerificationRequestDTO> sendEmail(EmailVerificationRequestDTO verificationRequestDTO) throws  EmailNotFoundException {
+    public ResponseEntity<EmailVerificationRequestDTO> sendEmail(@RequestBody EmailVerificationRequestDTO verificationRequestDTO) throws  EmailNotFoundException {
         return ResponseEntity.ok(emailService.sendEmail(verificationRequestDTO));
     }
 
     @PostMapping("/verify/email")
-    public ResponseEntity<String> verifyEmail(EmailVerificationRequestDTO verificationRequestDTO, @RequestParam String code)  throws UserHasAccountException{
+    public ResponseEntity<String> verifyEmail(@RequestBody EmailVerificationRequestDTO verificationRequestDTO, @RequestParam String code)  throws UserHasAccountException{
         return ResponseEntity.ok(emailService.verifyEmail(verificationRequestDTO,code));
     }
 }
