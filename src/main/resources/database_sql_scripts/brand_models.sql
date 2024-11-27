@@ -296,7 +296,7 @@ INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value )
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('af058c94-647b-4ec8-be50-2a388c1bba49','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi 5');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('6d177537-99e2-4e28-b11e-18f917dcc57a','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi 3');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('dbaaf534-dc8c-42aa-9c42-79d541055446','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi 3S');
-INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('631fa7db-9aa5-482c-b7c6-4421093223c5','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi Note 3 Pr');
+INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('631fa7db-9aa5-482c-b7c6-4421093223c5','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi Note 3 Pro');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('3115aae2-075d-4481-a99d-ca4b73427beb','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi Max');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('5ce48276-82e2-4833-b48a-439774150f5a','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi Mix');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('ce70ec61-fd0d-49be-aa3d-fc964d088b69','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi 6');
@@ -305,11 +305,11 @@ INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value )
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('572f7da0-3817-47db-96c0-b451d6153a2c','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi A1');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('8486c63b-768b-46f7-9808-199ad620fef6','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi 8');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('f09f4bb7-35ce-4aec-997f-932b42a3157c','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi Mix 3');
-INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('d8c218c7-7a14-4b6f-aacc-36cfd2bbc597','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi Note 6 Pr');
+INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('d8c218c7-7a14-4b6f-aacc-36cfd2bbc597','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi Note 6 Pro');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('9d5e0244-5005-494d-9a63-2c2e7ce81287','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi 9');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('2726879c-af07-4ac6-9116-0786dd6d0a5c','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi K20');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('d86492cb-759b-4c06-92ba-e4460e928ee1','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi 9T');
-INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('fbd4170f-29b2-42a7-8617-abe696f48ff6','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi Note 8 Pr');
+INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('fbd4170f-29b2-42a7-8617-abe696f48ff6','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi Note 8 Pro');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('22570b41-2439-4398-ad7c-1c5bf981bf3a','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi 10');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('49e05891-d09a-4845-b53f-0dfdf86f65f8','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Redmi Note 9');
 INSERT INTO smartphone_brand_models (brand_model_id, attribute_value_id, value ) VALUES ('f47f5891-dc26-440e-b9d5-8273addb5874','17b7e998-f84b-4660-bc77-ed3e153f46c3','Xiaomi Mi 10T');
