@@ -1,6 +1,5 @@
 package com.igriss.ListIn.attribute.entity;
 
-import com.igriss.ListIn.publication.entity.Publication;
 import jakarta.persistence.*;
 import lombok.*;
 
