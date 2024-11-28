@@ -1,7 +1,7 @@
 --Smartphones attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('bd4dbd51-8e3a-4725-93cd-61179b328245','string', 'Select Brand', 'Smartphone Brand');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('677d0449-8b79-43ca-b7ce-7d347ad4c685','integer','Select Storage','Smartphone Storage');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('e0d20756-42e7-44db-aaf1-73a3dfbd24ea','integer','Select Ram','Smartphone RAM');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('677d0449-8b79-43ca-b7ce-7d347ad4c685','string','Select Storage','Smartphone Storage');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('e0d20756-42e7-44db-aaf1-73a3dfbd24ea','string','Select Ram','Smartphone RAM');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('438712ca-30b8-47ce-bd14-b08142f31d24','string','Select Color','Smartphone Color');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('81728a91-0557-4e5f-829c-02fee2ef6c7c','string','Additional accessories','Accessories');
 
@@ -12,15 +12,15 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES (
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('c601d5f6-7a14-4f07-8960-3d2b7deed5d2','string','Select Storage Types','Laptop Storage Types');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('5be6a6e1-4499-442c-886a-c439fec6e9a4','string','Select GPU','GPU');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('66287880-efbd-4143-9ac5-8017d9f0fa55','integer','Select Screen Size','Laptop Screen Size');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('7e26c4a0-8b45-4739-be81-0f93c4322bac','integer','Select Ram','Laptop RAM');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('2b7ceac5-d765-40f2-9282-76832d245726','integer','Select Storage','Laptop Storage');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('7e26c4a0-8b45-4739-be81-0f93c4322bac','string','Select Ram','Laptop RAM');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('2b7ceac5-d765-40f2-9282-76832d245726','string','Select Storage','Laptop Storage');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('f43b1235-4e23-4011-9bbe-88d820c6892c','string','Select Color','Laptop Color');
 
 --Macbooks attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('f0658257-cfc1-4e10-96ad-0af8fe7360f3','string','Select Model', 'Macbook Model');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('a5f79e5f-dc21-4e76-94b9-c7cd6775c00e','integer','Select Storage', 'Macbook Storage');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('365324d3-1fe1-4d05-ab2f-63fa904339b9','integer','Select Ram','Macbook RAM');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('cc85b860-f078-41a3-a1f6-d2d7c35b3448','integer','Select Battery Capacity','Macbook Battery Capacity');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('a5f79e5f-dc21-4e76-94b9-c7cd6775c00e','string','Select Storage', 'Macbook Storage');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('365324d3-1fe1-4d05-ab2f-63fa904339b9','string','Select Ram','Macbook RAM');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('cc85b860-f078-41a3-a1f6-d2d7c35b3448','string','Select Battery Capacity','Macbook Battery Capacity');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('a6612018-a8a3-4e46-bae7-8fd1f588beb8','string','Select Color','Macbook Color');
 
 --SmartWatches attributes
@@ -30,7 +30,7 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES (
 
 --Tablet attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('973884b5-63b5-4ad0-9ca6-7de2f8a40ab3','string','Select Brand','Tablet Brand');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('a57f28a9-1e23-42f4-b1d8-63f35c164cd3','integer','Select Storage','Tablet Storage');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('a57f28a9-1e23-42f4-b1d8-63f35c164cd3','string','Select Storage','Tablet Storage');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('da05c6e8-126d-451c-b10a-d2da8ec5eadf','string','Select Screen Size','Smartphone Screen Size');
 
 --PC attributes
@@ -38,7 +38,7 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES (
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('1697540a-f8d1-4fd8-bc91-5bdd19697988','string','Select Brand','PC Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('059fc660-4d24-43c2-8d98-a0848e6ac7b3','string','Processor Brand','PC CPU Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('90ccba65-cb4e-414d-acca-d85327484cde','string','Storage Type','PC Storage Type');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('346a79f0-7fa9-45b3-99d5-9df99794baf1','integer','Select RAM','PC RAM');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('346a79f0-7fa9-45b3-99d5-9df99794baf1','string','Select RAM','PC RAM');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('8511663a-9738-465e-a2d1-9ba8b65e460b','boolean','Includes Monitor','PC Monitor');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('d90ef61b-85a9-4ce8-bdfd-fde412efea83','string','Additional Accessories','PC Additional Accessories');
 

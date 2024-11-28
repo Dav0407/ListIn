@@ -34,3 +34,37 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('51c95626-3266-494c-9485-a1f038600790','bd4dbd51-8e3a-4725-93cd-61179b328245','Kyocera');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d47ec083-2ea0-4eee-9406-95213f87f5c2','bd4dbd51-8e3a-4725-93cd-61179b328245','UMi');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2e842087-307a-4d3c-8eab-a56dca109d78','bd4dbd51-8e3a-4725-93cd-61179b328245','Energizer');
+
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6528763e-04f2-40a4-8270-a04d53099192', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '8 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('78ffdc22-e6c6-4b8b-b8fd-7518ab28aed9', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '16 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2f6ba4c4-60df-45ac-a570-5ac204d00145', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '32 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('08604244-e0e8-4abf-95eb-560c551d7575', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '64 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2467e463-7cef-4a09-a392-1d4d9f66258c', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '128 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('0ce3c3bb-9bb6-4e4f-a79e-efb28cc34b05', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '256 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('472c7c93-bb27-401f-a268-5c5408eb81a0', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '512 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d09c6f31-38f2-4a38-af23-ac808d6c865c', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '1 TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('46b09566-eb3a-452d-a2f2-0035c6b253cb', '677d0449-8b79-43ca-b7ce-7d347ad4c685', '2 TB');
+
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d87aa394-28b5-4c80-88b6-a330cd3d279a', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '2 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1f658747-71aa-4bdd-89ec-77c9eb09e985', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '3 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1f658747-71aa-4bdd-89ec-77c9eb09e985', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '4 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6ded35fa-66ed-441c-be8e-1784b17598f9', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '6 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('914fa0ed-ae69-464c-9813-69bde87933eb', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '8 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('ddf22b65-3e49-4d8a-8c37-579cbfbe4c20', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '12 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b3515104-7016-434a-ad1c-3bb42fad0eca', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '16 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('7b9f2a0e-fad2-44af-8106-daf98759e4bf', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '24 GB');
+
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('ba0ae8c6-3f3b-47d1-9c1b-50d31b4e4490', '438712ca-30b8-47ce-bd14-b08142f31d24', 'Black');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('7d928f51-b70e-4644-a867-54857ae6a766', '438712ca-30b8-47ce-bd14-b08142f31d24', 'White');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('c71880df-0883-4802-965b-e9f23cc968f8', '438712ca-30b8-47ce-bd14-b08142f31d24', 'Gray');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('8a483f73-bf11-41de-932d-c99a9affa55b', '438712ca-30b8-47ce-bd14-b08142f31d24', 'Silver');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b5ef67ca-b66b-40e9-b1ee-b231aa14d140', '438712ca-30b8-47ce-bd14-b08142f31d24', 'Blue');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('f29428bb-a158-445d-9ed2-e5e351182c5e', '438712ca-30b8-47ce-bd14-b08142f31d24', 'Gold');
+
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('ea409804-0c2f-455d-8e6e-bef48b3a4c8c', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'USB Cable');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('8f186256-1f68-40bd-8f4a-7e5d331f40ef', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'Adapter');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('0015664d-6e02-4e1d-ba87-b60f1f6badce', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'User Manual & Warranty Card');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('172e992b-b336-47e7-b4af-769cafc98855', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'Protective Case');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6c275499-f96d-481b-a7e8-618f37b7a159', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'Screen Protector');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('32b940cc-920c-4108-a381-489ad01d5726', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'Earphones/Headphones');
+
