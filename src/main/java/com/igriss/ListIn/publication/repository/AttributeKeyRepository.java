@@ -1,6 +1,6 @@
-package com.igriss.ListIn.attribute.repository;
+package com.igriss.ListIn.publication.repository;
 
-import com.igriss.ListIn.attribute.entity.AttributeKey;
+import com.igriss.ListIn.publication.entity.AttributeKey;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

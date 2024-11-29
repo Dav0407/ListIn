@@ -32,7 +32,7 @@ public class PublicationResponseDTO implements Serializable {
 
     private LocalDateTime updatedAt;
 
-    private CategoryResponseDTO category;
+    private CategoryDTO category;
 
     private String productCondition;
 

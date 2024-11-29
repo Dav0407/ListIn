@@ -30,12 +30,14 @@ public class PublicationRequestDTO implements Serializable {
 
     private List<String> imageUrls;
 
-    private CategoryResponseDTO categories;
+    private CategoryDTO categories;
 
     private String productCondition;
 
     private String publicationType;
 
     private String publicationStatus;
+
+
 
 }
