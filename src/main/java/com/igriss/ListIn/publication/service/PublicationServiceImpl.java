@@ -1,6 +1,9 @@
 package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.entity.AttributeKey;
+import com.igriss.ListIn.publication.entity.AttributeValue;
+import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
@@ -29,8 +32,19 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationMapper.toPublication(request, connectedUser);
         publication = publicationRepository.save(publication);
 
-        List<String> imageUrls = request.getImageUrls();
+        productFileService.saveImages(request.getImageUrls(), publication);
 
-        productFileService.saveImages(imageUrls, publication);
+        List<AttributeKey> attributeKeys = request.getAttributeKeys();
+        List<AttributeValue> attributeValues = request.getAttributeValues();
+
+        for (AttributeKey attributeKey : attributeKeys) {
+            CategoryAttribute.builder()
+                    .category(publication.getCategory())
+                    .attributeKey(attributeKey)
+                    .build();
+        }
+
+
+
     }
 }

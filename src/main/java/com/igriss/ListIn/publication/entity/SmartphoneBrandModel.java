@@ -1,4 +1,4 @@
-package com.igriss.ListIn.attribute.entity;
+package com.igriss.ListIn.publication.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "smartphone_brand_models")
-public class SmartphoneBrandModels {
+public class SmartphoneBrandModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
