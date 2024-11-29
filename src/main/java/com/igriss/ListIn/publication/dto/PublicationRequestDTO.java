@@ -1,5 +1,7 @@
 package com.igriss.ListIn.publication.dto;
 
+import com.igriss.ListIn.publication.entity.AttributeKey;
+import com.igriss.ListIn.publication.entity.AttributeValue;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +39,10 @@ public class PublicationRequestDTO implements Serializable {
     private String publicationType;
 
     private String publicationStatus;
+
+    private List<AttributeKey> attributeKeys;
+
+    private List<AttributeValue> attributeValues;
 
 
 
