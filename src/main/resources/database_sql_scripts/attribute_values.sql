@@ -1,5 +1,5 @@
 ----Smartphones brand value attributes
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6f26e603-1401-47c3-8c70-1a45dd82c915','bd4dbd51-8e3a-4725-93cd-61179b328245','Apple');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b86657c8-83eb-4518-90e5-cb4b2944bbbe','bd4dbd51-8e3a-4725-93cd-61179b328245','Apple');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('165524e3-be60-41cb-b725-46bffb9eb3f5','bd4dbd51-8e3a-4725-93cd-61179b328245','Samsung');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('17b7e998-f84b-4660-bc77-ed3e153f46c3','bd4dbd51-8e3a-4725-93cd-61179b328245','Xiaomi');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('32e648a0-3b72-4326-99dd-a21f6eb5db43','bd4dbd51-8e3a-4725-93cd-61179b328245','Oppo');
@@ -47,7 +47,7 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d87aa394-28b5-4c80-88b6-a330cd3d279a', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '2 GB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1f658747-71aa-4bdd-89ec-77c9eb09e985', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '3 GB');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1f658747-71aa-4bdd-89ec-77c9eb09e985', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '4 GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2312ee31-572e-4387-9a39-9eef1a177c56', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '4 GB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6ded35fa-66ed-441c-be8e-1784b17598f9', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '6 GB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('914fa0ed-ae69-464c-9813-69bde87933eb', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '8 GB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('ddf22b65-3e49-4d8a-8c37-579cbfbe4c20', 'e0d20756-42e7-44db-aaf1-73a3dfbd24ea', '12 GB');
@@ -67,4 +67,54 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('172e992b-b336-47e7-b4af-769cafc98855', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'Protective Case');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6c275499-f96d-481b-a7e8-618f37b7a159', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'Screen Protector');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('32b940cc-920c-4108-a381-489ad01d5726', '81728a91-0557-4e5f-829c-02fee2ef6c7c', 'Earphones/Headphones');
+
+--TV type value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6c7ae5ee-9e03-4bae-9889-017db9aa3ffe','9d74a5b4-f7c1-46a9-9860-b25c72c081e5','Smart TV');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('959c53b5-6800-426b-9e85-79ba78cb3d82','9d74a5b4-f7c1-46a9-9860-b25c72c081e5','Led TV');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d828a2b1-af89-4523-bc05-c57f1d04adde','9d74a5b4-f7c1-46a9-9860-b25c72c081e5','OLed TV');
+
+----TV brand value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('cae3740b-fa09-480e-a4d3-24eb76cbf6d8','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Samsung');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d4752acf-4a9b-4368-b7a7-526f8f059b57','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','LG');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('56061c5a-74e5-450e-955a-3b8da21ce458','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Sony');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('54c9ed3a-8da9-4594-816b-fdb2349de3a4','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Artel');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('3beae0d0-7f3e-47c0-b43d-e84eb7fcda1b','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Hisense');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('f3264ed7-4ace-4d40-ad99-014e80e30a85','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Vizio');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('87643902-16b8-42fc-9f60-c32b7e208c00','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Philips');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b81b7d04-81dd-41d8-88dd-ffcd1ad82eba','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Panasonic');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d2fc1472-83ac-436a-a8d7-af4493d18028','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Sharp');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('18f77d3f-1120-429c-9a02-420014e627de','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Amazon Fire TV (by Amazon)');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('4671461d-abb0-4e59-b31c-bc47d0f55640','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','TCL');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('33e8d196-68e3-4200-9332-008d8dd5cee9','868dc3ff-ae14-48e6-ab01-08bb6cbe497b','Toshiba');
+
+----TV Display Resolution value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('25ea2762-a94d-46a4-8669-9f1f14ca9b64','509df700-a0be-4c47-8e2c-2053401d7ef5','HD (1366 x 768)');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('364783d0-46d9-442b-811b-99ab45e4fac5','509df700-a0be-4c47-8e2c-2053401d7ef5','Full HD (1920 x 1080)');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('de0a6316-8948-46ff-8bcb-4d1c9268aa03','509df700-a0be-4c47-8e2c-2053401d7ef5','4K UHD (3840 x 2160)');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b791ffe1-d4b3-4467-8732-8d71bcb04f0a','509df700-a0be-4c47-8e2c-2053401d7ef5','8K UHD (7680 x 4320)');
+
+----TV Screen Size value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('08485a4a-ee6b-4379-ae09-a3311129c5d2','7b882258-de90-48fa-a5ce-5f5be45fa2ba','24 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('e3feab92-ba7b-4b5c-af4d-b15345941bb0','7b882258-de90-48fa-a5ce-5f5be45fa2ba','32 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('a485b6ce-53bf-4be0-8998-69e9e4892a89','7b882258-de90-48fa-a5ce-5f5be45fa2ba','40 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('af2f2908-b623-40b2-b6be-8f0716bc22d1','7b882258-de90-48fa-a5ce-5f5be45fa2ba','43 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d69b3ed8-bdca-40e2-96de-020c233332f2','7b882258-de90-48fa-a5ce-5f5be45fa2ba','50 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('99a1ed5e-5a3b-48fa-86d9-d227cd3a1ccf','7b882258-de90-48fa-a5ce-5f5be45fa2ba','55 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b27cb4dd-d2e7-4cd1-863e-e7ddef4be6a9','7b882258-de90-48fa-a5ce-5f5be45fa2ba','60 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('8635ec16-fb39-429c-9adf-7d8a29aa5478','7b882258-de90-48fa-a5ce-5f5be45fa2ba','65 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('946417fc-c479-4e13-ae10-fdd62bb58b0b','7b882258-de90-48fa-a5ce-5f5be45fa2ba','70 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('5486bd05-8268-430a-85e8-2b174f6e6af6','7b882258-de90-48fa-a5ce-5f5be45fa2ba','75 inches');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('037f77de-acca-464e-8558-572379e1429b','7b882258-de90-48fa-a5ce-5f5be45fa2ba','85 inches');
+
+----TV is Smart TV value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('90f840fa-c946-43a3-a7e9-4bc2ace15df8','09ce8b9a-48c2-45a0-b748-6fdbd3cc465e','true');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('54a7cdce-c711-460e-acc1-5daf69610393','09ce8b9a-48c2-45a0-b748-6fdbd3cc465e','false');
+
+----TV HDR Support value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('ed6f938f-040c-4cde-98fc-5633eae0eca9','19a9b2e0-bd16-4728-b3ff-878a79019227','true');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6f574378-44ad-4af3-b459-051c9569a73f','19a9b2e0-bd16-4728-b3ff-878a79019227','false');
+
+----TV Wall Mount Compatible value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1a33ce8b-3d9b-4d6d-9216-ce691c83ef1a','b88bc920-add8-495a-b789-dad1d846d655','true');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('224838f1-e633-473b-ae65-5efb7f7d4e49','b88bc920-add8-495a-b789-dad1d846d655','false');
 
