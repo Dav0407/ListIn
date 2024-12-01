@@ -31,13 +31,14 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES (
 --Tablet attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('973884b5-63b5-4ad0-9ca6-7de2f8a40ab3','string','Select Brand','Tablet Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('a57f28a9-1e23-42f4-b1d8-63f35c164cd3','string','Select Storage','Tablet Storage');
-INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('da05c6e8-126d-451c-b10a-d2da8ec5eadf','string','Select Screen Size','Smartphone Screen Size');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('da05c6e8-126d-451c-b10a-d2da8ec5eadf','string','Select Screen Size','Tablet Screen Size');
 
 --PC attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('3d48a0e2-bf51-4d2c-a9fe-121a91aad8bf','string','Select Type','PC Type');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('1697540a-f8d1-4fd8-bc91-5bdd19697988','string','Select Brand','PC Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('059fc660-4d24-43c2-8d98-a0848e6ac7b3','string','Processor Brand','PC CPU Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('90ccba65-cb4e-414d-acca-d85327484cde','string','Storage Type','PC Storage Type');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('cef16c16-812d-4572-b80b-292cbf8d7d0c','string','Storage Type','PC Storage');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('346a79f0-7fa9-45b3-99d5-9df99794baf1','string','Select RAM','PC RAM');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('8511663a-9738-465e-a2d1-9ba8b65e460b','boolean','Includes Monitor','PC Monitor');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, name) VALUES ('d90ef61b-85a9-4ce8-bdfd-fde412efea83','string','Additional Accessories','PC Additional Accessories');
