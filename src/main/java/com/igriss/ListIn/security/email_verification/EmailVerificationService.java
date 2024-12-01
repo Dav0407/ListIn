@@ -99,7 +99,7 @@ public class EmailVerificationService {
 
     private String generateVerificationCode() {
 
-        return Integer.toString((int) (Math.random() * 900000) + 100000);
+        return Integer.toString((int) (Math.random() * 90000) + 10000);
     }
 
     private record CodeDetails(String code, LocalDateTime generatedTime) {}
