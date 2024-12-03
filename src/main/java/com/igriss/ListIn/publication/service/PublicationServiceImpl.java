@@ -1,7 +1,9 @@
 package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.entity.*;
+import com.igriss.ListIn.publication.entity.CategoryAttribute;
+import com.igriss.ListIn.publication.entity.Publication;
+import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
@@ -11,9 +13,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class PublicationServiceImpl implements PublicationService {
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
 
+    @Transactional
     @Override
     public void savePublication(PublicationRequestDTO request, Authentication authentication) {
 
@@ -35,34 +39,33 @@ public class PublicationServiceImpl implements PublicationService {
 
         productFileService.saveImages(request.getImageUrls(), publication);
 
-        List<AttributeKey> attributeKeys = request.getAttributeKeys();
-        List<AttributeValue> attributeValues = request.getAttributeValues();
+        List<PublicationRequestDTO.AttributeDTO> attributes = request.getAttributes();
 
-        saveAttributeKeysAndValues(attributeKeys, publication, attributeValues);
+        saveAttributeKeysAndValues(attributes, publication);
     }
 
-    private void saveAttributeKeysAndValues(List<AttributeKey> attributeKeys, Publication publication, List<AttributeValue> attributeValues) {
-        for (AttributeKey attributeKey : attributeKeys) {
+    private void saveAttributeKeysAndValues(List<PublicationRequestDTO.AttributeDTO> attributes, Publication publication) {
+
+        List<CategoryAttribute> categoryAttributes = new ArrayList<>();
+        List<PublicationAttributeValue> publicationAttributeValues = new ArrayList<>();
+
+        for (PublicationRequestDTO.AttributeDTO attribute : attributes) {
 
             CategoryAttribute categoryAttribute = CategoryAttribute.builder()
                     .category(publication.getCategory())
-                    .attributeKey(attributeKey)
+                    .attributeKey(attribute.getAttributeKey())
                     .build();
-            categoryAttribute = categoryAttributeRepository.save(categoryAttribute);
-
-            String correspondingValue = attributeValues.stream()
-                    .filter(attributeValue ->
-                            attributeValue.getAttributeKey().getId()
-                                    .equals(attributeKey.getId()))
-                    .map(AttributeValue::getValue).findFirst()
-                    .orElseThrow(()->new NoSuchElementException("No matching attribute value found"));
+            categoryAttributes.add(categoryAttribute);
 
             PublicationAttributeValue publicationAttributeValue = PublicationAttributeValue.builder()
                     .categoryAttribute(categoryAttribute)
-                    .value(correspondingValue)
+                    .value(attribute.getAttributeValue().getValue())
                     .publication(publication)
                     .build();
-            publicationAttributeValueRepository.save(publicationAttributeValue);
+            publicationAttributeValues.add(publicationAttributeValue);
         }
+
+        categoryAttributeRepository.saveAll(categoryAttributes);
+        publicationAttributeValueRepository.saveAll(publicationAttributeValues);
     }
 }

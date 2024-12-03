@@ -1,6 +1,7 @@
 package com.igriss.ListIn.database_initializer;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,7 +31,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/brand_models.sql"
     );
 
-    @PostConstruct
+    @PreDestroy
     public void init() {
         for (String script : scripts) {
             executeScript(script);
