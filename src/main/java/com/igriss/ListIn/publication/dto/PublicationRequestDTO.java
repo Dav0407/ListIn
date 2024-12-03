@@ -2,6 +2,7 @@ package com.igriss.ListIn.publication.dto;
 
 import com.igriss.ListIn.publication.entity.AttributeKey;
 import com.igriss.ListIn.publication.entity.AttributeValue;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder//todo -> add a jakarta validation to each field
+@Builder
 public class PublicationRequestDTO implements Serializable {
 
     private String title;
@@ -40,10 +41,16 @@ public class PublicationRequestDTO implements Serializable {
 
     private String publicationStatus;
 
-    private List<AttributeKey> attributeKeys;
+    private List<AttributeDTO> attributes;
 
-    private List<AttributeValue> attributeValues;
+    @Getter
+    @Setter
+    @Builder
+    public static class AttributeDTO {
+        @NotNull
+        private AttributeKey attributeKey;
 
-
-
+        @NotNull
+        private AttributeValue attributeValue;
+    }
 }

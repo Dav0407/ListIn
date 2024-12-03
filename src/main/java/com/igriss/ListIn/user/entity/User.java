@@ -4,6 +4,7 @@ package com.igriss.ListIn.user.entity;
 import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -53,6 +54,7 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private Role role;
 
+    @CreatedDate
     private LocalDateTime dateCreated;
 
     @Override
