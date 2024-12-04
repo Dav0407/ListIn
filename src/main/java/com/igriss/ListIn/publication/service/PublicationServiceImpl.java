@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Transactional
     @Override
-    public void savePublication(PublicationRequestDTO request, Authentication authentication) {
+    public UUID savePublication(PublicationRequestDTO request, Authentication authentication) {
 
         User connectedUser = (User) authentication.getPrincipal();
 
@@ -42,6 +43,8 @@ public class PublicationServiceImpl implements PublicationService {
         List<PublicationRequestDTO.AttributeDTO> attributes = request.getAttributes();
 
         saveAttributeKeysAndValues(attributes, publication);
+
+        return publication.getId();
     }
 
     private void saveAttributeKeysAndValues(List<PublicationRequestDTO.AttributeDTO> attributes, Publication publication) {
