@@ -65,7 +65,7 @@ public class PublicationServiceImpl implements PublicationService {
             publicationAttributeValues.add(publicationAttributeValue);
         }
 
-        categoryAttributeRepository.saveAll(categoryAttributes);
+        categoryAttributeRepository.saveAll(categoryAttributes);//todo -> The data in the table gets duplicated, change the publication logic for more efficient data retrieval
         publicationAttributeValueRepository.saveAll(publicationAttributeValues);
     }
 }

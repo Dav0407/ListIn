@@ -1,7 +1,6 @@
 package com.igriss.ListIn.database_initializer;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,10 +30,33 @@ public class DatabaseInitializer {
             "/database_sql_scripts/brand_models.sql"
     );
 
-    @PreDestroy
+    @PostConstruct
     public void init() {
+        clearDatabase();
         for (String script : scripts) {
             executeScript(script);
+        }
+    }
+
+    private void clearDatabase() {
+        try {
+            List<String> tablesToClear = List.of(
+                    "brand_models",
+                    "category_attributes",
+                    "attribute_values",
+                    "attribute_keys",
+                    "publication_types",
+                    "publication_statuses",
+                    "product_condition",
+                    "categories"
+            );
+
+            for (String table : tablesToClear) {
+                jdbcTemplate.update("DELETE FROM " + table);
+            }
+            log.info("Database cleared successfully.");
+        } catch (Exception e) {
+            log.error("Error while clearing the database: {}", e.getMessage());
         }
     }
 
@@ -48,7 +70,7 @@ public class DatabaseInitializer {
             }
             jdbcTemplate.execute(sql.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error executing script {}: {}", scriptPath, e.getMessage());
         }
     }
 }
