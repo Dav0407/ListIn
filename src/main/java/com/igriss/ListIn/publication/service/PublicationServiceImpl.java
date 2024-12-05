@@ -1,7 +1,6 @@
 package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
