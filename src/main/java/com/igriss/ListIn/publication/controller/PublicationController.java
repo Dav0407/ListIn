@@ -24,11 +24,12 @@ public class PublicationController {
     private final PublicationService publicationService;
     private final PublicationRepository publicationRepository;
 
-    @PostMapping()
-    public ResponseEntity<Void> savePublication(@RequestBody PublicationRequestDTO request, Authentication connectedUser) {
-        publicationService.savePublication(request, connectedUser);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping
+    public ResponseEntity<UUID> savePublication(@RequestBody PublicationRequestDTO request, Authentication connectedUser) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(publicationService.savePublication(request, connectedUser));
     }
+
+
 
     @GetMapping("/{publicationId}") // todo -> to be modified, this is for test used only !
     public ResponseEntity<Publication> getPublicationById(@PathVariable UUID publicationId) {
