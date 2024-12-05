@@ -16,7 +16,7 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('15813eee-b7a1-4c9f-be16-a180b8d52b5f','2b7ceac5-d765-40f2-9282-76832d245726','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('8d52f498-57b5-4a74-819c-a792bcc93eff','f43b1235-4e23-4011-9bbe-88d820c6892c','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
 
---Macbooks category-attributes
+--MacBooks category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('0ef15e87-af78-44e0-9857-89375c365a3b','f0658257-cfc1-4e10-96ad-0af8fe7360f3','e51e9a61-8f59-4390-adf4-4142f6b28645');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('f6f2ca6f-1441-4226-aba6-2ded5ecbabd8','a5f79e5f-dc21-4e76-94b9-c7cd6775c00e','e51e9a61-8f59-4390-adf4-4142f6b28645');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('fe926680-fed7-47f1-ac70-7ef438f143f7','365324d3-1fe1-4d05-ab2f-63fa904339b9','e51e9a61-8f59-4390-adf4-4142f6b28645');
