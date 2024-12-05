@@ -5,7 +5,6 @@ import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.user.entity.User;
@@ -26,7 +25,6 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationMapper publicationMapper;
     private final ProductFileService productFileService;
     private final PublicationRepository publicationRepository;
-    private final CategoryAttributeRepository categoryAttributeRepository;
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
 
     @Transactional
@@ -49,26 +47,22 @@ public class PublicationServiceImpl implements PublicationService {
 
     private void saveAttributeKeysAndValues(List<PublicationRequestDTO.AttributeDTO> attributes, Publication publication) {
 
-        List<CategoryAttribute> categoryAttributes = new ArrayList<>();
         List<PublicationAttributeValue> publicationAttributeValues = new ArrayList<>();
 
         for (PublicationRequestDTO.AttributeDTO attribute : attributes) {
 
-            CategoryAttribute categoryAttribute = CategoryAttribute.builder()
+            var categoryAttribute = CategoryAttribute.builder()
                     .category(publication.getCategory())
                     .attributeKey(attribute.getAttributeKey())
                     .build();
-            categoryAttributes.add(categoryAttribute);
 
-            PublicationAttributeValue publicationAttributeValue = PublicationAttributeValue.builder()
+            var publicationAttributeValue = PublicationAttributeValue.builder()
                     .categoryAttribute(categoryAttribute)
                     .value(attribute.getAttributeValue().getValue())
                     .publication(publication)
                     .build();
             publicationAttributeValues.add(publicationAttributeValue);
         }
-
-        categoryAttributeRepository.saveAll(categoryAttributes);//todo -> The data in the table gets duplicated, change the publication logic for more efficient data retrieval
         publicationAttributeValueRepository.saveAll(publicationAttributeValues);
     }
 }
