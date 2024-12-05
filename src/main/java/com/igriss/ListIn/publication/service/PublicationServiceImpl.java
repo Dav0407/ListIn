@@ -1,10 +1,10 @@
 package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
+import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.user.entity.User;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -26,6 +27,7 @@ public class PublicationServiceImpl implements PublicationService {
     private final ProductFileService productFileService;
     private final PublicationRepository publicationRepository;
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
+    private final CategoryAttributeRepository categoryAttributeRepository;
 
     @Transactional
     @Override
@@ -51,11 +53,9 @@ public class PublicationServiceImpl implements PublicationService {
 
         for (PublicationRequestDTO.AttributeDTO attribute : attributes) {
 
-            var categoryAttribute = CategoryAttribute.builder()
-                    .category(publication.getCategory())
-                    .attributeKey(attribute.getAttributeKey())
-                    .build();
-
+            var categoryAttribute = categoryAttributeRepository.findByCategoryAndAttributeKey(publication.getCategory(), attribute.getAttributeKey())
+                    .orElseThrow(() -> new NoSuchElementException("CategoryAttribute does not exist"));
+            System.out.println(categoryAttribute);
             var publicationAttributeValue = PublicationAttributeValue.builder()
                     .categoryAttribute(categoryAttribute)
                     .value(attribute.getAttributeValue().getValue())

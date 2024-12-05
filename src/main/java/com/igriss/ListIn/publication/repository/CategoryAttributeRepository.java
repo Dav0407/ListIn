@@ -1,11 +1,14 @@
 package com.igriss.ListIn.publication.repository;
 
+import com.igriss.ListIn.publication.entity.AttributeKey;
 import com.igriss.ListIn.publication.entity.CategoryAttribute;
+import com.igriss.ListIn.publication.entity.static_entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CategoryAttributeRepository extends JpaRepository<CategoryAttribute, UUID> {
@@ -28,4 +31,5 @@ public interface CategoryAttributeRepository extends JpaRepository<CategoryAttri
             """, nativeQuery = true)
     List<Object[]> findAttributeKeysAndValuesByCategoryId(@Param("categoryId") UUID categoryId);
 
+    Optional<CategoryAttribute> findByCategoryAndAttributeKey(Category category, AttributeKey attributeKey);
 }
