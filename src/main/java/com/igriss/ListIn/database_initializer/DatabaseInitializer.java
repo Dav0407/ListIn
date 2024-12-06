@@ -29,7 +29,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/category_attributes.sql",
             "/database_sql_scripts/models/smartphone_brand_models.sql",
             "/database_sql_scripts/models/laptop_brand_models.sql",
-            "/database_sql_scripts/models/smartwatch_brand_models.sql"
+            "/database_sql_scripts/models/smartwatch_brand_models.sql",
+            "/database_sql_scripts/models/tablet_brand_models.sql"
     );
 
     @PostConstruct
