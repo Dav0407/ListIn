@@ -27,7 +27,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/attribute_keys.sql",
             "/database_sql_scripts/attribute_values.sql",
             "/database_sql_scripts/category_attributes.sql",
-            "/database_sql_scripts/smartphone_brand_models.sql"
+            "/database_sql_scripts/models/smartphone_brand_models.sql",
+            "/database_sql_scripts/models/laptop_brand_models.sql"
     );
 
     @PostConstruct

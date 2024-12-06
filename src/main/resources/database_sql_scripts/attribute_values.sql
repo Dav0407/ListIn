@@ -127,7 +127,6 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b99b5892-bf5a-4391-948b-e8e996a26858','6f7fdb2d-1f30-49b7-8c69-83df6269b5c9','Business');
 
 ----Laptop Brand value attributes
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('8d9a10df-e574-4bfe-a4f1-feb61fa8004c','c0a2e2ce-7fb3-4306-944d-b6495ec73227','Apple');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2b261b7c-5750-4d0a-ab29-e7c2e3bca3b1','c0a2e2ce-7fb3-4306-944d-b6495ec73227','Dell');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('92b5580b-5b81-4a64-a430-5d5daf4f3edd','c0a2e2ce-7fb3-4306-944d-b6495ec73227','HP');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('7b550b64-6b9d-4da2-b7e2-8dba735385ed','c0a2e2ce-7fb3-4306-944d-b6495ec73227','Lenovo');
