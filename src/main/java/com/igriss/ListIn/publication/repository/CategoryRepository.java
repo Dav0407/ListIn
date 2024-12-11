@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CategoryRepository extends JpaRepository<Category, UUID> {
+public interface
+CategoryRepository extends JpaRepository<Category, UUID> {
     @Query(nativeQuery = true, value = "select categories.category_id from categories where categories.category_name = :name")
     Optional<UUID> getIdByName(String name);
 
