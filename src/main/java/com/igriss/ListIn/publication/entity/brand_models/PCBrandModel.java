@@ -1,5 +1,6 @@
-package com.igriss.ListIn.publication.entity;
+package com.igriss.ListIn.publication.entity.brand_models;
 
+import com.igriss.ListIn.publication.entity.AttributeValue;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +13,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "laptop_brand_models")
-public class LaptopBrandModel {
+@Table(name = "pc_brand_models")
+public class PCBrandModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "laptop_brand_model_id")
+    @Column(name = "pc_brand_model_id")
     private UUID id;
 
     @Column(nullable = false)
@@ -24,5 +26,5 @@ public class LaptopBrandModel {
 
     @ManyToOne
     @JoinColumn(name = "attribute_value_id")
-    private AttributeValue attributeKey;
+    private AttributeValue attributeValue;
 }

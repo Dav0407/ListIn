@@ -14,6 +14,7 @@ import java.util.*;
 public class CategoryAttributeService {
 
     private final CategoryAttributeRepository repository;
+    private final BrandModelService brandModelService;
 
     public List<GroupedAttributeDTO> getGroupedAttributesByCategoryId(UUID categoryId) {
         List<Object[]> results = repository.findAttributeKeysAndValuesByCategoryId(categoryId);
@@ -47,7 +48,8 @@ public class CategoryAttributeService {
                         new GroupedAttributeDTO.AttributeValueDTO(
                                 attributeValue.getId().toString(),
                                 attributeKey.getId().toString(),
-                                attributeValue.getValue()
+                                attributeValue.getValue(),
+                                brandModelService.getCorrespondingModels(attributeKey, attributeValue)
                         )
                 );
             }
