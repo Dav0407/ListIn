@@ -18,5 +18,6 @@ public class GroupedAttributeDTO {
         private String attributeValueId;
         private String attributeKeyId;
         private String value;
+        private List<BrandModelDTO> brandModels;
     }
 }

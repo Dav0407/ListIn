@@ -1,5 +1,6 @@
-package com.igriss.ListIn.publication.entity;
+package com.igriss.ListIn.publication.entity.brand_models;
 
+import com.igriss.ListIn.publication.entity.AttributeValue;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,5 +26,5 @@ public class ConsoleBrandModel {
 
     @ManyToOne
     @JoinColumn(name = "attribute_value_id")
-    private AttributeValue attributeKey;
+    private AttributeValue attributeValue;
 }

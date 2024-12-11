@@ -52,7 +52,12 @@ public class DatabaseInitializer {
                     "publication_types",
                     "publication_statuses",
                     "product_condition",
-                    "categories"
+                    "categories",
+                    "smartphone_brand_models",
+                    "laptop_brand_models",
+                    "smartwatch_brand_models",
+                    "tablet_brand_models",
+                    "console_brand_models"
             );
 
             for (String table : tablesToClear) {
