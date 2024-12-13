@@ -12,8 +12,9 @@ import java.util.stream.Collectors;
 @Getter
 @RequiredArgsConstructor
 public enum Role {
-    USER(Collections.emptySet()),
-    ADMIN(Collections.emptySet()),;
+    INDIVIDUAL_SELLER(Collections.emptySet()), //todo -> will be added necessary authorities
+    BUSINESS_SELLER(Collections.emptySet()), //todo -> will be added necessary authorities
+    ADMIN(Collections.emptySet()),; //todo -> will be added necessary authorities
 
     private final Set<String> permissions;
 

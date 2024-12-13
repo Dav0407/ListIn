@@ -43,6 +43,9 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     private Float rating;
 
     @Column(nullable = false)
+    private Boolean isGrantedForPreciseLocation;
+
+    @Column(nullable = false)
     private String locationName;
 
     @Column(nullable = false)

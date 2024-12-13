@@ -16,4 +16,5 @@ public class RegisterRequestDTO {
     private String locationName;
     private Double longitude;
     private Double latitude;
+    private Boolean isGrantedForPreciseLocation;
 }
