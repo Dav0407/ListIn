@@ -33,6 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRoles())
+                .isGrantedForPreciseLocation(request.getIsGrantedForPreciseLocation())
                 .locationName(request.getLocationName())
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())
