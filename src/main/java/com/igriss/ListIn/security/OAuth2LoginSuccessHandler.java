@@ -24,10 +24,9 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (authentication.getPrincipal() instanceof OAuth2User oAuth2User) {
             String email = oAuth2User.getAttribute("email");
-            String firstname = oAuth2User.getAttribute("family_name");
-            String lastname =oAuth2User.getAttribute("given_name");
+            String nickName = oAuth2User.getAttribute("family_name");
             log.info("Authenticated OAuth2 user logged in:\n [{}],\n Email: [{}],\n Name: [{}]",
-                    authentication.getAuthorities().toString(), email, firstname+" "+lastname);
+                    authentication.getAuthorities().toString(), email, nickName);
 
             Optional<User> existingUser = repository.findByEmail(email);
             if (existingUser.isPresent())
@@ -35,10 +34,9 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
              else {
                 User newUser = new User();
                 newUser.setEmail(email);
-                newUser.setFirstName(firstname);
-                newUser.setLastName(lastname);
+                newUser.setNickName(nickName);
                 repository.save(newUser);
-                log.info("New user created and saved: [{}] [{}] [{}]", firstname,lastname, email);
+                log.info("New user created and saved: [{}] [{}]", nickName, email);
             }
         }
         response.sendRedirect("/");

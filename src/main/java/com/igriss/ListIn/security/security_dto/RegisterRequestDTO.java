@@ -8,11 +8,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequestDTO {
-    private String firstname;
-    private String lastname;
-    private Integer age;
+    private String nickName;
     private String phoneNumber;
     private String email;
     private String password;
     private Role roles;
+    private String locationName;
+    private Double longitude;
+    private Double latitude;
 }

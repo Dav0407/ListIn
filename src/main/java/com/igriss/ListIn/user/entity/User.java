@@ -27,13 +27,9 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     private UUID userId;
 
     @Column(nullable = false)
-    private String firstName;
+    private String nickName;
 
     @Column(nullable = false)
-    private String lastName;
-
-    private Integer age;
-
     private String phoneNumber;
 
     @Column(unique = true, nullable = false)
@@ -44,11 +40,16 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     private String profileImagePath;
 
-    private String businessName;
-
     private Float rating;
 
-    private String address;
+    @Column(nullable = false)
+    private String locationName;
+
+    @Column(nullable = false)
+    private Double longitude;
+
+    @Column(nullable = false)
+    private Double latitude;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -70,9 +71,5 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Override
     public String getUsername() {
         return this.email; // Har bir Userda unikal field ishlatilishi kerak
-    }
-
-    public String fullName() {
-        return this.firstName + " " + this.lastName;
     }
 }
