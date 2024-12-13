@@ -28,13 +28,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public AuthenticationResponseDTO register(RegisterRequestDTO request) {
         var user = User.builder()
-                .firstName(request.getFirstname())
-                .lastName(request.getLastname())
-                .age(request.getAge())
+                .nickName(request.getNickName())
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRoles())
+                .locationName(request.getLocationName())
+                .longitude(request.getLongitude())
+                .latitude(request.getLatitude())
                 .build();
         userRepository.save(user);
 

@@ -9,11 +9,9 @@ public class UserMapper {
     public UserResponseDTO toUserResponseDTO(User user) {
         return UserResponseDTO.builder()
                 .id(user.getUserId())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
+                .nickName(user.getNickName())
                 .phoneNumber(user.getPhoneNumber())
                 .profileImagePath(user.getProfileImagePath())
-                .businessName(user.getBusinessName())
                 .rating(user.getRating())
                 .build();
     }
