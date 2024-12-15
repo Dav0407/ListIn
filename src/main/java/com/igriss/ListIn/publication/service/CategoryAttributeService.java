@@ -27,17 +27,23 @@ public class CategoryAttributeService {
                     .id((UUID) record[0])
                     .name((String) record[1])
                     .helperText((String) record[2])
-                    .dataType((String) record[3])
+                    .subHelperText((String) record[3])
+                    .widgetType((String) record[4])
+                    .subWidgetType((String) record[5])
+                    .dataType((String) record[6])
                     .build();
 
             AttributeValue attributeValue = AttributeValue.builder()
-                    .id((UUID) record[4])
-                    .value((String) record[5])
+                    .id((UUID) record[7])
+                    .value((String) record[8])
                     .build();
 
             groupedAttributes.computeIfAbsent(attributeKey.getName(), key -> new GroupedAttributeDTO(
                     attributeKey.getName(),
                     attributeKey.getHelperText(),
+                    attributeKey.getSubHelperText(),
+                    attributeKey.getWidgetType(),
+                    attributeKey.getSubWidgetType(),
                     attributeKey.getDataType(),
                     new ArrayList<>()
             ));

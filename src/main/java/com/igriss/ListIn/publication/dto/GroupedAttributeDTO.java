@@ -9,6 +9,9 @@ import java.util.List;
 public class GroupedAttributeDTO {
     private String attributeKey;
     private String helperText;
+    private String subHelperText;
+    private String widgetType;
+    private String subWidgetType;
     private String dataType;
     private List<AttributeValueDTO> values;
 
@@ -18,6 +21,6 @@ public class GroupedAttributeDTO {
         private String attributeValueId;
         private String attributeKeyId;
         private String value;
-        private List<BrandModelDTO> brandModels;
+        private List<BrandModelDTO> list;
     }
 }

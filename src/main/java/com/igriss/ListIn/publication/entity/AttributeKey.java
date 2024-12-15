@@ -24,6 +24,13 @@ public class AttributeKey {
     @Column(nullable = false)
     private String helperText;
 
+    private String subHelperText;
+
+    @Column(nullable = false)
+    private String widgetType;
+
+    private String subWidgetType;
+
     @Column(nullable = false)
     private String dataType;
 }
