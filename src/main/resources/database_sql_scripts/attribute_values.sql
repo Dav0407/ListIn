@@ -362,16 +362,16 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6ae674bb-3c3e-4638-9d3e-1c7720df87a1','a57f28a9-1e23-42f4-b1d8-63f35c164cd3','2TB');
 
 ----Tablet inch size value attribute
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2f108be4-f116-4352-b16b-341a5496e15b','da05c6e8-126d-451c-b10a-d2da8ec5eadf','7.0"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1dae7415-9c50-4c7a-be1f-38a0e512dc51','da05c6e8-126d-451c-b10a-d2da8ec5eadf','8.0"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('0d0daffe-c9c5-4b2f-a19a-638f6a6d8033','da05c6e8-126d-451c-b10a-d2da8ec5eadf','8.4"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('19b6b768-fbca-4490-b6f8-b97717c05c2b','da05c6e8-126d-451c-b10a-d2da8ec5eadf','9.7"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('154eac27-4940-4dca-8f1f-d41307b8aecd','da05c6e8-126d-451c-b10a-d2da8ec5eadf','10.1"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('f71ea5e3-764a-44e1-8c6a-b541a1603c7b','da05c6e8-126d-451c-b10a-d2da8ec5eadf','10.5"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('e120c8e4-1344-4dfa-9d04-926e19d05315','da05c6e8-126d-451c-b10a-d2da8ec5eadf','11.0"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1d50d9a3-34ea-4813-9e18-344485bf0a0e','da05c6e8-126d-451c-b10a-d2da8ec5eadf','12.9"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('25d1294f-e470-41b9-8649-f7b9baa60337','da05c6e8-126d-451c-b10a-d2da8ec5eadf','13.0"');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('154fe894-5d5d-4bb7-b5bb-197d360da3e2','da05c6e8-126d-451c-b10a-d2da8ec5eadf','14.0"');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2f108be4-f116-4352-b16b-341a5496e15b','da05c6e8-126d-451c-b10a-d2da8ec5eadf','7.0');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1dae7415-9c50-4c7a-be1f-38a0e512dc51','da05c6e8-126d-451c-b10a-d2da8ec5eadf','8.0');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('0d0daffe-c9c5-4b2f-a19a-638f6a6d8033','da05c6e8-126d-451c-b10a-d2da8ec5eadf','8.4');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('19b6b768-fbca-4490-b6f8-b97717c05c2b','da05c6e8-126d-451c-b10a-d2da8ec5eadf','9.7');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('154eac27-4940-4dca-8f1f-d41307b8aecd','da05c6e8-126d-451c-b10a-d2da8ec5eadf','10.1');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('f71ea5e3-764a-44e1-8c6a-b541a1603c7b','da05c6e8-126d-451c-b10a-d2da8ec5eadf','10.5');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('e120c8e4-1344-4dfa-9d04-926e19d05315','da05c6e8-126d-451c-b10a-d2da8ec5eadf','11.0');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1d50d9a3-34ea-4813-9e18-344485bf0a0e','da05c6e8-126d-451c-b10a-d2da8ec5eadf','12.9');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('25d1294f-e470-41b9-8649-f7b9baa60337','da05c6e8-126d-451c-b10a-d2da8ec5eadf','13.0');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('154fe894-5d5d-4bb7-b5bb-197d360da3e2','da05c6e8-126d-451c-b10a-d2da8ec5eadf','14.0');
 
 
 ----PC Type value attribute
