@@ -151,13 +151,6 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('9c47bee8-06ae-464a-b494-19d961efc4d2','b2635cd6-4100-4eea-9e7f-9d010166d7f2','Samsung');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('8679a009-56b6-4c99-a003-e51d185e8fa1','b2635cd6-4100-4eea-9e7f-9d010166d7f2','NVIDIA');
 
-----Laptop storage types value attributes
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('f4964cd9-c2d2-4db6-8870-4718911d977b','c601d5f6-7a14-4f07-8960-3d2b7deed5d2','HDD');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('1638a6ee-fcfd-4eda-b2a8-8db8c198dedc','c601d5f6-7a14-4f07-8960-3d2b7deed5d2','SSD');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('6015575e-e2cd-4cd4-b337-275f5308c585','c601d5f6-7a14-4f07-8960-3d2b7deed5d2','NVMe SSD');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('90d6b028-90ef-4aad-b706-a863a36dcd01','c601d5f6-7a14-4f07-8960-3d2b7deed5d2','eMMC');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('84e7d64b-4cfd-40e8-9000-8c918f90acdb','c601d5f6-7a14-4f07-8960-3d2b7deed5d2','Hybrid (HDD+SSD)');
-
 ----Laptop GPU value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('7c865f05-447d-4a84-a927-e8342c2fb4a8','5be6a6e1-4499-442c-886a-c439fec6e9a4','NVIDIA,GeForce RTX 4080 SUPER');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b65a6efc-8496-4062-9ab4-dae52d7bdb18','5be6a6e1-4499-442c-886a-c439fec6e9a4','NVIDIA,GeForce RTX 4070 Ti SUPER');
@@ -207,6 +200,23 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('3389310e-6be4-4054-9d88-6a71781ceedb','2b7ceac5-d765-40f2-9282-76832d245726','2TB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('59b96233-d136-4382-9519-3d3553537a63','2b7ceac5-d765-40f2-9282-76832d245726','4TB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('7b5ae512-ecb1-48a0-9208-46b4d1dc1286','2b7ceac5-d765-40f2-9282-76832d245726','8TB');
+
+----Laptop HDD value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('7eb1dd9b-6a5a-4ba6-aaa9-e12f13739420','04038f3b-4628-410d-bf43-9ec360f62801','120GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('0f040b98-ff81-4744-822e-bb749c7a74b6','04038f3b-4628-410d-bf43-9ec360f62801','128GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('772e3921-961b-47b7-addd-926945f97104','04038f3b-4628-410d-bf43-9ec360f62801','160GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('28fff02f-0933-49a6-9001-5462fa72cb3b','04038f3b-4628-410d-bf43-9ec360f62801','180GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('69af2379-cc78-4bee-9326-4850a020fae8','04038f3b-4628-410d-bf43-9ec360f62801','240GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('9fba136e-e1f9-42f3-8c92-ebc91acabf5d','04038f3b-4628-410d-bf43-9ec360f62801','256GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('652277ef-f5dc-42a0-b5be-a9f5a8b052e2','04038f3b-4628-410d-bf43-9ec360f62801','300GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('66f0d0af-b0a5-4511-a82d-3528306c61d2','04038f3b-4628-410d-bf43-9ec360f62801','320GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('53dabeb0-6ed1-4b9e-8d9d-7ee81f07585b','04038f3b-4628-410d-bf43-9ec360f62801','480GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('dcae9fc4-8ebc-4c1e-8093-95e1f3cdb3b1','04038f3b-4628-410d-bf43-9ec360f62801','512GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('2a75507a-8242-4bf0-b4ed-8ff9ac24bd15','04038f3b-4628-410d-bf43-9ec360f62801','600GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('a4803a84-b550-4134-8648-dd85f36001ce','04038f3b-4628-410d-bf43-9ec360f62801','1TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('a1e73125-6b64-4a24-a523-492f676adec3','04038f3b-4628-410d-bf43-9ec360f62801','2TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('6cbeca9c-c59b-4299-8ca1-af6216cdda54','04038f3b-4628-410d-bf43-9ec360f62801','4TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('821b5fab-c538-47c2-8c8c-e4b8acfd89bf','04038f3b-4628-410d-bf43-9ec360f62801','8TB');
 
 ----Laptop RAM value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2888de44-8301-482b-9581-687dd9c94b83','f43b1235-4e23-4011-9bbe-88d820c6892c','Black');
@@ -422,18 +432,7 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('24dfe7a7-1c96-4a42-a9a2-f78ca9efdf86','059fc660-4d24-43c2-8d98-a0848e6ac7b3','VIA Technologies');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('3aba15e7-2ef4-40d8-ab1a-6c22965564bf','059fc660-4d24-43c2-8d98-a0848e6ac7b3','Samsung');
 
-----PC Storage type value attributes
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('abac9cab-a7bb-4ac8-bd36-d41617ff4387','90ccba65-cb4e-414d-acca-d85327484cde','HDD (Hard Disk Drive)');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('85001475-6e37-4aca-aa2d-841f846f4936','90ccba65-cb4e-414d-acca-d85327484cde','SSD (Solid State Drive)');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('c9e53dd4-db13-4ceb-8895-dcb3cfb7e1aa','90ccba65-cb4e-414d-acca-d85327484cde','Hybrid Drive');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('2b7bbb3f-4b2a-40e5-bbd8-f8e997a48418','90ccba65-cb4e-414d-acca-d85327484cde','eMMC (embedded MultiMediaCard)');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('8ed39b52-34ed-4f05-81c6-25254f0f09ab','90ccba65-cb4e-414d-acca-d85327484cde','NVMe (Non-Volatile Memory Express)');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('81d7be43-a992-4efc-ab86-09dddb2a5e04','90ccba65-cb4e-414d-acca-d85327484cde','PCIe SSD');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d06fd086-a0a3-4548-bb5b-d647055ba521','90ccba65-cb4e-414d-acca-d85327484cde','SATA SSD');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('65b95625-e698-4191-a755-532ed04f0362','90ccba65-cb4e-414d-acca-d85327484cde','M.2 SSD');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('abe8f138-15bf-47eb-aa84-ec5cbecf3b64','90ccba65-cb4e-414d-acca-d85327484cde','UFS (Universal Flash Storage)');
-
-----PC Storage value attributes
+----PC SSD Storage value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b51514b0-3bb3-4b3a-936c-5cf18fbba8cb','cef16c16-812d-4572-b80b-292cbf8d7d0c','120GB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b85ad867-dfd8-4392-8a26-d13e91a99b84','cef16c16-812d-4572-b80b-292cbf8d7d0c','250GB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('cde0501a-0f9e-44f1-bee0-9f66a041bff1','cef16c16-812d-4572-b80b-292cbf8d7d0c','500GB');
@@ -444,6 +443,18 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('da8dca51-193a-400f-b2cd-ee1c362e1c5c','cef16c16-812d-4572-b80b-292cbf8d7d0c','10TB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('78dca62a-2377-416f-9def-168dcedc1ff9','cef16c16-812d-4572-b80b-292cbf8d7d0c','12TB');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('0bac3954-b7ee-4af5-b55d-24cf91a0fc3d','cef16c16-812d-4572-b80b-292cbf8d7d0c','16TB');
+
+----PC HDD Storage value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('687bebad-f696-4dd6-bad9-28cf8711c78b','5b50c211-94fc-4db2-b16c-9d40d1801643','120GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('018f48e1-ca34-4e8f-92d3-59df4f57b204','5b50c211-94fc-4db2-b16c-9d40d1801643','250GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('87c8c238-b873-43b1-9964-7f3f8e207ce7','5b50c211-94fc-4db2-b16c-9d40d1801643','500GB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('30ea4628-f7f3-4322-b0d7-80719e92b5fb','5b50c211-94fc-4db2-b16c-9d40d1801643','1TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('0337a752-79dc-43d7-b826-69fa547f72b8','5b50c211-94fc-4db2-b16c-9d40d1801643','2TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('5f10b345-3b45-4497-bcb5-2c72c7cdeecc','5b50c211-94fc-4db2-b16c-9d40d1801643','4TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('9adc2dd3-46d3-4cce-99f5-526b3e6be60e','5b50c211-94fc-4db2-b16c-9d40d1801643','8TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('4b469914-67c7-4c5f-a33c-627fd42ce65e','5b50c211-94fc-4db2-b16c-9d40d1801643','10TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('d0265657-99ca-468c-a32f-3ef1d67807cc','5b50c211-94fc-4db2-b16c-9d40d1801643','12TB');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value) VALUES ('8b3e44fe-240d-4180-9109-46d55866f1c4','5b50c211-94fc-4db2-b16c-9d40d1801643','16TB');
 
 ----PC RAM value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('13df4336-48f8-4c24-b730-fe334638b476','346a79f0-7fa9-45b3-99d5-9df99794baf1','4GB');
