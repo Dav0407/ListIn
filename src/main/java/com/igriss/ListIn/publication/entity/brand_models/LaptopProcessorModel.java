@@ -12,12 +12,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "processor_models")
+@Table(name = "laptop_processor_models")
 public class LaptopProcessorModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "processor_model_id")
+    @Column(name = "laptop_processor_model_id")
     private UUID id;
 
     @Column(nullable = false)
