@@ -31,7 +31,10 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/laptop_brand_models.sql",
             "/database_sql_scripts/models/smartwatch_brand_models.sql",
             "/database_sql_scripts/models/tablet_brand_models.sql",
-            "/database_sql_scripts/models/console_brand_models.sql"
+            "/database_sql_scripts/models/console_brand_models.sql",
+            "/database_sql_scripts/models/laptop_processor_models.sql",
+            "/database_sql_scripts/models/pc_processor_models.sql"
+
     );
 
     @PostConstruct
