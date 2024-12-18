@@ -21,6 +21,7 @@ public class BrandModelServiceImpl implements BrandModelService {
     private final SmartphoneBrandModelRepository smartphoneBrandModelRepository;
     private final SmartWatchBrandModelRepository smartWatchBrandModelRepository;
     private final TabletBrandModelRepository tabletBrandModelRepository;
+    private final ProcessorModelRepository processorModelRepository;
 
     @Override
     public List<BrandModelDTO> getCorrespondingModels(AttributeKey attributeKey, AttributeValue attributeValue) {
@@ -38,6 +39,16 @@ public class BrandModelServiceImpl implements BrandModelService {
             }
             case "Laptop Brand" -> {
                 List<LaptopBrandModel> models = laptopBrandModelRepository.findByAttributeValue(attributeValue);
+                return models.stream().map(element ->
+                        BrandModelDTO.builder()
+                                .modelId(element.getId())
+                                .name(element.getValue())
+                                .attributeId(element.getAttributeValue().getId().toString())
+                                .build()
+                ).toList();
+            }
+            case "Laptop Processor Brands" -> {
+                List<LaptopProcessorModel> models = processorModelRepository.findByAttributeValue(attributeValue);
                 return models.stream().map(element ->
                         BrandModelDTO.builder()
                                 .modelId(element.getId())
