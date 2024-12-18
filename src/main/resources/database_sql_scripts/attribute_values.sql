@@ -145,7 +145,6 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 ----Laptop processor brands value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('99a4b8b2-da1e-4f2f-b04a-c11b1c4587a9','b2635cd6-4100-4eea-9e7f-9d010166d7f2','Intel');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('81b222b6-9912-46fe-9c88-71b31dca70a0','b2635cd6-4100-4eea-9e7f-9d010166d7f2','AMD');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('c0e5594c-9b67-4d07-a1a6-3ae62b251507','b2635cd6-4100-4eea-9e7f-9d010166d7f2','Apple');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('4e163a83-3d93-4fa7-95da-54beeda3ee22','b2635cd6-4100-4eea-9e7f-9d010166d7f2','Qualcomm');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('a42e8e7b-888c-4556-90cb-a54cc7899649','b2635cd6-4100-4eea-9e7f-9d010166d7f2','MediaTek');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('9c47bee8-06ae-464a-b494-19d961efc4d2','b2635cd6-4100-4eea-9e7f-9d010166d7f2','Samsung');

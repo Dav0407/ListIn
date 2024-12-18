@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface ProcessorModelRepository extends JpaRepository<LaptopProcessorModel, UUID> {
+public interface LaptopProcessorModelRepository extends JpaRepository<LaptopProcessorModel, UUID> {
     List<LaptopProcessorModel> findByAttributeValue(AttributeValue attributeValue);
 
 }

@@ -154,6 +154,7 @@ INSERT INTO laptop_processor_models (laptop_processor_model_id, attribute_id, va
 INSERT INTO laptop_processor_models (laptop_processor_model_id, attribute_id, value ) VALUES ('5e4563f9-1ee8-40ea-adab-b27a54fbcfc3','9c47bee8-06ae-464a-b494-19d961efc4d2','Exynos 2200,Exynos 2200');
 INSERT INTO laptop_processor_models (laptop_processor_model_id, attribute_id, value ) VALUES ('ae86bd7a-afc3-4663-a901-83c5e2704ced','9c47bee8-06ae-464a-b494-19d961efc4d2','Exynos 2400,Exynos 2400');
 
+----Intel processor models
 INSERT INTO laptop_processor_models (laptop_processor_model_id, attribute_id, value ) VALUES ('22f90c21-40ee-4581-8055-5614c9afd43b','8679a009-56b6-4c99-a003-e51d185e8fa1','Tegra,Tegra 2');
 INSERT INTO laptop_processor_models (laptop_processor_model_id, attribute_id, value ) VALUES ('d8f0bb37-93b0-45c6-b894-a78db48b3a5d','8679a009-56b6-4c99-a003-e51d185e8fa1','Tegra,Tegra 3');
 INSERT INTO laptop_processor_models (laptop_processor_model_id, attribute_id, value ) VALUES ('5994b237-922d-412c-96cd-2dcdab471922','8679a009-56b6-4c99-a003-e51d185e8fa1','Tegra,Tegra 4');
