@@ -59,7 +59,7 @@ public class BrandModelServiceImpl implements BrandModelService {
                                 .build()
                 ).toList();
             }
-            case "Laptop Gpu Brands" -> {
+            case "Laptop GPU Brands" -> {
                 List<LaptopGPUModel> models = laptopGPUModelRepository.findByAttributeValue(attributeValue);
                 return models.stream().map(element ->
                         BrandModelDTO.builder()
