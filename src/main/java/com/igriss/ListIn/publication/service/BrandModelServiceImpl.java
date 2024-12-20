@@ -23,6 +23,7 @@ public class BrandModelServiceImpl implements BrandModelService {
     private final TabletBrandModelRepository tabletBrandModelRepository;
     private final LaptopProcessorModelRepository processorModelRepository;
     private final PCProcessorModelRepository pcProcessorModelRepository;
+    private final LaptopGPUModelRepository laptopGPUModelRepository;
 
     @Override
     public List<BrandModelDTO> getCorrespondingModels(AttributeKey attributeKey, AttributeValue attributeValue) {
@@ -50,6 +51,16 @@ public class BrandModelServiceImpl implements BrandModelService {
             }
             case "Laptop Processor Brands" -> {
                 List<LaptopProcessorModel> models = processorModelRepository.findByAttributeValue(attributeValue);
+                return models.stream().map(element ->
+                        BrandModelDTO.builder()
+                                .modelId(element.getId())
+                                .name(element.getValue())
+                                .attributeId(element.getAttributeValue().getId().toString())
+                                .build()
+                ).toList();
+            }
+            case "Laptop GPU Brands" -> {
+                List<LaptopGPUModel> models = laptopGPUModelRepository.findByAttributeValue(attributeValue);
                 return models.stream().map(element ->
                         BrandModelDTO.builder()
                                 .modelId(element.getId())
@@ -88,7 +99,7 @@ public class BrandModelServiceImpl implements BrandModelService {
                                 .build()
                 ).toList();
             }
-            case "PC CPU Brand" -> {
+            case "PC Processor Brand" -> {
                 List<PCProcessorModel> models = pcProcessorModelRepository.findByAttributeValue(attributeValue);
                 return models.stream().map(element ->
                         BrandModelDTO.builder()

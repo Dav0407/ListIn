@@ -151,15 +151,14 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('8679a009-56b6-4c99-a003-e51d185e8fa1','b2635cd6-4100-4eea-9e7f-9d010166d7f2','NVIDIA');
 
 ----Laptop GPU value attributes
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('7c865f05-447d-4a84-a927-e8342c2fb4a8','5be6a6e1-4499-442c-886a-c439fec6e9a4','NVIDIA,GeForce RTX 4080 SUPER');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b65a6efc-8496-4062-9ab4-dae52d7bdb18','5be6a6e1-4499-442c-886a-c439fec6e9a4','NVIDIA,GeForce RTX 4070 Ti SUPER');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('5c39b1d5-bd6f-4073-a205-e6eefe1dc602','5be6a6e1-4499-442c-886a-c439fec6e9a4','NVIDIA,GeForce RTX 4070 SUPER');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('9c421944-859d-4dd0-9081-b634a18ef358','5be6a6e1-4499-442c-886a-c439fec6e9a4','NVIDIA,GeForce RTX 4060 Ti');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('caaa3e8b-626e-4fbb-89bc-c44c52a4dbaa','5be6a6e1-4499-442c-886a-c439fec6e9a4','AMD,Radeon RX 7800 XT');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('33eeaea5-95f1-4cf9-80ee-7ce621c356f6','5be6a6e1-4499-442c-886a-c439fec6e9a4','AMD,Radeon RX 7700 XT');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('c1e57acb-fbfd-42ac-8378-9d585dd89817','5be6a6e1-4499-442c-886a-c439fec6e9a4','Intel,Intel Arc A580');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('f53bb455-8c16-4567-811f-0279027ed07c','5be6a6e1-4499-442c-886a-c439fec6e9a4','Apple,M1 GPU');
-INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('343a7f3a-97b6-437a-83e5-72fe9ef1a3aa','5be6a6e1-4499-442c-886a-c439fec6e9a4','Apple,M2 GPU');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('7c865f05-447d-4a84-a927-e8342c2fb4a8','5be6a6e1-4499-442c-886a-c439fec6e9a4','NVIDIA');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b65a6efc-8496-4062-9ab4-dae52d7bdb18','5be6a6e1-4499-442c-886a-c439fec6e9a4','Amd');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('5c39b1d5-bd6f-4073-a205-e6eefe1dc602','5be6a6e1-4499-442c-886a-c439fec6e9a4','Intel');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('9c421944-859d-4dd0-9081-b634a18ef358','5be6a6e1-4499-442c-886a-c439fec6e9a4','ARM');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('caaa3e8b-626e-4fbb-89bc-c44c52a4dbaa','5be6a6e1-4499-442c-886a-c439fec6e9a4','Apple');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('33eeaea5-95f1-4cf9-80ee-7ce621c356f6','5be6a6e1-4499-442c-886a-c439fec6e9a4','Qualcomm');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('c1e57acb-fbfd-42ac-8378-9d585dd89817','5be6a6e1-4499-442c-886a-c439fec6e9a4','VIA Technologies');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('f53bb455-8c16-4567-811f-0279027ed07c','5be6a6e1-4499-442c-886a-c439fec6e9a4','MediaTek');
 
 ----Laptop Screen Size value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('4353ab94-ec3e-4742-afc5-95049e87ed1d','66287880-efbd-4143-9ac5-8017d9f0fa55','11.6');
