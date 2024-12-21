@@ -24,7 +24,7 @@ public class LaptopGPUModel {
     private String value;
 
     @ManyToOne
-    @JoinColumn(name = "attribute_id")
+    @JoinColumn(name = "attribute_value_id")
     private AttributeValue attributeValue;
 }
 
