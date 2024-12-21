@@ -52,7 +52,9 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
-        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("token_type", "refresh");
+        return buildToken(claims, userDetails, refreshExpiration);
     }
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration){
@@ -72,11 +74,30 @@ public class JwtServiceImpl implements JwtService {
             return false;
         }
         String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return (username.equals(userDetails.getUsername())) && isTokenNotExpired(token);
     }
 
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    // by doing so, we are ensuring that user is not trying to access with refresh token
+    public boolean isAccessTokenValid(String token, UserDetails userDetails) {
+        if (isTokenBlacklisted(token)) {
+            return false;
+        }
+        String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername())) && isTokenNotExpired(token) && !isRefreshToken(token);
+    }
+
+    private boolean isTokenNotExpired(String token) {
+        return !extractExpiration(token).before(new Date());
+    }
+
+    public boolean isRefreshToken(String token) {
+        try {
+            Claims claims = extractAllClaims(token);
+            String tokenType = claims.get("token_type").toString();
+            return "refresh".equals(tokenType);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private Date extractExpiration(String token) {
@@ -106,5 +127,10 @@ public class JwtServiceImpl implements JwtService {
     //Agar token blacklistga tushgan bo'lsa
     private boolean isTokenBlacklisted(String token){
         return Boolean.TRUE.equals(redisTemplate.hasKey(token));
+    }
+
+    //checking if the requesting  token is refresh token
+    public boolean isValidRefreshToken(String token, UserDetails userDetails) {
+        return isTokenValid(token, userDetails) && isRefreshToken(token);
     }
 }

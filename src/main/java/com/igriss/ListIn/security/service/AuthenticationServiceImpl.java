@@ -74,10 +74,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return;
         }
         refreshToken = authHeader.substring(7);
+
+        //user should not have an access refreshing token with access token
+        if (!jwtService.isRefreshToken(refreshToken)){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
             var user = this.userRepository.findByEmail(userEmail).orElseThrow();
-            if (jwtService.isTokenValid(refreshToken, user)) {
+
+            //if it is not, then we can go and create new access token using refresh token
+            if (jwtService.isValidRefreshToken(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
 
                 var authResponse = AuthenticationResponseDTO.builder()
