@@ -4,6 +4,10 @@ package com.igriss.ListIn.publication.mapper;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.Publication;
+import com.igriss.ListIn.publication.enums.ProductCondition;
+import com.igriss.ListIn.publication.enums.PublicationStatus;
+import com.igriss.ListIn.publication.enums.PublicationType;
+import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,25 +21,31 @@ public class PublicationMapper {
 
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
-    private final PublicationTypeMapper publicationTypeMapper;
-    private final PublicationStatusMapper publicationStatusMapper;
-    private final ProductConditionMapper productConditionMapper;
 
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
+
+        PublicationType publicationType = switch (connectedUser.getRole()) {
+            case BUSINESS_SELLER -> PublicationType.BUSINESS_PUBLICATION;
+            case ADMIN -> PublicationType.ADVERTISEMENT_PUBLICATION;
+            default -> PublicationType.INDIVIDUAL_PUBLICATION;
+        };
+
+        ProductCondition productCondition = ProductCondition.valueOf(requestDTO.getProductCondition());
+
+        PublicationStatus publicationStatus = PublicationStatus.valueOf(requestDTO.getPublicationStatus());
 
         return Publication.builder()
                 .title(requestDTO.getTitle())
                 .description(requestDTO.getDescription())
                 .price(requestDTO.getPrice())
-                .stockQuantity(requestDTO.getStockQuantity())
                 .bargain(requestDTO.getBargain())
                 .locationName(requestDTO.getLocationName())
                 .latitude(requestDTO.getLatitude())
                 .longitude(requestDTO.getLongitude())
                 .category(categoryMapper.toCategory(requestDTO.getCategories()))
-                .productCondition(productConditionMapper.toProductCondition(requestDTO.getProductCondition()))
-                .publicationType(publicationTypeMapper.toPublicationType(requestDTO.getPublicationType()))
-                .publicationStatus(publicationStatusMapper.toPublicationStatus(requestDTO.getPublicationStatus()))
+                .productCondition(productCondition)
+                .publicationType(publicationType)
+                .publicationStatus(publicationStatus)
                 .seller(connectedUser)
                 .build();
     }
@@ -46,13 +56,12 @@ public class PublicationMapper {
                 .title(publication.getTitle())
                 .description(publication.getDescription())
                 .price(publication.getPrice())
-                .stockQuantity(publication.getStockQuantity())
                 .createdAt(publication.getCreatedAt())
                 .updatedAt(publication.getUpdatedAt())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory())) // todo -> better NullPointerException handling
-                .productCondition(publication.getProductCondition() != null ? publication.getProductCondition().getName() : null)
-                .publicationType(publication.getPublicationType() != null ? publication.getPublicationType().getName() : null)
-                .publicationStatus(publication.getPublicationStatus() != null ? publication.getPublicationStatus().getName() : null)
+                .productCondition(publication.getProductCondition().toString())
+                .publicationType(publication.getPublicationType().toString())
+                .publicationStatus(publication.getPublicationStatus().toString())
                 .seller(userMapper.toUserResponseDTO(publication.getSeller()))
                 .build();
     }

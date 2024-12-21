@@ -21,8 +21,6 @@ public class PublicationRequestDTO implements Serializable {
 
     private Float price;
 
-    private Integer stockQuantity;
-
     private Boolean bargain;
 
     private String locationName;
@@ -36,8 +34,6 @@ public class PublicationRequestDTO implements Serializable {
     private CategoryDTO categories;
 
     private String productCondition;
-
-    private String publicationType;
 
     private String publicationStatus;
 
