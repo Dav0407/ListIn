@@ -7,7 +7,6 @@ import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import com.igriss.ListIn.publication.enums.PublicationStatus;
 import com.igriss.ListIn.publication.enums.PublicationType;
-import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +31,7 @@ public class PublicationMapper {
 
         ProductCondition productCondition = ProductCondition.valueOf(requestDTO.getProductCondition());
 
-        PublicationStatus publicationStatus = PublicationStatus.valueOf(requestDTO.getPublicationStatus());
+        PublicationStatus publicationStatus = PublicationStatus.PENDING_APPROVAL;
 
         return Publication.builder()
                 .title(requestDTO.getTitle())
