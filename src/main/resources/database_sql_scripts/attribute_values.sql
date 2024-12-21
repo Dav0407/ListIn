@@ -420,7 +420,7 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b4117578-4cbf-4ea2-86aa-d966884586a2','1697540a-f8d1-4fd8-bc91-5bdd19697988','Aorus');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('9a7f4752-a819-42fb-91bf-7771e4130163','1697540a-f8d1-4fd8-bc91-5bdd19697988','Corsair');
 
-----PC CPU brand value attributes
+----PC processor brand value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('9714dc9b-cc35-4d68-a9c9-f9e898f34677','059fc660-4d24-43c2-8d98-a0848e6ac7b3','Intel');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('49daa663-57f2-4357-86e5-95c17699a3a3','059fc660-4d24-43c2-8d98-a0848e6ac7b3','AMD');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('ec1e3092-9f7f-4559-9d73-2344c884ac63','059fc660-4d24-43c2-8d98-a0848e6ac7b3','ARM');
@@ -429,6 +429,12 @@ INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES (
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('eded1fb5-6e97-43f2-a6ae-636afb934ac5','059fc660-4d24-43c2-8d98-a0848e6ac7b3','IBM');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('24dfe7a7-1c96-4a42-a9a2-f78ca9efdf86','059fc660-4d24-43c2-8d98-a0848e6ac7b3','VIA Technologies');
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('3aba15e7-2ef4-40d8-ab1a-6c22965564bf','059fc660-4d24-43c2-8d98-a0848e6ac7b3','Samsung');
+
+----PC GPU brand value attributes
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('0e881c96-fa23-4722-8823-2c1c417ca1e3','dd2769d4-c6a0-40c6-af4b-819d04129c12','NVIDIA');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('d7ae9715-18e0-49c4-aa02-7a9a20f202a8','dd2769d4-c6a0-40c6-af4b-819d04129c12','AMD');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('eb2c2b98-4b0e-4493-b992-a1e278c078d1','dd2769d4-c6a0-40c6-af4b-819d04129c12','Intel');
+INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('35ce3b4f-c756-4272-8ea3-c49652e5f36b','dd2769d4-c6a0-40c6-af4b-819d04129c12','Moore Threads');
 
 ----PC SSD Storage value attributes
 INSERT INTO attribute_values (attribute_value_id, attribute_id, value ) VALUES ('b51514b0-3bb3-4b3a-936c-5cf18fbba8cb','cef16c16-812d-4572-b80b-292cbf8d7d0c','120GB');
