@@ -21,9 +21,6 @@ public class DatabaseInitializer {
 
     private final List<String> scripts = List.of(
             "/database_sql_scripts/categories.sql",
-            "/database_sql_scripts/product_condition.sql",
-            "/database_sql_scripts/publication_statuses.sql",
-            "/database_sql_scripts/publication_types.sql",
             "/database_sql_scripts/attribute_keys.sql",
             "/database_sql_scripts/attribute_values.sql",
             "/database_sql_scripts/category_attributes.sql",
@@ -36,7 +33,6 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/pc_processor_models.sql",
             "/database_sql_scripts/models/laptop_gpu_models.sql",
             "/database_sql_scripts/models/pc_gpu_models.sql"
-
     );
 
     @PostConstruct

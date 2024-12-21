@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -29,8 +30,14 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String nickName;
 
+    private boolean enableCalling = true;
+
     @Column(nullable = false)
     private String phoneNumber;
+
+    private LocalTime fromTime = LocalTime.of(0, 0);
+
+    private LocalTime toTime = LocalTime.of(23, 59);
 
     @Column(unique = true, nullable = false)
     private String email;

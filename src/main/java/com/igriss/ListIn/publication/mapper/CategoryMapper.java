@@ -23,7 +23,7 @@ public class CategoryMapper {
         return Category.builder()
                 .id(categoryId)
                 .name(categoryDTO.getName())
-                .parentCategory(parentCategory)//to prevent NullPointerException
+                .parentCategory(parentCategory)
                 .build();
     }
 
