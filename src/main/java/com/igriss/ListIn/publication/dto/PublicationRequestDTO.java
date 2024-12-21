@@ -35,8 +35,6 @@ public class PublicationRequestDTO implements Serializable {
 
     private String productCondition;
 
-    private String publicationStatus;
-
     private List<AttributeDTO> attributes;
 
     @Getter
