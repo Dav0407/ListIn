@@ -37,6 +37,7 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('4816e294-1791-41fa-8e05-0fda87ca2f2d','3d48a0e2-bf51-4d2c-a9fe-121a91aad8bf','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('5cb8dbee-c9e5-41e9-8127-abc3d01ced32','1697540a-f8d1-4fd8-bc91-5bdd19697988','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('12c7e20f-ad0d-4fe0-a097-1cc8f64845ed','059fc660-4d24-43c2-8d98-a0848e6ac7b3','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('d0cd478f-82ab-4424-a14a-bf46e59e0871','dd2769d4-c6a0-40c6-af4b-819d04129c12','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('da36ea70-ac45-40fb-b44a-c10c5a98f8ca','cef16c16-812d-4572-b80b-292cbf8d7d0c','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('2ac9cfc5-04a4-47f8-afc6-037a16b182b8','5b50c211-94fc-4db2-b16c-9d40d1801643','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('1bb9c798-7583-4d68-8d17-28737e29264d','346a79f0-7fa9-45b3-99d5-9df99794baf1','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
