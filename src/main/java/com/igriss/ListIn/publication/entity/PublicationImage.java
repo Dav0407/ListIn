@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "publication_images")
-public class ProductImage {
+public class PublicationImage {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID imageId;
@@ -20,6 +20,9 @@ public class ProductImage {
     private String imageName;
 
     private String imageUrl;
+
+    @Column(name = "is_primary")
+    private Boolean isPrimaryImage;
 
     @ManyToOne
     @JoinColumn(name = "publication_id")
