@@ -18,7 +18,7 @@ public class PublicationAttributeValue {
     @Column(name = "publication_attribute_value_id")
     private UUID id;
 
-    private String value;
+    private Integer valueOrder;
 
     @ManyToOne
     @JoinColumn(name = "publication_id")
@@ -27,5 +27,9 @@ public class PublicationAttributeValue {
     @ManyToOne
     @JoinColumn(name = "category_attribute_id")
     private CategoryAttribute categoryAttribute;
+
+    @ManyToOne
+    @JoinColumn(name = "attribute_value_id")
+    private AttributeValue attributeValue;
 
 }

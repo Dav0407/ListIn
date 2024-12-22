@@ -1,9 +1,14 @@
 package com.igriss.ListIn.publication.service;
 
+import com.igriss.ListIn.exceptions.ResourceNotFoundException;
+import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.entity.AttributeValue;
+import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
+import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
@@ -14,9 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -28,6 +31,7 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationRepository publicationRepository;
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
+    private final AttributeValueRepository attributeValueRepository;
 
     @Transactional
     @Override
@@ -40,29 +44,50 @@ public class PublicationServiceImpl implements PublicationService {
 
         productFileService.saveImages(request.getImageUrls(), publication);
 
-        List<PublicationRequestDTO.AttributeDTO> attributes = request.getAttributes();
+        List<PublicationRequestDTO.AttributeValueDTO> attributeValues = request.getAttributeValues();
 
-        saveAttributeKeysAndValues(attributes, publication);
+        savePublicationAttributeValues(attributeValues, publication);
 
         return publication.getId();
     }
 
-    private void saveAttributeKeysAndValues(List<PublicationRequestDTO.AttributeDTO> attributes, Publication publication) {
+    private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
 
-        List<PublicationAttributeValue> publicationAttributeValues = new ArrayList<>();
+        List<CategoryAttribute> categoryAttributes = categoryAttributeRepository
+                .findByCategory_Id(publication.getCategory().getId());
 
-        for (PublicationRequestDTO.AttributeDTO attribute : attributes) {
+        for (PublicationRequestDTO.AttributeValueDTO attributeValueDTO : attributeValues) {
+            CategoryAttribute categoryAttribute = categoryAttributes.stream()
+                    .filter(ca -> ca.getAttributeKey().getId().equals(attributeValueDTO.getAttributeId()))
+                    .findFirst()
+                    .orElseThrow(() -> new ValidationException(
+                            "Invalid attribute for category",
+                            List.of("Attribute " + attributeValueDTO.getAttributeId() + " is not valid for this category")
+                    ));
 
-            var categoryAttribute = categoryAttributeRepository.findByCategoryAndAttributeKey(publication.getCategory(), attribute.getAttributeKey())
-                    .orElseThrow(() -> new NoSuchElementException("CategoryAttribute does not exist"));
-            System.out.println(categoryAttribute);
-            var publicationAttributeValue = PublicationAttributeValue.builder()
-                    .categoryAttribute(categoryAttribute)
-                    .value(attribute.getAttributeValue().getValue())
-                    .publication(publication)
-                    .build();
-            publicationAttributeValues.add(publicationAttributeValue);
+            String widgetType = categoryAttribute.getAttributeKey().getWidgetType();
+            
+            if (("oneSelectable".equals(widgetType) || "colorSelectable".equals(widgetType)) && attributeValueDTO.getAttributeValueIds().size() > 1) {
+                throw new ValidationException(
+                        "This attribute allows only one value",
+                        List.of("Attribute " + attributeValueDTO.getAttributeId() + " allows only one value")
+                );
+            }
+
+            for (int i = 0; i < attributeValueDTO.getAttributeValueIds().size(); i++) {
+                UUID valueId = attributeValueDTO.getAttributeValueIds().get(i);
+                AttributeValue attributeValue = attributeValueRepository.findById(valueId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Attribute value not found: " + valueId));
+
+                PublicationAttributeValue pav = PublicationAttributeValue.builder()
+                        .publication(publication)
+                        .categoryAttribute(categoryAttribute)
+                        .attributeValue(attributeValue)
+                        .valueOrder("multiSelectable".equals(widgetType) ? i : 0)
+                        .build();
+
+                publicationAttributeValueRepository.save(pav);
+            }
         }
-        publicationAttributeValueRepository.saveAll(publicationAttributeValues);
     }
 }

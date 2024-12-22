@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -29,22 +30,20 @@ public class PublicationRequestDTO implements Serializable {
 
     private String longitude;
 
-    private List<String> imageUrls;
-
-    private CategoryDTO categories;
-
     private String productCondition;
 
-    private List<AttributeDTO> attributes;
+    private List<String> imageUrls;
+
+    private UUID categoryId;
+
+    private List<AttributeValueDTO> attributeValues;
 
     @Getter
     @Setter
     @Builder
-    public static class AttributeDTO {
-        @NotNull
-        private AttributeKey attributeKey;
-
-        @NotNull
-        private AttributeValue attributeValue;
+    public static class AttributeValueDTO {
+        private UUID attributeId;
+        private List<UUID> attributeValueIds;
+        private Integer valueOrder;
     }
 }

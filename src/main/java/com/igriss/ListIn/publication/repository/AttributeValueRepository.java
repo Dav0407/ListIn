@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AttributeValueRepository extends JpaRepository<AttributeValue, UUID> {
-    List<AttributeValue> findByAttributeKey(AttributeKey attributeKey);
+    List<AttributeValue> findByAttributeKey_Id(UUID attributeKeyId);
 }

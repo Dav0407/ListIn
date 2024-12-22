@@ -27,6 +27,7 @@ public class Publication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "publication_id")
     private UUID id;
 
     @Column(nullable = false)
@@ -50,22 +51,22 @@ public class Publication {
     @Column(nullable = false)
     private String longitude;
 
+    private PublicationType publicationType;
+
+    private PublicationStatus publicationStatus;
+
+    private ProductCondition productCondition;
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime datePosted;
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    private LocalDateTime dateUpdated;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-
-    private ProductCondition productCondition;
-
-    private PublicationType publicationType;
-
-    private PublicationStatus publicationStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
