@@ -1,6 +1,7 @@
 package com.igriss.ListIn.config.Images;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -43,6 +44,7 @@ public class CompressedMultipartFile implements MultipartFile {
         return content.length;
     }
 
+    @NotNull
     @Override
     public byte[] getBytes() throws IOException {
         return content;

@@ -43,6 +43,7 @@ public class PublicationServiceImpl implements PublicationService {
         publication = publicationRepository.save(publication);
 
         productFileService.saveImages(request.getImageUrls(), publication);
+        productFileService.saveVideo(request.getVideoUrl(),publication);
 
         List<PublicationRequestDTO.AttributeValueDTO> attributeValues = request.getAttributeValues();
 

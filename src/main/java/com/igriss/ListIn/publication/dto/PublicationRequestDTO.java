@@ -34,6 +34,8 @@ public class PublicationRequestDTO implements Serializable {
 
     private List<String> imageUrls;
 
+    private String videoUrl;
+
     private UUID categoryId;
 
     private List<AttributeValueDTO> attributeValues;

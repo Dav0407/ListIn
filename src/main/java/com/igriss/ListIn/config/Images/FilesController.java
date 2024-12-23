@@ -20,8 +20,9 @@ public class FilesController {
     private final ProductFileService productFileService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestParam("files") List<MultipartFile> files)  {
-        return ResponseEntity.ok(productFileService.saveFileURLs(files));
+    public ResponseEntity<?> upload(@RequestParam("files") List<MultipartFile> files,
+                                    @RequestParam(name = "video", required = false) MultipartFile video) {
+        return ResponseEntity.ok(productFileService.saveFileURLs(files, video));
     }
 
     @GetMapping("/download")
