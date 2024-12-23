@@ -46,13 +46,11 @@ public class DatabaseInitializer {
     private void clearDatabase() {
         try {
             List<String> tablesToClear = List.of(
-                    "brand_models",
                     "category_attributes",
                     "attribute_values",
                     "attribute_keys",
                     "publication_types",
                     "publication_statuses",
-                    "product_condition",
                     "categories",
                     "smartphone_brand_models",
                     "laptop_brand_models",

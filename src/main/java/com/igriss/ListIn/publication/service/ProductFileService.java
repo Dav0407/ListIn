@@ -4,8 +4,12 @@ import com.igriss.ListIn.publication.entity.Publication;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductFileService {
     void saveImages(List<String> imageUrls, Publication publication);
-    List<String> saveFileURLs(List<MultipartFile> files) ;
+
+    void saveVideo(String videoUrls, Publication publication);
+
+    Map<String,String> saveFileURLs(List<MultipartFile> files, MultipartFile video);
 }
