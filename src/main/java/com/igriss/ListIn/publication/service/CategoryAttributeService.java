@@ -38,15 +38,16 @@ public class CategoryAttributeService {
                     .value((String) record[8])
                     .build();
 
-            groupedAttributes.computeIfAbsent(attributeKey.getName(), key -> new GroupedAttributeDTO(
-                    attributeKey.getName(),
-                    attributeKey.getHelperText(),
-                    attributeKey.getSubHelperText(),
-                    attributeKey.getWidgetType(),
-                    attributeKey.getSubWidgetType(),
-                    attributeKey.getDataType(),
-                    new ArrayList<>()
-            ));
+            groupedAttributes.computeIfAbsent(attributeKey.getName(), key -> GroupedAttributeDTO.builder()
+                    .attributeKey(attributeKey.getName())
+                    .helperText(attributeKey.getHelperText())
+                    .subHelperText(attributeKey.getSubHelperText())
+                    .widgetType(attributeKey.getWidgetType())
+                    .subWidgetType(attributeKey.getSubWidgetType())
+                    .dataType(attributeKey.getDataType())
+                    .values(new ArrayList<>())
+                    .build()
+            );
 
             if (attributeValue != null) {
 
