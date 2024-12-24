@@ -24,6 +24,10 @@ public class AttributeValue {
     private String value;
 
     @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private AttributeValue parentValue;
+
+    @ManyToOne
     @JoinColumn(name = "attribute_id")
     private AttributeKey attributeKey;
 }
