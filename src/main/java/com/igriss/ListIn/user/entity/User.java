@@ -5,6 +5,7 @@ import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,6 +22,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 @ToString
+@EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails { // Agar UserDetails dan implement qilsak Spring shu classni taniydi
 
     @Id
