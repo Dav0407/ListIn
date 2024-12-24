@@ -4,6 +4,7 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_tex
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('e0d20756-42e7-44db-aaf1-73a3dfbd24ea','string','Select Ram', 'null', 'oneSelectable', 'null', 'Smartphone RAM');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('438712ca-30b8-47ce-bd14-b08142f31d24','string','Select Color', 'null', 'colorSelectable', 'null', 'Smartphone Color');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('81728a91-0557-4e5f-829c-02fee2ef6c7c','string','Additional accessories', 'null', 'multiSelectable', 'null', 'Accessories');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('a02367cf-7df0-4010-92ed-15553664c792','string','Select Model', 'null', 'oneSelectable', 'null', 'Smartphone Brand Model');
 
 --Laptops attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('6f7fdb2d-1f30-49b7-8c69-83df6269b5c9','string','Select Type', 'null', 'oneSelectable', 'null', 'Laptop Type');
@@ -15,6 +16,9 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_tex
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('2b7ceac5-d765-40f2-9282-76832d245726','string','Select SSD', 'null', 'oneSelectable', 'null', 'Laptop SSD Storage');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('04038f3b-4628-410d-bf43-9ec360f62801','string','Select HDD', 'null', 'oneSelectable', 'null', 'Laptop HDD Storage');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('f43b1235-4e23-4011-9bbe-88d820c6892c','string','Select Color', 'null', 'colorSelectable', 'null', 'Laptop Color');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('e198cc5e-b6ce-45d9-9b45-7c97c561f6d0','string','Select Model', 'null', 'oneSelectable', 'null', 'Laptop Brand Model');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('6fedd9c1-7b8f-4107-9467-fdc941007d73','string','Select Processor Models', 'null', 'oneSelectable', 'null', 'Laptop Processor Brand Models');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('6a133d41-5f09-49aa-b982-c6d393e8fa48','string','Select GPU Models', 'null', 'oneSelectable', 'null', 'Laptop GPU Brand Models');
 
 --Macbooks attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('f0658257-cfc1-4e10-96ad-0af8fe7360f3','string','Select Model', 'null', 'oneSelectable', 'null', 'Macbook Model');
@@ -27,11 +31,14 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_tex
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('e420017f-3b54-4236-a839-361b489825bd','string', 'Select Brand', 'Select Model', 'oneSelectable', 'oneSelectable', 'Smartwatch Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('67e28662-8b28-4dd2-bd63-26df677ed5f4','string','Select Color', 'null', 'colorSelectable', 'null', 'Smartwatch Color');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('34c2eb5b-7130-450a-9f2c-fee714199a4f','string','Additional accessories', 'null', 'multiSelectable', 'null', 'Smartwatch Accessories');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('35e83a5a-aff5-4c24-aeab-7f82d48addee','string', 'Select Model', 'null', 'oneSelectable', 'null', 'Smartwatch Brand Model');
+
 
 --Tablet attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('973884b5-63b5-4ad0-9ca6-7de2f8a40ab3','string','Select Brand', 'Select Model', 'oneSelectable', 'oneSelectable', 'Tablet Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('a57f28a9-1e23-42f4-b1d8-63f35c164cd3','string','Select Storage', 'null', 'oneSelectable', 'null', 'Tablet Storage');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('da05c6e8-126d-451c-b10a-d2da8ec5eadf','string','Select Screen Size', 'null', 'oneSelectable', 'null', 'Tablet Screen Size');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('c92beee3-b125-4a70-8a74-129e59a43149','string','Select Model', 'null', 'oneSelectable', 'null', 'Tablet Brand Model');
 
 --PC attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('3d48a0e2-bf51-4d2c-a9fe-121a91aad8bf','string','Select Type', 'null', 'oneSelectable', 'null', 'PC Type');
@@ -43,6 +50,9 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_tex
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('346a79f0-7fa9-45b3-99d5-9df99794baf1','string','Select RAM', 'null', 'oneSelectable', 'null', 'PC RAM');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('8511663a-9738-465e-a2d1-9ba8b65e460b','boolean','Includes Monitor', 'null', 'oneSelectable', 'null', 'PC Monitor');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('d90ef61b-85a9-4ce8-bdfd-fde412efea83','string','Additional Accessories', 'null', 'multiSelectable', 'null', 'PC Additional Accessories');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('593d8f29-0ea3-4e57-8040-7845f316d103','string','Select Model', 'null', 'oneSelectable', 'null', 'PC Brand Model');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('11d34c04-9c62-484e-87d6-12147e1e5d37','string','Select Processor Model', 'null', 'oneSelectable', 'null', 'PC Processor Model');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('69995af8-1786-475b-abde-efaa1fd9978e','string','Select GPU Model', 'null', 'oneSelectable', 'null', 'PC GPU Model');
 
 --TV attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('9d74a5b4-f7c1-46a9-9860-b25c72c081e5','string','Select Type', 'null', 'oneSelectable', 'null', 'TV Type');
@@ -60,6 +70,7 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_tex
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('7425a352-5548-49f8-991d-bf44a25cfbed','boolean','Game Bundles', 'null', 'oneSelectable', 'null', 'Console Game Bundles');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('bbec554b-851e-4af4-9a53-6ac7fab090ea','string','Controller Type', 'null', 'oneSelectable', 'null', 'Console Controller Type');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('be322821-332e-4579-9ae9-1dc04e3e93b8','string','Select Color', 'null', 'colorSelectable', 'null', 'Console Color');
+INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('82e816c1-644c-458d-bc53-2ff99284172c','string','Select Model', 'null', 'oneSelectable', 'null', 'Console Brand Model');
 
 --Audio Equipment attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('e1ad8d80-ff32-4669-87aa-aef571a538c8','string','Select Type', 'null', 'oneSelectable', 'null', 'Audio Equipment Type');
