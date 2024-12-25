@@ -4,6 +4,7 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('799e388d-ba0e-448d-a2a2-f7fee9bd652a','e0d20756-42e7-44db-aaf1-73a3dfbd24ea','11b78509-0092-44b1-a0be-f3659933dcb6');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('9cd326d1-e0b9-4bb6-9b40-d6e70ade0a0d','438712ca-30b8-47ce-bd14-b08142f31d24','11b78509-0092-44b1-a0be-f3659933dcb6');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('8480838b-20d5-457f-aa6b-15422c994cf9','81728a91-0557-4e5f-829c-02fee2ef6c7c','11b78509-0092-44b1-a0be-f3659933dcb6');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('feddc105-34f9-44ec-9539-c11dcfe6adb9','a02367cf-7df0-4010-92ed-15553664c792','11b78509-0092-44b1-a0be-f3659933dcb6');
 
 --Laptops category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('2b59bbff-e1e0-45a5-8d69-5850c3a3ff90','6f7fdb2d-1f30-49b7-8c69-83df6269b5c9','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
@@ -15,6 +16,9 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('15813eee-b7a1-4c9f-be16-a180b8d52b5f','2b7ceac5-d765-40f2-9282-76832d245726','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('d1a4c032-275d-4766-b0ea-ffa1b1994d1d','04038f3b-4628-410d-bf43-9ec360f62801','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('8d52f498-57b5-4a74-819c-a792bcc93eff','f43b1235-4e23-4011-9bbe-88d820c6892c','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('911f19e0-20aa-4768-bc4b-fbfa0acbd31e','e198cc5e-b6ce-45d9-9b45-7c97c561f6d0','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('d6a0075f-ffa9-4302-8cc9-ce18f0e6d5cd','6fedd9c1-7b8f-4107-9467-fdc941007d73','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('2320df1c-a6a0-4128-9e05-38d8b70870ec','6a133d41-5f09-49aa-b982-c6d393e8fa48','7f2f0f5b-abd5-4a19-95ad-f558dfa45f7d');
 
 --MacBooks category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('0ef15e87-af78-44e0-9857-89375c365a3b','f0658257-cfc1-4e10-96ad-0af8fe7360f3','e51e9a61-8f59-4390-adf4-4142f6b28645');
@@ -27,11 +31,13 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('c8bed3ce-ad0b-44b0-8ff0-abbfbac178d6','e420017f-3b54-4236-a839-361b489825bd','b41e5ed9-1909-4fcb-85ca-0d209c110c5c');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('843e4e81-df39-4d41-aa45-c57e3c026a8b','67e28662-8b28-4dd2-bd63-26df677ed5f4','b41e5ed9-1909-4fcb-85ca-0d209c110c5c');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('824b071d-c243-46ee-a954-1f39eea705ae','34c2eb5b-7130-450a-9f2c-fee714199a4f','b41e5ed9-1909-4fcb-85ca-0d209c110c5c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('47b63afb-bae8-4c03-9c3a-f9f2b8c558af','35e83a5a-aff5-4c24-aeab-7f82d48addee','b41e5ed9-1909-4fcb-85ca-0d209c110c5c');
 
 --Tablet category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('81492331-ddd2-42aa-a126-14e28760cadd','973884b5-63b5-4ad0-9ca6-7de2f8a40ab3','623f9c6d-b99b-43ff-a91f-3b47941c891e');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('6e825428-35ae-4e97-a683-baa114db611b','a57f28a9-1e23-42f4-b1d8-63f35c164cd3','623f9c6d-b99b-43ff-a91f-3b47941c891e');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('3ace75d1-5de3-487f-8e0b-060a4a8f3a2a','da05c6e8-126d-451c-b10a-d2da8ec5eadf','623f9c6d-b99b-43ff-a91f-3b47941c891e');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('cadbac06-20e1-4b9d-bd85-1f7056dcaa5c','c92beee3-b125-4a70-8a74-129e59a43149','623f9c6d-b99b-43ff-a91f-3b47941c891e');
 
 --PC category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('4816e294-1791-41fa-8e05-0fda87ca2f2d','3d48a0e2-bf51-4d2c-a9fe-121a91aad8bf','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
@@ -43,6 +49,9 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('1bb9c798-7583-4d68-8d17-28737e29264d','346a79f0-7fa9-45b3-99d5-9df99794baf1','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('7b90e377-30b1-4458-8859-76099bed56fe','8511663a-9738-465e-a2d1-9ba8b65e460b','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('fb99a9f4-3e3a-4bd1-b501-873107aeb7b3','d90ef61b-85a9-4ce8-bdfd-fde412efea83','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('81630d7e-1d79-49a8-85fb-bb868c2e2982','593d8f29-0ea3-4e57-8040-7845f316d103','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('acaa3088-641d-4270-b7ae-5fe209b57209','11d34c04-9c62-484e-87d6-12147e1e5d37','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('f2f764a5-dc07-4c20-8e32-4051e7a2bd10','69995af8-1786-475b-abde-efaa1fd9978e','d9d0a1d3-418d-4b28-8e1d-b5fc7edc8cf2');
 
 --TV category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('d2d429b5-b1e5-46a2-9eca-00830849c88f','9d74a5b4-f7c1-46a9-9860-b25c72c081e5','3e53ed81-131f-454c-91d1-f62a9f859158');
@@ -60,6 +69,7 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('25e57cea-4c99-4d4b-9ef4-6c9205f7328f','7425a352-5548-49f8-991d-bf44a25cfbed','85a7d948-ed9c-4199-a9bf-51feb805e9d9');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('b052773b-6694-4c53-9246-2be472080db5','bbec554b-851e-4af4-9a53-6ac7fab090ea','85a7d948-ed9c-4199-a9bf-51feb805e9d9');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('31478e2d-051b-48dc-b2e8-e31c711d8752','be322821-332e-4579-9ae9-1dc04e3e93b8','85a7d948-ed9c-4199-a9bf-51feb805e9d9');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('8efd0831-8886-4507-95f0-e5fffdbe993e','82e816c1-644c-458d-bc53-2ff99284172c','85a7d948-ed9c-4199-a9bf-51feb805e9d9');
 
 --Audio Equipment category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('80a816af-5852-4e93-8ae5-9c7bdf2f363b','e1ad8d80-ff32-4669-87aa-aef571a538c8','4bbffb60-4832-4f24-bf74-343c2678b46e');
