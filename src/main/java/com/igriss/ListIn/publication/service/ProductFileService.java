@@ -11,5 +11,7 @@ public interface ProductFileService {
 
     void saveVideo(String videoUrls, Publication publication);
 
-    Map<String,String> saveFileURLs(List<MultipartFile> files, MultipartFile video);
+    List<String> saveFileURLs(List<MultipartFile> files);
+
+    String saveFileURLs(MultipartFile file);
 }

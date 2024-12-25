@@ -49,8 +49,6 @@ public class DatabaseInitializer {
                     "category_attributes",
                     "attribute_values",
                     "attribute_keys",
-                    "publication_types",
-                    "publication_statuses",
                     "categories",
                     "smartphone_brand_models",
                     "laptop_brand_models",

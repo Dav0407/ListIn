@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,19 +45,16 @@ public class ProductFileServiceImpl implements ProductFileService {
     }
 
     @Override
-    public Map<String, String> saveFileURLs(List<MultipartFile> files, MultipartFile video) {
-        Map<String, String> urls = s3Service.uploadFile(files, video);
-        List<PublicationImage> publicationImages = new ArrayList<>();
-        PublicationVideo publicationVideo;
-        for (String k : urls.keySet())
-            if (k.equals("image"))
-                publicationImages.add(publicationImageMapper.toProductImage(urls.get(k)));
-            else if (k.equals("video")){
-                publicationVideo = publicationVideoMapper.toProductVideo(urls.get("video"));
-                productVideoRepository.save(publicationVideo);
-            }
-
-        productImageRepository.saveAll(publicationImages);
+    public List<String> saveFileURLs(List<MultipartFile> files) {
+        List<String> urls = s3Service.uploadFile(files);
+        productImageRepository.saveAll(urls.stream().map(publicationImageMapper::toProductImage).toList());
         return urls;
+    }
+
+    @Override
+    public String saveFileURLs(MultipartFile file) {
+        List<String> url = s3Service.uploadFile(List.of(file));
+        productVideoRepository.save(publicationVideoMapper.toProductVideo(url.get(0)));
+        return url.get(0);
     }
 }
