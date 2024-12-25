@@ -19,10 +19,14 @@ public class FilesController {
     private final S3Service s3Service;
     private final ProductFileService productFileService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestParam("files") List<MultipartFile> files,
-                                    @RequestParam(name = "video", required = false) MultipartFile video) {
-        return ResponseEntity.ok(productFileService.saveFileURLs(files, video));
+    @PostMapping("/upload/images")
+    public ResponseEntity<?> uploadImage(@RequestParam("images") List<MultipartFile> files) {
+        return ResponseEntity.ok(productFileService.saveFileURLs(files));
+    }
+
+    @PostMapping("/upload/video")
+    public ResponseEntity<?> uploadVideo(@RequestParam(name = "video") MultipartFile video) {
+        return ResponseEntity.ok(productFileService.saveFileURLs(video));
     }
 
     @GetMapping("/download")

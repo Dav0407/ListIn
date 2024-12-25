@@ -15,11 +15,10 @@ import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -43,23 +42,20 @@ public class S3Service {
     private final ExecutorService uploadExecutorService = Executors.newCachedThreadPool();
 
     //todo -> handle the case where S3 is out of memory
-    public Map<String, String> uploadFile(List<MultipartFile> files, MultipartFile video) {
-        Map<String, String> urls = new ConcurrentHashMap<>();
-        for (MultipartFile file : files)
-            setUploadExecutorService(file,"image",urls);
-        if (video != null)
-            setUploadExecutorService(video, "video",urls);
+    public List<String> uploadFile(List<MultipartFile> files) {
+        return files.parallelStream()
+                .map(file -> {
+                    String fileId = UUID.randomUUID() + "_" + System.currentTimeMillis();
+                    String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+                    String fileName = fileId + "." + ext;
+                    String fileUrl = String.format("%s/%s", bucketLink, fileName);
 
-        return urls;
-    }
-
-    private void setUploadExecutorService(MultipartFile file, String type, Map<String, String> urls){
-        String fileId = UUID.randomUUID() + "_" + System.currentTimeMillis();
-        String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-        String fileName = fileId + "." + ext;
-        urls.put(type,String.format("%s/%s", bucketLink, fileName));
-        MultipartFile compressedFile = FileCompressor.compressFile(file);
-        CompletableFuture.runAsync(() -> saveFiles(fileName, compressedFile), uploadExecutorService);
+                    CompletableFuture.runAsync(()->{
+                       MultipartFile multipartFile = FileCompressor.compressFile(file);
+                       saveFiles(fileName,multipartFile);
+                    },uploadExecutorService);
+                    return fileUrl;
+                }).collect(Collectors.toList());
     }
 
     @Async
