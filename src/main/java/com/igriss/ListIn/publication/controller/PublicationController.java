@@ -2,6 +2,8 @@ package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.entity.Publication;
+import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
+import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.publication.service.PublicationService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,8 @@ public class PublicationController {
     private final PublicationService publicationService;
     private final PublicationRepository publicationRepository;
 
+    private final PublicationAttributeValueRepository repo;
+
     @PostMapping
     public ResponseEntity<UUID> savePublication(@RequestBody PublicationRequestDTO request, Authentication connectedUser) {
         return ResponseEntity.status(HttpStatus.CREATED).body(publicationService.savePublication(request, connectedUser));
@@ -34,5 +38,10 @@ public class PublicationController {
     @GetMapping("/{publicationId}") // todo -> to be modified, this is for test used only !
     public ResponseEntity<Publication> getPublicationById(@PathVariable UUID publicationId) {
         return ResponseEntity.ok(publicationRepository.findById(publicationId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
+
+    @GetMapping("/PAV/{publicationId}") // todo -> to be modified, this is for test used only !
+    public ResponseEntity<List<PublicationAttributeValue>> getPAV(@PathVariable UUID publicationId) {
+        return ResponseEntity.ok(repo.findByPublication_Id(publicationId));
     }
 }

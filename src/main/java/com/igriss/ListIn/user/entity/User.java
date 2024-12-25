@@ -32,14 +32,14 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String nickName;
 
-    private boolean enableCalling = true;
+    private Boolean enableCalling;
 
     @Column(nullable = false)
     private String phoneNumber;
 
-    private LocalTime fromTime = LocalTime.of(0, 0);
+    private LocalTime fromTime;
 
-    private LocalTime toTime = LocalTime.of(23, 59);
+    private LocalTime toTime;
 
     @Column(unique = true, nullable = false)
     private String email;

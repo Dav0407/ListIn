@@ -46,6 +46,5 @@ public class PublicationRequestDTO implements Serializable {
     public static class AttributeValueDTO {
         private UUID attributeId;
         private List<UUID> attributeValueIds;
-        private Integer valueOrder;
     }
 }

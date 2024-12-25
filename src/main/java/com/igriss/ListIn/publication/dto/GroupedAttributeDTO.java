@@ -1,11 +1,14 @@
 package com.igriss.ListIn.publication.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class GroupedAttributeDTO {
     private String attributeKey;
     private String helperText;
