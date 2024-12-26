@@ -1,6 +1,7 @@
 package com.igriss.ListIn.user.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,9 +39,15 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String phoneNumber;
 
-    private LocalTime fromTime;
+    @JsonFormat(pattern = "HH:mm")
+    @Builder.Default
+    @Column(columnDefinition = "TIME")
+    private LocalTime fromTime = LocalTime.of(0, 0);
 
-    private LocalTime toTime;
+    @JsonFormat(pattern = "HH:mm")
+    @Builder.Default
+    @Column(columnDefinition = "TIME")
+    private LocalTime toTime = LocalTime.of(23, 59);
 
     @Column(unique = true, nullable = false)
     private String email;
