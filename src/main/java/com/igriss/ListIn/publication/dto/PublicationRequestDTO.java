@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,11 +25,19 @@ public class PublicationRequestDTO implements Serializable {
 
     private Boolean bargain;
 
+    /*private String phoneNumber;
+
+    private Boolean isGrantedForPreciseLocation;
+
+    private LocalTime fromTime;
+
+    private LocalTime toTime;*/
+
     private String locationName;
 
-    private String latitude;
+    private Double latitude;
 
-    private String longitude;
+    private Double longitude;
 
     private String productCondition;
 

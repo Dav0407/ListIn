@@ -56,7 +56,7 @@ public class CategoryAttributeService {
                                 attributeValue.getId().toString(),
                                 attributeKey.getId().toString(),
                                 attributeValue.getValue(),
-                                brandModelService.getCorrespondingModels(attributeKey, attributeValue)
+                                brandModelService.getModels(attributeValue)
                         )
                 );
             }

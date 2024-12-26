@@ -5,6 +5,7 @@ import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -69,6 +70,8 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     @CreatedDate
     private LocalDateTime dateCreated;
+    @LastModifiedDate
+    private LocalDateTime dateUpdated;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

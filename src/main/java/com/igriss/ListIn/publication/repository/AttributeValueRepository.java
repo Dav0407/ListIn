@@ -9,4 +9,6 @@ import java.util.UUID;
 
 public interface AttributeValueRepository extends JpaRepository<AttributeValue, UUID> {
     List<AttributeValue> findByAttributeKey_Id(UUID attributeKeyId);
+
+    List<AttributeValue> findByParentValue(AttributeValue parentValue);
 }
