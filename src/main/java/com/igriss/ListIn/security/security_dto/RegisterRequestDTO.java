@@ -19,13 +19,13 @@ public class RegisterRequestDTO {
 
     private String phoneNumber;
 
-    @JsonFormat(pattern = "HH:mm")
+   /* @JsonFormat(pattern = "HH:mm")
     @Builder.Default
     private LocalTime fromTime = LocalTime.of(0, 0);
 
     @JsonFormat(pattern = "HH:mm")
     @Builder.Default
-    private LocalTime toTime = LocalTime.of(23, 59);
+    private LocalTime toTime = LocalTime.of(23, 59);*/
 
     private String email;
     private String password;

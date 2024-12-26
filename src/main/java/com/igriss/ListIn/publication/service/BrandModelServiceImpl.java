@@ -4,6 +4,7 @@ import com.igriss.ListIn.publication.dto.BrandModelDTO;
 import com.igriss.ListIn.publication.entity.AttributeKey;
 import com.igriss.ListIn.publication.entity.AttributeValue;
 import com.igriss.ListIn.publication.entity.brand_models.*;
+import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.brand_models_repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,24 @@ public class BrandModelServiceImpl implements BrandModelService {
     private final PCProcessorModelRepository pcProcessorModelRepository;
     private final LaptopGPUModelRepository laptopGPUModelRepository;
     private final PCGPUModelRepository pcgpuModelRepository;
+
+    private final AttributeValueRepository attributeValueRepository;
+
+    @Override
+    public List<BrandModelDTO> getModels(AttributeValue attributeValue) {
+        if (attributeValue.getId() == null) return List.of(new BrandModelDTO());
+
+        List<AttributeValue> childAttributeValues = attributeValueRepository.findByParentValue(attributeValue);
+
+        return childAttributeValues.stream()
+                .map(element -> BrandModelDTO.builder()
+                        .modelId(element.getId())
+                        .name(element.getValue())
+                        .attributeId(element.getAttributeKey().getId().toString())
+                        .build()
+                ).toList();
+    }
+
     @Override
     public List<BrandModelDTO> getCorrespondingModels(AttributeKey attributeKey, AttributeValue attributeValue) {
 

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface BrandModelService {
     List<BrandModelDTO> getCorrespondingModels(AttributeKey attributeKey, AttributeValue attributeValue);
+    List<BrandModelDTO> getModels(AttributeValue attributeValue);
 }

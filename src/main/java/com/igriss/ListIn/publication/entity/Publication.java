@@ -46,10 +46,10 @@ public class Publication {
     private String locationName;
 
     @Column(nullable = false)
-    private String latitude;
+    private Double latitude;
 
     @Column(nullable = false)
-    private String longitude;
+    private Double longitude;
 
     private PublicationType publicationType;
 

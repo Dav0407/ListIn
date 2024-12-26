@@ -30,7 +30,7 @@ public interface CategoryAttributeRepository extends JpaRepository<CategoryAttri
                 LEFT JOIN
                     attribute_values av ON ak.attribute_id = av.attribute_id
                 WHERE
-                    ca.category_id = :categoryId
+                    ca.category_id = :categoryId AND av.parent_id IS NULL
             """, nativeQuery = true)
     List<Object[]> findAttributeKeysAndValuesByCategoryId(@Param("categoryId") UUID categoryId);
 

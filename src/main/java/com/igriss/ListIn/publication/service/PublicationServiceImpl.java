@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -36,18 +37,24 @@ public class PublicationServiceImpl implements PublicationService {
     @Transactional
     @Override
     public UUID savePublication(PublicationRequestDTO request, Authentication authentication) {
-
+        // Extract user from authentication
         User connectedUser = (User) authentication.getPrincipal();
 
+        // Map and save publication
         Publication publication = publicationMapper.toPublication(request, connectedUser);
         publication = publicationRepository.save(publication);
 
+        // Save images
         productFileService.saveImages(request.getImageUrls(), publication);
-        productFileService.saveVideo(request.getVideoUrl(),publication);
 
-        List<PublicationRequestDTO.AttributeValueDTO> attributeValues = request.getAttributeValues();
+        // Save video if present
+        Publication finalPublication = publication;
+        Optional.ofNullable(request.getVideoUrl())
+                .filter(url -> !url.isEmpty())
+                .ifPresent(url -> productFileService.saveVideo(url, finalPublication));
 
-        savePublicationAttributeValues(attributeValues, publication);
+        // Save attribute values
+        savePublicationAttributeValues(request.getAttributeValues(), publication);
 
         return publication.getId();
     }

@@ -33,7 +33,6 @@ INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_tex
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('34c2eb5b-7130-450a-9f2c-fee714199a4f','string','Additional accessories', 'null', 'multiSelectable', 'null', 'Smartwatch Accessories');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('35e83a5a-aff5-4c24-aeab-7f82d48addee','string', 'Select Model', 'null', 'oneSelectable', 'null', 'Smartwatch Brand Model');
 
-
 --Tablet attributes
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('973884b5-63b5-4ad0-9ca6-7de2f8a40ab3','string','Select Brand', 'Select Model', 'oneSelectable', 'oneSelectable', 'Tablet Brand');
 INSERT INTO attribute_keys (attribute_id, data_type, helper_text, sub_helper_text, widget_type, sub_widget_type, name) VALUES ('a57f28a9-1e23-42f4-b1d8-63f35c164cd3','string','Select Storage', 'null', 'oneSelectable', 'null', 'Tablet Storage');

@@ -55,12 +55,12 @@ spring:
       port: 6379
 server:
   port: 8000
-#  ssl:
-#    enabled: true
-#    key-store: classpath:keystore.p12
-#    key-store-password: ${SERVER_SSL_KEY_STORE_PASSWORD}
-#    key-store-type: ${SERVER_SSL_KEY_STORE_TYPE}
-#    key-alias: ${SERVER_SSL_KEY_ALIAS}
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: ${SERVER_SSL_KEY_STORE_PASSWORD}
+    key-store-type: ${SERVER_SSL_KEY_STORE_TYPE}
+    key-alias: ${SERVER_SSL_KEY_ALIAS}
 
 application:
   security:

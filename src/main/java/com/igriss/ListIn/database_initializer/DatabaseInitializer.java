@@ -32,7 +32,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/laptop_processor_models.sql",
             "/database_sql_scripts/models/pc_processor_models.sql",
             "/database_sql_scripts/models/laptop_gpu_models.sql",
-            "/database_sql_scripts/models/pc_gpu_models.sql"
+            "/database_sql_scripts/models/pc_gpu_models.sql",
+            "/database_sql_scripts/models/pc_brand_models.sql"
     );
 
     @PostConstruct
