@@ -13,6 +13,9 @@ import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.repository.UserRepository;
+import com.igriss.ListIn.user.service.UserService;
+import com.igriss.ListIn.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -33,12 +36,15 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final UserService userService;
 
     @Transactional
     @Override
     public UUID savePublication(PublicationRequestDTO request, Authentication authentication) {
         // Extract user from authentication
         User connectedUser = (User) authentication.getPrincipal();
+
+        userService.updateContactDetails(request, connectedUser);
 
         // Map and save publication
         Publication publication = publicationMapper.toPublication(request, connectedUser);
@@ -74,7 +80,7 @@ public class PublicationServiceImpl implements PublicationService {
                     ));
 
             String widgetType = categoryAttribute.getAttributeKey().getWidgetType();
-            
+
             if (("oneSelectable".equals(widgetType) || "colorSelectable".equals(widgetType)) && attributeValueDTO.getAttributeValueIds().size() > 1) {
                 throw new ValidationException(
                         "This attribute allows only one value",

@@ -1,6 +1,7 @@
 package com.igriss.ListIn.user.service;
 
 
+import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
@@ -37,6 +38,17 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         //save user back to database
         userRepository.save(user);
+    }
+
+    @Override
+    public void updateContactDetails(PublicationRequestDTO request, User connectedUser ){
+        userRepository.updateContactDetails(
+                connectedUser.getUserId(),
+                request.getFromTime(),
+                request.getToTime(),
+                request.getPhoneNumber(),
+                request.getIsGrantedForPreciseLocation()
+        );
     }
 
     @Override
