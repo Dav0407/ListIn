@@ -34,4 +34,16 @@ public class AttributeKey {
 
     @Column(nullable = false)
     private String dataType;
+
+    @Column(nullable = false)
+    private String filterText;
+
+    @Column(nullable = false)
+    private String subFilterText;
+
+    @Column(nullable = false)
+    private String filterWidgetType;
+
+    @Column(nullable = false)
+    private String subFilterWidgetType;
 }
