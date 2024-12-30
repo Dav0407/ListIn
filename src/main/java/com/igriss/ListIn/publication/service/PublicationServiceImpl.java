@@ -12,6 +12,9 @@ import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.search.entity.PublicationDocument;
+import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
+import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
 import com.igriss.ListIn.user.service.UserService;
@@ -38,6 +41,10 @@ public class PublicationServiceImpl implements PublicationService {
     private final AttributeValueRepository attributeValueRepository;
     private final UserService userService;
 
+    private final PublicationDocumentMapper publicationDocumentMapper;
+    private final PublicationDocumentRepository publicationDocumentRepository;
+
+
     @Transactional
     @Override
     public UUID savePublication(PublicationRequestDTO request, Authentication authentication) {
@@ -53,6 +60,9 @@ public class PublicationServiceImpl implements PublicationService {
         // Save images
         productFileService.saveImages(request.getImageUrls(), publication);
 
+        //map into elastic search engine and save publication document
+        saveIntoPublicationDocument(publication);
+
         // Save video if present
         Publication finalPublication = publication;
         Optional.ofNullable(request.getVideoUrl())
@@ -63,6 +73,12 @@ public class PublicationServiceImpl implements PublicationService {
         savePublicationAttributeValues(request.getAttributeValues(), publication);
 
         return publication.getId();
+    }
+
+    private void saveIntoPublicationDocument(Publication publication) {
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication);
+        publicationDocumentRepository.save(publicationDocument);
+
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
