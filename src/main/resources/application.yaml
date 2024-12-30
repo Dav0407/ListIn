@@ -38,6 +38,9 @@ spring:
             client-authentication-method: post
             authorization-grant-type: authorization_code
 
+  elasticsearch:
+    uris: ${ELASTIC_SEARCH_URI}
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -88,3 +91,6 @@ aws:
       link:
         ${AWS_BUCKET_LINK}
 
+
+elasticsearch:
+  index-name: ${ELASTIC_SEARCH_INDEX_NAME}

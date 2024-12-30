@@ -1,8 +1,10 @@
 package com.igriss.ListIn.database_initializer;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,10 @@ import java.util.Objects;
 public class DatabaseInitializer {
 
     private final JdbcTemplate jdbcTemplate;
+    private final ElasticsearchClient elasticsearchClient;
+
+    @Value("${elasticsearch.index-name}")
+    private String indexName;
 
     private final List<String> scripts = List.of(
             "/database_sql_scripts/categories.sql",
@@ -80,4 +86,25 @@ public class DatabaseInitializer {
             log.error("Error executing script {}: {}", scriptPath, e.getMessage());
         }
     }
+
+
+
+
+    @PostConstruct
+    public void clearElasticsearchData() {
+        try {
+            if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
+                elasticsearchClient.indices().delete(d -> d.index(indexName));
+                log.info("Index deleted: {}" , indexName);
+            }
+        } catch (Exception e) {
+            log.error("Exception while clearing elastic search data: {}",e.getMessage());
+        }
+    }
 }
+
+
+
+
+
+

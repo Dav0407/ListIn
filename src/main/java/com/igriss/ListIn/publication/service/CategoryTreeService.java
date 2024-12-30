@@ -22,36 +22,26 @@ public class CategoryTreeService {
 
         List<Category> allParentCategories = categoryRepository.findAllParentCategories();
 
-        List<ParentNode> parentNodes = new ArrayList<>();
+        return allParentCategories.parallelStream().map(parent -> {
 
-        for (Category parentCategory : allParentCategories) {
-            List<Category> childCategories = categoryRepository.findAllByParentCategory_Id(parentCategory.getId());
+            List<Category> childCategories = categoryRepository.findAllByParentCategory_Id(parent.getId());
 
-            List<ChildNode> childNodes = new ArrayList<>();
+            List<ChildNode> childNodes = childCategories.parallelStream().map(child -> {
+                List<GroupedAttributeDTO> attributePairs = categoryAttributeService.getGroupedAttributesByCategoryId(child.getId());
 
-            for (Category childCategory : childCategories) {
-
-                List<GroupedAttributeDTO> attributeKVPairs = categoryAttributeService.getGroupedAttributesByCategoryId(childCategory.getId());
-
-                var childNode = ChildNode.builder()
-                        .id(childCategory.getId())
-                        .name(childCategory.getName())
-                        .description(childCategory.getDescription())
-                        .attributes(attributeKVPairs)
+                return ChildNode.builder()
+                        .id(child.getId())
+                        .name(child.getName())
+                        .description(child.getDescription())
+                        .attributes(attributePairs)
                         .build();
-
-                childNodes.add(childNode);
-            }
-
-            var parentNode = ParentNode.builder()
-                    .id(parentCategory.getId())
-                    .name(parentCategory.getName())
-                    .description(parentCategory.getDescription())
+            }).toList();
+            return ParentNode.builder()
+                    .id(parent.getId())
+                    .name(parent.getName())
+                    .description(parent.getDescription())
                     .childCategories(childNodes)
                     .build();
-            parentNodes.add(parentNode);
-        }
-
-        return parentNodes;
+        }).toList();
     }
 }
