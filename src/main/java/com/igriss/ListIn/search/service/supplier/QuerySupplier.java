@@ -1,10 +1,12 @@
 package com.igriss.ListIn.search.service.supplier;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.function.Supplier;
 
+@Slf4j
 public class QuerySupplier {
 
     //constants for field names which are going to be queried while search
@@ -21,7 +23,7 @@ public class QuerySupplier {
     public static Supplier<Query> querySearchSupplier(String query) {
         String cleaned = preprocessInput(query);
         String noSpacesKeyword = cleaned.replace(" ", "");
-
+        log.info("{}  {}", cleaned, noSpacesKeyword);
         //generating query by combining all
         Query query1 = Query.of(q -> q.bool(b -> b
                 .should(fieldsQuery(cleaned))
@@ -29,12 +31,13 @@ public class QuerySupplier {
                 .should(fuzzyFieldsQuery(cleaned))
                 .should(matchPhraseFieldsQuery(cleaned))
         ));
+        log.info("{}",query1);
         return () -> query1;
     }
 
-    //removing all the letters except a-A 0-9 and spaces
+    //removing all the letters except (a-z) (a-A) (а-я) (А-Я) (0-9) and spaces
     private static String preprocessInput(String input) {
-        return input.trim().replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
+        return input.trim().replaceAll("[^а-яА-ЯёЁa-zA-Z0-9\\s]", "").toLowerCase();
     }
 
     //user can type the between texts and search with teh help of it
