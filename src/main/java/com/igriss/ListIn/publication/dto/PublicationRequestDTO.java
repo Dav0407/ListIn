@@ -1,5 +1,6 @@
 package com.igriss.ListIn.publication.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igriss.ListIn.publication.entity.AttributeKey;
 import com.igriss.ListIn.publication.entity.AttributeValue;
 import jakarta.validation.constraints.NotNull;
@@ -25,13 +26,15 @@ public class PublicationRequestDTO implements Serializable {
 
     private Boolean bargain;
 
-    /*private String phoneNumber;
+    private String phoneNumber;
 
     private Boolean isGrantedForPreciseLocation;
 
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime fromTime;
 
-    private LocalTime toTime;*/
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime toTime;
 
     private String locationName;
 
