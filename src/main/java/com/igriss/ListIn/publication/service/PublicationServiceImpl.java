@@ -12,7 +12,13 @@ import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.search.entity.PublicationDocument;
+import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
+import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.repository.UserRepository;
+import com.igriss.ListIn.user.service.UserService;
+import com.igriss.ListIn.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -33,6 +39,11 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final UserService userService;
+
+    private final PublicationDocumentMapper publicationDocumentMapper;
+    private final PublicationDocumentRepository publicationDocumentRepository;
+
 
     @Transactional
     @Override
@@ -40,12 +51,17 @@ public class PublicationServiceImpl implements PublicationService {
         // Extract user from authentication
         User connectedUser = (User) authentication.getPrincipal();
 
+        userService.updateContactDetails(request, connectedUser);
+
         // Map and save publication
         Publication publication = publicationMapper.toPublication(request, connectedUser);
         publication = publicationRepository.save(publication);
 
         // Save images
         productFileService.saveImages(request.getImageUrls(), publication);
+
+        //map into elastic search engine and save publication document
+        saveIntoPublicationDocument(publication);
 
         // Save video if present
         Publication finalPublication = publication;
@@ -57,6 +73,12 @@ public class PublicationServiceImpl implements PublicationService {
         savePublicationAttributeValues(request.getAttributeValues(), publication);
 
         return publication.getId();
+    }
+
+    private void saveIntoPublicationDocument(Publication publication) {
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication);
+        publicationDocumentRepository.save(publicationDocument);
+
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
@@ -74,7 +96,7 @@ public class PublicationServiceImpl implements PublicationService {
                     ));
 
             String widgetType = categoryAttribute.getAttributeKey().getWidgetType();
-            
+
             if (("oneSelectable".equals(widgetType) || "colorSelectable".equals(widgetType)) && attributeValueDTO.getAttributeValueIds().size() > 1) {
                 throw new ValidationException(
                         "This attribute allows only one value",

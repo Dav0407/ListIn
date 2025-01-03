@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class ListInApplication {
 
 	public static void main(String[] args) {
-		Dotenv dotenv = Dotenv.load();
+		Dotenv dotenv = Dotenv.configure().directory(".").load();
 		dotenv.entries().forEach(entry ->
 				System.setProperty(entry.getKey(), entry.getValue()));
 		SpringApplication.run(ListInApplication.class, args);

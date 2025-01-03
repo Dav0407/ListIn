@@ -1,0 +1,84 @@
+version: '4.34.3'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: abdulaxad
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: list_in
+    networks:
+      - app-network
+
+  redis:
+    image: redis
+    volumes: []
+    ports:
+      - '6379:6379'
+    networks:
+      - app-network
+
+  elasticsearch:
+    image: elasticsearch:8.17.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - 'ES_JAVA_OPTS=-Xms1g -Xmx1g'
+      - xpack.security.enabled=false
+    volumes: []
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - app-network
+
+  kibana:
+    image: kibana:8.17.0
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - app-network
+
+  app:
+    depends_on:
+      - db
+      - redis
+      - elasticsearch
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - OAUTH2_GOOGLE_CLIENT_ID=${OAUTH2_GOOGLE_CLIENT_ID}
+      - OAUTH2_GOOGLE_CLIENT_SECRET=${OAUTH2_GOOGLE_CLIENT_SECRET}
+      - OAUTH2_REDIRECT_PAGE_URI=${OAUTH2_REDIRECT_PAGE_URI}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - AWS_BUCKET_CACHE_CONTROL=${AWS_BUCKET_CACHE_CONTROL}
+      - AWS_BUCKET_LINK=${AWS_BUCKET_LINK}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+      - AWS_BUCKET_REGION=${AWS_BUCKET_REGION}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
+      - ELASTIC_SEARCH_URI=${ELASTIC_SEARCH_URI}
+      - ELASTIC_SEARCH_INDEX_NAME=${ELASTIC_SEARCH_INDEX_NAME}
+    networks:
+      - app-network
+    volumes:
+      - "./.env:/.env"
+
+networks:
+  app-network:
+    driver: bridge
