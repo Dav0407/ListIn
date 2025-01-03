@@ -62,15 +62,14 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public List<PublicationResponseDTO> search(String query) throws SearchQueryException {
 
-        List<Optional<Publication>> optionalPublicationList =
+        List<Publication> optionalPublicationList =
                 searchDocuments(query).stream()
-                        .map(document -> publicationRepository.findById(document.getId())).toList();
+                        .map(document -> publicationRepository
+                                .findByIdOrderByDateUpdatedDesc(document.getId())).toList();
 
         return optionalPublicationList
-                .parallelStream()
-                .map(publication -> publicationMapper
-                        .toPublicationResponseDTO(
-                                publication.orElseThrow())).toList();
+                .stream()
+                .map(publicationMapper::toPublicationResponseDTO).toList();
 
     }
 }

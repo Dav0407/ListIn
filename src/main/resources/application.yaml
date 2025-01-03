@@ -54,10 +54,19 @@ spring:
             enable: true
   data:
     redis:
-      host: localhost
+      host: redis
       port: 6379
+      client-type: lettuce
+      connect-timeout: 5000
+      lettuce:
+        shutdown-timeout: 200ms
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
 server:
-  port: 8000
+  port: 8080
 #  ssl:
 #    enabled: true
 #    key-store: classpath:keystore.p12
