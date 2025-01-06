@@ -1,15 +1,12 @@
 spring:
+  profiles:
+    active: dev
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
   application:
     name: ListIn
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create
@@ -37,10 +34,6 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
             client-authentication-method: post
             authorization-grant-type: authorization_code
-
-  elasticsearch:
-    uris: ${ELASTIC_SEARCH_URI}
-
   mail:
     host: smtp.gmail.com
     port: 587
@@ -52,19 +45,6 @@ spring:
           auth: true
           starttls:
             enable: true
-  data:
-    redis:
-      host: localhost
-      port: 6379
-server:
-  port: 8000
-#  ssl:
-#    enabled: true
-#    key-store: classpath:keystore.p12
-#    key-store-password: ${SERVER_SSL_KEY_STORE_PASSWORD}
-#    key-store-type: ${SERVER_SSL_KEY_STORE_TYPE}
-#    key-alias: ${SERVER_SSL_KEY_ALIAS}
-
 application:
   security:
     jwt:
@@ -73,24 +53,6 @@ application:
       refresh-token:
         expiration: 31536000000 # 365 days| 604800000 # 7 days
 
-cloud:
-  aws:
-    credentials:
-      access-key: ${AWS_ACCESS_KEY}
-      secret-key: ${AWS_SECRET_KEY}
-    s3:
-      bucket:
-        ${AWS_BUCKET_NAME}
-      region: ${AWS_BUCKET_REGION}
-      cache-control: "public, max-age=2592000"
 
 
-aws:
-  s3:
-    bucket:
-      link:
-        ${AWS_BUCKET_LINK}
 
-
-elasticsearch:
-  index-name: ${ELASTIC_SEARCH_INDEX_NAME}
