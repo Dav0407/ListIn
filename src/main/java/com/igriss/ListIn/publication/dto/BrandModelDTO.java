@@ -2,6 +2,7 @@ package com.igriss.ListIn.publication.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
@@ -9,7 +10,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BrandModelDTO {
+public class BrandModelDTO implements Serializable {
     private UUID modelId;
     private String name;
     private String attributeId;
