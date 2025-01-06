@@ -8,8 +8,9 @@ import com.igriss.ListIn.publication.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.cache.annotation.Cacheable;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class CategoryTreeService {
     private final CategoryRepository categoryRepository;
     private final CategoryAttributeService categoryAttributeService;
 
+    @Cacheable(value = "categoryTreeCache")
     public List<ParentNode> getCategoryTree() {
 
         List<Category> allParentCategories = categoryRepository.findAllParentCategories();

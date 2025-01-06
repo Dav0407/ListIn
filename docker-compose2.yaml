@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: list_in
     networks:
-      - app-network
+      - list-in-network
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -22,7 +22,7 @@ services:
     ports:
       - '6379:6379'
     networks:
-      - app-network
+      - list-in-network
     volumes:
       - redis_data:/data
     healthcheck:
@@ -43,7 +43,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     networks:
-      - app-network
+      - list-in-network
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
     healthcheck:
@@ -62,9 +62,11 @@ services:
     ports:
       - "5601:5601"
     networks:
-      - app-network
+      - list-in-network
 
-  app:
+  list-in:
+    image: igriss004/listin-app
+    container_name: list-in
     depends_on:
       db:
         condition: service_healthy
@@ -72,8 +74,6 @@ services:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
-    build:
-      context: .
     ports:
       - "8080:8080"
     environment:
@@ -95,9 +95,7 @@ services:
       - ELASTIC_SEARCH_URI=${ELASTIC_SEARCH_URI}
       - ELASTIC_SEARCH_INDEX_NAME=${ELASTIC_SEARCH_INDEX_NAME}
     networks:
-      - app-network
-    volumes:
-      - "./.env:/.env"
+      - list-in-network
 
 volumes:
   postgres_data:
@@ -108,5 +106,5 @@ volumes:
     driver: local
 
 networks:
-  app-network:
+  list-in-network:
     driver: bridge

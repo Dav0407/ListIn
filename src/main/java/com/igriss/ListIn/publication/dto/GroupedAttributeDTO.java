@@ -2,6 +2,7 @@ package com.igriss.ListIn.publication.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -9,7 +10,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupedAttributeDTO {
+public class GroupedAttributeDTO implements Serializable {
     private String attributeKey;
     private String helperText;
     private String subHelperText;
@@ -20,7 +21,7 @@ public class GroupedAttributeDTO {
 
     @Data
     @AllArgsConstructor
-    public static class AttributeValueDTO {
+    public static class AttributeValueDTO implements Serializable{
         private String attributeValueId;
         private String attributeKeyId;
         private String value;
