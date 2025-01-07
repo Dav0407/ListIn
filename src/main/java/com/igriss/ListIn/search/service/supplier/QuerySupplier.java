@@ -30,8 +30,11 @@ public class QuerySupplier {
                 .should(fieldsQuery(noSpacesKeyword))
                 .should(fuzzyFieldsQuery(cleaned))
                 .should(matchPhraseFieldsQuery(cleaned))
+                .minimumShouldMatch("1")
         ));
         log.info("{}",query1);
+
+
         return () -> query1;
     }
 
@@ -39,10 +42,11 @@ public class QuerySupplier {
     private static String preprocessInput(String input) {
         return input.trim().replaceAll("[^а-яА-ЯёЁa-zA-Z0-9\\s]", "").toLowerCase();
     }
-
-    //user can type the between texts and search with teh help of it
-    //for example if the querying text is 'Phon' or 'smart' or etc.
-    //then it is considered as a chunk of 'Sample iPhone smartphone'
+    /**
+    user can type the between texts and search with teh help of it
+    for example if the querying text is 'Phon' or 'smart' or etc.
+    then it is considered as a chunk of 'Sample iPhone smartphone'
+     */
     private static List<Query> fieldsQuery(String value) {
         return QuerySupplier.FIELDS.stream()
                 .map(field -> Query.of(q -> q
@@ -53,9 +57,11 @@ public class QuerySupplier {
                 .toList();
     }
 
-    //fuzzy querying is used when user types incorrectly some letters of word
-    //in this case user can type 2-3 letters by mistake.
-    //however to be considered, prefix with 3 letters has to match
+    /**
+     fuzzy querying is used when user types incorrectly some letters of word
+     in this case user can type 2-3 letters by mistake.
+     however to be considered, prefix with 3 letters has to match
+     */
     private static List<Query> fuzzyFieldsQuery(String value) {
         return QuerySupplier.FIELDS.stream()
                 .map(field -> Query.of(q -> q
@@ -67,10 +73,11 @@ public class QuerySupplier {
                                 .maxExpansions(50))))
                 .toList();
     }
-
-    //match phrase queries is used when user tries to fetch with full text query
-    //like 'iPhone 15 Pro Max', it is needed because
-    // field querying done by dividing query into small tokens or chunks
+    /**
+    match phrase queries is used when user tries to fetch with full text query
+    like 'iPhone 15 Pro Max', it is needed because
+     field querying done by dividing query into small tokens or chunks
+    */
     private static List<Query> matchPhraseFieldsQuery(String value) {
         return QuerySupplier.FIELDS.stream()
                 .map(field -> Query.of(q -> q

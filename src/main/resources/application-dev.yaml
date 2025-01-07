@@ -29,14 +29,6 @@ elasticsearch:
 server:
   port: 8080
 
-application:
-  security:
-    jwt:
-      secret-key: ${JWT_SECRET_KEY}
-      expiration: 31536000000 # 365 days | 86400000 # 1 day  | 60000 1 minute (for testing)
-      refresh-token:
-        expiration: 31536000000 # 365 days| 604800000 # 7 days
-
 cloud:
   aws:
     credentials:

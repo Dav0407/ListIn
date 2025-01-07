@@ -51,7 +51,6 @@ server:
 application:
   security:
     jwt:
-      secret-key: ${JWT_SECRET_KEY}
       expiration: 1800000 #  30 minutes (for deployment)
       refresh-token:
         expiration: 15552000000 # 6 months (for deployment)
