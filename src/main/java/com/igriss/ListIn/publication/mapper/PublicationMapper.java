@@ -55,12 +55,15 @@ public class PublicationMapper {
                 .title(publication.getTitle())
                 .description(publication.getDescription())
                 .price(publication.getPrice())
+                .bargain(publication.getBargain())
+                .locationName(publication.getLocationName())
+                .latitude(publication.getLatitude())
+                .longitude(publication.getLongitude())
+                .publicationType(publication.getPublicationType())
+                .productCondition(publication.getProductCondition())
                 .createdAt(publication.getDatePosted())
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory())) // todo -> better NullPointerException handling
-                .productCondition(publication.getProductCondition().toString())
-                .publicationType(publication.getPublicationType().toString())
-                .publicationStatus(publication.getPublicationStatus().toString())
                 .seller(userMapper.toUserResponseDTO(publication.getSeller()))
                 .build();
     }

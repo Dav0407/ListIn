@@ -12,11 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -57,4 +53,15 @@ public class ProductFileServiceImpl implements ProductFileService {
         productVideoRepository.save(publicationVideoMapper.toProductVideo(url.get(0)));
         return url.get(0);
     }
+
+    @Override
+    public List<PublicationImage> findImagesByPublicationId(UUID id) {
+        return productImageRepository.findAllByPublication_Id(id);
+    }
+
+    @Override
+    public String findVideoUrlByPublicationId(UUID id) {
+        return productVideoRepository.findByPublication_Id(id).orElse(new PublicationVideo()).getVideoUrl();
+    }
+
 }
