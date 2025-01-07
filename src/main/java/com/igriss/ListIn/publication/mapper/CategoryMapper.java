@@ -24,8 +24,9 @@ public class CategoryMapper {
     public CategoryDTO toCategoryResponseDTO(Category category) {
 
         return CategoryDTO.builder()
+                .id(category.getId())
                 .name(category.getName())
-                .parentCategory(category.getParentCategory().getName())
+                .parentCategoryId(category.getParentCategory().getId())
                 .build();
     }
 }

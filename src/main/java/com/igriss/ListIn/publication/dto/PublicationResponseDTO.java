@@ -1,5 +1,8 @@
 package com.igriss.ListIn.publication.dto;
 
+import com.igriss.ListIn.publication.enums.ProductCondition;
+import com.igriss.ListIn.publication.enums.PublicationStatus;
+import com.igriss.ListIn.publication.enums.PublicationType;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,21 +27,27 @@ public class PublicationResponseDTO implements Serializable {
 
     private Float price;
 
-    private Integer stockQuantity;
+    private Boolean bargain;
 
-    private List<String> productImages;
+    private String locationName;
+
+    private Double latitude;
+
+    private Double longitude;
+
+    private List<ImageDTO> productImages;
+
+    private String videoUrl;
+
+    private PublicationType publicationType;
+
+    private ProductCondition productCondition;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
     private CategoryDTO category;
-
-    private String productCondition;
-
-    private String publicationType;
-
-    private String publicationStatus;
 
     private UserResponseDTO seller;
 }

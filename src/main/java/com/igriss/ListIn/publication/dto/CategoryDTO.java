@@ -3,6 +3,7 @@ package com.igriss.ListIn.publication.dto;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -11,7 +12,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CategoryDTO implements Serializable {
 
+    private UUID id;
+
     private String name;
 
-    private String parentCategory;
+    private UUID parentCategoryId;
 }
