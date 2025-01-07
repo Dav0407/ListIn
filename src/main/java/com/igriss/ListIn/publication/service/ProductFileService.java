@@ -15,4 +15,8 @@ public interface ProductFileService {
     List<String> saveFileURLs(List<MultipartFile> files);
 
     String saveFileURLs(MultipartFile file);
+
+    String findVideoUrlByPublicationId(UUID id);
+
+    List<PublicationImage> findImagesByPublicationId(UUID id);
 }
