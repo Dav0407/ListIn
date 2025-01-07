@@ -11,6 +11,7 @@ public class UserMapper {
                 .id(user.getUserId())
                 .nickName(user.getNickName())
                 .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
                 .profileImagePath(user.getProfileImagePath())
                 .rating(user.getRating())
                 .build();

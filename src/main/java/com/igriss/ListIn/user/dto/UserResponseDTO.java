@@ -18,6 +18,8 @@ public class UserResponseDTO {
 
     private String phoneNumber;
 
+    private String email;
+
     private String profileImagePath;
 
     private String businessName;

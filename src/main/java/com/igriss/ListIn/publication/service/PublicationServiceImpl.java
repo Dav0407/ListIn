@@ -3,10 +3,12 @@ package com.igriss.ListIn.publication.service;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.AttributeValue;
 import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
+import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
@@ -16,9 +18,7 @@ import com.igriss.ListIn.search.entity.PublicationDocument;
 import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
 import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
 import com.igriss.ListIn.user.entity.User;
-import com.igriss.ListIn.user.repository.UserRepository;
 import com.igriss.ListIn.user.service.UserService;
-import com.igriss.ListIn.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -43,6 +43,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationDocumentMapper publicationDocumentMapper;
     private final PublicationDocumentRepository publicationDocumentRepository;
+    private final PublicationImageMapper publicationImageMapper;
 
 
     @Transactional
@@ -73,6 +74,29 @@ public class PublicationServiceImpl implements PublicationService {
         savePublicationAttributeValues(request.getAttributeValues(), publication);
 
         return publication.getId();
+    }
+
+    @Override
+    public List<PublicationResponseDTO> findAllByUser(Authentication connectedUser) {
+
+        User user = (User) connectedUser.getPrincipal();
+
+        List<Publication> publications = publicationRepository.findAllBySeller(user);
+
+        return publications.stream()
+                .map(publicationMapper::toPublicationResponseDTO)
+                .peek(
+                        publicationResponseDTO -> publicationResponseDTO.setProductImages(
+                                publicationImageMapper.toImageDTOList(
+                                        productFileService.findImagesByPublicationId(publicationResponseDTO.getId())
+                                ))
+                )
+                .peek(
+                        publicationResponseDTO -> publicationResponseDTO.setVideoUrl(
+                                productFileService.findVideoUrlByPublicationId(publicationResponseDTO.getId())
+                        )
+                )
+                .toList();
     }
 
     private void saveIntoPublicationDocument(Publication publication) {
