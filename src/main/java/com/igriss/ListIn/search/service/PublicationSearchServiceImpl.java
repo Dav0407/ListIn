@@ -41,17 +41,17 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     }
 
     @Override
-    public List<PublicationDocument> searchDocuments(String query, Integer page) throws SearchQueryException {
-        log.error("came here");
+    public List<PublicationDocument> searchDocuments(String query, Integer page, Integer size) throws SearchQueryException {
+
         List<PublicationDocument> publicationDocuments = new ArrayList<>();
         SearchResponse<PublicationDocument> publicationDocumentSearchResponse;
         try {
             publicationDocumentSearchResponse = elasticsearchClient.search(q -> q
                             .index(indexName)
                             .query(QuerySupplier.querySearchSupplier(query).get())
-                            .size(20)
+                            .size(size)
                             .trackScores(false)
-                            .from(20*page),
+                            .from(size*page),
                     PublicationDocument.class);
 
             if (publicationDocumentSearchResponse.hits() != null && publicationDocumentSearchResponse.hits().hits() != null) {
@@ -67,10 +67,10 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     }
 
     @Override
-    public List<PublicationResponseDTO> search(String query, Integer page) throws SearchQueryException {
+    public List<PublicationResponseDTO> search(String query, Integer page, Integer size) throws SearchQueryException {
 
         List<Publication> optionalPublicationList =
-                searchDocuments(query, page).stream()
+                searchDocuments(query, page, size).stream()
                         .map(document -> publicationRepository
                                 .findByIdOrderByDateUpdatedDesc(document.getId())).toList();
 

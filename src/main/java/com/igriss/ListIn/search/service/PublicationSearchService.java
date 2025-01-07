@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface PublicationSearchService {
 
-    List<PublicationDocument> searchDocuments(String query, Integer page) throws SearchQueryException;
-    List<PublicationResponseDTO> search(String query, Integer page) throws SearchQueryException;
+    List<PublicationDocument> searchDocuments(String query, Integer page, Integer size) throws SearchQueryException;
+    List<PublicationResponseDTO> search(String query, Integer page, Integer size) throws SearchQueryException;
     List<PublicationResponseDTO> search();
 
 }
