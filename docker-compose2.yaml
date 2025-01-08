@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16
+    image: postgres
     ports:
       - '5432:5432'
     environment:
@@ -35,10 +35,12 @@ services:
     image: elasticsearch:8.17.0
     container_name: elasticsearch
     environment:
+      - "indices.memory.index_buffer_size=15%"
       - discovery.type=single-node
       - bootstrap.memory_lock=true
-      - 'ES_JAVA_OPTS=-Xms1g -Xmx1g'
+      - 'ES_JAVA_OPTS=-Xms4g -Xmx1g'
       - xpack.security.enabled=false
+      - "thread_pool.search.size=3"
     ports:
       - "9200:9200"
       - "9300:9300"

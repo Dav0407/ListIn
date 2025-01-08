@@ -1,13 +1,12 @@
 package com.igriss.ListIn.publication.mapper;
 
+import com.igriss.ListIn.publication.dto.ImageDTO;
 import com.igriss.ListIn.publication.entity.PublicationImage;
-import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +21,16 @@ public class PublicationImageMapper {
                 .build();
     }
 
-    public List<PublicationImage> toProductImageList(List<String> imageUrls, UUID publicationId) {
-        Publication publication = publicationRepository.findById(publicationId).orElseThrow(() -> new RuntimeException("Publication not found"));
-        return imageUrls.stream()
-                .map(url -> {
-                    PublicationImage publicationImage = toProductImage(url);
-                    publicationImage.setPublication(publication);//id is assigned here
-                    return publicationImage;
-                }).toList();
+    public List<ImageDTO> toImageDTOList(List<PublicationImage> publicationImages) {
+        return publicationImages.stream().map(
+                this::toImageDTO
+        ).toList();
+    }
+
+    private ImageDTO toImageDTO(PublicationImage publicationImage) {
+        return ImageDTO.builder()
+                .isPrimary(publicationImage.getIsPrimaryImage())
+                .url(publicationImage.getImageUrl())
+                .build();
     }
 }

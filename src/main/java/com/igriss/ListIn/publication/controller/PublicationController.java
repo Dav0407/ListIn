@@ -1,6 +1,7 @@
 package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
@@ -31,6 +32,11 @@ public class PublicationController {
     @PostMapping
     public ResponseEntity<UUID> savePublication(@RequestBody PublicationRequestDTO request, Authentication connectedUser) {
         return ResponseEntity.status(HttpStatus.CREATED).body(publicationService.savePublication(request, connectedUser));
+    }
+
+    @GetMapping("/user-publications")
+    public ResponseEntity<List<PublicationResponseDTO>> getPublicationsOfUser(Authentication connectedUser) {
+        return ResponseEntity.ok(publicationService.findAllByUser(connectedUser));
     }
 
 
