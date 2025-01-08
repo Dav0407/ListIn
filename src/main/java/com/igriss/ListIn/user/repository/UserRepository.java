@@ -2,7 +2,6 @@ package com.igriss.ListIn.user.repository;
 
 import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.user.entity.User;
-import jakarta.persistence.Column;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -105,5 +104,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
             @Param("fromTime") LocalTime fromTime,
             @Param("toTime") LocalTime toTime
     );
+
+    @Modifying
+    @Query(value = "UPDATE users SET role = :role WHERE user_id = :userId", nativeQuery = true)
+    void updateUserRole(@Param("userId") UUID userId, @Param("role") Role role);
 }
 

@@ -119,6 +119,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     //Tokenni blacklistga qo'yish
+    @Override
     public void blackListToken(String token){
         long expiration = extractExpiration(token).getTime() - System.currentTimeMillis();
         redisTemplate.opsForValue().set(token, "blacklisted", expiration, TimeUnit.MILLISECONDS);

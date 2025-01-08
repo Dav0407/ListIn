@@ -51,10 +51,13 @@ public class Publication {
     @Column(nullable = false)
     private Double longitude;
 
+    @Enumerated(EnumType.STRING)
     private PublicationType publicationType;
 
+    @Enumerated(EnumType.STRING)
     private PublicationStatus publicationStatus;
 
+    @Enumerated(EnumType.STRING)
     private ProductCondition productCondition;
 
     @CreatedDate
