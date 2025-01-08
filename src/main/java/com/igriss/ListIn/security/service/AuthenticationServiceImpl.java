@@ -30,8 +30,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = User.builder()
                 .nickName(request.getNickName())
                 .phoneNumber(request.getPhoneNumber())
-                /*.fromTime(request.getFromTime())
-                .toTime(request.getToTime())*/
+                .fromTime(request.getFromTime())
+                .toTime(request.getToTime())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRoles())

@@ -3,16 +3,22 @@ package com.igriss.ListIn.publication.service;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.AttributeValue;
 import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
+import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.search.entity.PublicationDocument;
+import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
+import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -33,6 +39,12 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final UserService userService;
+
+    private final PublicationDocumentMapper publicationDocumentMapper;
+    private final PublicationDocumentRepository publicationDocumentRepository;
+    private final PublicationImageMapper publicationImageMapper;
+
 
     @Transactional
     @Override
@@ -40,12 +52,17 @@ public class PublicationServiceImpl implements PublicationService {
         // Extract user from authentication
         User connectedUser = (User) authentication.getPrincipal();
 
+        userService.updateContactDetails(request, connectedUser);
+
         // Map and save publication
         Publication publication = publicationMapper.toPublication(request, connectedUser);
         publication = publicationRepository.save(publication);
 
         // Save images
         productFileService.saveImages(request.getImageUrls(), publication);
+
+        //map into elastic search engine and save publication document
+        saveIntoPublicationDocument(publication);
 
         // Save video if present
         Publication finalPublication = publication;
@@ -57,6 +74,35 @@ public class PublicationServiceImpl implements PublicationService {
         savePublicationAttributeValues(request.getAttributeValues(), publication);
 
         return publication.getId();
+    }
+
+    @Override
+    public List<PublicationResponseDTO> findAllByUser(Authentication connectedUser) {
+
+        User user = (User) connectedUser.getPrincipal();
+
+        List<Publication> publications = publicationRepository.findAllBySeller(user);
+
+        return publications.stream()
+                .map(publicationMapper::toPublicationResponseDTO)
+                .peek(
+                        publicationResponseDTO -> publicationResponseDTO.setProductImages(
+                                publicationImageMapper.toImageDTOList(
+                                        productFileService.findImagesByPublicationId(publicationResponseDTO.getId())
+                                ))
+                )
+                .peek(
+                        publicationResponseDTO -> publicationResponseDTO.setVideoUrl(
+                                productFileService.findVideoUrlByPublicationId(publicationResponseDTO.getId())
+                        )
+                )
+                .toList();
+    }
+
+    private void saveIntoPublicationDocument(Publication publication) {
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication);
+        publicationDocumentRepository.save(publicationDocument);
+
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
@@ -74,7 +120,7 @@ public class PublicationServiceImpl implements PublicationService {
                     ));
 
             String widgetType = categoryAttribute.getAttributeKey().getWidgetType();
-            
+
             if (("oneSelectable".equals(widgetType) || "colorSelectable".equals(widgetType)) && attributeValueDTO.getAttributeValueIds().size() > 1) {
                 throw new ValidationException(
                         "This attribute allows only one value",
