@@ -29,6 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationResponseDTO register(RegisterRequestDTO request) {
         var user = User.builder()
                 .nickName(request.getNickName())
+                .enableCalling(request.getEnableCalling())
                 .phoneNumber(request.getPhoneNumber())
                 .fromTime(request.getFromTime())
                 .toTime(request.getToTime())

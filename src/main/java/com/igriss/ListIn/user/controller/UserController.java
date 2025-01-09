@@ -3,6 +3,7 @@ package com.igriss.ListIn.user.controller;
 
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
+import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -19,5 +20,10 @@ public class UserController {
     @PatchMapping("/update")
     public AuthenticationResponseDTO updateProfile(@RequestBody UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication) {
         return userService.updateUserDetails(userRequestDTO, request, authentication);
+    }
+
+    @GetMapping()
+    public UserResponseDTO getUserDetails(Authentication authentication) {
+        return userService.getUserDetails(authentication);
     }
 }

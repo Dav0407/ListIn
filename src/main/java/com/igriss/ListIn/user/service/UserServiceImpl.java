@@ -7,6 +7,7 @@ import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.security.service.JwtService;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
+import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -111,8 +112,25 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    @Override
-    public User getUserById(UUID userId) {
-        return userRepository.getUserByUserId(userId);
+    public UserResponseDTO getUserDetails(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return UserResponseDTO.builder()
+                .id(user.getUserId())
+                .nickName(user.getNickName())
+                .enableCalling(user.getEnableCalling())
+                .phoneNumber(user.getPhoneNumber())
+                .fromTime(user.getFromTime())
+                .toTime(user.getToTime())
+                .email(user.getEmail())
+                .profileImagePath(user.getProfileImagePath())
+                .rating(user.getRating())
+                .isGrantedForPreciseLocation(user.getIsGrantedForPreciseLocation())
+                .locationName(user.getLocationName())
+                .longitude(user.getLongitude())
+                .latitude(user.getLatitude())
+                .role(user.getRole())
+                .dateCreated(user.getDateCreated())
+                .dateUpdated(user.getDateUpdated())
+                .build();
     }
 }

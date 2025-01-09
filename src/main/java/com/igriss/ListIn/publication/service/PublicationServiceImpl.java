@@ -3,7 +3,8 @@ package com.igriss.ListIn.publication.service;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.UserPublicationDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.AttributeValue;
 import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.entity.Publication;
@@ -21,6 +22,10 @@ import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -77,26 +83,38 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public List<PublicationResponseDTO> findAllByUser(Authentication connectedUser) {
+    public PageResponse<UserPublicationDTO> findAllByUser(int page, int size, Authentication connectedUser) {
 
         User user = (User) connectedUser.getPrincipal();
 
-        List<Publication> publications = publicationRepository.findAllBySeller(user);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
-        return publications.stream()
-                .map(publicationMapper::toPublicationResponseDTO)
+        Page<Publication> publications = publicationRepository.findAllBySeller(pageable, user);
+
+        List<UserPublicationDTO> publicationsDTO = publications.stream()
+                .map(publicationMapper::toUserPublicationDTO)
                 .peek(
-                        publicationResponseDTO -> publicationResponseDTO.setProductImages(
+                        userPublicationDTO -> userPublicationDTO.setProductImages(
                                 publicationImageMapper.toImageDTOList(
-                                        productFileService.findImagesByPublicationId(publicationResponseDTO.getId())
+                                        productFileService.findImagesByPublicationId(userPublicationDTO.getId())
                                 ))
                 )
                 .peek(
-                        publicationResponseDTO -> publicationResponseDTO.setVideoUrl(
-                                productFileService.findVideoUrlByPublicationId(publicationResponseDTO.getId())
+                        userPublicationDTO -> userPublicationDTO.setVideoUrl(
+                                productFileService.findVideoUrlByPublicationId(userPublicationDTO.getId())
                         )
                 )
                 .toList();
+
+        return new PageResponse<>(
+                publicationsDTO,
+                publications.getNumber(),
+                publications.getSize(),
+                publications.getTotalElements(),
+                publications.getTotalPages(),
+                publications.isFirst(),
+                publications.isLast()
+        );
     }
 
     private void saveIntoPublicationDocument(Publication publication) {

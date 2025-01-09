@@ -2,6 +2,8 @@ package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.UserPublicationDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
@@ -35,8 +37,10 @@ public class PublicationController {
     }
 
     @GetMapping("/user-publications")
-    public ResponseEntity<List<PublicationResponseDTO>> getPublicationsOfUser(Authentication connectedUser) {
-        return ResponseEntity.ok(publicationService.findAllByUser(connectedUser));
+    public  ResponseEntity<PageResponse<UserPublicationDTO>> getPublicationsOfUser(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                                                   @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                                                   Authentication connectedUser) {
+        return ResponseEntity.ok(publicationService.findAllByUser(page, size, connectedUser));
     }
 
 

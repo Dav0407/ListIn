@@ -5,6 +5,7 @@ import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
+import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,7 @@ public interface UserService {
 
     User findById(UUID id);
 
-    User getUserById(UUID userId);
+    UserResponseDTO getUserDetails(Authentication authentication);
 
     void updateContactDetails(PublicationRequestDTO request, User connectedUser);
 
