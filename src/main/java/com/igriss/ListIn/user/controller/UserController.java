@@ -22,7 +22,8 @@ public class UserController {
         return userService.updateUserDetails(userRequestDTO, request, authentication);
     }
 
-    @GetMapping("/")
+
+    @GetMapping()
     public UserResponseDTO getUserDetails(Authentication authentication) {
         return userService.getUserDetails(authentication);
     }

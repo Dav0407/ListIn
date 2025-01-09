@@ -43,7 +43,6 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .findAll()
                 .stream()
                 .map(publicationMapper::toPublicationResponseDTO).toList();
-
     }
 
     @Override

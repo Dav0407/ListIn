@@ -115,12 +115,22 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO getUserDetails(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return UserResponseDTO.builder()
+                .id(user.getUserId())
                 .nickName(user.getNickName())
+                .enableCalling(user.getEnableCalling())
                 .phoneNumber(user.getPhoneNumber())
+                .fromTime(user.getFromTime())
+                .toTime(user.getToTime())
                 .email(user.getEmail())
                 .profileImagePath(user.getProfileImagePath())
-                .businessName(user.getRole().toString())
                 .rating(user.getRating())
+                .isGrantedForPreciseLocation(user.getIsGrantedForPreciseLocation())
+                .locationName(user.getLocationName())
+                .longitude(user.getLongitude())
+                .latitude(user.getLatitude())
+                .role(user.getRole())
+                .dateCreated(user.getDateCreated())
+                .dateUpdated(user.getDateUpdated())
                 .build();
     }
 }
