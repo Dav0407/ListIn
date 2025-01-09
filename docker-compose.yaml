@@ -75,7 +75,7 @@ services:
     build:
       context: .
     ports:
-      - "8080:8080"
+      - "80:80"
     environment:
       - SMTP_USERNAME=${SMTP_USERNAME}
       - SMTP_PASSWORD=${SMTP_PASSWORD}

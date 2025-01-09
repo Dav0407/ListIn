@@ -1,14 +1,10 @@
 package com.igriss.ListIn.search.mapper;
 
 
-import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.search.entity.PublicationDocument;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

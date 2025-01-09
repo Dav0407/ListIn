@@ -2,13 +2,15 @@ package com.igriss.ListIn.user.service;
 
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.repository.ProductImageRepository;
-import com.igriss.ListIn.publication.service.ProductFileService;
 import com.igriss.ListIn.security.roles.Role;
+import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
+import com.igriss.ListIn.security.service.JwtService;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
+import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Slf4j
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final ProductImageRepository productImageRepository;
+    private final JwtService jwtService;
 
     @Override
     public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
@@ -60,11 +61,14 @@ public class UserServiceImpl implements UserService {
                 request.getIsGrantedForPreciseLocation()
         );
     }
+
     @Override
     @Transactional
-    public void updateUserDetails(UserRequestDTO userRequestDTO, Authentication authentication) {
+    public AuthenticationResponseDTO updateUserDetails(UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication) {
+
         User user = (User) authentication.getPrincipal();
         log.info(user.toString());
+
         userRepository.updateUserDetails(
                 user.getUserId(),
                 userRequestDTO.getProfileImagePath(),
@@ -75,8 +79,25 @@ public class UserServiceImpl implements UserService {
                 userRequestDTO.getLatitude(),
                 userRequestDTO.getFromTime(),
                 userRequestDTO.getToTime()
-//                userRequestDTO.getIsBusinessAccount() ? Role.BUSINESS_SELLER : Role.INDIVIDUAL_SELLER //todo -> to be done
         );
+
+        userRepository.updateUserRole(user.getUserId(), userRequestDTO.getIsBusinessAccount() ? Role.BUSINESS_SELLER : Role.INDIVIDUAL_SELLER);
+
+        String accessToken = jwtService.generateToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        jwtService.blackListToken(getPreviousAccessToken(request));
+
+        return AuthenticationResponseDTO.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    private String getPreviousAccessToken(HttpServletRequest request) {
+
+        final String authHeader = request.getHeader("Authorization");
+        return authHeader.substring(7);
     }
 
     @Override
@@ -91,8 +112,15 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    @Override
-    public User getUserById(UUID userId) {
-        return userRepository.getUserByUserId(userId);
+    public UserResponseDTO getUserDetails(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return UserResponseDTO.builder()
+                .nickName(user.getNickName())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
+                .profileImagePath(user.getProfileImagePath())
+                .businessName(user.getRole().toString())
+                .rating(user.getRating())
+                .build();
     }
 }
