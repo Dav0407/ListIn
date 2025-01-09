@@ -3,6 +3,7 @@ package com.igriss.ListIn.search.controller;
 
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.search.service.PublicationSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,9 @@ public class PublicationSearchController {
     private final PublicationSearchService searchService;
 
     @GetMapping("/search")
-    public List<PublicationResponseDTO> search(@RequestParam("query") String query,
-                                               @RequestParam(defaultValue = "0") Integer page,
-                                               @RequestParam(value = "size", defaultValue = "10") Integer size
+    public PageResponse<PublicationResponseDTO> search(@RequestParam("query") String query,
+                                                       @RequestParam(defaultValue = "0") Integer page,
+                                                       @RequestParam(defaultValue = "5") Integer size
                                                ) throws SearchQueryException {
         return searchService.search(query, page, size);
     }
