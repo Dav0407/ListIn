@@ -2,12 +2,9 @@ package com.igriss.ListIn.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igriss.ListIn.security.roles.Role;
-import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

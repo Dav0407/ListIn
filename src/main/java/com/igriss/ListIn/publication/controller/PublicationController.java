@@ -1,7 +1,6 @@
 package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.Publication;
