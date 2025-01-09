@@ -7,6 +7,7 @@ import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.security.service.JwtService;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
+import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -111,8 +112,15 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    @Override
-    public User getUserById(UUID userId) {
-        return userRepository.getUserByUserId(userId);
+    public UserResponseDTO getUserDetails(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return UserResponseDTO.builder()
+                .nickName(user.getNickName())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
+                .profileImagePath(user.getProfileImagePath())
+                .businessName(user.getRole().toString())
+                .rating(user.getRating())
+                .build();
     }
 }
