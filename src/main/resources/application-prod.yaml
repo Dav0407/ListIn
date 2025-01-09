@@ -47,7 +47,7 @@ server:
 application:
   security:
     jwt:
-      expiration: 1800000 #  30 minutes (for deployment)
+      expiration: 15552000000 # 6 months #1800000 #  30 minutes (for deployment)
       refresh-token:
         expiration: 15552000000 # 6 months (for deployment)
 
