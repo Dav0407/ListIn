@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.updateUserDetails(
                 user.getUserId(),
+                userRequestDTO.getNickName(),
                 userRequestDTO.getProfileImagePath(),
                 userRequestDTO.getPhoneNumber(),
                 userRequestDTO.getIsGrantedForPreciseLocation(),
