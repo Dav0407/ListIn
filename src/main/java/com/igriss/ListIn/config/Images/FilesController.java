@@ -20,7 +20,7 @@ public class FilesController {
     private final ProductFileService productFileService;
 
     @PostMapping("/upload/images")
-    public ResponseEntity<?> uploadImage(@RequestParam("images") List<MultipartFile> files) {
+    public ResponseEntity<List<String>> uploadImage(@RequestParam("images") List<MultipartFile> files) {
         return ResponseEntity.ok(productFileService.saveFileURLs(files));
     }
 

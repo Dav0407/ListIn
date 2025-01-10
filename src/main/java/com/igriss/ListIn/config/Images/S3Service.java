@@ -15,7 +15,6 @@ import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -62,11 +61,12 @@ public class S3Service {
     public void saveFiles(String fileName, MultipartFile file) {
         try {
             s3Client.putObject(PutObjectRequest.builder()
-                            .bucket(bucketName)
-                            .key(fileName)
-                            .contentType(file.getContentType())
-                            .cacheControl(cached)
-                            .build(),
+                    .bucket(bucketName)
+                    .key(fileName)
+                    .contentType(file.getContentType())
+                    .cacheControl(cached)
+                    .contentDisposition("inline")
+                    .build(),
                     RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
         } catch (IOException e) {
             throw new RuntimeException(e);
