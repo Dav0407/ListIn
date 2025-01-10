@@ -5,16 +5,15 @@ import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
-import com.igriss.ListIn.publication.entity.AttributeValue;
-import com.igriss.ListIn.publication.entity.CategoryAttribute;
-import com.igriss.ListIn.publication.entity.Publication;
-import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
+import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.search.entity.AttributeKeyDocument;
+import com.igriss.ListIn.search.entity.AttributeValueDocument;
 import com.igriss.ListIn.search.entity.PublicationDocument;
 import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
 import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
@@ -30,9 +29,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.security.KeyStore;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,9 +64,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         // Save images
         productFileService.saveImages(request.getImageUrls(), publication);
-
-        //map into elastic search engine and save publication document
-        saveIntoPublicationDocument(publication);
 
         // Save video if present
         Publication finalPublication = publication;
@@ -116,17 +112,50 @@ public class PublicationServiceImpl implements PublicationService {
         );
     }
 
-    private void saveIntoPublicationDocument(Publication publication) {
-        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication);
-        publicationDocumentRepository.save(publicationDocument);
+    private void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList) {
 
+        List<AttributeValue> attributeValues = pavList.stream()
+                .map(PublicationAttributeValue::getAttributeValue)
+                .toList();
+
+        // Organize attributeValues into a Map<AttributeKey, List<AttributeValue>>
+        Map<AttributeKey, List<AttributeValue>> attributeMap = attributeValues.stream()
+                .filter(Objects::nonNull) // Ensure no null values
+                .filter(attributeValue -> attributeValue.getAttributeKey() != null) // Ensure attributeKey is not null
+                .collect(Collectors.groupingBy(AttributeValue::getAttributeKey));
+
+        // Convert the map into a list of AttributeKeyDocument with corresponding AttributeValueDocument
+        List<AttributeKeyDocument> attributeKeyDocuments = attributeMap.entrySet().stream()
+                .map(entry -> {
+                    // Convert AttributeValue to AttributeValueDocument
+                    List<AttributeValueDocument> valueDocuments = entry.getValue().stream()
+                            .map(value -> AttributeValueDocument.builder()
+                                    .id(value.getId())
+                                    .value(value.getValue())
+                                    .build())
+                            .collect(Collectors.toList());
+
+                    // Create AttributeKeyDocument with AttributeValueDocuments
+                    return AttributeKeyDocument.builder()
+                            .id(entry.getKey().getId())
+                            .key(entry.getKey().getName())
+                            .attributeValue(valueDocuments)
+                            .build();
+                })
+                .collect(Collectors.toList());
+
+        // Create a PublicationDocument and set attributeKeyDocuments
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments);
+
+        publicationDocumentRepository.save(publicationDocument);
     }
+
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
 
         List<CategoryAttribute> categoryAttributes = categoryAttributeRepository
                 .findByCategory_Id(publication.getCategory().getId());
-
+        List<PublicationAttributeValue> pavList = new ArrayList<>();
         for (PublicationRequestDTO.AttributeValueDTO attributeValueDTO : attributeValues) {
             CategoryAttribute categoryAttribute = categoryAttributes.stream()
                     .filter(ca -> ca.getAttributeKey().getId().equals(attributeValueDTO.getAttributeId()))
@@ -157,8 +186,11 @@ public class PublicationServiceImpl implements PublicationService {
                         .valueOrder("multiSelectable".equals(widgetType) ? i : 0)
                         .build();
 
-                publicationAttributeValueRepository.save(pav);
+                pavList.add(publicationAttributeValueRepository.save(pav));
             }
         }
+
+        //map into elastic search engine and save publication document
+        saveIntoPublicationDocument(publication, pavList);
     }
 }

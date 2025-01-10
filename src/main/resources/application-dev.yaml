@@ -46,5 +46,3 @@ aws:
     bucket:
       link:
         ${AWS_BUCKET_LINK}
-
-

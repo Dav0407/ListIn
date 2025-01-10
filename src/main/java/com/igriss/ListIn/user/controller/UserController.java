@@ -1,7 +1,7 @@
 package com.igriss.ListIn.user.controller;
 
 
-import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
+import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.service.UserServiceImpl;
@@ -18,7 +18,7 @@ public class UserController {
     private final UserServiceImpl userService;
 
     @PatchMapping("/update")
-    public AuthenticationResponseDTO updateProfile(@RequestBody UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication) {
+    public UpdateResponseDTO updateProfile(@RequestBody UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication) {
         return userService.updateUserDetails(userRequestDTO, request, authentication);
     }
 

@@ -1,14 +1,17 @@
 package com.igriss.ListIn.user.service;
 
 
+import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.security.service.JwtService;
+import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.mapper.UserMapper;
 import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -32,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final UserMapper userMapper;
 
     @Override
     public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
@@ -65,12 +70,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public AuthenticationResponseDTO updateUserDetails(UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication) {
+    public UpdateResponseDTO updateUserDetails(UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication) {
 
         User user = (User) authentication.getPrincipal();
         log.info(user.toString());
 
-        userRepository.updateUserDetails(
+        Integer status = userRepository.updateUserDetails(
                 user.getUserId(),
                 userRequestDTO.getNickName(),
                 userRequestDTO.getProfileImagePath(),
@@ -85,15 +90,25 @@ public class UserServiceImpl implements UserService {
 
         userRepository.updateUserRole(user.getUserId(), userRequestDTO.getIsBusinessAccount() ? Role.BUSINESS_SELLER.name() : Role.INDIVIDUAL_SELLER.name());
 
-        String accessToken = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
+        User updatedUser = userRepository.getUserByUserId(user.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        String accessToken = jwtService.generateToken(updatedUser);
+        String refreshToken = jwtService.generateRefreshToken(updatedUser);
+
 
         jwtService.blackListToken(getPreviousAccessToken(request));
 
-        return AuthenticationResponseDTO.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+        return UpdateResponseDTO.builder()
+                .tokens(
+                        AuthenticationResponseDTO.builder()
+                                .accessToken(accessToken)
+                                .refreshToken(refreshToken)
+                                .build()
+                )
+                .updatedUserDetails(
+                        userMapper.toUserResponseDTO(status != 0 ? updatedUser : user)
+                ).build();
     }
 
     private String getPreviousAccessToken(HttpServletRequest request) {
@@ -116,23 +131,6 @@ public class UserServiceImpl implements UserService {
 
     public UserResponseDTO getUserDetails(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return UserResponseDTO.builder()
-                .id(user.getUserId())
-                .nickName(user.getNickName())
-                .enableCalling(user.getEnableCalling())
-                .phoneNumber(user.getPhoneNumber())
-                .fromTime(user.getFromTime())
-                .toTime(user.getToTime())
-                .email(user.getEmail())
-                .profileImagePath(user.getProfileImagePath())
-                .rating(user.getRating())
-                .isGrantedForPreciseLocation(user.getIsGrantedForPreciseLocation())
-                .locationName(user.getLocationName())
-                .longitude(user.getLongitude())
-                .latitude(user.getLatitude())
-                .role(user.getRole())
-                .dateCreated(user.getDateCreated())
-                .dateUpdated(user.getDateUpdated())
-                .build();
+        return userMapper.toUserResponseDTO(user);
     }
 }
