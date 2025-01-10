@@ -3,7 +3,8 @@ package com.igriss.ListIn.publication.service;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.UserPublicationDTO;
+import com.igriss.ListIn.publication.dto.user_publications.AttributeDTO;
+import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
@@ -36,17 +37,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class PublicationServiceImpl implements PublicationService {
-    private final PublicationMapper publicationMapper;
-    private final ProductFileService productFileService;
-    private final PublicationRepository publicationRepository;
+
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
+    private final PublicationDocumentRepository publicationDocumentRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final PublicationRepository publicationRepository;
+
+    private final ProductFileService productFileService;
     private final UserService userService;
 
     private final PublicationDocumentMapper publicationDocumentMapper;
-    private final PublicationDocumentRepository publicationDocumentRepository;
     private final PublicationImageMapper publicationImageMapper;
+    private final PublicationMapper publicationMapper;
 
 
     @Transactional
@@ -83,33 +86,47 @@ public class PublicationServiceImpl implements PublicationService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
-        Page<Publication> publications = publicationRepository.findAllBySeller(pageable, user);
+        Page<Publication> publicationPage = publicationRepository.findAllBySeller(pageable, user);
 
-        List<UserPublicationDTO> publicationsDTO = publications.stream()
-                .map(publicationMapper::toUserPublicationDTO)
-                .peek(
-                        userPublicationDTO -> userPublicationDTO.setProductImages(
-                                publicationImageMapper.toImageDTOList(
-                                        productFileService.findImagesByPublicationId(userPublicationDTO.getId())
-                                ))
-                )
-                .peek(
-                        userPublicationDTO -> userPublicationDTO.setVideoUrl(
-                                productFileService.findVideoUrlByPublicationId(userPublicationDTO.getId())
-                        )
-                )
-                .toList();
+        // Convert publications to DTOs and populate fields
+        List<UserPublicationDTO> publicationsDTO = publicationPage.stream()
+                .map(publication -> {
+                    // Map publication to UserPublicationDTO
+                    UserPublicationDTO userPublicationDTO = publicationMapper.toUserPublicationDTO(publication);
+
+                    userPublicationDTO.setProductImages(
+                            publicationImageMapper.toImageDTOList(
+                                    productFileService.findImagesByPublicationId(publication.getId())
+                            )
+                    );
+
+                    userPublicationDTO.setVideoUrl(
+                            productFileService.findVideoUrlByPublicationId(publication.getId())
+                    );
+
+                    List<PublicationAttributeValue> pavList = publicationAttributeValueRepository.findByPublication_Id(publication.getId());
+                    List<AttributeDTO> attributes = pavList.stream()
+                            .map(pav -> AttributeDTO.builder()
+                                    .key(pav.getCategoryAttribute().getAttributeKey().getName())
+                                    .value(pav.getAttributeValue().getValue())
+                                    .build()
+                            ).toList();
+                    userPublicationDTO.setAttributes(attributes);
+
+                    return userPublicationDTO;
+                }).toList();
 
         return new PageResponse<>(
                 publicationsDTO,
-                publications.getNumber(),
-                publications.getSize(),
-                publications.getTotalElements(),
-                publications.getTotalPages(),
-                publications.isFirst(),
-                publications.isLast()
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast()
         );
     }
+
 
     private void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList) {
 

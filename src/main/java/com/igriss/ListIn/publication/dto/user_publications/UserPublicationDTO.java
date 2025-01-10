@@ -1,5 +1,7 @@
-package com.igriss.ListIn.publication.dto;
+package com.igriss.ListIn.publication.dto.user_publications;
 
+import com.igriss.ListIn.publication.dto.CategoryDTO;
+import com.igriss.ListIn.publication.dto.ImageDTO;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import com.igriss.ListIn.publication.enums.PublicationType;
 import lombok.Builder;
@@ -45,4 +47,6 @@ public class UserPublicationDTO {
     private LocalDateTime updatedAt;
 
     private CategoryDTO category;
+
+    private List<AttributeDTO> attributes;
 }

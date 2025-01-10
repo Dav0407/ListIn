@@ -3,7 +3,7 @@ package com.igriss.ListIn.publication.mapper;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
-import com.igriss.ListIn.publication.dto.UserPublicationDTO;
+import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import com.igriss.ListIn.publication.enums.PublicationStatus;
