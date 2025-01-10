@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void updateContactDetails(PublicationRequestDTO request, User connectedUser) {
         userRepository.updateContactDetails(
                 connectedUser.getUserId(),
@@ -71,6 +72,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.updateUserDetails(
                 user.getUserId(),
+                userRequestDTO.getNickName(),
                 userRequestDTO.getProfileImagePath(),
                 userRequestDTO.getPhoneNumber(),
                 userRequestDTO.getIsGrantedForPreciseLocation(),
@@ -81,7 +83,7 @@ public class UserServiceImpl implements UserService {
                 userRequestDTO.getToTime()
         );
 
-        userRepository.updateUserRole(user.getUserId(), userRequestDTO.getIsBusinessAccount() ? Role.BUSINESS_SELLER : Role.INDIVIDUAL_SELLER);
+        userRepository.updateUserRole(user.getUserId(), userRequestDTO.getIsBusinessAccount() ? Role.BUSINESS_SELLER.name() : Role.INDIVIDUAL_SELLER.name());
 
         String accessToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);

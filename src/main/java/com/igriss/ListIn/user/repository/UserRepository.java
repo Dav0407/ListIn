@@ -1,6 +1,5 @@
 package com.igriss.ListIn.user.repository;
 
-import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.user.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -63,6 +62,10 @@ public interface UserRepository extends JpaRepository<User, UUID> {
                     WHEN CAST(:profileImagePath AS varchar) IS NOT NULL THEN CAST(:profileImagePath AS varchar)
                     ELSE profile_image_path
                 END,
+                  nick_name = CASE
+                    WHEN CAST(:nickName AS varchar) IS NOT NULL THEN CAST(:nickName AS varchar)
+                    ELSE nick_name
+                END,
                 phone_number = CASE
                     WHEN CAST(:phoneNumber AS varchar) IS NOT NULL THEN CAST(:phoneNumber AS varchar)
                     ELSE phone_number
@@ -95,6 +98,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
             """, nativeQuery = true)
     void updateUserDetails(
             @Param("userId") UUID userId,
+            @Param("nickName") String nickName,
             @Param("profileImagePath") String profileImagePath,
             @Param("phoneNumber") String phoneNumber,
             @Param("isGrantedForPreciseLocation") Boolean isGrantedForPreciseLocation,
@@ -107,6 +111,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Modifying
     @Query(value = "UPDATE users SET role = :role WHERE user_id = :userId", nativeQuery = true)
-    void updateUserRole(@Param("userId") UUID userId, @Param("role") Role role);
+    void updateUserRole(@Param("userId") UUID userId, @Param("role") String role);
 }
 
