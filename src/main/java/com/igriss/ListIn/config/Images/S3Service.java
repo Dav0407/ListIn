@@ -38,7 +38,7 @@ public class S3Service {
     @Value("${cloud.aws.s3.cache-control}")
     private String cached;
 
-    private final ExecutorService uploadExecutorService = Executors.newCachedThreadPool();
+    private final ExecutorService uploadExecutorService = Executors.newFixedThreadPool(10);
 
     //todo -> handle the case where S3 is out of memory
     public List<String> uploadFile(List<MultipartFile> files) {

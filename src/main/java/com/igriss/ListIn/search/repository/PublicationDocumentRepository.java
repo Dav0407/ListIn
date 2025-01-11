@@ -1,6 +1,5 @@
 package com.igriss.ListIn.search.repository;
 
-import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.search.entity.PublicationDocument;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

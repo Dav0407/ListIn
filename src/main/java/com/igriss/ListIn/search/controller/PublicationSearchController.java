@@ -26,7 +26,8 @@ public class PublicationSearchController {
     @GetMapping("/search")
     public PageResponse<PublicationResponseDTO> search(@RequestParam("query") String query,
                                                        @RequestParam(defaultValue = "0") Integer page,
-                                                       @RequestParam(defaultValue = "5") Integer size
+                                                       @RequestParam(defaultValue = "5") Integer size,
+                                                       @RequestParam(value = "filters", required = false) List<String> filters
                                                ) throws SearchQueryException {
         return searchService.search(query, page, size);
     }

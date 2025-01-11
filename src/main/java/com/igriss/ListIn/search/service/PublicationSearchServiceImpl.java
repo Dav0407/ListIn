@@ -1,11 +1,9 @@
 package com.igriss.ListIn.search.service;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
-import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.search.entity.PublicationDocument;
@@ -16,13 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -52,11 +46,12 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
             Page<PublicationDocument> publications = publicationDocumentRepository.searchByQuery(pageable, query);
 
-            List<PublicationDocument> publicationsContent = publications.getContent();
-            List<UUID> uuids = new ArrayList<>();
-            for (PublicationDocument  publication: publicationsContent)
-                uuids.add(publication.getId());
-            List<PublicationResponseDTO> publicationResponseDTOs = publicationRepository.findAllById(uuids).stream().map(publicationMapper::toPublicationResponseDTO).toList();
+            List<PublicationResponseDTO> publicationResponseDTOs = publicationRepository.findAllById(
+                    publications.getContent().stream()
+                            .map(PublicationDocument::getId)
+                            .toList()
+            ).stream().map(publicationMapper::toPublicationResponseDTO).toList();
+
             return new PageResponse<>(
                     publicationResponseDTOs,
                     publications.getNumber(),

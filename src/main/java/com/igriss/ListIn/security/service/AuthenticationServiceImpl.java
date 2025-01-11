@@ -69,6 +69,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
     }
 
+    public AuthenticationResponseDTO generateNewTokens(User updatedUser, HttpServletRequest request) {
+        jwtService.blackListToken(getPreviousAccessToken(request));
+        return AuthenticationResponseDTO.builder()
+                .accessToken(jwtService.generateToken(updatedUser))
+                .refreshToken(jwtService.generateRefreshToken(updatedUser))
+                .build();
+    }
+
+    private String getPreviousAccessToken(HttpServletRequest request) {
+        final String authHeader = request.getHeader("Authorization");
+        return authHeader.substring(7);
+    }
+
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
@@ -79,7 +92,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         refreshToken = authHeader.substring(7);
 
         //user should not have an access refreshing token with access token
-        if (!jwtService.isRefreshToken(refreshToken)){
+        if (!jwtService.isRefreshToken(refreshToken)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
 

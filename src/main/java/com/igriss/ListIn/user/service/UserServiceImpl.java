@@ -6,6 +6,7 @@ import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
+import com.igriss.ListIn.security.service.AuthenticationServiceImpl;
 import com.igriss.ListIn.security.service.JwtService;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
@@ -22,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
@@ -32,9 +34,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final AuthenticationServiceImpl authenticationService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final JwtService jwtService;
     private final UserMapper userMapper;
 
     @Override
@@ -68,11 +70,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public UpdateResponseDTO updateUserDetails(UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication) {
 
         User user = (User) authentication.getPrincipal();
-        log.info(user.toString());
 
         Integer status = userRepository.updateUserDetails(
                 user.getUserId(),
@@ -92,29 +93,15 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userRepository.getUserByUserId(user.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        String accessToken = jwtService.generateToken(updatedUser);
-        String refreshToken = jwtService.generateRefreshToken(updatedUser);
-
-
-        jwtService.blackListToken(getPreviousAccessToken(request));
-
         return UpdateResponseDTO.builder()
                 .tokens(
-                        AuthenticationResponseDTO.builder()
-                                .accessToken(accessToken)
-                                .refreshToken(refreshToken)
-                                .build()
+                        authenticationService.generateNewTokens(updatedUser,request)
                 )
                 .updatedUserDetails(
                         userMapper.toUserResponseDTO(status != 0 ? updatedUser : user)
                 ).build();
     }
 
-    private String getPreviousAccessToken(HttpServletRequest request) {
-
-        final String authHeader = request.getHeader("Authorization");
-        return authHeader.substring(7);
-    }
 
     @Override
     public User findByEmail(String username) {
