@@ -37,6 +37,12 @@ public class PublicationDocument {
     @Field(type = FieldType.Text, analyzer = "standard" )
     private String locationName;
 
+    @Field(type = FieldType.Float)
+    private Float price;
+
+    @Field(type = FieldType.Boolean)
+    private Boolean bargain;
+
     @Field(type = FieldType.Keyword)
     private ProductCondition productCondition;
 

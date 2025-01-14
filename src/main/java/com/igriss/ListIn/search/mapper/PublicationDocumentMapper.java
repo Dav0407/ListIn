@@ -19,6 +19,8 @@ public class PublicationDocumentMapper {
                 .title(publication.getTitle())
                 .description(publication.getDescription())
                 .locationName(publication.getLocationName())
+                .price(publication.getPrice())
+                .bargain(publication.getBargain())
                 .productCondition(publication.getProductCondition())
                 .categoryName(publication.getCategory().getName())
                 .categoryDescription(publication.getCategory().getDescription())

@@ -3,6 +3,7 @@ package com.igriss.ListIn.publication.service;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.user_publications.AttributeDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
@@ -89,7 +90,7 @@ public class PublicationServiceImpl implements PublicationService {
         Page<Publication> publicationPage = publicationRepository.findAllBySeller(pageable, user);
 
         // Convert publications to DTOs and populate fields
-        List<UserPublicationDTO> publicationsDTO = publicationPage.stream()
+        List<UserPublicationDTO> publicationsDTOList = publicationPage.stream()
                 .map(publication -> {
                     // Map publication to UserPublicationDTO
                     UserPublicationDTO userPublicationDTO = publicationMapper.toUserPublicationDTO(publication);
@@ -117,7 +118,7 @@ public class PublicationServiceImpl implements PublicationService {
                 }).toList();
 
         return new PageResponse<>(
-                publicationsDTO,
+                publicationsDTOList,
                 publicationPage.getNumber(),
                 publicationPage.getSize(),
                 publicationPage.getTotalElements(),
@@ -127,6 +128,30 @@ public class PublicationServiceImpl implements PublicationService {
         );
     }
 
+    @Override
+    public PageResponse<PublicationResponseDTO> findAllLatestPublications(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
+
+        Page<Publication> publicationPage = publicationRepository
+                .findAllByOrderByDatePostedDesc(pageable);
+
+        List<PublicationResponseDTO> publicationResponseDTOList = publicationPage
+                .getContent()
+                .stream()
+                .map(publicationMapper::toPublicationResponseDTO)
+                .toList();
+
+        return new PageResponse<>(
+                publicationResponseDTOList,
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast()
+        );
+    }
 
     private void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList) {
 
@@ -165,7 +190,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         publicationDocumentRepository.save(publicationDocument);
     }
-
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
 
