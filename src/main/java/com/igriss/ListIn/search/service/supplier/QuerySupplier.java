@@ -1,6 +1,6 @@
 package com.igriss.ListIn.search.service.supplier;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -33,7 +33,6 @@ public class QuerySupplier {
                 .minimumShouldMatch("1")
         ));
         log.info("{}",query1);
-
 
         return () -> query1;
     }

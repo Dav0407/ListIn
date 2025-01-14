@@ -15,5 +15,6 @@ public class ParentNode implements Serializable {
     private UUID id;
     private String name;
     private String description;
+    private String logoUrl;
     private List<ChildNode> childCategories;
 }

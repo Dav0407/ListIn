@@ -17,7 +17,7 @@ public class GroupedAttributeDTO implements Serializable {
     private String subHelperText;
     private String widgetType;
     private String subWidgetType;
-    private String filterHelperText;
+    private String filterText;
     private String subFilterText;
     private String filterWidgetType;
     private String subFilterWidgetType;

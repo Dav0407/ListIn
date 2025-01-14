@@ -24,6 +24,8 @@ public class Category {
 
     private String description;
 
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parentCategory;

@@ -48,7 +48,7 @@ public class CategoryAttributeService {
                     .subHelperText(attributeKey.getSubHelperText())
                     .widgetType(attributeKey.getWidgetType())
                     .subWidgetType(attributeKey.getSubWidgetType())
-                    .filterHelperText(attributeKey.getFilterText())
+                    .filterText(attributeKey.getFilterText())
                     .subFilterText(attributeKey.getSubFilterText())
                     .filterWidgetType(attributeKey.getFilterWidgetType())
                     .subFilterWidgetType(attributeKey.getSubFilterWidgetType())
