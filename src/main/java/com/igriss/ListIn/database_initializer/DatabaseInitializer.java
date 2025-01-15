@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class DatabaseInitializer {
 
     private final JdbcTemplate jdbcTemplate;
     private final ElasticsearchClient elasticsearchClient;
-
+    private final RedisTemplate<String, Object> redisTemplate;
     @Value("${elasticsearch.index-name}")
     private String indexName;
 
@@ -41,6 +42,17 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/pc_gpu_models.sql",
             "/database_sql_scripts/models/pc_brand_models.sql"
     );
+
+    @PostConstruct
+    public void flushRedis() {
+        Objects.requireNonNull(redisTemplate
+                        .getConnectionFactory()
+                )
+                .getConnection()
+                .serverCommands()
+                .flushAll();
+        log.info("#Redis cache successfully cleared");
+    }
 
     @PostConstruct
     public void init() {
@@ -67,9 +79,9 @@ public class DatabaseInitializer {
             for (String table : tablesToClear) {
                 jdbcTemplate.update("DELETE FROM " + table);
             }
-            log.info("Database cleared successfully.");
+            log.info("#Database cleared successfully.");
         } catch (Exception e) {
-            log.error("Error while clearing the database: {}", e.getMessage());
+            log.error("#Error while clearing the database: {}", e.getMessage());
         }
     }
 
@@ -83,11 +95,9 @@ public class DatabaseInitializer {
             }
             jdbcTemplate.execute(sql.toString());
         } catch (Exception e) {
-            log.error("Error executing script {}: {}", scriptPath, e.getMessage());
+            log.error("#Error executing script {}: {}", scriptPath, e.getMessage());
         }
     }
-
-
 
 
     @PostConstruct
@@ -95,10 +105,10 @@ public class DatabaseInitializer {
         try {
             if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
                 elasticsearchClient.indices().delete(d -> d.index(indexName));
-                log.info("Index deleted: {}" , indexName);
+                log.info("#Index deleted: {}", indexName);
             }
         } catch (Exception e) {
-            log.error("Exception while clearing elastic search data: {}",e.getMessage());
+            log.error("#Exception while clearing elastic search data: {}", e.getMessage());
         }
     }
 }

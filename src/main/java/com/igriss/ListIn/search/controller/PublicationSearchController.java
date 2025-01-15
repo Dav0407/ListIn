@@ -25,9 +25,10 @@ public class PublicationSearchController {
                                                        @RequestParam(defaultValue = "0") Integer page,
                                                        @RequestParam(defaultValue = "5") Integer size,
                                                        @RequestParam(required = false) Boolean bargain,
+                                                       @RequestParam(value = "condition", required = false) String productCondition,
                                                        @RequestParam(required = false) Float from,
                                                        @RequestParam(required = false) Float to) throws SearchQueryException {
-        return searchService.searchWithDefaultFilter(query, page, size,bargain,from,to);
+        return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to);
     }
 
     @GetMapping("/search/all/{pCategory}/{category}")
@@ -37,11 +38,12 @@ public class PublicationSearchController {
                                                            @RequestParam(defaultValue = "0") Integer page,
                                                            @RequestParam(defaultValue = "5") Integer size,
                                                            @RequestParam(required = false) Boolean bargain,
+                                                           @RequestParam(value = "condition", required = false) String productCondition,
                                                            @RequestParam(required = false) Float from,
                                                            @RequestParam(required = false) Float to,
                                                            @RequestParam(value = "filter", required = false) List<String> filters
     ) throws SearchQueryException {
-        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, from, to, filters);
+        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, filters);
     }
 
 }

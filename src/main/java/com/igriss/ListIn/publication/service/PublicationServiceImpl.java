@@ -180,7 +180,7 @@ public class PublicationServiceImpl implements PublicationService {
                     return AttributeKeyDocument.builder()
                             .id(entry.getKey().getId())
                             .key(entry.getKey().getName())
-                            .attributeValue(valueDocuments)
+                            .attributeValues(valueDocuments)
                             .build();
                 })
                 .collect(Collectors.toList());

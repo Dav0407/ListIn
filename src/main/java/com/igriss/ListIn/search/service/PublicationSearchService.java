@@ -10,9 +10,9 @@ import java.util.List;
 public interface PublicationSearchService {
 
     PageResponse<PublicationResponseDTO> searchWithDefaultFilter(String query, Integer page, Integer size,
-                                                                 Boolean bargain, Float from, Float to) throws SearchQueryException;
+                                                                 Boolean bargain, String productCondition, Float from, Float to) throws SearchQueryException;
 
     PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(String pCategory, String category, String query,
-                                                                  Integer page, Integer size, Boolean bargain,
+                                                                  Integer page, Integer size, Boolean bargain, String productCondition,
                                                                   Float from, Float to, List<String> filters) throws SearchQueryException;
 }

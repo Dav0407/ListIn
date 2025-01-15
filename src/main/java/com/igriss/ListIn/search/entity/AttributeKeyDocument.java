@@ -27,5 +27,5 @@ public class AttributeKeyDocument {
     private String key;
 
     @Field(type = FieldType.Object)
-    private List<AttributeValueDocument> attributeValue;
+    private List<AttributeValueDocument> attributeValues;
 }
