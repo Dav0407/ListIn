@@ -2,8 +2,8 @@ package com.igriss.ListIn.user.service;
 
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
+import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
@@ -25,7 +25,7 @@ public interface UserService {
 
     void updateContactDetails(PublicationRequestDTO request, User connectedUser);
 
-    AuthenticationResponseDTO updateUserDetails(UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication);
+    UpdateResponseDTO updateUserDetails(UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication);
 
 
 }

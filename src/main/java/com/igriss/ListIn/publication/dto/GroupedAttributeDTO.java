@@ -2,6 +2,7 @@ package com.igriss.ListIn.publication.dto;
 
 import lombok.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +17,10 @@ public class GroupedAttributeDTO implements Serializable {
     private String subHelperText;
     private String widgetType;
     private String subWidgetType;
+    private String filterText;
+    private String subFilterText;
+    private String filterWidgetType;
+    private String subFilterWidgetType;
     private String dataType;
     private List<AttributeValueDTO> values;
 

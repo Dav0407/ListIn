@@ -32,7 +32,7 @@ public class FileCompressor {
                     .outputQuality(0.5)
                     .toOutputStream(outputStream);
         }catch (IOException e){
-             log.error("Image Compress Failed Exception");
+             log.error("Image Compress Failed Exception {}",e.getMessage());
         }
 
         return convertIntoMultipart(file,outputStream);

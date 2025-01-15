@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -36,6 +37,12 @@ public class PublicationDocument {
     @Field(type = FieldType.Text, analyzer = "standard" )
     private String locationName;
 
+    @Field(type = FieldType.Float)
+    private Float price;
+
+    @Field(type = FieldType.Boolean)
+    private Boolean bargain;
+
     @Field(type = FieldType.Keyword)
     private ProductCondition productCondition;
 
@@ -50,4 +57,7 @@ public class PublicationDocument {
 
     @Field(type = FieldType.Text, analyzer = "standard", storeNullValue = true)
     private String parentCategoryDescription;
+
+    @Field(type = FieldType.Object)
+    private List<AttributeKeyDocument> attributeKeys;
 }

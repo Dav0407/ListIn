@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query("UPDATE User u SET u.password = :password WHERE u.email = :email")
     void updatePassword(@Param("email") String email, @Param("password") String password);
 
-    User getUserByUserId(UUID userId);
+    Optional<User> getUserByUserId(UUID userId);
 
     @Modifying
     @Query(value = """
@@ -96,7 +96,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
                 END
             WHERE user_id = :userId
             """, nativeQuery = true)
-    void updateUserDetails(
+    Integer updateUserDetails(
             @Param("userId") UUID userId,
             @Param("nickName") String nickName,
             @Param("profileImagePath") String profileImagePath,

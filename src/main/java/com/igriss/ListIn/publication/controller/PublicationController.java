@@ -1,7 +1,8 @@
 package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.UserPublicationDTO;
+import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
@@ -36,21 +37,26 @@ public class PublicationController {
     }
 
     @GetMapping("/user-publications")
-    public  ResponseEntity<PageResponse<UserPublicationDTO>> getPublicationsOfUser(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                                   @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-                                                                                   Authentication connectedUser) {
+    public ResponseEntity<PageResponse<UserPublicationDTO>> getPublicationsOfUser(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                                                  @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                                                  Authentication connectedUser) {
         return ResponseEntity.ok(publicationService.findAllByUser(page, size, connectedUser));
     }
 
-
-
     @GetMapping("/{publicationId}") // todo -> to be modified, this is for test used only !
     public ResponseEntity<Publication> getPublicationById(@PathVariable UUID publicationId) {
-        return ResponseEntity.ok(publicationRepository.findById(publicationId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        return ResponseEntity.ok(publicationRepository.findById(publicationId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
     @GetMapping("/PAV/{publicationId}") // todo -> to be modified, this is for test used only !
     public ResponseEntity<List<PublicationAttributeValue>> getPAV(@PathVariable UUID publicationId) {
         return ResponseEntity.ok(repo.findByPublication_Id(publicationId));
+    }
+
+    @GetMapping
+    public ResponseEntity<PageResponse<PublicationResponseDTO>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                                                          @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ) {
+        return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size));
     }
 }

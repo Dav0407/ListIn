@@ -35,6 +35,7 @@ public class CategoryTreeService {
                         .id(child.getId())
                         .name(child.getName())
                         .description(child.getDescription())
+                        .logoUrl(child.getImageUrl())
                         .attributes(attributePairs)
                         .build();
             }).toList();
@@ -42,6 +43,7 @@ public class CategoryTreeService {
                     .id(parent.getId())
                     .name(parent.getName())
                     .description(parent.getDescription())
+                    .logoUrl(parent.getImageUrl())
                     .childCategories(childNodes)
                     .build();
         }).toList();

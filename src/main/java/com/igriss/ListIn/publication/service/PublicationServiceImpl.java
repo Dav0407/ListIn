@@ -3,18 +3,19 @@ package com.igriss.ListIn.publication.service;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.UserPublicationDTO;
+import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.user_publications.AttributeDTO;
+import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
-import com.igriss.ListIn.publication.entity.AttributeValue;
-import com.igriss.ListIn.publication.entity.CategoryAttribute;
-import com.igriss.ListIn.publication.entity.Publication;
-import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
+import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.search.entity.AttributeKeyDocument;
+import com.igriss.ListIn.search.entity.AttributeValueDocument;
 import com.igriss.ListIn.search.entity.PublicationDocument;
 import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
 import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
@@ -30,25 +31,26 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class PublicationServiceImpl implements PublicationService {
-    private final PublicationMapper publicationMapper;
-    private final ProductFileService productFileService;
-    private final PublicationRepository publicationRepository;
+
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
+    private final PublicationDocumentRepository publicationDocumentRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final PublicationRepository publicationRepository;
+
+    private final ProductFileService productFileService;
     private final UserService userService;
 
     private final PublicationDocumentMapper publicationDocumentMapper;
-    private final PublicationDocumentRepository publicationDocumentRepository;
     private final PublicationImageMapper publicationImageMapper;
+    private final PublicationMapper publicationMapper;
 
 
     @Transactional
@@ -65,9 +67,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         // Save images
         productFileService.saveImages(request.getImageUrls(), publication);
-
-        //map into elastic search engine and save publication document
-        saveIntoPublicationDocument(publication);
 
         // Save video if present
         Publication finalPublication = publication;
@@ -88,45 +87,115 @@ public class PublicationServiceImpl implements PublicationService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
-        Page<Publication> publications = publicationRepository.findAllBySeller(pageable, user);
+        Page<Publication> publicationPage = publicationRepository.findAllBySeller(pageable, user);
 
-        List<UserPublicationDTO> publicationsDTO = publications.stream()
-                .map(publicationMapper::toUserPublicationDTO)
-                .peek(
-                        userPublicationDTO -> userPublicationDTO.setProductImages(
-                                publicationImageMapper.toImageDTOList(
-                                        productFileService.findImagesByPublicationId(userPublicationDTO.getId())
-                                ))
-                )
-                .peek(
-                        userPublicationDTO -> userPublicationDTO.setVideoUrl(
-                                productFileService.findVideoUrlByPublicationId(userPublicationDTO.getId())
-                        )
-                )
-                .toList();
+        // Convert publications to DTOs and populate fields
+        List<UserPublicationDTO> publicationsDTOList = publicationPage.stream()
+                .map(publication -> {
+                    // Map publication to UserPublicationDTO
+                    UserPublicationDTO userPublicationDTO = publicationMapper.toUserPublicationDTO(publication);
+
+                    userPublicationDTO.setProductImages(
+                            publicationImageMapper.toImageDTOList(
+                                    productFileService.findImagesByPublicationId(publication.getId())
+                            )
+                    );
+
+                    userPublicationDTO.setVideoUrl(
+                            productFileService.findVideoUrlByPublicationId(publication.getId())
+                    );
+
+                    List<PublicationAttributeValue> pavList = publicationAttributeValueRepository.findByPublication_Id(publication.getId());
+                    List<AttributeDTO> attributes = pavList.stream()
+                            .map(pav -> AttributeDTO.builder()
+                                    .key(pav.getCategoryAttribute().getAttributeKey().getName())
+                                    .value(pav.getAttributeValue().getValue())
+                                    .build()
+                            ).toList();
+                    userPublicationDTO.setAttributes(attributes);
+
+                    return userPublicationDTO;
+                }).toList();
 
         return new PageResponse<>(
-                publicationsDTO,
-                publications.getNumber(),
-                publications.getSize(),
-                publications.getTotalElements(),
-                publications.getTotalPages(),
-                publications.isFirst(),
-                publications.isLast()
+                publicationsDTOList,
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast()
         );
     }
 
-    private void saveIntoPublicationDocument(Publication publication) {
-        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication);
-        publicationDocumentRepository.save(publicationDocument);
+    @Override
+    public PageResponse<PublicationResponseDTO> findAllLatestPublications(int page, int size) {
 
+        Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
+
+        Page<Publication> publicationPage = publicationRepository
+                .findAllByOrderByDatePostedDesc(pageable);
+
+        List<PublicationResponseDTO> publicationResponseDTOList = publicationPage
+                .getContent()
+                .stream()
+                .map(publicationMapper::toPublicationResponseDTO)
+                .toList();
+
+        return new PageResponse<>(
+                publicationResponseDTOList,
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast()
+        );
+    }
+
+    private void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList) {
+
+        List<AttributeValue> attributeValues = pavList.stream()
+                .map(PublicationAttributeValue::getAttributeValue)
+                .toList();
+
+        // Organize attributeValues into a Map<AttributeKey, List<AttributeValue>>
+        Map<AttributeKey, List<AttributeValue>> attributeMap = attributeValues.stream()
+                .filter(Objects::nonNull) // Ensure no null values
+                .filter(attributeValue -> attributeValue.getAttributeKey() != null) // Ensure attributeKey is not null
+                .collect(Collectors.groupingBy(AttributeValue::getAttributeKey));
+
+        // Convert the map into a list of AttributeKeyDocument with corresponding AttributeValueDocument
+        List<AttributeKeyDocument> attributeKeyDocuments = attributeMap.entrySet().stream()
+                .map(entry -> {
+                    // Convert AttributeValue to AttributeValueDocument
+                    List<AttributeValueDocument> valueDocuments = entry.getValue().stream()
+                            .map(value -> AttributeValueDocument.builder()
+                                    .id(value.getId())
+                                    .value(value.getValue())
+                                    .build())
+                            .collect(Collectors.toList());
+
+                    // Create AttributeKeyDocument with AttributeValueDocuments
+                    return AttributeKeyDocument.builder()
+                            .id(entry.getKey().getId())
+                            .key(entry.getKey().getName())
+                            .attributeValues(valueDocuments)
+                            .build();
+                })
+                .collect(Collectors.toList());
+
+        // Create a PublicationDocument and set attributeKeyDocuments
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments);
+
+        publicationDocumentRepository.save(publicationDocument);
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
 
         List<CategoryAttribute> categoryAttributes = categoryAttributeRepository
                 .findByCategory_Id(publication.getCategory().getId());
-
+        List<PublicationAttributeValue> pavList = new ArrayList<>();
         for (PublicationRequestDTO.AttributeValueDTO attributeValueDTO : attributeValues) {
             CategoryAttribute categoryAttribute = categoryAttributes.stream()
                     .filter(ca -> ca.getAttributeKey().getId().equals(attributeValueDTO.getAttributeId()))
@@ -157,8 +226,11 @@ public class PublicationServiceImpl implements PublicationService {
                         .valueOrder("multiSelectable".equals(widgetType) ? i : 0)
                         .build();
 
-                publicationAttributeValueRepository.save(pav);
+                pavList.add(publicationAttributeValueRepository.save(pav));
             }
         }
+
+        //map into elastic search engine and save publication document
+        saveIntoPublicationDocument(publication, pavList);
     }
 }

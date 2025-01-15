@@ -20,6 +20,10 @@ public interface CategoryAttributeRepository extends JpaRepository<CategoryAttri
                     ak.sub_helper_text AS subHelperText,
                     ak.widget_type AS widgetType,
                     ak.sub_widget_type AS subWidgetType,
+                    ak.filter_text AS filterText,
+                    ak.sub_filter_text AS subFilterText,
+                    ak.filter_widget_type AS filterWidgetType,
+                    ak.sub_filter_widget_type AS subFilterWidgetType,
                     ak.data_type AS dataType,
                     av.attribute_value_id AS attributeValueId,
                     av.value AS attributeValue

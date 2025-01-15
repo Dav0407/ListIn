@@ -16,5 +16,6 @@ public class ChildNode implements Serializable {
     private UUID id;
     private String name;
     private String description;
+    private String logoUrl;
     private List<GroupedAttributeDTO> attributes;
 }

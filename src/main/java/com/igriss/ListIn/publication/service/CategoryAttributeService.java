@@ -30,12 +30,16 @@ public class CategoryAttributeService {
                     .subHelperText((String) record[3])
                     .widgetType((String) record[4])
                     .subWidgetType((String) record[5])
-                    .dataType((String) record[6])
+                    .filterText((String) record[6])
+                    .subFilterText((String) record[7])
+                    .filterWidgetType((String) record[8])
+                    .subFilterWidgetType((String) record[9])
+                    .dataType((String) record[10])
                     .build();
 
             AttributeValue attributeValue = AttributeValue.builder()
-                    .id((UUID) record[7])
-                    .value((String) record[8])
+                    .id((UUID) record[11])
+                    .value((String) record[12])
                     .build();
 
             groupedAttributes.computeIfAbsent(attributeKey.getName(), key -> GroupedAttributeDTO.builder()
@@ -44,6 +48,10 @@ public class CategoryAttributeService {
                     .subHelperText(attributeKey.getSubHelperText())
                     .widgetType(attributeKey.getWidgetType())
                     .subWidgetType(attributeKey.getSubWidgetType())
+                    .filterText(attributeKey.getFilterText())
+                    .subFilterText(attributeKey.getSubFilterText())
+                    .filterWidgetType(attributeKey.getFilterWidgetType())
+                    .subFilterWidgetType(attributeKey.getSubFilterWidgetType())
                     .dataType(attributeKey.getDataType())
                     .values(new ArrayList<>())
                     .build()
