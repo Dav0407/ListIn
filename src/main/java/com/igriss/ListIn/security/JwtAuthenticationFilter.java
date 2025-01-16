@@ -1,5 +1,9 @@
 package com.igriss.ListIn.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.igriss.ListIn.exceptions.RateLimitExceededException;
+import com.igriss.ListIn.exceptions.TokenIsBlacklistedException;
+import com.igriss.ListIn.handler.ExceptionResponse;
 import com.igriss.ListIn.security.service.JwtServiceImpl;
 import com.igriss.ListIn.security.service.RateLimitingService;
 import jakarta.servlet.FilterChain;
@@ -8,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +22,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import static com.igriss.ListIn.handler.BusinessErrorCodes.*;
 
 import java.io.IOException;
 
@@ -34,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+    ) throws ServletException, IOException, RateLimitExceededException {
 
         //firstly we have to get the ip address of each user
         String clientIp = request.getRemoteAddr();
@@ -44,6 +51,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
             response.getWriter().write("Too many request made from the IP address: ");
             log.warn("Too many request made from the IP address: {}", clientIp);
+
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setContentType("application/json");
+            response.getWriter().write(
+                    new ObjectMapper().writeValueAsString(ExceptionResponse.builder()
+                            .businessErrorCode(TOO_MANY_ATTEMPTS.getCode())
+                            .businessErrorDescription(TOO_MANY_ATTEMPTS.getDescription())
+                            .errorMessage("Too many request made from the IP address: " + clientIp)
+                            .build())
+            );
             return;
         }
 
