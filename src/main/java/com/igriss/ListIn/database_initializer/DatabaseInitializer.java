@@ -23,6 +23,7 @@ public class DatabaseInitializer {
     private final JdbcTemplate jdbcTemplate;
     private final ElasticsearchClient elasticsearchClient;
     private final RedisTemplate<String, Object> redisTemplate;
+
     @Value("${elasticsearch.index-name}")
     private String indexName;
 
@@ -43,7 +44,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/pc_brand_models.sql"
     );
 
-    @PostConstruct
+    /*@PostConstruct
     public void flushRedis() {
         Objects.requireNonNull(redisTemplate
                         .getConnectionFactory()
@@ -52,7 +53,7 @@ public class DatabaseInitializer {
                 .serverCommands()
                 .flushAll();
         log.info("#Redis cache successfully cleared");
-    }
+    }*/
 
     @PostConstruct
     public void init() {
