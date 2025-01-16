@@ -65,7 +65,8 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationMapper.toPublication(request, connectedUser);
         publication = publicationRepository.save(publication);
 
-        // Save images
+        // Save images //todo -> then removed the assignment
+
         productFileService.saveImages(request.getImageUrls(), publication);
 
         // Save video if present
@@ -76,6 +77,8 @@ public class PublicationServiceImpl implements PublicationService {
 
         // Save attribute values
         savePublicationAttributeValues(request.getAttributeValues(), publication);
+
+
 
         return publication.getId();
     }
@@ -208,10 +211,11 @@ public class PublicationServiceImpl implements PublicationService {
             String widgetType = categoryAttribute.getAttributeKey().getWidgetType();
 
             if (("oneSelectable".equals(widgetType) || "colorSelectable".equals(widgetType)) && attributeValueDTO.getAttributeValueIds().size() > 1) {
-                throw new ValidationException(
+                var exception = new ValidationException(
                         "This attribute allows only one value",
-                        List.of("Attribute " + attributeValueDTO.getAttributeId() + " allows only one value")
-                );
+                        List.of("Attribute " + attributeValueDTO.getAttributeId() + " allows only one value"));
+                log.error("Exception occurred: ", exception);
+                throw exception;
             }
 
             for (int i = 0; i < attributeValueDTO.getAttributeValueIds().size(); i++) {

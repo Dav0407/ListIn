@@ -33,88 +33,39 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final PublicationRepository publicationRepository;
 
     @Override
-    public PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(
-            String pCategory,
-            String category,
-            String query,
-            Integer page,
-            Integer size,
-            Boolean bargain,
-            String productCondition,
-            Float from,
-            Float to,
-            List<String> filters) throws SearchQueryException {
+    public PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(String pCategory, String category, String query,
+                                                                         Integer page, Integer size, Boolean bargain, String productCondition,
+                                                                         Float from, Float to, List<String> filters) throws SearchQueryException {
 
+
+        List<PublicationDocument> publicationDocuments = new ArrayList<>();
+
+        SearchResponse<PublicationDocument> response;
         try {
-            SearchResponse<PublicationDocument> response = executeAdvancedSearch(
-                    pCategory, category, query, page, size,
-                    bargain, productCondition, from, to, filters
-            );
+            response = elasticsearchClient.search(q -> q
+                            .index(indexName)
+                            .query(QueryRepository.deepSearchQuerySupplier(query, pCategory, category, bargain, productCondition, from, to, parseFilter(filters)).get())
+                            .from(page * size)
+                            .size(size),
+                    PublicationDocument.class);
 
-            List<PublicationDocument> documents = extractDocuments(response);
-            List<PublicationResponseDTO> content = editQuery(documents);
-            long totalElements = getTotalElements(response);
-
-            return pagination(page, size, totalElements, content);
-        } catch (IOException e) {
-            throw new SearchQueryException("Exception on search query: " + e.getMessage());
+            if (response.hits().hits() != null) {
+                for (var hit : response.hits().hits()) {
+                    publicationDocuments.add(hit.source());
+                }
+            }
+        } catch (IOException ioException) {
+            log.error("Exception occurred: ", ioException);
+            throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
-    }
 
-    @Override
-    public PageResponse<PublicationResponseDTO> searchWithDefaultFilter(
-            String query,
-            Integer page,
-            Integer size,
-            Boolean bargain,
-            String productCondition,
-            Float from,
-            Float to) throws SearchQueryException {
+        List<PublicationResponseDTO> content = editQuery(publicationDocuments);
 
-        try {
-            SearchResponse<PublicationDocument> response = executeDefaultSearch(
-                    query, page, size, bargain, productCondition, from, to
-            );
+        long totalElements = 0;
+        if (response.hits().total() != null)
+            totalElements = response.hits().total().value();
 
-            List<PublicationDocument> documents = extractDocuments(response);
-            List<PublicationResponseDTO> content = editQuery(documents);
-            long totalElements = getTotalElements(response);
-
-            return pagination(page, size, totalElements, content);
-        } catch (IOException e) {
-            throw new SearchQueryException("Exception on search query: " + e.getMessage());
-        }
-    }
-
-    private SearchResponse<PublicationDocument> executeAdvancedSearch(
-            String pCategory, String category, String query,
-            Integer page, Integer size,
-            Boolean bargain, String productCondition,
-            Float from, Float to, List<String> filters) throws IOException {
-
-        Map<String, List<String>> parsedFilters = parseFilter(filters);
-        return elasticsearchClient.search(q -> q
-                        .index(indexName)
-                        .query(QueryRepository.deepSearchQuerySupplier(
-                                query, pCategory, category, bargain,
-                                productCondition, from, to, parsedFilters).get())
-                        .from(page * size)
-                        .size(size),
-                PublicationDocument.class);
-    }
-
-    private SearchResponse<PublicationDocument> executeDefaultSearch(
-            String query, Integer page, Integer size,
-            Boolean bargain, String productCondition,
-            Float from, Float to) throws IOException {
-
-        return elasticsearchClient.search(q -> q
-                        .index(indexName)
-                        .query(QueryRepository.shallowSearchQuerySupplier(
-                                query, bargain, productCondition, from, to).get())
-                        .from(page * size)
-                        .size(size),
-                PublicationDocument.class);
+        return pagination(page, size, totalElements, content);
     }
 
     private Map<String, List<String>> parseFilter(List<String> filters) {
@@ -122,39 +73,37 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .map(filter -> filter.split(":"))
                 .collect(Collectors.toMap(
                         split -> split[0],
-                        split -> Arrays.stream(split[1].split(",")).toList()
-                ));
+                        split -> Arrays.stream(split[1].split(",")).toList())
+                );
     }
 
-    private List<PublicationDocument> extractDocuments(SearchResponse<PublicationDocument> response) {
-        if (response.hits().hits() == null) {
-            return new ArrayList<>();
+    @Override
+    public PageResponse<PublicationResponseDTO> searchWithDefaultFilter(String query, Integer page, Integer size,
+                                                                        Boolean bargain, String productCondition, Float from, Float to) throws SearchQueryException {
+        try {
+            SearchResponse<PublicationDocument> response = elasticsearchClient.search(q -> q
+                            .index(indexName)
+                            .query(QueryRepository.shallowSearchQuerySupplier(query, bargain, productCondition, from, to).get())
+                            .from(page * size)
+                            .size(size),
+                    PublicationDocument.class);
+
+            long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
+
+            List<PublicationDocument> publicationDocuments = response.hits().hits() != null ?
+                    response.hits().hits().stream()
+                            .map(Hit::source)
+                            .toList() :
+                    new ArrayList<>();
+
+            List<PublicationResponseDTO> content = editQuery(publicationDocuments);
+            return pagination(page, size, totalElements, content);
+        } catch (IOException ioException) {
+            throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
-        return response.hits().hits().stream()
-                .map(Hit::source)
-                .toList();
     }
 
-    private long getTotalElements(SearchResponse<PublicationDocument> response) {
-        return response.hits().total() != null ? response.hits().total().value() : 0;
-    }
-
-
-    @NotNull
-    private List<PublicationResponseDTO> editQuery(List<PublicationDocument> publicationDocuments) {
-        return publicationDocuments.stream()
-                .map(document -> publicationRepository.findById(document.getId())
-                        .map(publicationMapper::toPublicationResponseDTO)
-                        .orElseThrow())
-                .toList();
-    }
-
-    private PageResponse<PublicationResponseDTO> pagination(
-            Integer page,
-            Integer size,
-            long totalElements,
-            List<PublicationResponseDTO> content) {
-
+    private PageResponse<PublicationResponseDTO> pagination(Integer page, Integer size, long totalElements, List<PublicationResponseDTO> content) {
         boolean first = page == 0;
         boolean last = ((long) (page + 1) * size) >= totalElements;
         long totalPages = (long) Math.ceil((double) totalElements / size);
@@ -169,4 +118,15 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .last(last)
                 .build();
     }
+
+    @NotNull
+    private List<PublicationResponseDTO> editQuery(List<PublicationDocument> publicationDocuments) {
+        return publicationDocuments.stream()
+                .map(document -> publicationRepository.findById(document.getId())
+                        .map(publicationMapper::toPublicationResponseDTO)
+                        .orElseThrow())
+                .toList();
+    }
+
+
 }

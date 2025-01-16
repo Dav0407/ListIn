@@ -9,6 +9,7 @@ import com.igriss.ListIn.publication.mapper.PublicationVideoMapper;
 import com.igriss.ListIn.publication.repository.ProductImageRepository;
 import com.igriss.ListIn.publication.repository.ProductVideoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductFileServiceImpl implements ProductFileService {
 
     private final PublicationImageMapper publicationImageMapper;
@@ -30,7 +32,8 @@ public class ProductFileServiceImpl implements ProductFileService {
         List<PublicationImage> publicationImageList = productImageRepository.findAllByImageUrlIn(imageUrls);
         publicationImageList.forEach(publicationImage -> publicationImage.setPublication(publication));
 
-        productImageRepository.saveAll(publicationImageList);
+        List<PublicationImage> publicationImages = productImageRepository.saveAll(publicationImageList);
+        log.info("Saved {} publication images: {}", publicationImages.size(), publicationImages);
     }
 
     @Override

@@ -87,18 +87,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             new WebAuthenticationDetailsSource().buildDetails(request)
                     );
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                }else {
-                    throw new TokenIsBlacklistedException("Your authentication token is blacklisted or expired. Please log in again.");
+                } else {
+                    var exception = new TokenIsBlacklistedException("Your authentication token is blacklisted or expired. Please log in again.");
+                    log.error("Invalid JWT token: {}", jwt, exception);
+                    throw exception;
                 }
             } catch (UsernameNotFoundException | TokenIsBlacklistedException exception) {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("application/json");
                 response.getWriter().write(
                         new ObjectMapper().writeValueAsString(ExceptionResponse.builder()
-                                        .businessErrorCode(USER_UNAUTHORIZED.getCode())
-                                        .businessErrorDescription(USER_UNAUTHORIZED.getDescription())
-                                        .errorMessage(exception.getMessage())
-                                        .build())
+                                .businessErrorCode(USER_UNAUTHORIZED.getCode())
+                                .businessErrorDescription(USER_UNAUTHORIZED.getDescription())
+                                .errorMessage(exception.getMessage())
+                                .build())
                 );
                 return;
             }

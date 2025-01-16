@@ -93,6 +93,9 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userRepository.getUserByUserId(user.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
+        if (status != 0) log.info("User updated: {}", user);
+        else log.info("User update failed: {}", user);
+
         return UpdateResponseDTO.builder()
                 .tokens(
                         authenticationService.generateNewTokens(updatedUser,request)

@@ -22,6 +22,6 @@ public class PublicationVideo {
     private String videoUrl;
 
     @ManyToOne
-    @JoinColumn(name = "publication_id", updatable = false)
+    @JoinColumn(name = "publication_id")
     private Publication publication;
 }
