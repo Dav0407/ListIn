@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -48,8 +49,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //if the number of counts more than the applicable counts, it will throw TOO_MANY_REQUESTS
         if (rateLimitingService.isRateLimitExceeded(clientIp)) {
-            response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-            response.getWriter().write("Too many request made from the IP address: ");
             log.warn("Too many request made from the IP address: {}", clientIp);
 
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -75,18 +74,35 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         userEmail = jwtService.extractUsername(jwt);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-            // Validate token and check if blacklisted
-            if (jwtService.isAccessTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
+            try {
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+
+                // Validate token and check if blacklisted
+                if (jwtService.isAccessTokenValid(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities()
+                    );
+                    authenticationToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }else {
+                    throw new TokenIsBlacklistedException("Your authentication token is blacklisted or expired. Please log in again.");
+                }
+            } catch (UsernameNotFoundException | TokenIsBlacklistedException exception) {
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.setContentType("application/json");
+                response.getWriter().write(
+                        new ObjectMapper().writeValueAsString(ExceptionResponse.builder()
+                                        .businessErrorCode(USER_UNAUTHORIZED.getCode())
+                                        .businessErrorDescription(USER_UNAUTHORIZED.getDescription())
+                                        .errorMessage(exception.getMessage())
+                                        .build())
                 );
-                authenticationToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                return;
             }
+
         }
         filterChain.doFilter(request, response);
     }
