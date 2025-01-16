@@ -39,17 +39,21 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    @Override
+    @Override // todo -> will be fixed the logical bug
     public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
         //check if users password is correct
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new BadCredentialsException("Wrong password");
+            var exception = new BadCredentialsException("Wrong password");
+            log.error("Current password is incorrect", exception);
+            throw exception;
         }
         //check if the confirmation password matches with the new password
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-            throw new BadCredentialsException("Passwords does not match");
+            var exception = new BadCredentialsException("Passwords does not match");
+            log.error("Passwords does not match", exception);
+            throw exception;
         }
         //update the password
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
