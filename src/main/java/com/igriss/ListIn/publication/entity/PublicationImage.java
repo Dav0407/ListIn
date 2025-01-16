@@ -25,6 +25,6 @@ public class PublicationImage {
     private Boolean isPrimaryImage;
 
     @ManyToOne
-    @JoinColumn(name = "publication_id", updatable = false)
+    @JoinColumn(name = "publication_id")
     private Publication publication;
 }

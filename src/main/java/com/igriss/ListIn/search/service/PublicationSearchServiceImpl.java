@@ -55,6 +55,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 }
             }
         } catch (IOException ioException) {
+            log.error("Exception occurred: ", ioException);
             throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
 

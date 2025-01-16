@@ -88,7 +88,9 @@ public class S3Service {
                             .build(),
                     RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            var exception = new FailedToUploadFileException("Uploading failed " + file.getOriginalFilename());
+            log.error("Error processing file {}: {}", file.getOriginalFilename(), e.getMessage(), exception);
+            throw exception;
         }
     }
 

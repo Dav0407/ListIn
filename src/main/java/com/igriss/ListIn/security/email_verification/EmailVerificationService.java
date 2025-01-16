@@ -63,9 +63,8 @@ public class EmailVerificationService {
             log.warn("send");
 
             javaMailSender.send(mimeMessage);
-        }
-        catch (MessagingException e) {
-
+        } catch (MessagingException e) {
+            log.error("Error while sending verification email", e);
             throw new EmailNotFoundException("Failed to send email");
         }
     }
@@ -99,8 +98,8 @@ public class EmailVerificationService {
     private String loadHTMLTemplate(String code) throws LoadHTMLTemplateFailedException {
         try {
             Resource resource = resourceLoader.getResource("classpath:templates/email_template.html");
-            log.warn("Resource exists: " + resource.exists());
-            log.warn("Resource description: " + resource.getDescription());
+            log.warn("Resource exists: {}", resource.exists());
+            log.warn("Resource description: {}", resource.getDescription());
 
             try (InputStream inputStream = resource.getInputStream();
                  BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
@@ -113,11 +112,10 @@ public class EmailVerificationService {
                 return contentBuilder.toString().replace("{{CODE}}", code);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Failed to load HTML template: ", e);
             throw new LoadHTMLTemplateFailedException("Failed to load HTML template: " + e.getMessage());
         }
     }
-
 
 
     private String generateVerificationCode() {
@@ -125,5 +123,6 @@ public class EmailVerificationService {
         return Integer.toString((int) (Math.random() * 90000) + 10000);
     }
 
-    private record CodeDetails(String code, LocalDateTime generatedTime) {}
+    private record CodeDetails(String code, LocalDateTime generatedTime) {
+    }
 }
