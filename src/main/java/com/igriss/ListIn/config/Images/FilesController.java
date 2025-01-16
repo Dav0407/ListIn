@@ -21,12 +21,12 @@ public class FilesController {
 
     @PostMapping("/upload/images")
     public ResponseEntity<List<String>> uploadImage(@RequestParam("images") List<MultipartFile> files) {
-        return ResponseEntity.ok(productFileService.saveFileURLs(files));
+        return ResponseEntity.ok(productFileService.uploadImageURLs(files));
     }
 
     @PostMapping("/upload/video")
     public ResponseEntity<?> uploadVideo(@RequestParam(name = "video") MultipartFile video) {
-        return ResponseEntity.ok(productFileService.saveFileURLs(video));
+        return ResponseEntity.ok(productFileService.uploadVideoURL(video));
     }
 
     @GetMapping("/download")
