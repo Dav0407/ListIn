@@ -24,7 +24,9 @@ public class EmailServiceImpl implements EmailService {
 
             if (userRepository.findByEmail(verificationRequestDTO.getEmail()).isPresent()) {
 
-                throw new UserHasAccountException("User already has an account with that email");
+                var exception = new UserHasAccountException("User already has an account with that email");
+                log.error(exception.getMessage());
+                throw exception;
             }
 
             return "Email verification successful";

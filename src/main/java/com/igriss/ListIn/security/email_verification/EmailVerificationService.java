@@ -44,23 +44,16 @@ public class EmailVerificationService {
         MimeMessageHelper mailMessage;
 
         try {
-            log.warn("MimeMessageHelper");
 
             mailMessage = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            log.warn("getEmail");
 
             mailMessage.setTo(user.getEmail());
-            log.warn("setSubject");
 
             mailMessage.setSubject("Email Verification");
-            log.warn("loadHTMLTemplate");
 
             mailMessage.setText(loadHTMLTemplate(code), true);
-            log.warn("setFrom");
 
             mailMessage.setFrom("ListIn verification <noreply@chat.com>");
-
-            log.warn("send");
 
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {

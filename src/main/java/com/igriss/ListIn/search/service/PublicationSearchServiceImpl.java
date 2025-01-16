@@ -99,6 +99,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
             List<PublicationResponseDTO> content = editQuery(publicationDocuments);
             return pagination(page, size, totalElements, content);
         } catch (IOException ioException) {
+            log.error("Exception occurred: ", ioException);
             throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
     }

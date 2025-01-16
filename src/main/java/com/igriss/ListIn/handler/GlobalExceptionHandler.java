@@ -28,19 +28,6 @@ public class GlobalExceptionHandler {
                 );
     }
 
-    @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleException(UsernameNotFoundException exception) {
-        return ResponseEntity
-                .status(UNAUTHORIZED)
-                .body(
-                        ExceptionResponse.builder()
-                                .businessErrorCode(USER_UNAUTHORIZED.getCode())
-                                .businessErrorDescription(USER_UNAUTHORIZED.getDescription())
-                                .errorMessage(exception.getMessage())
-                                .build()
-                );
-    }
-
     @ExceptionHandler(EmailVerificationFailedException.class)
     public ResponseEntity<ExceptionResponse> handleException(EmailVerificationFailedException exception) {
         return ResponseEntity
