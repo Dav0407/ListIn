@@ -13,8 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublicationImageMapper {
 
-    private final PublicationRepository publicationRepository;
-
     public PublicationImage toProductImage(String imageUrl, Publication publication) {
         return PublicationImage.builder()
                 .imageUrl(imageUrl)

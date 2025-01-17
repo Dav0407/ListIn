@@ -25,7 +25,7 @@ public class PublicationMapper {
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
     private final PublicationImageMapper publicationImageMapper;
-    private final PublicationVideoMapper publicationVideoMapper;
+
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
         PublicationType publicationType = switch (connectedUser.getRole()) {
