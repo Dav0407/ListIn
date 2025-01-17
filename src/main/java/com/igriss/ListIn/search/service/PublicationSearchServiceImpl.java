@@ -6,7 +6,10 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
+import com.igriss.ListIn.publication.entity.PublicationVideo;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
+import com.igriss.ListIn.publication.repository.ProductImageRepository;
+import com.igriss.ListIn.publication.repository.ProductVideoRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.search.entity.PublicationDocument;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
@@ -31,6 +34,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final ElasticsearchClient elasticsearchClient;
     private final PublicationMapper publicationMapper;
     private final PublicationRepository publicationRepository;
+    private final ProductImageRepository productImageRepository;
+    private final ProductVideoRepository productVideoRepository;
 
     @Override
     public PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(String pCategory, String category, String query,
@@ -124,7 +129,16 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private List<PublicationResponseDTO> editQuery(List<PublicationDocument> publicationDocuments) {
         return publicationDocuments.stream()
                 .map(document -> publicationRepository.findById(document.getId())
-                        .map(publicationMapper::toPublicationResponseDTO)
+                        .map(publication ->
+                                publicationMapper.
+                                        toPublicationResponseDTO(publication,
+                                                productImageRepository
+                                                        .findAllByPublication_Id(publication.getId()),
+                                                productVideoRepository
+                                                        .findByPublication_Id(publication.getId())
+                                                        .map(PublicationVideo::getVideoUrl)
+                                                        .orElse(null)
+                                        ))
                         .orElseThrow())
                 .toList();
     }

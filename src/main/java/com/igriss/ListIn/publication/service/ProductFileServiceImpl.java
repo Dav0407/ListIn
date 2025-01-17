@@ -29,32 +29,28 @@ public class ProductFileServiceImpl implements ProductFileService {
     @Override
     public void saveImages(List<String> imageUrls, Publication publication) {
 
-        List<PublicationImage> publicationImageList = productImageRepository.findAllByImageUrlIn(imageUrls);
-        publicationImageList.forEach(publicationImage -> publicationImage.setPublication(publication));
+        List<PublicationImage> publicationImageList = imageUrls.stream()
+                .map(url -> publicationImageMapper
+                        .toProductImage(url, publication)).toList();
 
         List<PublicationImage> publicationImages = productImageRepository.saveAll(publicationImageList);
         log.info("Saved {} publication images: {}", publicationImages.size(), publicationImages);
     }
 
     @Override
-    public void saveVideo(String videoUrls, Publication publication) {
-        PublicationVideo publicationVideo = productVideoRepository.findByVideoUrl(videoUrls);
-        publicationVideo.setPublication(publication);
+    public void saveVideo(String videoUrl, Publication publication) {
+        PublicationVideo publicationVideo = publicationVideoMapper.toProductVideo(videoUrl, publication);
         productVideoRepository.save(publicationVideo);
     }
 
     @Override
-    public List<String> saveFileURLs(List<MultipartFile> files) {
-        List<String> urls = s3Service.uploadFile(files);
-        productImageRepository.saveAll(urls.stream().map(publicationImageMapper::toProductImage).toList());
-        return urls;
+    public List<String> uploadImageURLs(List<MultipartFile> files) {
+        return s3Service.uploadFile(files);
     }
 
     @Override
-    public String saveFileURLs(MultipartFile file) {
-        List<String> url = s3Service.uploadFile(List.of(file));
-        productVideoRepository.save(publicationVideoMapper.toProductVideo(url.get(0)));
-        return url.get(0);
+    public String uploadVideoURL(MultipartFile file) {
+        return s3Service.uploadFile(List.of(file)).get(0);
     }
 
     @Override
