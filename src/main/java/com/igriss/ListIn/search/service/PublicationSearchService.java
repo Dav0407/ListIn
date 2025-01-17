@@ -5,6 +5,7 @@ import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 
 public interface PublicationSearchService {
@@ -12,7 +13,7 @@ public interface PublicationSearchService {
     PageResponse<PublicationResponseDTO> searchWithDefaultFilter(String query, Integer page, Integer size,
                                                                  Boolean bargain, String productCondition, Float from, Float to) throws SearchQueryException;
 
-    PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(String pCategory, String category, String query,
+    PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                                   Integer page, Integer size, Boolean bargain, String productCondition,
                                                                   Float from, Float to, List<String> filters) throws SearchQueryException;
 }

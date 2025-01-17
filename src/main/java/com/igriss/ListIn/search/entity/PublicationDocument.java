@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
 import java.util.List;
 import java.util.UUID;
@@ -46,18 +47,18 @@ public class PublicationDocument {
     @Field(type = FieldType.Keyword)
     private ProductCondition productCondition;
 
-    @Field(type = FieldType.Text, analyzer = "standard" )
-    private String categoryName;
+    @Field(type = FieldType.Keyword)
+    private UUID categoryId;
 
     @Field(type = FieldType.Text, analyzer = "standard" )
     private String categoryDescription;
 
-    @Field(type = FieldType.Text, analyzer = "standard", storeNullValue = true)
-    private String parentCategoryName;
+    @Field(type = FieldType.Keyword)
+    private UUID parentCategoryId;
 
     @Field(type = FieldType.Text, analyzer = "standard", storeNullValue = true)
     private String parentCategoryDescription;
 
-    @Field(type = FieldType.Object)
+    @Field(type = FieldType.Nested)
     private List<AttributeKeyDocument> attributeKeys;
 }

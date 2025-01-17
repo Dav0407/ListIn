@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
 import java.util.UUID;
 

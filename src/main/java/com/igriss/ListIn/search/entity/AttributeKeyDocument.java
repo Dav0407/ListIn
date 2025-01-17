@@ -26,6 +26,6 @@ public class AttributeKeyDocument {
     @Field(type = FieldType.Text, analyzer = "standard")
     private String key;
 
-    @Field(type = FieldType.Object)
+    @Field(type = FieldType.Nested)
     private List<AttributeValueDocument> attributeValues;
 }

@@ -38,7 +38,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final ProductVideoRepository productVideoRepository;
 
     @Override
-    public PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(String pCategory, String category, String query,
+    public PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                                          Integer page, Integer size, Boolean bargain, String productCondition,
                                                                          Float from, Float to, List<String> filters) throws SearchQueryException {
 
@@ -49,7 +49,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         try {
             response = elasticsearchClient.search(q -> q
                             .index(indexName)
-                            .query(QueryRepository.deepSearchQuerySupplier(query, pCategory, category, bargain, productCondition, from, to, parseFilter(filters)).get())
+                            .query(QueryRepository.deepSearchQuerySupplier(query, pCategory, category, bargain, productCondition, from, to, filters != null ? parseFilter(filters) : null).get())
                             .from(page * size)
                             .size(size),
                     PublicationDocument.class);

@@ -22,9 +22,9 @@ public class PublicationDocumentMapper {
                 .price(publication.getPrice())
                 .bargain(publication.getBargain())
                 .productCondition(publication.getProductCondition())
-                .categoryName(publication.getCategory().getName())
+                .categoryId(publication.getCategory().getId())
                 .categoryDescription(publication.getCategory().getDescription())
-                .parentCategoryName(publication.getCategory().getParentCategory().getName())
+                .parentCategoryId(publication.getCategory().getParentCategory().getId())
                 .parentCategoryDescription(publication.getCategory().getParentCategory().getDescription())
                 .attributeKeys(attributes)
                 .build();

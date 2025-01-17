@@ -4,14 +4,17 @@ import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class QueryRepository {
-    private static final String CATEGORY_NAME = "categoryName";
-    private static final String PARENT_CATEGORY_NAME = "parentCategoryName";
+    private static final String CATEGORY_ID = "categoryId";
+    private static final String PARENT_CATEGORY_ID = "parentCategoryId";
     private static final String ATTRIBUTE_KEY_ID = "attributeKeys.id";
     private static final String ATTRIBUTE_VALUE_ID = "attributeKeys.attributeValues.id";
     private static final String BARGAIN = "bargain";
@@ -30,18 +33,21 @@ public class QueryRepository {
 
     public static Supplier<Query> deepSearchQuerySupplier(
             String input,
-            String pCategory,
-            String category,
+            UUID pCategory,
+            UUID category,
             Boolean bargain,
             String productCondition,
             Float from,
             Float to,
             Map<String, List<String>> filters) {
-
         String cleanedInput = preprocessInput(input);
         String noSpacesKeyword = cleanedInput.replace(" ", "");
 
-        List<Query> queries = getDeepQuery(filters);
+        List<Query> queries = new ArrayList<>();
+
+        if (filters != null)
+            queries.addAll(getDeepQuery(filters));
+
         queries.add(matchCategoryQuery(pCategory, category));
         queries.add(getShallowQuery(bargain, productCondition, from, to, cleanedInput, noSpacesKeyword));
 
@@ -67,10 +73,10 @@ public class QueryRepository {
                 .toLowerCase();
     }
 
-    private static Query matchCategoryQuery(String pCategory, String category) {
+    private static Query matchCategoryQuery(UUID pCategory, UUID category) {
         return Query.of(q -> q.bool(b -> b
-                .must(m -> m.match(mustMatchCategoryName(category)))
-                .must(m -> m.match(mustMatchParentCategoryName(pCategory)))
+                .must(m -> m.match(mustMatchParentCategoryId(pCategory)))
+                .must(m -> m.match(mustMatchCategoryId(category)))
         ));
     }
 
@@ -209,16 +215,16 @@ public class QueryRepository {
                                 .toList())));
     }
 
-    private static MatchQuery mustMatchCategoryName(String query) {
+    private static MatchQuery mustMatchCategoryId(UUID query) {
         return MatchQuery.of(q -> q
-                .field(CATEGORY_NAME)
-                .query(query));
+                .field(CATEGORY_ID)
+                .query(FieldValue.of(query)));
     }
 
 
-    private static MatchQuery mustMatchParentCategoryName(String query) {
+    private static MatchQuery mustMatchParentCategoryId(UUID query) {
         return MatchQuery.of(q -> q
-                .field(PARENT_CATEGORY_NAME)
-                .query(query));
+                .field(PARENT_CATEGORY_ID)
+                .query(FieldValue.of(query)));
     }
 }

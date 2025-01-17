@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Slf4j
@@ -32,8 +33,8 @@ public class PublicationSearchController {
     }
 
     @GetMapping("/search/all/{pCategory}/{category}")
-    public PageResponse<PublicationResponseDTO> deepSearch(@PathVariable String pCategory,
-                                                           @PathVariable String category,
+    public PageResponse<PublicationResponseDTO> deepSearch(@PathVariable UUID pCategory,
+                                                           @PathVariable UUID category,
                                                            @RequestParam("query") String query,
                                                            @RequestParam(defaultValue = "0") Integer page,
                                                            @RequestParam(defaultValue = "5") Integer size,
