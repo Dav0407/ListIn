@@ -47,7 +47,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String clientIp = request.getRemoteAddr();
 
         //if the number of counts more than the applicable counts, it will throw TOO_MANY_REQUESTS
-        if (rateLimitingService.isRateLimitExceeded(clientIp)) {
+        /**
+          if (rateLimitingService.isRateLimitExceeded(clientIp)) {
             log.warn("Too many request made from the IP address: {}", clientIp);
 
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -61,7 +62,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             );
             return;
         }
-
+*/
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
