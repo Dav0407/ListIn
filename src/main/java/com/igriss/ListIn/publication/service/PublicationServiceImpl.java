@@ -10,10 +10,7 @@ import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.AttributeValueRepository;
-import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
-import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
-import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.publication.repository.*;
 import com.igriss.ListIn.search.entity.AttributeKeyDocument;
 import com.igriss.ListIn.search.entity.AttributeValueDocument;
 import com.igriss.ListIn.search.entity.PublicationDocument;
@@ -44,7 +41,8 @@ public class PublicationServiceImpl implements PublicationService {
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
     private final PublicationRepository publicationRepository;
-
+    private final ProductImageRepository productImageRepository;
+    private final ProductVideoRepository productVideoRepository;
     private final ProductFileService productFileService;
     private final UserService userService;
 
@@ -77,6 +75,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         // Save attribute values
         savePublicationAttributeValues(request.getAttributeValues(), publication);
+
 
         return publication.getId();
     }
@@ -140,7 +139,16 @@ public class PublicationServiceImpl implements PublicationService {
         List<PublicationResponseDTO> publicationResponseDTOList = publicationPage
                 .getContent()
                 .stream()
-                .map(publicationMapper::toPublicationResponseDTO)
+                .map(publication ->
+                        publicationMapper
+                                .toPublicationResponseDTO(publication,
+                                        productImageRepository
+                                                .findAllByPublication_Id(publication.getId()),
+                                        productVideoRepository
+                                                .findByPublication_Id(publication.getId())
+                                                .map(PublicationVideo::getVideoUrl)
+                                                .orElse(null))
+                )
                 .toList();
 
         return new PageResponse<>(

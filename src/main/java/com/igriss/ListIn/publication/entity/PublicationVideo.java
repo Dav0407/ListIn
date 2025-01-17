@@ -12,6 +12,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "publication_videos")
+@ToString
 public class PublicationVideo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
