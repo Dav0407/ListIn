@@ -182,15 +182,18 @@ public class PublicationServiceImpl implements PublicationService {
         } else {
             log.info("Publication update failed: {}", publication);
         }
+        if (updatePublication.getImageUrls() != null)
+            productFileService.updateImagesByPublication(
+                    publication,
+                    updatePublication.getImageUrls()
+            );
+        if (updatePublication.getVideoUrl() != null)
+            productFileService.updateVideoByPublication(
+                    publication,
+                    updatePublication.getVideoUrl()
+            );
+        publicationDocumentService.updateInPublicationDocument(publicationId, updatePublication);
 
-        productFileService.updateImagesByPublication(
-                publication,
-                updatePublication.getImageUrls()
-        );
-        productFileService.updateVideoByPublication(
-                publication,
-                updatePublication.getVideoUrl()
-        );
 
         Publication updatedPublication = publicationRepository.findById(publicationId)
                 .orElseThrow(() -> new PublicationNotFoundException(String.format("Publication with id [%s] does not exist!", publicationId)));
@@ -198,8 +201,6 @@ public class PublicationServiceImpl implements PublicationService {
         List<PublicationImage> images = productFileService.findImagesByPublicationId(updatedPublication.getId());
 
         String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
-
-        publicationDocumentService.updateInPublicationDocument(publicationId, updatePublication);
 
         return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl);
     }
