@@ -19,4 +19,8 @@ public interface ProductFileService {
     String findVideoUrlByPublicationId(UUID id);
 
     List<PublicationImage> findImagesByPublicationId(UUID id);
+
+    void updateImagesByPublication(Publication publication, List<String> imageUrls);
+
+    void updateVideoByPublication(Publication publication, String videoUrl);
 }

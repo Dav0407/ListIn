@@ -1,21 +1,19 @@
 package com.igriss.ListIn.publication.service;
 
+import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.dto.user_publications.AttributeDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
-import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.*;
-import com.igriss.ListIn.search.entity.AttributeKeyDocument;
-import com.igriss.ListIn.search.entity.AttributeValueDocument;
-import com.igriss.ListIn.search.entity.PublicationDocument;
-import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
-import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
+import com.igriss.ListIn.search.service.PublicationDocumentService;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +24,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,6 @@ import java.util.stream.Collectors;
 public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
-    private final PublicationDocumentRepository publicationDocumentRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
     private final PublicationRepository publicationRepository;
@@ -46,13 +46,12 @@ public class PublicationServiceImpl implements PublicationService {
     private final ProductFileService productFileService;
     private final UserService userService;
 
-    private final PublicationDocumentMapper publicationDocumentMapper;
+    private final PublicationDocumentService publicationDocumentService;
     private final PublicationImageMapper publicationImageMapper;
     private final PublicationMapper publicationMapper;
 
-
-    @Transactional
     @Override
+    @Transactional
     public UUID savePublication(PublicationRequestDTO request, Authentication authentication) {
         // Extract user from authentication
         User connectedUser = (User) authentication.getPrincipal();
@@ -162,42 +161,47 @@ public class PublicationServiceImpl implements PublicationService {
         );
     }
 
-    private void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList) {
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication) {
 
-        List<AttributeValue> attributeValues = pavList.stream()
-                .map(PublicationAttributeValue::getAttributeValue)
-                .toList();
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException(String.format("Publication with id [%s] does not exist!", publicationId)));
 
-        // Organize attributeValues into a Map<AttributeKey, List<AttributeValue>>
-        Map<AttributeKey, List<AttributeValue>> attributeMap = attributeValues.stream()
-                .filter(Objects::nonNull) // Ensure no null values
-                .filter(attributeValue -> attributeValue.getAttributeKey() != null) // Ensure attributeKey is not null
-                .collect(Collectors.groupingBy(AttributeValue::getAttributeKey));
+        Integer isUpdatedPublication = publicationRepository.updatePublicationById(
+                publicationId,
+                updatePublication.getTitle(),
+                updatePublication.getDescription(),
+                updatePublication.getPrice(),
+                updatePublication.getBargain(),
+                updatePublication.getProductCondition()
+        );
 
-        // Convert the map into a list of AttributeKeyDocument with corresponding AttributeValueDocument
-        List<AttributeKeyDocument> attributeKeyDocuments = attributeMap.entrySet().stream()
-                .map(entry -> {
-                    // Convert AttributeValue to AttributeValueDocument
-                    List<AttributeValueDocument> valueDocuments = entry.getValue().stream()
-                            .map(value -> AttributeValueDocument.builder()
-                                    .id(value.getId())
-                                    .value(value.getValue())
-                                    .build())
-                            .collect(Collectors.toList());
+        if (isUpdatedPublication != 0) {
+            log.info("Publication updated: {}", publication);
+        } else {
+            log.info("Publication update failed: {}", publication);
+        }
 
-                    // Create AttributeKeyDocument with AttributeValueDocuments
-                    return AttributeKeyDocument.builder()
-                            .id(entry.getKey().getId())
-                            .key(entry.getKey().getName())
-                            .attributeValues(valueDocuments)
-                            .build();
-                })
-                .collect(Collectors.toList());
+        productFileService.updateImagesByPublication(
+                publication,
+                updatePublication.getImageUrls()
+        );
+        productFileService.updateVideoByPublication(
+                publication,
+                updatePublication.getVideoUrl()
+        );
 
-        // Create a PublicationDocument and set attributeKeyDocuments
-        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments);
+        Publication updatedPublication = publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException(String.format("Publication with id [%s] does not exist!", publicationId)));
 
-        publicationDocumentRepository.save(publicationDocument);
+        List<PublicationImage> images = productFileService.findImagesByPublicationId(updatedPublication.getId());
+
+        String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
+
+        publicationDocumentService.updateInPublicationDocument(publicationId, updatePublication);
+
+        return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl);
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
@@ -241,6 +245,6 @@ public class PublicationServiceImpl implements PublicationService {
         }
 
         //map into elastic search engine and save publication document
-        saveIntoPublicationDocument(publication, pavList);
+        publicationDocumentService.saveIntoPublicationDocument(publication, pavList);
     }
 }

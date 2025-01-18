@@ -1,4 +1,4 @@
-package com.igriss.ListIn.search.entity;
+package com.igriss.ListIn.search.document;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

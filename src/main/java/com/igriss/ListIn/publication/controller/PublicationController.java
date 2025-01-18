@@ -2,6 +2,7 @@ package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.Publication;
@@ -58,5 +59,10 @@ public class PublicationController {
                                                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size
     ) {
         return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size));
+    }
+
+    @PatchMapping("/update/{publicationId}")
+    public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication){
+        return ResponseEntity.ok(publicationService.updateUserPublication(publicationId,updatePublication));
     }
 }

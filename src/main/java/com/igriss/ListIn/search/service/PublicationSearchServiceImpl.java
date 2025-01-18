@@ -11,7 +11,7 @@ import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.ProductImageRepository;
 import com.igriss.ListIn.publication.repository.ProductVideoRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
-import com.igriss.ListIn.search.entity.PublicationDocument;
+import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -73,15 +73,6 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         return pagination(page, size, totalElements, content);
     }
 
-    private Map<String, List<String>> parseFilter(List<String> filters) {
-        return filters.stream()
-                .map(filter -> filter.split(":"))
-                .collect(Collectors.toMap(
-                        split -> split[0],
-                        split -> Arrays.stream(split[1].split(",")).toList())
-                );
-    }
-
     @Override
     public PageResponse<PublicationResponseDTO> searchWithDefaultFilter(String query, Integer page, Integer size,
                                                                         Boolean bargain, String productCondition, Float from, Float to) throws SearchQueryException {
@@ -107,6 +98,15 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
             log.error("Exception occurred: ", ioException);
             throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
+    }
+
+    private Map<String, List<String>> parseFilter(List<String> filters) {
+        return filters.stream()
+                .map(filter -> filter.split(":"))
+                .collect(Collectors.toMap(
+                        split -> split[0],
+                        split -> Arrays.stream(split[1].split(",")).toList())
+                );
     }
 
     private PageResponse<PublicationResponseDTO> pagination(Integer page, Integer size, long totalElements, List<PublicationResponseDTO> content) {

@@ -1,4 +1,4 @@
-package com.igriss.ListIn.search.entity;
+package com.igriss.ListIn.search.document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -8,7 +8,6 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
-import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
 import java.util.List;
 import java.util.UUID;

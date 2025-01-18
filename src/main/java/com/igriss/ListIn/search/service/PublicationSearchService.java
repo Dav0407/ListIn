@@ -2,6 +2,7 @@ package com.igriss.ListIn.search.service;
 
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 
 import java.util.List;

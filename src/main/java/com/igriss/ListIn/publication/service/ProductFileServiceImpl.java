@@ -11,6 +11,7 @@ import com.igriss.ListIn.publication.repository.ProductVideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
@@ -61,6 +62,18 @@ public class ProductFileServiceImpl implements ProductFileService {
     @Override
     public String findVideoUrlByPublicationId(UUID id) {
         return productVideoRepository.findByPublication_Id(id).orElse(new PublicationVideo()).getVideoUrl();
+    }
+
+    @Override
+    public void updateImagesByPublication(Publication publication, List<String> imageUrls) {
+        productImageRepository.deleteAllByPublication_Id(publication.getId());
+        saveImages(imageUrls,publication);
+    }
+
+    @Override
+    public void updateVideoByPublication(Publication publication, String videoUrl) {
+       productVideoRepository.deleteByPublication_Id(publication.getId());
+       saveVideo(videoUrl,publication);
     }
 
 }

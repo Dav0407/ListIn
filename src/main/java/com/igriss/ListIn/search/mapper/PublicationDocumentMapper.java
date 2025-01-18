@@ -2,8 +2,8 @@ package com.igriss.ListIn.search.mapper;
 
 
 import com.igriss.ListIn.publication.entity.Publication;
-import com.igriss.ListIn.search.entity.AttributeKeyDocument;
-import com.igriss.ListIn.search.entity.PublicationDocument;
+import com.igriss.ListIn.search.document.AttributeKeyDocument;
+import com.igriss.ListIn.search.document.PublicationDocument;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

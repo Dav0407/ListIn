@@ -10,4 +10,6 @@ public interface ProductVideoRepository extends JpaRepository<PublicationVideo, 
     PublicationVideo findByVideoUrl(String videoUrl);
 
     Optional<PublicationVideo> findByPublication_Id(UUID publicationId);
+
+    void deleteByPublication_Id(UUID publicationId);
 }
