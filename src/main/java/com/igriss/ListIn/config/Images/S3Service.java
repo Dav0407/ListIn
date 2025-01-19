@@ -52,11 +52,26 @@ public class S3Service {
                     String ext = FilenameUtils.getExtension(file.getOriginalFilename());
                     String fileName = fileId + "." + ext;
                     String fileUrl = String.format("%s/%s", bucketLink, fileName);
+                    MultipartFile multipartFile ;
+                    try {
+                        byte[] fileData = file.getBytes();
+                        String contentType = file.getContentType();
 
-                    log.info("File URL created {}", fileUrl);
+                        multipartFile = CompressedMultipartFile.builder()
+                                .name(fileName)
+                                .originalFilename(file.getOriginalFilename())
+                                .content(fileData)
+                                .contentType(contentType)
+                                .build();
 
-                    // Submit the async task to the executor
-                    submitAsyncTask(fileName, file);
+                        log.info("File URL created {}", fileUrl);
+
+                        // Submit the async task to the executor
+                        submitAsyncTask(fileName, multipartFile);
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     return fileUrl;
                 }).collect(Collectors.toList());

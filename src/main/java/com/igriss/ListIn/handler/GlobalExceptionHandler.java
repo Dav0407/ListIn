@@ -107,7 +107,17 @@ public class GlobalExceptionHandler {
         );
     }
 
-
+    @ExceptionHandler(PublicationNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleException(PublicationNotFoundException exception){
+        return ResponseEntity.status(NO_CONTENT).body(
+          ExceptionResponse.builder()
+                  .businessErrorCode(NO_PUBLICATION.getCode())
+                  .businessErrorDescription(NO_PUBLICATION.getDescription())
+                  .errorMessage(exception.getMessage())
+                  .build()
+        );
+    }
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleException(Exception exception) {
         // Log the exception with full stack trace

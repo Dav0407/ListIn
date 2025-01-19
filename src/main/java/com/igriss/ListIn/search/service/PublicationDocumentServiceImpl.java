@@ -92,5 +92,9 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
         publicationDocumentRepository.save(updatedPublication);
     }
 
+    @Override
+    public void updateInPublicationDocumentAttributes() {
+
+    }
 
 }

@@ -11,4 +11,6 @@ public interface PublicationDocumentService {
     void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList);
 
     void updateInPublicationDocument(UUID publicationId, UpdatePublicationRequestDTO updatePublication);
+
+    void updateInPublicationDocumentAttributes();
 }

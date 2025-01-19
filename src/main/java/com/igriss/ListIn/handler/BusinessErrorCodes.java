@@ -16,7 +16,9 @@ public enum BusinessErrorCodes {
     ATTRIBUTES_NOT_FOUND(500,INTERNAL_SERVER_ERROR, "Category attributes not found"),
     SEARCH_QUERY_FAILED(400, BAD_REQUEST, "Search query failed"),
     USER_HAS_ACCOUNT(409, CONFLICT, "User has account"),
-    ATTRIBUTE_VALUES_NOT_FOUND(500, INTERNAL_SERVER_ERROR, "Validation failed"),;
+    ATTRIBUTE_VALUES_NOT_FOUND(500, INTERNAL_SERVER_ERROR, "Validation failed"),
+    NO_PUBLICATION(204,NO_CONTENT,"Publication does not exist"),;
+
     private final int code;
 
     private final String description;
