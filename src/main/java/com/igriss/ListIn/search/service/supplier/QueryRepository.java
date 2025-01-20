@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class QueryRepository {
@@ -66,6 +65,11 @@ public class QueryRepository {
 
         return () -> getShallowQuery(bargain, productCondition, from, to, cleanedInput, noSpacesKeyword);
     }
+
+    public static Query searchFromInput(String query) {
+       return   Query.of(q->q.matchPhrasePrefix(matchPhrasePrefixQuery(query)));
+    }
+
 
     private static String preprocessInput(String input) {
         return input.trim()
@@ -139,11 +143,22 @@ public class QueryRepository {
 
     private static List<Query> fieldsQuery(String value) {
         return SEARCHABLE_FIELDS.stream()
-                .map(field -> Query.of(q -> q
-                        .wildcard(w -> w
-                                .field(field)
-                                .caseInsensitive(true)
-                                .value("*" + value + "*"))))
+                .map(field -> {
+                            if (field.equals("title") || field.equals("description"))
+                                return Query.of(q -> q
+                                        .wildcard(w -> w
+                                                .field(field)
+                                                .boost(1.0f)
+                                                .caseInsensitive(true)
+                                                .value("*" + value + "*")));
+                            else
+                                return Query.of(q -> q
+                                        .wildcard(w -> w
+                                                .field(field)
+                                                .caseInsensitive(true)
+                                                .value("*" + value + "*")));
+                        }
+                )
                 .toList();
     }
 
@@ -227,4 +242,14 @@ public class QueryRepository {
                 .field(PARENT_CATEGORY_ID)
                 .query(FieldValue.of(query)));
     }
+
+    private static MatchPhrasePrefixQuery matchPhrasePrefixQuery(String query) {
+        return MatchPhrasePrefixQuery.of(q -> q
+                .field("model")
+                .query(query)
+                .maxExpansions(50)
+                .slop(3)
+        );
+    }
+
 }

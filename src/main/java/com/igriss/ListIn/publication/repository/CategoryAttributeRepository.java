@@ -38,7 +38,7 @@ public interface CategoryAttributeRepository extends JpaRepository<CategoryAttri
             """, nativeQuery = true)
     List<Object[]> findAttributeKeysAndValuesByCategoryId(@Param("categoryId") UUID categoryId);
 
-    Optional<CategoryAttribute> findByCategoryAndAttributeKey(Category category, AttributeKey attributeKey);
+    Optional<CategoryAttribute> findByAttributeKey_Id(UUID attributeKey);
 
     List<CategoryAttribute> findByCategory_Id(UUID categoryId);
 }

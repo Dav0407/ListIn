@@ -13,14 +13,21 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "attributeValueDocument")
+@Document(indexName = "search_predictions")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AttributeValueDocument {
+public class InputPredictionDocument {
+
     @Id
     private UUID id;
 
-    @Field(type = FieldType.Text, analyzer = "standard")
-    private String value;
+    @Field(type = FieldType.Search_As_You_Type)
+    private String model;
+
+    private UUID parentCategoryId;
+
+    private UUID categoryId;
+
 }
