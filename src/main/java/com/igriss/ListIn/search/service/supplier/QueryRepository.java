@@ -4,12 +4,10 @@ import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class QueryRepository {
@@ -43,15 +41,17 @@ public class QueryRepository {
         String cleanedInput = preprocessInput(input);
         String noSpacesKeyword = cleanedInput.replace(" ", "");
 
-        List<Query> queries = new ArrayList<>();
+        return () -> BoolQuery.of(b -> {
 
-        if (filters != null)
-            queries.addAll(getDeepQuery(filters));
+            if (filters != null)
+                getDeepQuery(filters, b);
 
-        queries.add(matchCategoryQuery(pCategory, category));
-        queries.add(getShallowQuery(bargain, productCondition, from, to, cleanedInput, noSpacesKeyword));
+            matchCategoryQuery(pCategory, category, b);
 
-        return () -> BoolQuery.of(q -> q.should(queries))._toQuery();
+            getShallowQuery(bargain, productCondition, from, to, cleanedInput, noSpacesKeyword, b);
+
+            return b;
+        })._toQuery();
     }
 
     public static Supplier<Query> shallowSearchQuerySupplier(
@@ -64,8 +64,16 @@ public class QueryRepository {
         String cleanedInput = preprocessInput(query);
         String noSpacesKeyword = cleanedInput.replace(" ", "");
 
-        return () -> getShallowQuery(bargain, productCondition, from, to, cleanedInput, noSpacesKeyword);
+        return () -> BoolQuery.of(b -> {
+            getShallowQuery(bargain, productCondition, from, to, cleanedInput, noSpacesKeyword, b);
+            return b;
+        })._toQuery();
     }
+
+    public static Query searchFromInput(String query) {
+        return Query.of(q -> q.matchPhrasePrefix(matchPhrasePrefixQuery(query)));
+    }
+
 
     private static String preprocessInput(String input) {
         return input.trim()
@@ -73,58 +81,60 @@ public class QueryRepository {
                 .toLowerCase();
     }
 
-    private static Query matchCategoryQuery(UUID pCategory, UUID category) {
-        return Query.of(q -> q.bool(b -> b
-                .must(m -> m.match(mustMatchParentCategoryId(pCategory)))
-                .must(m -> m.match(mustMatchCategoryId(category)))
-        ));
+    private static void matchCategoryQuery(UUID pCategory, UUID category, BoolQuery.Builder b) {
+        b.filter(m -> m.match(mustMatchParentCategoryId(pCategory)));
+        b.filter(m -> m.match(mustMatchCategoryId(category)));
     }
 
-    private static List<Query> getDeepQuery(Map<String, List<String>> filters) {
-        return filters.entrySet().stream()
-                .map(entry -> Query.of(q -> q.nested(n -> n
-                        .path("attributeKeys")
-                        .query(aq -> aq.bool(b -> b
-                                .must(m -> m.match(mustMatchAttributeKeyId(entry.getKey())))
-                                .must(m -> m.nested(vn -> vn
-                                        .path("attributeKeys.attributeValues")
-                                        .query(vq -> vq.bool(vb -> vb
-                                                .must(vm -> vm.terms(mustMatchAttributeValueId(entry)))
-                                        ))
-                                ))
-                        ))
-                )))
-                .toList();
+    private static void getDeepQuery(Map<String, List<String>> filters, BoolQuery.Builder b) {
+        filters.forEach((key, values) -> {
+            b.filter(q -> q.nested(n -> n
+                    .path("attributeKeys")
+                    .query(kq -> kq.bool(kb -> kb
+                            .must(mq -> mq.match(mustMatchAttributeKeyId(key)
+                            ))
+                            .must(mq -> mq.nested(nv -> nv
+                                    .path("attributeKeys.attributeValues")
+                                    .query(vq -> vq.bool(vb -> vb
+                                            .should(values.stream()
+                                                    .map(value -> Query.of(qv -> qv
+                                                            .match(mustMatchAttributeValueId(value))))
+                                                    .toList()
+                                            )
+                                            .minimumShouldMatch("1")
+                                    ))
+                            ))
+                    ))
+            ));
+        });
     }
 
-    private static Query getShallowQuery(
+
+    private static void getShallowQuery(
             Boolean bargain,
             String productCondition,
             Float from,
             Float to,
             String cleanedInput,
-            String noSpacesKeyword) {
+            String noSpacesKeyword,
+            BoolQuery.Builder b
+    ) {
+        if (bargain != null)
+            b.must(m -> m.match(mustMatchBargain(bargain)));
 
-        return Query.of(q -> q.bool(b -> {
+        if (productCondition != null)
+            b.must(m -> m.match(mustMatchCondition(productCondition)));
 
-            if (bargain != null)
-                b.must(m -> m.match(mustMatchBargain(bargain)));
-
-            if (productCondition != null)
-                b.must(m -> m.match(mustMatchCondition(productCondition)));
-
-            if (from != null || to != null)
-                addPriceRangeQueries(b, from, to);
+        if (from != null || to != null)
+            addPriceRangeQueries(b, from, to);
 
 
-            b.should(fieldsQuery(cleanedInput));
-            b.should(fieldsQuery(noSpacesKeyword));
-            b.should(fuzzyFieldsQuery(cleanedInput));
-            b.should(matchPhraseFieldsQuery(cleanedInput));
+        b.should(fieldsQuery(cleanedInput));
+        b.should(fieldsQuery(noSpacesKeyword));
+        b.should(fuzzyFieldsQuery(cleanedInput));
+        b.should(matchPhraseFieldsQuery(cleanedInput));
 
-            b.minimumShouldMatch("1");
-            return b;
-        }));
+        b.minimumShouldMatch("1");
     }
 
     private static void addPriceRangeQueries(BoolQuery.Builder builder, Float from, Float to) {
@@ -139,11 +149,22 @@ public class QueryRepository {
 
     private static List<Query> fieldsQuery(String value) {
         return SEARCHABLE_FIELDS.stream()
-                .map(field -> Query.of(q -> q
-                        .wildcard(w -> w
-                                .field(field)
-                                .caseInsensitive(true)
-                                .value("*" + value + "*"))))
+                .map(field -> {
+                            if (field.equals("title") || field.equals("description"))
+                                return Query.of(q -> q
+                                        .wildcard(w -> w
+                                                .field(field)
+                                                .boost(1.0f)
+                                                .caseInsensitive(true)
+                                                .value("*" + value + "*")));
+                            else
+                                return Query.of(q -> q
+                                        .wildcard(w -> w
+                                                .field(field)
+                                                .caseInsensitive(true)
+                                                .value("*" + value + "*")));
+                        }
+                )
                 .toList();
     }
 
@@ -206,13 +227,10 @@ public class QueryRepository {
                 .query(query));
     }
 
-    private static TermsQuery mustMatchAttributeValueId(Map.Entry<String, List<String>> query) {
-        return TermsQuery.of(q -> q
+    private static MatchQuery mustMatchAttributeValueId(String query) {
+        return MatchQuery.of(q -> q
                 .field(ATTRIBUTE_VALUE_ID)
-                .terms(tt -> tt
-                        .value(query.getValue().stream()
-                                .map(FieldValue::of)
-                                .toList())));
+                .query(query));
     }
 
     private static MatchQuery mustMatchCategoryId(UUID query) {
@@ -227,4 +245,14 @@ public class QueryRepository {
                 .field(PARENT_CATEGORY_ID)
                 .query(FieldValue.of(query)));
     }
+
+    private static MatchPhrasePrefixQuery matchPhrasePrefixQuery(String query) {
+        return MatchPhrasePrefixQuery.of(q -> q
+                .field("model")
+                .query(query)
+                .maxExpansions(50)
+                .slop(3)
+        );
+    }
+
 }

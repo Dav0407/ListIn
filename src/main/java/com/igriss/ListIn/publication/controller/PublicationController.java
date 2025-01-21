@@ -62,7 +62,14 @@ public class PublicationController {
     }
 
     @PatchMapping("/update/{publicationId}")
-    public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication){
-        return ResponseEntity.ok(publicationService.updateUserPublication(publicationId,updatePublication));
+    public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication) {
+        return ResponseEntity.ok(publicationService.updateUserPublication(publicationId, updatePublication));
+    }
+
+    @GetMapping("/u/{userId}")
+    public PageResponse<PublicationResponseDTO> findByUser(@PathVariable UUID userId,
+                                                           @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
+        return publicationService.findAllByUserId(userId, page, size);
     }
 }

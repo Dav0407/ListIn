@@ -162,6 +162,32 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size){
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
+
+        Page<Publication> publicationPage = publicationRepository.findAllBySeller_UserId(userId, pageable);
+
+        List<PublicationResponseDTO> publicationsDTOList = publicationPage.stream()
+                .map(publication ->
+                        publicationMapper.toPublicationResponseDTO(publication,
+                                productFileService.findImagesByPublicationId(publication.getId()),
+                                productFileService.findVideoUrlByPublicationId(publication.getId())
+                        )
+                ).toList();
+
+        return new PageResponse<>(
+                publicationsDTOList,
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast()
+        );
+    }
+
+    @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication) {
 

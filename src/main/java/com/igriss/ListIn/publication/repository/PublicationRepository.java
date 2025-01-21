@@ -49,4 +49,7 @@ public interface PublicationRepository extends JpaRepository<Publication, UUID> 
             """, nativeQuery = true)
     Integer updatePublicationById(UUID publicationId, String title, String description, Float price, Boolean bargain, String productCondition);
 
+    Page<Publication> findAllByCategory_ParentCategory_Id(UUID parentCategoryId, Pageable pageable);
+
+    Page<Publication> findAllBySeller_UserId(UUID sellerUserId, Pageable pageable);
 }

@@ -17,4 +17,6 @@ public interface PublicationSearchService {
     PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                                   Integer page, Integer size, Boolean bargain, String productCondition,
                                                                   Float from, Float to, List<String> filters) throws SearchQueryException;
+
+    PageResponse<PublicationResponseDTO> searchWithParentCategory(UUID parentCategoryId, Integer page, Integer size);
 }

@@ -34,6 +34,7 @@ spring:
 
 elasticsearch:
   index-name: ${ELASTIC_SEARCH_INDEX_NAME}
+  input-index-name: ${ELASTIC_SEARCH_INPUT_INDEX_NAME}
 
 server:
   port: 80
