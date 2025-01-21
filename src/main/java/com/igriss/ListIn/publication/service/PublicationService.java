@@ -17,5 +17,7 @@ public interface PublicationService {
 
     PageResponse<PublicationResponseDTO> findAllLatestPublications(int page, int size);
 
+    PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size);
+
     PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication);
 }

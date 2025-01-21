@@ -6,7 +6,9 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
+import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationVideo;
+import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.ProductImageRepository;
 import com.igriss.ListIn.publication.repository.ProductVideoRepository;
@@ -17,17 +19,22 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class PublicationSearchServiceImpl implements PublicationSearchService {
 
+    private final PublicationImageMapper publicationImageMapper;
     @Value("${elasticsearch.index-name}")
     private String indexName;
 
@@ -100,12 +107,47 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         }
     }
 
+    @Override
+    public PageResponse<PublicationResponseDTO> searchWithParentCategory(UUID parentCategoryId, Integer page, Integer size) {
+        Page<Publication> publicationPage = publicationRepository.findAllByCategory_ParentCategory_Id(parentCategoryId, PageRequest.of(page, size,  Sort.by("datePosted").descending()));
+
+        return new PageResponse<>(
+                publicationPage
+                        .getContent()
+                        .stream()
+                        .map(publication ->
+                                publicationMapper
+                                        .toPublicationResponseDTO(publication,
+                                                productImageRepository
+                                                        .findAllByPublication_Id(publication.getId()),
+                                                productVideoRepository
+                                                        .findByPublication_Id(publication.getId())
+                                                        .map(PublicationVideo::getVideoUrl)
+                                                        .orElse(null))
+                        )
+                        .toList(),
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast());
+    }
+
+
     private Map<String, List<String>> parseFilter(List<String> filters) {
         return filters.stream()
                 .map(filter -> filter.split(":"))
+                .filter(split -> split.length == 2)
                 .collect(Collectors.toMap(
                         split -> split[0],
-                        split -> Arrays.stream(split[1].split(",")).toList())
+                        split -> Arrays.stream(split[1].split(",")).toList(),
+                        (existing, replacement) -> {
+                            List<String> merged = new ArrayList<>(existing);
+                            merged.addAll(replacement);
+                            return merged;
+                        }
+                        )
                 );
     }
 

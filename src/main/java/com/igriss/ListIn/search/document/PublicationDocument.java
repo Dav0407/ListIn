@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@TypeAlias("publications")
 @Document(indexName = "publications")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PublicationDocument {

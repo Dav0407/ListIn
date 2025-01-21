@@ -26,7 +26,7 @@ public class PublicationSearchController {
     private final InputPredictionService inputPredictionService;
 
     @GetMapping("/all")
-    public PageResponse<PublicationResponseDTO> search(@RequestParam("query") String query,
+    public PageResponse<PublicationResponseDTO> shallowSearch(@RequestParam("query") String query,
                                                        @RequestParam(defaultValue = "0") Integer page,
                                                        @RequestParam(defaultValue = "5") Integer size,
                                                        @RequestParam(required = false) Boolean bargain,
@@ -49,6 +49,13 @@ public class PublicationSearchController {
                                                            @RequestParam(value = "filter", required = false) List<String> filters
     ) throws SearchQueryException {
         return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, filters);
+    }
+
+    @GetMapping("/all/{pCategory}")
+    public PageResponse<PublicationResponseDTO> parentCategorySearch(@PathVariable UUID pCategory,
+                                                                     @RequestParam(defaultValue = "0") Integer page,
+                                                                     @RequestParam(defaultValue = "5") Integer size){
+       return searchService.searchWithParentCategory(pCategory, page, size);
     }
 
     @GetMapping("/input-predict")

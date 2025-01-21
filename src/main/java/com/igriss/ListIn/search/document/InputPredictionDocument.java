@@ -4,6 +4,7 @@ package com.igriss.ListIn.search.document;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@TypeAlias("search_predictions")
 @Document(indexName = "search_predictions")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InputPredictionDocument {
