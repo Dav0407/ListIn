@@ -143,5 +143,4 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .toList();
     }
 
-
 }
