@@ -10,6 +10,7 @@ import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.publication.service.PublicationService;
+import com.igriss.ListIn.search.dto.PublicationNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -55,8 +56,8 @@ public class PublicationController {
     }
 
     @GetMapping
-    public ResponseEntity<PageResponse<PublicationResponseDTO>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                                          @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    public ResponseEntity<PageResponse<PublicationNode>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                                                   @RequestParam(name = "size", defaultValue = "10", required = false) int size
     ) {
         return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size));
     }

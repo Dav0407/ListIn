@@ -34,12 +34,13 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class PublicationSearchServiceImpl implements PublicationSearchService {
 
-    private final PublicationImageMapper publicationImageMapper;
     @Value("${elasticsearch.index-name}")
     private String indexName;
 
     private final ElasticsearchClient elasticsearchClient;
+
     private final PublicationMapper publicationMapper;
+
     private final PublicationRepository publicationRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductVideoRepository productVideoRepository;

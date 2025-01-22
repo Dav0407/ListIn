@@ -5,6 +5,7 @@ import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
+import com.igriss.ListIn.search.dto.PublicationNode;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface PublicationService {
 
     PageResponse<UserPublicationDTO> findAllByUser(int page, int size, Authentication connectedUser);
 
-    PageResponse<PublicationResponseDTO> findAllLatestPublications(int page, int size);
+    PageResponse<PublicationNode> findAllLatestPublications(int page, int size);
 
     PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size);
 
