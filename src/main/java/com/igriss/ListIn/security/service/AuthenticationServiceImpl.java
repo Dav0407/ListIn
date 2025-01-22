@@ -1,6 +1,9 @@
 package com.igriss.ListIn.security.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.igriss.ListIn.exceptions.EmailNotFoundException;
+import com.igriss.ListIn.exceptions.UserHasAccountException;
+import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.RegisterRequestDTO;
@@ -9,6 +12,7 @@ import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -26,7 +31,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponseDTO register(RegisterRequestDTO request) {
+    public AuthenticationResponseDTO register(RegisterRequestDTO request) throws UserHasAccountException {
         var user = User.builder()
                 .nickName(request.getNickName())
                 .enableCalling(request.getEnableCalling())
@@ -41,32 +46,44 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())
                 .build();
-        userRepository.save(user);
 
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        return AuthenticationResponseDTO.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+        try {
+            userRepository.save(user);
+            var jwtToken = jwtService.generateToken(user);
+            var refreshToken = jwtService.generateRefreshToken(user);
+            return AuthenticationResponseDTO.builder()
+                    .accessToken(jwtToken)
+                    .refreshToken(refreshToken)
+                    .build();
+
+        } catch (Exception exception) {
+            log.warn("User with email '{}' already signed in", user.getEmail());
+            throw new UserHasAccountException(String.format("User with email '%s' already signed in", user.getEmail()));
+        }
     }
 
-    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
+    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) throws UserNotFoundException {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+            var user = userRepository.findByEmail(request.getEmail())
+                    .orElseThrow();
+            var jwtToken = jwtService.generateToken(user);
+            var refreshToken = jwtService.generateRefreshToken(user);
 
-        return AuthenticationResponseDTO.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+            return AuthenticationResponseDTO.builder()
+                    .accessToken(jwtToken)
+                    .refreshToken(refreshToken)
+                    .build();
+        } catch (Exception exception) {
+            log.warn("User with credentials: email '{}' and password '{}' does not exist",request.getEmail(), request.getPassword());
+            throw new UserNotFoundException("Wrong email and/or password");
+        }
+
     }
 
     public AuthenticationResponseDTO generateNewTokens(User updatedUser, HttpServletRequest request) {

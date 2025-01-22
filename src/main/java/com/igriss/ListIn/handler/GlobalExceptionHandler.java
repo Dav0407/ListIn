@@ -4,7 +4,6 @@ package com.igriss.ListIn.handler;
 import com.igriss.ListIn.exceptions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -115,6 +114,17 @@ public class GlobalExceptionHandler {
                   .businessErrorDescription(NO_PUBLICATION.getDescription())
                   .errorMessage(exception.getMessage())
                   .build()
+        );
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleException(UserNotFoundException exception){
+        return ResponseEntity.status(NOT_FOUND).body(
+                ExceptionResponse.builder()
+                        .businessErrorCode(USER_NOT_FOUND.getCode())
+                        .businessErrorDescription(USER_NOT_FOUND.getDescription())
+                        .errorMessage(exception.getMessage())
+                        .build()
         );
     }
     

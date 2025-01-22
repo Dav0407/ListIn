@@ -17,7 +17,8 @@ public enum BusinessErrorCodes {
     SEARCH_QUERY_FAILED(400, BAD_REQUEST, "Search query failed"),
     USER_HAS_ACCOUNT(409, CONFLICT, "User has account"),
     ATTRIBUTE_VALUES_NOT_FOUND(500, INTERNAL_SERVER_ERROR, "Validation failed"),
-    NO_PUBLICATION(204,NO_CONTENT,"Publication does not exist"),;
+    NO_PUBLICATION(204,NO_CONTENT,"Publication does not exist"),
+    USER_NOT_FOUND(404,NOT_FOUND,"Wrong credentials"),;
 
     private final int code;
 

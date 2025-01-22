@@ -120,10 +120,10 @@ public class QueryRepository {
             BoolQuery.Builder b
     ) {
         if (bargain != null)
-            b.must(m -> m.match(mustMatchBargain(bargain)));
+            b.filter(m -> m.match(mustMatchBargain(bargain)));
 
         if (productCondition != null)
-            b.must(m -> m.match(mustMatchCondition(productCondition)));
+            b.filter(m -> m.match(mustMatchCondition(productCondition)));
 
         if (from != null || to != null)
             addPriceRangeQueries(b, from, to);
@@ -150,7 +150,7 @@ public class QueryRepository {
     private static List<Query> fieldsQuery(String value) {
         return SEARCHABLE_FIELDS.stream()
                 .map(field -> {
-                            if (field.equals("title") || field.equals("description"))
+                            if (field.equals("title"))
                                 return Query.of(q -> q
                                         .wildcard(w -> w
                                                 .field(field)
