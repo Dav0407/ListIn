@@ -9,12 +9,15 @@ import com.igriss.ListIn.publication.entity.PublicationImage;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import com.igriss.ListIn.publication.enums.PublicationStatus;
 import com.igriss.ListIn.publication.enums.PublicationType;
+import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 //todo 1 -> write an implementation for advanced mapping from PublicationRequestDTO <-> Publication
 //todo 2 -> also for PublicationResponseDTO <- Publication (The entire mapper part will be done by Davron)
@@ -94,5 +97,36 @@ public class PublicationMapper {
     }
 
 
+    public List<PublicationNode> toPublicationNodes(List<PublicationResponseDTO> responses, Boolean isLast) {
+
+        List<PublicationNode> result = new ArrayList<>();
+        for (int i = 0; i < responses.size(); i += 2) {
+            PublicationResponseDTO first = responses.get(i);
+
+            if (responses.size() <= i + 1) {
+                result.add(toPublicationNode(first, null));
+            } else {
+                PublicationResponseDTO second = responses.get(i + 1);
+
+                if (first.getVideoUrl() == null && second.getVideoUrl() == null) {
+                    result.add(toPublicationNode(first, second));
+                } else {
+                    result.add(toPublicationNode(first, null));
+                }
+            }
+        }
+        if (!result.isEmpty())
+            result.get(result.size() - 1).setIsLast(isLast);
+
+        return result;
+    }
+
+    private PublicationNode toPublicationNode(PublicationResponseDTO first, PublicationResponseDTO second) {
+        return PublicationNode.builder()
+                .isSponsored(first.getVideoUrl() != null)
+                .firstPublication(first)
+                .secondPublication(second)
+                .build();
+    }
 }
 

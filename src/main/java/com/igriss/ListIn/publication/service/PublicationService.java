@@ -16,7 +16,9 @@ public interface PublicationService {
 
     PageResponse<UserPublicationDTO> findAllByUser(int page, int size, Authentication connectedUser);
 
-    PageResponse<PublicationNode> findAllLatestPublications(int page, int size);
+    List<PublicationNode> findAllLatestPublications(int page, int size);
+
+    List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size);
 
     PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size);
 

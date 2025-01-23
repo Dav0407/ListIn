@@ -12,6 +12,9 @@ public class PublicationNode {
 
     private Boolean isSponsored;
 
+    @Builder.Default
+    private Boolean isLast = false;
+
     private PublicationResponseDTO firstPublication;
 
     private PublicationResponseDTO secondPublication;

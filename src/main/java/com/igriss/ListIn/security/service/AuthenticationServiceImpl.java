@@ -38,7 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .phoneNumber(request.getPhoneNumber())
                 .fromTime(request.getFromTime())
                 .toTime(request.getToTime())
-                .email(request.getEmail())
+                .email(request.getEmail().toLowerCase())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRoles())
                 .isGrantedForPreciseLocation(request.getIsGrantedForPreciseLocation())
@@ -66,7 +66,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getEmail(),
+                            request.getEmail().toLowerCase(),
                             request.getPassword()
                     )
             );

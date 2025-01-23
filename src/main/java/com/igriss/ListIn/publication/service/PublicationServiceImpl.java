@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +48,6 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationImageMapper publicationImageMapper;
     private final PublicationMapper publicationMapper;
 
-    private PublicationResponseDTO leftoverPublication;
 
     @Override
     @Transactional
@@ -129,12 +127,13 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public PageResponse<PublicationNode> findAllLatestPublications(int page, int size) {
+    public List<PublicationNode> findAllLatestPublications(int page, int size) {
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
         Page<Publication> publicationPage = publicationRepository.findAllByOrderByDatePostedDesc(pageable);
 
-        List<PublicationResponseDTO> publicationResponseDTOList = new ArrayList<>(publicationPage
+        return publicationMapper.toPublicationNodes(publicationPage
                 .getContent()
                 .stream()
                 .map(publication -> publicationMapper.toPublicationResponseDTO(
@@ -144,86 +143,30 @@ public class PublicationServiceImpl implements PublicationService {
                                 .map(PublicationVideo::getVideoUrl)
                                 .orElse(null)
                 ))
-                .toList());
+                .toList(), publicationPage.isLast());
+    }
 
-        List<PublicationNode> publicationNodes = new ArrayList<>();
 
-        // Start with leftoverPublication if it exists
-        if (leftoverPublication != null) {
-            if (!publicationResponseDTOList.isEmpty())
-                publicationNodes.add(
-                        PublicationNode.builder()
-                                .isSponsored(false)
-                                .firstPublication(leftoverPublication)
-                                .secondPublication(publicationResponseDTOList.remove(0)) // Use first from current page
-                                .build()
-                );
-            else
-                // If no publications in the current page, create a node with only leftover
-                publicationNodes.add(
-                        PublicationNode.builder()
-                                .isSponsored(false)
-                                .firstPublication(leftoverPublication)
-                                .secondPublication(null)
-                                .build()
-                );
+    @Override
+    public List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size) {
 
-            leftoverPublication = null; // Clear leftover after use
-        }
+        Page<Publication> publicationPage = publicationRepository.findAllByCategory_ParentCategory_Id(parentCategoryId, PageRequest.of(page, size, Sort.by("datePosted").descending()));
 
-        // Process the remaining publications in pairs
-        for (int i = 0; i < publicationResponseDTOList.size(); i += 2) {
-            if (i + 1 < publicationResponseDTOList.size()) {
-                if (publicationResponseDTOList.get(i).getVideoUrl() == null && publicationResponseDTOList.get(i + 1).getVideoUrl() == null)
-                    publicationNodes.add(
-                            PublicationNode.builder()
-                                    .isSponsored(false)
-                                    .firstPublication(publicationResponseDTOList.get(i))
-                                    .secondPublication(publicationResponseDTOList.get(i + 1))
-                                    .build()
-                    );
-                else {
-                    publicationNodes.add(
-                            PublicationNode.builder()
-                                    .isSponsored(true)
-                                    .firstPublication(publicationResponseDTOList.get(i))
-                                    .secondPublication(null)
-                                    .build()
-                    );
-                    publicationNodes.add(
-                            PublicationNode.builder()
-                                    .isSponsored(true)
-                                    .firstPublication(publicationResponseDTOList.get(i + 1))
-                                    .secondPublication(null)
-                                    .build()
-                    );
-                }
-            } else {
-                // Save the last unpaired publication as leftover for the next page
-                leftoverPublication = publicationResponseDTOList.get(i);
-            }
-        }
-
-        int currentPageNumber = leftoverPublication == null
-                ? publicationPage.getNumber()
-                : publicationPage.getTotalPages(); // Manually set for leftover page
-
-        int totalPages = leftoverPublication == null
-                ? publicationPage.getTotalPages()
-                : publicationPage.getTotalPages() + 1; // Add one page for leftover
-
-        Collections.shuffle(publicationNodes);
-
-        return new PageResponse<>(
-                publicationNodes,
-                currentPageNumber,
-                publicationPage.getSize(),
-                publicationPage.getTotalElements(),
-                totalPages,
-                currentPageNumber == 0, // isFirst: Only true for the very first page
-                leftoverPublication == null && publicationPage.isLast() // isLast: True only if no leftover and it's the last page
-        );
-
+        return publicationMapper.toPublicationNodes(
+                publicationPage
+                        .getContent()
+                        .stream()
+                        .map(publication ->
+                                publicationMapper
+                                        .toPublicationResponseDTO(publication,
+                                                productImageRepository
+                                                        .findAllByPublication_Id(publication.getId()),
+                                                productVideoRepository
+                                                        .findByPublication_Id(publication.getId())
+                                                        .map(PublicationVideo::getVideoUrl)
+                                                        .orElse(null))
+                        )
+                        .toList(), publicationPage.isLast());
     }
 
 

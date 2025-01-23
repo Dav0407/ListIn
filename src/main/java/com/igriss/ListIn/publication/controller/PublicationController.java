@@ -56,8 +56,8 @@ public class PublicationController {
     }
 
     @GetMapping
-    public ResponseEntity<PageResponse<PublicationNode>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                                   @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    public ResponseEntity<List<PublicationNode>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size
     ) {
         return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size));
     }
@@ -72,5 +72,12 @@ public class PublicationController {
                                                            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
                                                            @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
         return publicationService.findAllByUserId(userId, page, size);
+    }
+
+    @GetMapping("/p/{pCategory}")
+    public List<PublicationNode> parentCategorySearch(@PathVariable UUID pCategory,
+                                                      @RequestParam(defaultValue = "0") Integer page,
+                                                      @RequestParam(defaultValue = "5") Integer size) {
+        return publicationService.findWithParentCategory(pCategory, page, size);
     }
 }

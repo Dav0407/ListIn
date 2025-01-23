@@ -5,6 +5,7 @@ import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.search.dto.InputPredictionResponseDTO;
+import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.InputPredictionService;
 import com.igriss.ListIn.search.service.PublicationSearchService;
 import lombok.RequiredArgsConstructor;
@@ -26,18 +27,18 @@ public class PublicationSearchController {
     private final InputPredictionService inputPredictionService;
 
     @GetMapping("/all")
-    public PageResponse<PublicationResponseDTO> shallowSearch(@RequestParam("query") String query,
-                                                       @RequestParam(defaultValue = "0") Integer page,
-                                                       @RequestParam(defaultValue = "5") Integer size,
-                                                       @RequestParam(required = false) Boolean bargain,
-                                                       @RequestParam(value = "condition", required = false) String productCondition,
-                                                       @RequestParam(required = false) Float from,
-                                                       @RequestParam(required = false) Float to) throws SearchQueryException {
+    public List<PublicationNode> shallowSearch(@RequestParam("query") String query,
+                                               @RequestParam(defaultValue = "0") Integer page,
+                                               @RequestParam(defaultValue = "5") Integer size,
+                                               @RequestParam(required = false) Boolean bargain,
+                                               @RequestParam(value = "condition", required = false) String productCondition,
+                                               @RequestParam(required = false) Float from,
+                                               @RequestParam(required = false) Float to) throws SearchQueryException {
         return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to);
     }
 
     @GetMapping("/all/{pCategory}/{category}")
-    public PageResponse<PublicationResponseDTO> deepSearch(@PathVariable UUID pCategory,
+    public List<PublicationNode> deepSearch(@PathVariable UUID pCategory,
                                                            @PathVariable UUID category,
                                                            @RequestParam("query") String query,
                                                            @RequestParam(defaultValue = "0") Integer page,
@@ -51,12 +52,6 @@ public class PublicationSearchController {
         return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, filters);
     }
 
-    @GetMapping("/all/{pCategory}")
-    public PageResponse<PublicationResponseDTO> parentCategorySearch(@PathVariable UUID pCategory,
-                                                                     @RequestParam(defaultValue = "0") Integer page,
-                                                                     @RequestParam(defaultValue = "5") Integer size){
-       return searchService.searchWithParentCategory(pCategory, page, size);
-    }
 
     @GetMapping("/input-predict")
     public ResponseEntity<List<InputPredictionResponseDTO>> inputPrediction(@RequestParam String query) throws SearchQueryException {
