@@ -48,6 +48,7 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationImageMapper publicationImageMapper;
     private final PublicationMapper publicationMapper;
 
+    private PublicationResponseDTO waitingPublication;
 
     @Override
     @Transactional
@@ -143,7 +144,7 @@ public class PublicationServiceImpl implements PublicationService {
                                 .map(PublicationVideo::getVideoUrl)
                                 .orElse(null)
                 ))
-                .toList(), publicationPage.isLast());
+                .toList(), waitingPublication, publicationPage.isLast());
     }
 
 
@@ -152,7 +153,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         Page<Publication> publicationPage = publicationRepository.findAllByCategory_ParentCategory_Id(parentCategoryId, PageRequest.of(page, size, Sort.by("datePosted").descending()));
 
-        return publicationMapper.toPublicationNodes(
+        List<PublicationResponseDTO> publications =
                 publicationPage
                         .getContent()
                         .stream()
@@ -166,9 +167,40 @@ public class PublicationServiceImpl implements PublicationService {
                                                         .map(PublicationVideo::getVideoUrl)
                                                         .orElse(null))
                         )
-                        .toList(), publicationPage.isLast());
+                        .toList();
+        return publicationMapper.toPublicationNodes(publications, waitingPublication, publicationPage.isLast());
     }
 
+    @Override
+    public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<PublicationVideo> publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(pageable);
+
+        List<Publication> publications = publicationVideos.getContent().stream().map(
+                publicationVideo -> publicationRepository.findById(
+                                publicationVideo.getPublication().getId())
+                        .orElseThrow(() -> new PublicationNotFoundException(
+                                String.format("Publication with id '%s' doesn't exist", publicationVideo.getPublication().getId())))
+        ).toList();
+
+        return new PageResponse<>(
+                publications.stream()
+                        .map(publication ->
+                                publicationMapper.toPublicationResponseDTO(publication,
+                                        productFileService.findImagesByPublicationId(publication.getId()),
+                                        productFileService.findVideoUrlByPublicationId(publication.getId())
+                                )
+                        ).toList(),
+                publicationVideos.getNumber(),
+                publicationVideos.getSize(),
+                publicationVideos.getTotalElements(),
+                publicationVideos.getTotalPages(),
+                publicationVideos.isFirst(),
+                publicationVideos.isLast()
+        );
+    }
 
     @Override
     public PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size) {
@@ -239,6 +271,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl);
     }
+
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
 

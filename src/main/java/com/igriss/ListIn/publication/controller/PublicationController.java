@@ -80,4 +80,10 @@ public class PublicationController {
                                                       @RequestParam(defaultValue = "5") Integer size) {
         return publicationService.findWithParentCategory(pCategory, page, size);
     }
+
+    @GetMapping("/v")
+    public PageResponse<PublicationResponseDTO> getVideos(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                         @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
+        return publicationService.findPublicationsContainingVideo(page, size);
+    }
 }

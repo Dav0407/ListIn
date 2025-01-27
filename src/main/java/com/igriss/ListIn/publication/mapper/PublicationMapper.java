@@ -29,6 +29,7 @@ public class PublicationMapper {
     private final UserMapper userMapper;
     private final PublicationImageMapper publicationImageMapper;
 
+
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
         PublicationType publicationType = switch (connectedUser.getRole()) {
@@ -97,26 +98,32 @@ public class PublicationMapper {
     }
 
 
-    public List<PublicationNode> toPublicationNodes(List<PublicationResponseDTO> responses, Boolean isLast) {
-
+    public List<PublicationNode> toPublicationNodes(List<PublicationResponseDTO> responses,PublicationResponseDTO waitingPublication, Boolean isLast) {
         List<PublicationNode> result = new ArrayList<>();
-        for (int i = 0; i < responses.size(); i += 2) {
-            PublicationResponseDTO first = responses.get(i);
 
-            if (responses.size() <= i + 1) {
-                result.add(toPublicationNode(first, null));
+        for (PublicationResponseDTO current : responses) {
+            if (current.getVideoUrl() != null) {
+                result.add(toPublicationNode(current, null));
+                continue;
+            }
+
+            if (waitingPublication == null) {
+                waitingPublication = current;
             } else {
-                PublicationResponseDTO second = responses.get(i + 1);
-
-                if (first.getVideoUrl() == null && second.getVideoUrl() == null) {
-                    result.add(toPublicationNode(first, second));
-                } else {
-                    result.add(toPublicationNode(first, null));
-                }
+                result.add(toPublicationNode(waitingPublication, current));
+                waitingPublication = null;
             }
         }
-        if (!result.isEmpty())
+
+        if (isLast && waitingPublication != null){
+            result.add(toPublicationNode(waitingPublication, null));
+            waitingPublication = null;
+        }
+
+
+        if (!result.isEmpty()) {
             result.get(result.size() - 1).setIsLast(isLast);
+        }
 
         return result;
     }

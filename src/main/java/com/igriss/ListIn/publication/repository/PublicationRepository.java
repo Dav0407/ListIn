@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 
 import java.time.LocalDateTime;
@@ -52,4 +53,5 @@ public interface PublicationRepository extends JpaRepository<Publication, UUID> 
     Page<Publication> findAllByCategory_ParentCategory_Id(UUID parentCategoryId, Pageable pageable);
 
     Page<Publication> findAllBySeller_UserId(UUID sellerUserId, Pageable pageable);
+
 }

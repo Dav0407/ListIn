@@ -23,4 +23,6 @@ public interface PublicationService {
     PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size);
 
     PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication);
+
+    PageResponse<PublicationResponseDTO> findPublicationsContainingVideo( int page, int size);
 }
