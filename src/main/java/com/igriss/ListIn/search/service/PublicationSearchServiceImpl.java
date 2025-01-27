@@ -39,8 +39,6 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final ProductImageRepository productImageRepository;
     private final ProductVideoRepository productVideoRepository;
 
-    private PublicationResponseDTO waitingPublication;
-
 
     @Override
     public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
@@ -73,7 +71,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         boolean isLast = ((long) (page + 1) * size) >= totalElements;
 
         return publicationMapper.toPublicationNodes(
-                editQuery(publicationDocuments),waitingPublication, isLast);
+                editQuery(publicationDocuments), isLast);
     }
 
     @Override
@@ -99,7 +97,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
             boolean isLast = ((long) (page + 1) * size) >= totalElements;
 
             return publicationMapper.toPublicationNodes(
-                    editQuery(publicationDocuments),waitingPublication, isLast);
+                    editQuery(publicationDocuments), isLast);
 
         } catch (IOException ioException) {
             log.error("Exception occurred: ", ioException);

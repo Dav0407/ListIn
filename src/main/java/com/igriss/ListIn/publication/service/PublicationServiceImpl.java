@@ -48,7 +48,6 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationImageMapper publicationImageMapper;
     private final PublicationMapper publicationMapper;
 
-    private PublicationResponseDTO waitingPublication;
 
     @Override
     @Transactional
@@ -144,7 +143,7 @@ public class PublicationServiceImpl implements PublicationService {
                                 .map(PublicationVideo::getVideoUrl)
                                 .orElse(null)
                 ))
-                .toList(), waitingPublication, publicationPage.isLast());
+                .toList(), publicationPage.isLast());
     }
 
 
@@ -168,7 +167,7 @@ public class PublicationServiceImpl implements PublicationService {
                                                         .orElse(null))
                         )
                         .toList();
-        return publicationMapper.toPublicationNodes(publications, waitingPublication, publicationPage.isLast());
+        return publicationMapper.toPublicationNodes(publications, publicationPage.isLast());
     }
 
     @Override

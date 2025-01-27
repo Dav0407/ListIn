@@ -29,6 +29,7 @@ public class PublicationMapper {
     private final UserMapper userMapper;
     private final PublicationImageMapper publicationImageMapper;
 
+    private PublicationResponseDTO waitingPublication;
 
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
@@ -98,7 +99,7 @@ public class PublicationMapper {
     }
 
 
-    public List<PublicationNode> toPublicationNodes(List<PublicationResponseDTO> responses,PublicationResponseDTO waitingPublication, Boolean isLast) {
+    public List<PublicationNode> toPublicationNodes(List<PublicationResponseDTO> responses, Boolean isLast) {
         List<PublicationNode> result = new ArrayList<>();
 
         for (PublicationResponseDTO current : responses) {
