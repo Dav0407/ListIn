@@ -1,8 +1,9 @@
 package com.igriss.ListIn.config.Images;
 
 
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
+@Slf4j
 @Builder
 @AllArgsConstructor
 public class CompressedMultipartFile implements MultipartFile {
@@ -59,6 +61,8 @@ public class CompressedMultipartFile implements MultipartFile {
 
     @Override
     public void transferTo(@NonNull File dest) throws IllegalStateException {
-        throw new UnsupportedOperationException("Not supported");
+        var exception = new UnsupportedOperationException("Not supported");
+        log.error("Operation unsupported exception occurred", exception);
+        throw exception;
     }
 }

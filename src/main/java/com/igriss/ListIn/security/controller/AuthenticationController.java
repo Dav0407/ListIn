@@ -2,6 +2,7 @@ package com.igriss.ListIn.security.controller;
 
 import com.igriss.ListIn.exceptions.EmailNotFoundException;
 import com.igriss.ListIn.exceptions.UserHasAccountException;
+import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.security.email_verification.EmailService;
 import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
@@ -27,12 +28,12 @@ public class AuthenticationController {
     private final EmailService emailService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponseDTO> registerUser(@RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<AuthenticationResponseDTO> registerUser(@RequestBody RegisterRequestDTO request) throws UserHasAccountException {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponseDTO> authenticateUser(@RequestBody AuthenticationRequestDTO request) {
+    public ResponseEntity<AuthenticationResponseDTO> authenticateUser(@RequestBody AuthenticationRequestDTO request) throws UserNotFoundException {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 

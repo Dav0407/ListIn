@@ -6,10 +6,12 @@ import com.igriss.ListIn.exceptions.EmailVerificationFailedException;
 import com.igriss.ListIn.exceptions.UserHasAccountException;
 import com.igriss.ListIn.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EmailServiceImpl implements EmailService {
 
     private final UserRepository userRepository;
@@ -22,14 +24,16 @@ public class EmailServiceImpl implements EmailService {
 
             if (userRepository.findByEmail(verificationRequestDTO.getEmail()).isPresent()) {
 
-                throw new UserHasAccountException("User already has an account with that email");
+                var exception = new UserHasAccountException("User already has an account with that email");
+                log.error(exception.getMessage());
+                throw exception;
             }
 
             return "Email verification successful";
-        }
-        else {
-
-            throw new EmailVerificationFailedException("Failed to verify email. Invalid or expired verification code.");
+        } else {
+            var exception = new EmailVerificationFailedException("Failed to verify email. Invalid or expired verification code.");
+            log.error("Failed to verify email. Invalid or expired verification code.", exception);
+            throw exception;
         }
     }
 

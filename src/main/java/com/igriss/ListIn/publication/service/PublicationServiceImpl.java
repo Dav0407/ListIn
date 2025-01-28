@@ -1,24 +1,20 @@
 package com.igriss.ListIn.publication.service;
 
+import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.dto.user_publications.AttributeDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
-import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.AttributeValueRepository;
-import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
-import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
-import com.igriss.ListIn.publication.repository.PublicationRepository;
-import com.igriss.ListIn.search.entity.AttributeKeyDocument;
-import com.igriss.ListIn.search.entity.AttributeValueDocument;
-import com.igriss.ListIn.search.entity.PublicationDocument;
-import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
-import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
+import com.igriss.ListIn.publication.repository.*;
+import com.igriss.ListIn.search.dto.PublicationNode;
+import com.igriss.ListIn.search.service.PublicationDocumentService;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +25,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,21 +36,24 @@ import java.util.stream.Collectors;
 public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
-    private final PublicationDocumentRepository publicationDocumentRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
     private final PublicationRepository publicationRepository;
-
+    private final ProductImageRepository productImageRepository;
+    private final ProductVideoRepository productVideoRepository;
     private final ProductFileService productFileService;
     private final UserService userService;
 
-    private final PublicationDocumentMapper publicationDocumentMapper;
+    private final PublicationDocumentService publicationDocumentService;
     private final PublicationImageMapper publicationImageMapper;
     private final PublicationMapper publicationMapper;
 
+    private final PublicationNodeHandler publicationNodeHandler1;
+    private final PublicationNodeHandler publicationNodeHandler2;
 
-    @Transactional
+
     @Override
+    @Transactional
     public UUID savePublication(PublicationRequestDTO request, Authentication authentication) {
         // Extract user from authentication
         User connectedUser = (User) authentication.getPrincipal();
@@ -65,7 +64,8 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationMapper.toPublication(request, connectedUser);
         publication = publicationRepository.save(publication);
 
-        // Save images
+        // Save images //todo -> then removed the assignment
+
         productFileService.saveImages(request.getImageUrls(), publication);
 
         // Save video if present
@@ -76,6 +76,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         // Save attribute values
         savePublicationAttributeValues(request.getAttributeValues(), publication);
+
 
         return publication.getId();
     }
@@ -129,21 +130,97 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public PageResponse<PublicationResponseDTO> findAllLatestPublications(int page, int size) {
+    public List<PublicationNode> findAllLatestPublications(int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
-        Page<Publication> publicationPage = publicationRepository
-                .findAllByOrderByDatePostedDesc(pageable);
+        Page<Publication> publicationPage = publicationRepository.findAllByOrderByDatePostedDesc(pageable);
 
-        List<PublicationResponseDTO> publicationResponseDTOList = publicationPage
+        return publicationNodeHandler1.handlePublicationNodes(publicationPage
                 .getContent()
                 .stream()
-                .map(publicationMapper::toPublicationResponseDTO)
-                .toList();
+                .map(publication -> publicationMapper.toPublicationResponseDTO(
+                        publication,
+                        productImageRepository.findAllByPublication_Id(publication.getId()),
+                        productVideoRepository.findByPublication_Id(publication.getId())
+                                .map(PublicationVideo::getVideoUrl)
+                                .orElse(null)
+                ))
+                .toList(), publicationPage.isLast());
+    }
+
+
+    @Override
+    public List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size) {
+
+        Page<Publication> publicationPage = publicationRepository.findAllByCategory_ParentCategory_Id(parentCategoryId, PageRequest.of(page, size, Sort.by("datePosted").descending()));
+
+        List<PublicationResponseDTO> publications =
+                publicationPage
+                        .getContent()
+                        .stream()
+                        .map(publication ->
+                                publicationMapper
+                                        .toPublicationResponseDTO(publication,
+                                                productImageRepository
+                                                        .findAllByPublication_Id(publication.getId()),
+                                                productVideoRepository
+                                                        .findByPublication_Id(publication.getId())
+                                                        .map(PublicationVideo::getVideoUrl)
+                                                        .orElse(null))
+                        )
+                        .toList();
+        return publicationNodeHandler2.handlePublicationNodes(publications, publicationPage.isLast());
+    }
+
+    @Override
+    public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<PublicationVideo> publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(pageable);
+
+        List<Publication> publications = publicationVideos.getContent().stream().map(
+                publicationVideo -> publicationRepository.findById(
+                                publicationVideo.getPublication().getId())
+                        .orElseThrow(() -> new PublicationNotFoundException(
+                                String.format("Publication with id '%s' doesn't exist", publicationVideo.getPublication().getId())))
+        ).toList();
 
         return new PageResponse<>(
-                publicationResponseDTOList,
+                publications.stream()
+                        .map(publication ->
+                                publicationMapper.toPublicationResponseDTO(publication,
+                                        productFileService.findImagesByPublicationId(publication.getId()),
+                                        productFileService.findVideoUrlByPublicationId(publication.getId())
+                                )
+                        ).toList(),
+                publicationVideos.getNumber(),
+                publicationVideos.getSize(),
+                publicationVideos.getTotalElements(),
+                publicationVideos.getTotalPages(),
+                publicationVideos.isFirst(),
+                publicationVideos.isLast()
+        );
+    }
+
+    @Override
+    public PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
+
+        Page<Publication> publicationPage = publicationRepository.findAllBySeller_UserId(userId, pageable);
+
+        List<PublicationResponseDTO> publicationsDTOList = publicationPage.stream()
+                .map(publication ->
+                        publicationMapper.toPublicationResponseDTO(publication,
+                                productFileService.findImagesByPublicationId(publication.getId()),
+                                productFileService.findVideoUrlByPublicationId(publication.getId())
+                        )
+                ).toList();
+
+        return new PageResponse<>(
+                publicationsDTOList,
                 publicationPage.getNumber(),
                 publicationPage.getSize(),
                 publicationPage.getTotalElements(),
@@ -153,42 +230,48 @@ public class PublicationServiceImpl implements PublicationService {
         );
     }
 
-    private void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList) {
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication) {
 
-        List<AttributeValue> attributeValues = pavList.stream()
-                .map(PublicationAttributeValue::getAttributeValue)
-                .toList();
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException(String.format("Publication with id [%s] does not exist!", publicationId)));
 
-        // Organize attributeValues into a Map<AttributeKey, List<AttributeValue>>
-        Map<AttributeKey, List<AttributeValue>> attributeMap = attributeValues.stream()
-                .filter(Objects::nonNull) // Ensure no null values
-                .filter(attributeValue -> attributeValue.getAttributeKey() != null) // Ensure attributeKey is not null
-                .collect(Collectors.groupingBy(AttributeValue::getAttributeKey));
+        Integer isUpdatedPublication = publicationRepository.updatePublicationById(
+                publicationId,
+                updatePublication.getTitle(),
+                updatePublication.getDescription(),
+                updatePublication.getPrice(),
+                updatePublication.getBargain(),
+                updatePublication.getProductCondition()
+        );
 
-        // Convert the map into a list of AttributeKeyDocument with corresponding AttributeValueDocument
-        List<AttributeKeyDocument> attributeKeyDocuments = attributeMap.entrySet().stream()
-                .map(entry -> {
-                    // Convert AttributeValue to AttributeValueDocument
-                    List<AttributeValueDocument> valueDocuments = entry.getValue().stream()
-                            .map(value -> AttributeValueDocument.builder()
-                                    .id(value.getId())
-                                    .value(value.getValue())
-                                    .build())
-                            .collect(Collectors.toList());
+        if (isUpdatedPublication != 0) {
+            log.info("Publication updated: {}", publication);
+        } else {
+            log.info("Publication update failed: {}", publication);
+        }
+        if (updatePublication.getImageUrls() != null)
+            productFileService.updateImagesByPublication(
+                    publication,
+                    updatePublication.getImageUrls()
+            );
+        if (updatePublication.getVideoUrl() != null)
+            productFileService.updateVideoByPublication(
+                    publication,
+                    updatePublication.getVideoUrl()
+            );
+        publicationDocumentService.updateInPublicationDocument(publicationId, updatePublication);
 
-                    // Create AttributeKeyDocument with AttributeValueDocuments
-                    return AttributeKeyDocument.builder()
-                            .id(entry.getKey().getId())
-                            .key(entry.getKey().getName())
-                            .attributeValues(valueDocuments)
-                            .build();
-                })
-                .collect(Collectors.toList());
 
-        // Create a PublicationDocument and set attributeKeyDocuments
-        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments);
+        Publication updatedPublication = publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException(String.format("Publication with id [%s] does not exist!", publicationId)));
 
-        publicationDocumentRepository.save(publicationDocument);
+        List<PublicationImage> images = productFileService.findImagesByPublicationId(updatedPublication.getId());
+
+        String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
+
+        return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl);
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
@@ -208,10 +291,11 @@ public class PublicationServiceImpl implements PublicationService {
             String widgetType = categoryAttribute.getAttributeKey().getWidgetType();
 
             if (("oneSelectable".equals(widgetType) || "colorSelectable".equals(widgetType)) && attributeValueDTO.getAttributeValueIds().size() > 1) {
-                throw new ValidationException(
+                var exception = new ValidationException(
                         "This attribute allows only one value",
-                        List.of("Attribute " + attributeValueDTO.getAttributeId() + " allows only one value")
-                );
+                        List.of("Attribute " + attributeValueDTO.getAttributeId() + " allows only one value"));
+                log.error("Exception occurred: ", exception);
+                throw exception;
             }
 
             for (int i = 0; i < attributeValueDTO.getAttributeValueIds().size(); i++) {
@@ -231,6 +315,6 @@ public class PublicationServiceImpl implements PublicationService {
         }
 
         //map into elastic search engine and save publication document
-        saveIntoPublicationDocument(publication, pavList);
+        publicationDocumentService.saveIntoPublicationDocument(publication, pavList);
     }
 }

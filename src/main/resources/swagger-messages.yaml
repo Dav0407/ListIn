@@ -1,0 +1,52 @@
+search-controller:
+    shallowSearch:
+      summary: "Perform a shallow search on publications"
+      description: "
+        This operation performs a shallow search on publications based on the provided query. 
+        Filters like page, size, bargain, product condition, and price range are supported to refine the search results.
+        You can retrieve publications with specific conditions and parameters like bargain status or price range."
+
+    deepSearch:
+      summary: "Perform a deep search on publications, both pCategory and category are required"
+      description: "
+        This operation performs a deep search on publications within specified parent and child categories.
+        In addition to the basic search filters, this operation allows filtering publications by category and 
+        additional parameters like bargain, product condition, price range, and custom filters."
+
+    inputPrediction:
+      summary: "Get input predictions for a search query"
+      description: "
+        This operation provides input predictions based on the user's search query.
+        It helps in suggesting possible completions or related terms as the user types the query."
+
+    elasticIndexation:
+      summary: "Update ElasticSearch document indexing"
+      description: "
+        This operation updates the indexing of input prediction documents for ElasticSearch.
+        It helps to ensure that the search system is updated with the latest prediction documents for efficient querying."
+
+publication-controller:
+    save:
+      summary: "Create a new publication"
+      description: "Creates a new publication with the provided data and associates it with the authenticated user"
+    user-publications:
+      summary: "Retrieve user's publications"
+      description: "Returns a paginated list of publications belonging to the authenticated user"
+    get-by-id:
+      summary: "Get publication by ID"
+      description: "Retrieves a specific publication by its unique identifier"
+    get-latest:
+      summary: "Get latest publications"
+      description: "Returns a paginated list of the most recent publications across all users"
+    update:
+      summary: "Update publication"
+      description: "Updates an existing publication with new data"
+    find-by-user:
+      summary: "Find publications by user"
+      description: "Returns a paginated list of publications for a specific user"
+    parent-category:
+      summary: "Find by parent category"
+      description: "Returns publications found by their parent category"
+    videos:
+      summary: "Get video publications"
+      description: "Returns a paginated list of publications containing video content"

@@ -1,5 +1,6 @@
 package com.igriss.ListIn.config.Images;
 
+import com.igriss.ListIn.exceptions.FailedToUploadFileException;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,14 +52,71 @@ public class S3Service {
                     String ext = FilenameUtils.getExtension(file.getOriginalFilename());
                     String fileName = fileId + "." + ext;
                     String fileUrl = String.format("%s/%s", bucketLink, fileName);
+                    MultipartFile multipartFile ;
+                    try {
+                        byte[] fileData = file.getBytes();
+                        String contentType = file.getContentType();
 
-                    log.info("File URL created {}", fileUrl);
+                        multipartFile = CompressedMultipartFile.builder()
+                                .name(fileName)
+                                .originalFilename(file.getOriginalFilename())
+                                .content(fileData)
+                                .contentType(contentType)
+                                .build();
 
-                    // Submit the async task to the executor
-                    submitAsyncTask(fileName, file);
+                        log.info("File URL created {}", fileUrl);
+
+                        // Submit the async task to the executor
+                        submitAsyncTask(fileName, multipartFile);
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     return fileUrl;
                 }).collect(Collectors.toList());
+    }
+
+    // Make sure to shut down the executor service properly to avoid memory leaks
+    @PreDestroy
+    public void shutdownExecutor() {
+        try {
+            log.info("Shutting down executor service...");
+            executorService.shutdown();
+            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.error("Error shutting down executor: {}", e.getMessage());
+            executorService.shutdownNow();
+        }
+    }
+
+    public List<String> getFileUrl(String uuid) {
+
+        ListObjectsV2Request request = ListObjectsV2Request.builder()
+                .bucket(bucketName)
+                .prefix(uuid)
+                .build();
+        ListObjectsV2Response response = s3Client.listObjectsV2(request);
+
+        return response
+                .contents()
+                .stream()
+                .map(s3Object -> String.format("%s/%s", bucketLink, s3Object.key()))
+                .collect(Collectors.toList());
+    }
+
+    @Async
+    public void deleteFiles(List<String> fileNames) {
+        fileNames.forEach(fileName -> {
+            DeleteObjectRequest request = DeleteObjectRequest
+                    .builder()
+                    .bucket(bucketName)
+                    .key(fileName)
+                    .build();
+            s3Client.deleteObject(request);
+        });
     }
 
     private void submitAsyncTask(String fileName, MultipartFile file) {
@@ -88,50 +146,10 @@ public class S3Service {
                             .build(),
                     RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            var exception = new FailedToUploadFileException("Uploading failed " + file.getOriginalFilename());
+            log.error("Error processing file {}: {}", file.getOriginalFilename(), e.getMessage(), exception);
+            throw exception;
         }
     }
 
-    // Make sure to shut down the executor service properly to avoid memory leaks
-    @PreDestroy
-    public void shutdownExecutor() {
-        try {
-            log.info("Shutting down executor service...");
-            executorService.shutdown();
-            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            log.error("Error shutting down executor: {}", e.getMessage());
-            executorService.shutdownNow();
-        }
-    }
-
-
-    public List<String> getFileUrl(String uuid) {
-
-        ListObjectsV2Request request = ListObjectsV2Request.builder()
-                .bucket(bucketName)
-                .prefix(uuid)
-                .build();
-        ListObjectsV2Response response = s3Client.listObjectsV2(request);
-
-        return response
-                .contents()
-                .stream()
-                .map(s3Object -> String.format("%s/%s", bucketLink, s3Object.key()))
-                .collect(Collectors.toList());
-    }
-
-    @Async
-    public void deleteFiles(List<String> fileNames) {
-        fileNames.forEach(fileName -> {
-            DeleteObjectRequest request = DeleteObjectRequest
-                    .builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .build();
-            s3Client.deleteObject(request);
-        });
-    }
 }

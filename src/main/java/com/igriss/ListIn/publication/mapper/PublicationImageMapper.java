@@ -1,6 +1,7 @@
 package com.igriss.ListIn.publication.mapper;
 
 import com.igriss.ListIn.publication.dto.ImageDTO;
+import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationImage;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublicationImageMapper {
 
-    private final PublicationRepository publicationRepository;
-
-    public PublicationImage toProductImage(String imageUrl) {
+    public PublicationImage toProductImage(String imageUrl, Publication publication) {
         return PublicationImage.builder()
-                .imageUrl(imageUrl)//for id see bellow
+                .imageUrl(imageUrl)
+                .publication(publication)
                 .imageName(imageUrl.substring(imageUrl.lastIndexOf("/") + 1))
                 .build();
     }

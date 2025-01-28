@@ -11,4 +11,6 @@ public interface AttributeValueRepository extends JpaRepository<AttributeValue, 
     List<AttributeValue> findByAttributeKey_Id(UUID attributeKeyId);
 
     List<AttributeValue> findByParentValue(AttributeValue parentValue);
+
+    List<AttributeValue> findByAttributeKey_Name(String attributeKeyName);
 }

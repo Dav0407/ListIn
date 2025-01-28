@@ -1,5 +1,6 @@
 package com.igriss.ListIn.security;
 
+import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

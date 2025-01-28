@@ -2,8 +2,8 @@ package com.igriss.ListIn.search.mapper;
 
 
 import com.igriss.ListIn.publication.entity.Publication;
-import com.igriss.ListIn.search.entity.AttributeKeyDocument;
-import com.igriss.ListIn.search.entity.PublicationDocument;
+import com.igriss.ListIn.search.document.AttributeKeyDocument;
+import com.igriss.ListIn.search.document.PublicationDocument;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +22,9 @@ public class PublicationDocumentMapper {
                 .price(publication.getPrice())
                 .bargain(publication.getBargain())
                 .productCondition(publication.getProductCondition())
-                .categoryName(publication.getCategory().getName())
+                .categoryId(publication.getCategory().getId())
                 .categoryDescription(publication.getCategory().getDescription())
-                .parentCategoryName(publication.getCategory().getParentCategory().getName())
+                .parentCategoryId(publication.getCategory().getParentCategory().getId())
                 .parentCategoryDescription(publication.getCategory().getParentCategory().getDescription())
                 .attributeKeys(attributes)
                 .build();

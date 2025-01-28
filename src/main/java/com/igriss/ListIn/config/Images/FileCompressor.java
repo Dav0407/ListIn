@@ -5,9 +5,9 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 
 @Slf4j
@@ -38,9 +38,7 @@ public class FileCompressor {
         return convertIntoMultipart(file,outputStream);
     }
 
-    private static MultipartFile compressVideo(MultipartFile file){
-        return file;
-    }
+    private static MultipartFile compressVideo(MultipartFile file){return file;}
 
     private static MultipartFile convertIntoMultipart(MultipartFile file, ByteArrayOutputStream fileContent) {
         return new CompressedMultipartFile(

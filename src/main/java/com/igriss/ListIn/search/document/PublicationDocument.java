@@ -1,10 +1,11 @@
-package com.igriss.ListIn.search.entity;
+package com.igriss.ListIn.search.document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@TypeAlias("publications")
 @Document(indexName = "publications")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PublicationDocument {
@@ -46,18 +48,18 @@ public class PublicationDocument {
     @Field(type = FieldType.Keyword)
     private ProductCondition productCondition;
 
-    @Field(type = FieldType.Text, analyzer = "standard" )
-    private String categoryName;
+    @Field(type = FieldType.Keyword)
+    private UUID categoryId;
 
     @Field(type = FieldType.Text, analyzer = "standard" )
     private String categoryDescription;
 
-    @Field(type = FieldType.Text, analyzer = "standard", storeNullValue = true)
-    private String parentCategoryName;
+    @Field(type = FieldType.Keyword)
+    private UUID parentCategoryId;
 
     @Field(type = FieldType.Text, analyzer = "standard", storeNullValue = true)
     private String parentCategoryDescription;
 
-    @Field(type = FieldType.Object)
+    @Field(type = FieldType.Nested)
     private List<AttributeKeyDocument> attributeKeys;
 }

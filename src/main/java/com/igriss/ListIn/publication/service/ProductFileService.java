@@ -12,11 +12,15 @@ public interface ProductFileService {
 
     void saveVideo(String videoUrls, Publication publication);
 
-    List<String> saveFileURLs(List<MultipartFile> files);
+    List<String> uploadImageURLs(List<MultipartFile> files);
 
-    String saveFileURLs(MultipartFile file);
+    String uploadVideoURL(MultipartFile file);
 
     String findVideoUrlByPublicationId(UUID id);
 
     List<PublicationImage> findImagesByPublicationId(UUID id);
+
+    void updateImagesByPublication(Publication publication, List<String> imageUrls);
+
+    void updateVideoByPublication(Publication publication, String videoUrl);
 }
