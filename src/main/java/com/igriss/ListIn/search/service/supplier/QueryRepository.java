@@ -20,7 +20,7 @@ public class QueryRepository {
     private static final String PRODUCT_CONDITION = "productCondition";
 
     private static final List<String> SEARCHABLE_FIELDS = List.of(
-            "title",
+            "title^4",
             "description",
             "locationName",
             "categoryName",
@@ -70,11 +70,6 @@ public class QueryRepository {
         })._toQuery();
     }
 
-    public static Query searchFromInput(String query) {
-        return Query.of(q -> q.matchPhrasePrefix(matchPhrasePrefixQuery(query)));
-    }
-
-
     private static String preprocessInput(String input) {
         return input.trim()
                 .replaceAll("[^а-яА-ЯёЁa-zA-Z0-9\\s]", "")
@@ -120,19 +115,17 @@ public class QueryRepository {
             BoolQuery.Builder b
     ) {
         if (bargain != null)
-            b.filter(m -> m.match(mustMatchBargain(bargain)));
+            b.filter(m -> m.match(filterBargain(bargain)));
 
         if (productCondition != null)
-            b.filter(m -> m.match(mustMatchCondition(productCondition)));
+            b.filter(m -> m.match(filterCondition(productCondition)));
 
         if (from != null || to != null)
             addPriceRangeQueries(b, from, to);
 
 
-        b.should(fieldsQuery(cleanedInput));
-        b.should(fieldsQuery(noSpacesKeyword));
-        b.should(fuzzyFieldsQuery(cleanedInput));
-        b.should(matchPhraseFieldsQuery(cleanedInput));
+        b.filter(matchPhrasePrefixesQuery(cleanedInput));
+
 
         b.minimumShouldMatch("1");
     }
@@ -147,50 +140,17 @@ public class QueryRepository {
         }
     }
 
-    private static List<Query> fieldsQuery(String value) {
-        return SEARCHABLE_FIELDS.stream()
-                .map(field -> {
-                            if (field.equals("title"))
-                                return Query.of(q -> q
-                                        .wildcard(w -> w
-                                                .field(field)
-                                                .boost(1.0f)
-                                                .caseInsensitive(true)
-                                                .value("*" + value + "*")));
-                            else
-                                return Query.of(q -> q
-                                        .wildcard(w -> w
-                                                .field(field)
-                                                .caseInsensitive(true)
-                                                .value("*" + value + "*")));
-                        }
-                )
-                .toList();
-    }
-
-    private static List<Query> fuzzyFieldsQuery(String value) {
-        return SEARCHABLE_FIELDS.stream()
-                .map(field -> Query.of(q -> q
-                        .fuzzy(f -> f
-                                .field(field)
-                                .value(value)
-                                .fuzziness("AUTO")
-                                .prefixLength(3)
-                                .maxExpansions(50))))
-                .toList();
-    }
-
-    private static List<Query> matchPhraseFieldsQuery(String value) {
-        return SEARCHABLE_FIELDS.stream()
-                .map(field -> Query.of(q -> q
-                        .matchPhrase(mp -> mp
-                                .field(field)
-                                .query(value))))
-                .toList();
+    private static List<Query> matchPhrasePrefixesQuery(String query) {
+        return SEARCHABLE_FIELDS.stream().map(field -> Query.of(q -> q.matchPhrasePrefix(MatchPhrasePrefixQuery.of(m -> m
+                .field(field)
+                .query(query)
+                .maxExpansions(50)
+                .slop(3)
+        )))).toList();
     }
 
     // Query builders
-    private static MatchQuery mustMatchBargain(Boolean value) {
+    private static MatchQuery filterBargain(Boolean value) {
         return MatchQuery.of(q -> q
                 .field(BARGAIN)
                 .query(value));
@@ -215,7 +175,7 @@ public class QueryRepository {
                 .to(to));
     }
 
-    private static MatchQuery mustMatchCondition(String query) {
+    private static MatchQuery filterCondition(String query) {
         return MatchQuery.of(q -> q
                 .field(PRODUCT_CONDITION)
                 .query(query));

@@ -10,6 +10,7 @@ import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.ProductImageRepository;
 import com.igriss.ListIn.publication.repository.ProductVideoRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.publication.service.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.elasticsearch.core.SearchOperations;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -38,6 +40,9 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final PublicationRepository publicationRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductVideoRepository productVideoRepository;
+
+    private final PublicationNodeHandler publicationNodeHandler1;
+    private final PublicationNodeHandler publicationNodeHandler2;
 
 
     @Override
@@ -70,7 +75,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
         boolean isLast = ((long) (page + 1) * size) >= totalElements;
 
-        return publicationMapper.toPublicationNodes(
+        return publicationNodeHandler1.handlePublicationNodes(
                 editQuery(publicationDocuments), isLast);
     }
 
@@ -85,6 +90,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                             .size(size),
                     PublicationDocument.class);
 
+            log.info("Access time taken for the query: {}ms", response.took());
 
             List<PublicationDocument> publicationDocuments = response.hits().hits() != null ?
                     response.hits().hits().stream()
@@ -96,7 +102,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
             long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
             boolean isLast = ((long) (page + 1) * size) >= totalElements;
 
-            return publicationMapper.toPublicationNodes(
+            return publicationNodeHandler2.handlePublicationNodes(
                     editQuery(publicationDocuments), isLast);
 
         } catch (IOException ioException) {

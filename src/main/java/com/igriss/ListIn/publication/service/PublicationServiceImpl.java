@@ -48,6 +48,9 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationImageMapper publicationImageMapper;
     private final PublicationMapper publicationMapper;
 
+    private final PublicationNodeHandler publicationNodeHandler1;
+    private final PublicationNodeHandler publicationNodeHandler2;
+
 
     @Override
     @Transactional
@@ -133,7 +136,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         Page<Publication> publicationPage = publicationRepository.findAllByOrderByDatePostedDesc(pageable);
 
-        return publicationMapper.toPublicationNodes(publicationPage
+        return publicationNodeHandler1.handlePublicationNodes(publicationPage
                 .getContent()
                 .stream()
                 .map(publication -> publicationMapper.toPublicationResponseDTO(
@@ -167,7 +170,7 @@ public class PublicationServiceImpl implements PublicationService {
                                                         .orElse(null))
                         )
                         .toList();
-        return publicationMapper.toPublicationNodes(publications, publicationPage.isLast());
+        return publicationNodeHandler2.handlePublicationNodes(publications, publicationPage.isLast());
     }
 
     @Override
@@ -270,7 +273,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl);
     }
-
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
 

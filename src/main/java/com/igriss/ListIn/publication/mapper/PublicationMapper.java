@@ -29,7 +29,7 @@ public class PublicationMapper {
     private final UserMapper userMapper;
     private final PublicationImageMapper publicationImageMapper;
 
-    private PublicationResponseDTO waitingPublication;
+    public static PublicationResponseDTO waitingPublication;
 
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
@@ -98,38 +98,7 @@ public class PublicationMapper {
                 .build();
     }
 
-
-    public List<PublicationNode> toPublicationNodes(List<PublicationResponseDTO> responses, Boolean isLast) {
-        List<PublicationNode> result = new ArrayList<>();
-
-        for (PublicationResponseDTO current : responses) {
-            if (current.getVideoUrl() != null) {
-                result.add(toPublicationNode(current, null));
-                continue;
-            }
-
-            if (waitingPublication == null) {
-                waitingPublication = current;
-            } else {
-                result.add(toPublicationNode(waitingPublication, current));
-                waitingPublication = null;
-            }
-        }
-
-        if (isLast && waitingPublication != null){
-            result.add(toPublicationNode(waitingPublication, null));
-            waitingPublication = null;
-        }
-
-
-        if (!result.isEmpty()) {
-            result.get(result.size() - 1).setIsLast(isLast);
-        }
-
-        return result;
-    }
-
-    private PublicationNode toPublicationNode(PublicationResponseDTO first, PublicationResponseDTO second) {
+    public PublicationNode toPublicationNode(PublicationResponseDTO first, PublicationResponseDTO second) {
         return PublicationNode.builder()
                 .isSponsored(first.getVideoUrl() != null)
                 .firstPublication(first)

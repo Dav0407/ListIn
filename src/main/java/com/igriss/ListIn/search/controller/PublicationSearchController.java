@@ -8,7 +8,9 @@ import com.igriss.ListIn.search.dto.InputPredictionResponseDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.InputPredictionService;
 import com.igriss.ListIn.search.service.PublicationSearchService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +25,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PublicationSearchController {
 
+
     private final PublicationSearchService searchService;
     private final InputPredictionService inputPredictionService;
 
+    @Operation(summary = "${search-controller.shallowSearch.summary}", description = "${search-controller.shallowSearch.description}")
     @GetMapping("/all")
     public List<PublicationNode> shallowSearch(@RequestParam("query") String query,
                                                @RequestParam(defaultValue = "0") Integer page,
@@ -37,6 +41,7 @@ public class PublicationSearchController {
         return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to);
     }
 
+    @Operation(summary = "${search-controller.deepSearch.summary}", description = "${search-controller.deepSearch.description}")
     @GetMapping("/all/{pCategory}/{category}")
     public List<PublicationNode> deepSearch(@PathVariable UUID pCategory,
                                                            @PathVariable UUID category,
@@ -52,12 +57,13 @@ public class PublicationSearchController {
         return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, filters);
     }
 
-
+    @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")
     @GetMapping("/input-predict")
     public ResponseEntity<List<InputPredictionResponseDTO>> inputPrediction(@RequestParam String query) throws SearchQueryException {
         return ResponseEntity.ok(inputPredictionService.getInputPredictions(query));
     }
 
+    @Operation(summary = "${search-controller.elasticIndexation.summary}", description = "${search-controller.elasticIndexation.description}")
     @GetMapping("/elastic/indexing-documents")
     public ResponseEntity<String> elasticIndexation() {
         return ResponseEntity.ok(inputPredictionService.indexInputPredictionDocuments());
