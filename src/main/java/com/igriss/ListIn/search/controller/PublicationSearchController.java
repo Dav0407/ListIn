@@ -37,8 +37,10 @@ public class PublicationSearchController {
                                                @RequestParam(required = false) Boolean bargain,
                                                @RequestParam(value = "condition", required = false) String productCondition,
                                                @RequestParam(required = false) Float from,
-                                               @RequestParam(required = false) Float to) throws SearchQueryException {
-        return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to);
+                                               @RequestParam(required = false) Float to,
+                                               @RequestParam(required = false) String locationName
+    ) throws SearchQueryException {
+        return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to, locationName);
     }
 
     @Operation(summary = "${search-controller.deepSearch.summary}", description = "${search-controller.deepSearch.description}")
@@ -52,9 +54,10 @@ public class PublicationSearchController {
                                                            @RequestParam(value = "condition", required = false) String productCondition,
                                                            @RequestParam(required = false) Float from,
                                                            @RequestParam(required = false) Float to,
+                                                           @RequestParam(required = false) String locationName,
                                                            @RequestParam(value = "filter", required = false) List<String> filters
     ) throws SearchQueryException {
-        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, filters);
+        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters);
     }
 
     @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")

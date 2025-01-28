@@ -48,8 +48,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                           Integer page, Integer size, Boolean bargain, String productCondition,
-                                                          Float from, Float to, List<String> filters) throws SearchQueryException {
-
+                                                          Float from, Float to, String locationName, List<String> filters) throws SearchQueryException {
 
         List<PublicationDocument> publicationDocuments = new ArrayList<>();
 
@@ -57,7 +56,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         try {
             response = elasticsearchClient.search(q -> q
                             .index(indexName)
-                            .query(QueryRepository.deepSearchQuerySupplier(query, pCategory, category, bargain, productCondition, from, to, filters != null ? parseFilter(filters) : null).get())
+                            .query(QueryRepository.deepSearchQuerySupplier(query, pCategory, category, bargain, productCondition, from, to,locationName, filters != null ? parseFilter(filters) : null).get())
                             .from(page * size)
                             .size(size),
                     PublicationDocument.class);
@@ -81,11 +80,11 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     @Override
     public List<PublicationNode> searchWithDefaultFilter(String query, Integer page, Integer size,
-                                                         Boolean bargain, String productCondition, Float from, Float to) throws SearchQueryException {
+                                                         Boolean bargain, String productCondition, Float from, Float to, String locationName) throws SearchQueryException {
         try {
             SearchResponse<PublicationDocument> response = elasticsearchClient.search(q -> q
                             .index(indexName)
-                            .query(QueryRepository.shallowSearchQuerySupplier(query, bargain, productCondition, from, to).get())
+                            .query(QueryRepository.shallowSearchQuerySupplier(query, bargain, productCondition, from, to, locationName).get())
                             .from(page * size)
                             .size(size),
                     PublicationDocument.class);
