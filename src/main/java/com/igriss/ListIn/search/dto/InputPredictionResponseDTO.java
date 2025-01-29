@@ -12,7 +12,13 @@ import java.util.UUID;
 @Builder
 public class InputPredictionResponseDTO implements Serializable {
 
-    private String model;
+    private UUID modelId;
+
+    private String modelValue;
+
+    private UUID brandId;
+
+    private String brandValue;
 
     private UUID parentCategoryId;
 

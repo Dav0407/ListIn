@@ -26,7 +26,13 @@ public class InputPredictionDocument {
     private UUID id;
 
     @Field(type = FieldType.Search_As_You_Type)
-    private String model;
+    private String modelValue;
+
+    @Field(storeNullValue = true)
+    private UUID brandId;
+
+    @Field(type = FieldType.Search_As_You_Type, storeNullValue = true)
+    private String brandValue;
 
     private UUID parentCategoryId;
 

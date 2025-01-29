@@ -36,12 +36,17 @@ public class InputPredictionServiceImpl implements InputPredictionService {
     );
 
     @Override
-    public List<InputPredictionResponseDTO> getInputPredictions(String model) throws SearchQueryException {
+    public List<InputPredictionResponseDTO> getInputPredictions(String model) {
         PageRequest pageRequest = PageRequest.of(0, 5);
-        List<InputPredictionDocument> matchPhrase = predictionDocumentRepository.findByModelContainingIgnoreCase(model, pageRequest);
+
+        List<InputPredictionDocument> matchPhrase = predictionDocumentRepository.findByModelValueContainingIgnoreCase(model, pageRequest);
+
         return matchPhrase.stream().map(document ->
                         InputPredictionResponseDTO.builder()
-                                .model(document.getModel())
+                                .modelId(document.getId())
+                                .modelValue(document.getModelValue())
+                                .brandId(document.getBrandId())
+                                .brandValue(document.getBrandValue())
                                 .parentCategoryId(document.getParentCategoryId())
                                 .categoryId(document.getCategoryId())
                                 .build())
@@ -54,7 +59,7 @@ public class InputPredictionServiceImpl implements InputPredictionService {
                 matching -> InputPredictionDocument.builder()
                         .categoryId(matching.getCategoryId())
                         .parentCategoryId(matching.getParentCategoryId())
-                        .model(matching.getModel())
+                        .modelValue(matching.getModel())
                         .build()
         ).toList());
     }
@@ -68,11 +73,14 @@ public class InputPredictionServiceImpl implements InputPredictionService {
 
             predictionDocumentRepository.save(InputPredictionDocument.builder()
                     .id(av.getId())
-                    .model(av.getValue())
+                    .modelValue(av.getValue())
+                    .brandId(av.getParentValue() != null ? av.getParentValue().getId() : null)
+                    .brandValue(av.getParentValue() != null ? av.getParentValue().getValue() : null)
                     .categoryId(ca.getCategory().getId())
                     .parentCategoryId(ca.getCategory().getParentCategory().getId())
                     .build()
             );
+
         }));
         return "Success";
     }

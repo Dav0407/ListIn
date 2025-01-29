@@ -16,7 +16,7 @@ public interface InputPredictionDocumentRepository extends ElasticsearchReposito
         "should": [
           {
             "match_phrase_prefix": {
-              "model": {
+              "modelValue": {
                 "query": "?0",
                 "slop": 3
               }
@@ -26,5 +26,5 @@ public interface InputPredictionDocumentRepository extends ElasticsearchReposito
       }
     }
     """)
-    List<InputPredictionDocument> findByModelContainingIgnoreCase(String query, Pageable pageable);
+    List<InputPredictionDocument> findByModelValueContainingIgnoreCase(String query, Pageable pageable);
 }
