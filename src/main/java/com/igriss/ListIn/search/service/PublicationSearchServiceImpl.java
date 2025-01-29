@@ -3,6 +3,7 @@ package com.igriss.ListIn.search.service;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.PublicationVideo;
@@ -14,6 +15,7 @@ import com.igriss.ListIn.publication.service.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
+import com.igriss.ListIn.search.service.supplier.SearchParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -56,7 +58,19 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         try {
             response = elasticsearchClient.search(q -> q
                             .index(indexName)
-                            .query(QueryRepository.deepSearchQuerySupplier(query, pCategory, category, bargain, productCondition, from, to,locationName, filters != null ? parseFilter(filters) : null).get())
+                            .query(QueryRepository.deepSearchQuerySupplier(
+                                    SearchParams.builder()
+                                            .parentCategory(pCategory)
+                                            .category(category)
+                                            .input(query)
+                                            .bargain(bargain)
+                                            .productCondition(productCondition)
+                                            .priceFrom(from)
+                                            .priceTo(to)
+                                            .locationName(locationName)
+                                            .filters(filters != null ? parseFilter(filters) : null)
+                                            .build()
+                            ).get())
                             .from(page * size)
                             .size(size),
                     PublicationDocument.class);
@@ -84,7 +98,16 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         try {
             SearchResponse<PublicationDocument> response = elasticsearchClient.search(q -> q
                             .index(indexName)
-                            .query(QueryRepository.shallowSearchQuerySupplier(query, bargain, productCondition, from, to, locationName).get())
+                            .query(QueryRepository.shallowSearchQuerySupplier(
+                                    SearchParams.builder()
+                                            .input(query)
+                                            .bargain(bargain)
+                                            .productCondition(productCondition)
+                                            .priceFrom(from)
+                                            .priceTo(to)
+                                            .locationName(locationName)
+                                            .build()
+                            ).get())
                             .from(page * size)
                             .size(size),
                     PublicationDocument.class);
@@ -140,7 +163,10 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                                         .map(PublicationVideo::getVideoUrl)
                                                         .orElse(null)
                                         ))
-                        .orElseThrow())
+                        .orElseThrow(() -> {
+                            log.info("No resources found with publication id: {}", document.getId());
+                            return new ResourceNotFoundException("No resources found with publication id: " + document.getId());
+                        }))
                 .toList();
     }
 
