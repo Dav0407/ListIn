@@ -1,90 +1,85 @@
 package com.igriss.ListIn.search.service.supplier;
 
-import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import co.elastic.clients.json.JsonData;
 import lombok.extern.slf4j.Slf4j;
-
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Supplier;
-
-import static com.igriss.ListIn.search.service.supplier.DocumentRecords.*;
 
 @Slf4j
 public class QueryRepository {
 
-    public static Supplier<Query> deepSearchQuerySupplier(
-            String input,
-            UUID pCategory,
-            UUID category,
-            Boolean bargain,
-            String productCondition,
-            Float from,
-            Float to,
-            String locationName,
-            Map<String, List<String>> filters) {
-        String cleanedInput = preprocessInput(input);
+    public static Supplier<Query> deepSearchQuerySupplier(SearchParams params) {
+        Query boolQuery = BoolQuery.of(builder -> {
+            if (params.getFilters() != null)
+                addNestedAttributeFilters(params.getFilters(), builder);
 
-        Query bq = BoolQuery.of(b -> {
+            addCategoryFilters(params.getParentCategory(), params.getCategory(), builder);
+            addBasicSearchFilters(
+                    params.getBargain(),
+                    params.getProductCondition(),
+                    params.getPriceFrom(),
+                    params.getPriceTo(),
+                    preprocessInput(params.getInput()),
+                    params.getLocationName(),
+                    builder
+            );
 
-            if (filters != null)
-                getDeepQuery(filters, b);
-
-            matchCategoryQuery(pCategory, category, b);
-
-            getShallowQuery(bargain, productCondition, from, to, cleanedInput, locationName, b);
-
-            return b;
-
+            return builder;
         })._toQuery();
 
-        log.info("Query: {}", bq);
-        return () -> bq;
+        log.info("Generated deep search query: {}", boolQuery);
+        return () -> boolQuery;
     }
 
-    public static Supplier<Query> shallowSearchQuerySupplier(
-            String query,
-            Boolean bargain,
-            String productCondition,
-            Float from,
-            Float to,
-            String locationName
-    ) {
-
-        String cleanedInput = preprocessInput(query);
-
-        return () -> BoolQuery.of(b -> {
-            getShallowQuery(bargain, productCondition, from, to, cleanedInput, locationName, b);
-            return b;
+    public static Supplier<Query> shallowSearchQuerySupplier(SearchParams params) {
+        return () -> BoolQuery.of(builder -> {
+            addBasicSearchFilters(
+                    params.getBargain(),
+                    params.getProductCondition(),
+                    params.getPriceFrom(),
+                    params.getPriceTo(),
+                    preprocessInput(params.getInput()),
+                    params.getLocationName(),
+                    builder
+            );
+            return builder;
         })._toQuery();
     }
 
     private static String preprocessInput(String input) {
+        if (input == null) {
+            return "";
+        }
         return input.trim()
                 .replaceAll("[^а-яА-ЯёЁa-zA-Z0-9\\s]", "")
                 .toLowerCase();
     }
 
-    private static void matchCategoryQuery(UUID pCategory, UUID category, BoolQuery.Builder b) {
-
-        b.filter(m -> m.match(mustMatchParentCategoryId(pCategory)));
-        b.filter(m -> m.match(mustMatchCategoryId(category)));
+    private static void addCategoryFilters(UUID parentCategory, UUID category, BoolQuery.Builder builder) {
+        if (parentCategory != null) {
+            builder.filter(m -> m.match(createMatchQuery(SearchFields.PARENT_CATEGORY_ID, parentCategory.toString())));
+        }
+        if (category != null) {
+            builder.filter(m -> m.match(createMatchQuery(SearchFields.CATEGORY_ID, category.toString())));
+        }
     }
 
-    private static void getDeepQuery(Map<String, List<String>> filters, BoolQuery.Builder b) {
-        filters.forEach((key, values) -> b.filter(q -> q.nested(n -> n
+    private static void addNestedAttributeFilters(Map<String, List<String>> filters, BoolQuery.Builder builder) {
+        filters.forEach((key, values) -> builder.filter(q -> q.nested(n -> n
                 .path("attributeKeys")
                 .query(kq -> kq.bool(kb -> kb
-                        .must(mq -> mq.match(mustMatchAttributeKeyId(key)
-                        ))
-                        .must(mq -> mq.nested(nv -> nv
+                        .must(mq -> mq.match(createMatchQuery(SearchFields.ATTRIBUTE_KEY_ID, key)))
+                        .filter(mq -> mq.nested(nv -> nv
                                 .path("attributeKeys.attributeValues")
                                 .query(vq -> vq.bool(vb -> vb
                                         .should(values.stream()
                                                 .map(value -> Query.of(qv -> qv
-                                                        .match(mustMatchAttributeValueId(value))))
+                                                        .match(createMatchQuery(SearchFields.ATTRIBUTE_VALUE_ID, value))))
                                                 .toList()
                                         )
                                         .minimumShouldMatch("1")
@@ -94,141 +89,68 @@ public class QueryRepository {
         )));
     }
 
-
-    private static void getShallowQuery(
+    private static void addBasicSearchFilters(
             Boolean bargain,
             String productCondition,
-            Float from,
-            Float to,
+            Float priceFrom,
+            Float priceTo,
             String cleanedInput,
             String locationName,
-            BoolQuery.Builder b
-    ) {
-        if (bargain != null)
-            b.filter(m -> m.match(filterBargain(bargain)));
+            BoolQuery.Builder builder) {
 
-        if (productCondition != null)
-            b.filter(m -> m.match(filterCondition(productCondition)));
+        addBargainFilter(bargain, builder);
 
-        if (locationName != null)
-            b.filter(m -> m.match(filterLocation(locationName)));
+        addOptionalFilter(productCondition, builder, SearchFields.PRODUCT_CONDITION);
+        addOptionalFilter(locationName, builder, SearchFields.LOCATION_NAME);
 
-        if (from != null || to != null)
-            addPriceRangeQueries(b, from, to);
+        addPriceRangeFilter(priceFrom, priceTo, builder);
 
-
-        matchPhrasePrefixesQuery(cleanedInput,b);
-
-
-        b.minimumShouldMatch("1");
-    }
-
-    private static MatchQuery filterLocation(String locationName) {
-        return MatchQuery.of(m -> m
-                .field(LOCATION_NAME)
-                .query(locationName));
-    }
-
-    private static void addPriceRangeQueries(BoolQuery.Builder builder, Float from, Float to) {
-        if (from != null && to != null) {
-            builder.filter(m -> m.range(mustMatchRangeQuery(String.valueOf(from), String.valueOf(to))));
-        } else if (from != null) {
-            builder.filter(m -> m.range(mustMatchRangeFromQuery(String.valueOf(from))));
-        } else if (to != null) {
-            builder.filter(m -> m.range(mustMatchRangeToQuery(String.valueOf(to))));
+        if (!Objects.equals(cleanedInput, "")) {
+            addTextSearchQuery(cleanedInput, builder);
+            builder.minimumShouldMatch("1");
         }
     }
 
-    private static void matchPhrasePrefixesQuery(String query, BoolQuery.Builder b) {
-        b.should(m->m.matchPhrase(
-                        MatchPhraseQuery.of(mp->mp
-                        .field(TITLE)
-                        .query(query))
-                )
+    private static void addOptionalFilter(String value, BoolQuery.Builder builder, String field) {
+        if (value != null) {
+            builder.filter(m -> m.match(createMatchQuery(field, value)));
+        }
+    }
+
+    private static void addPriceRangeFilter(Float from, Float to, BoolQuery.Builder builder) {
+        if (from != null || to != null) {
+            RangeQuery.Builder rangeBuilder = new RangeQuery.Builder().field(SearchFields.PRICE);
+
+            if (from != null)
+                rangeBuilder.gte(JsonData.of(from));
+
+            if (to != null)
+                rangeBuilder.lte(JsonData.of(to));
+
+            builder.filter(f -> f.range(rangeBuilder.build()));
+        }
+    }
+
+    private static void addTextSearchQuery(String query, BoolQuery.Builder builder) {
+        builder.should(m -> m.multiMatch(mm -> mm
+                .fields(SearchFields.TITLE, SearchFields.DESCRIPTION,
+                        SearchFields.CATEGORY_NAME, SearchFields.PARENT_CATEGORY_NAME)
+                .type(TextQueryType.PhrasePrefix)
+                .query(query))
         );
     }
 
-    // Query builders
-    private static MatchQuery filterBargain(Boolean value) {
+    private static void addBargainFilter(Boolean bargain, BoolQuery.Builder builder) {
+        if (bargain != null)
+            builder.filter(m -> m.term(t -> t
+                    .field(SearchFields.BARGAIN)
+                    .value(bargain)));
+    }
+
+    private static MatchQuery createMatchQuery(String field, String value) {
         return MatchQuery.of(q -> q
-                .field(BARGAIN)
+                .field(field)
                 .query(value));
     }
 
-    private static RangeQuery mustMatchRangeFromQuery(String from) {
-        return RangeQuery.of(q -> q
-                .field(PRICE)
-                .from(from));
-    }
-
-    private static RangeQuery mustMatchRangeToQuery(String to) {
-        return RangeQuery.of(q -> q
-                .field(PRICE)
-                .to(to));
-    }
-
-    private static RangeQuery mustMatchRangeQuery(String from, String to) {
-        return RangeQuery.of(q -> q
-                .field(PRICE)
-                .from(from)
-                .to(to));
-    }
-
-    private static MatchQuery filterCondition(String query) {
-        return MatchQuery.of(q -> q
-                .field(PRODUCT_CONDITION)
-                .query(query));
-    }
-
-    private static MatchQuery mustMatchAttributeKeyId(String query) {
-        return MatchQuery.of(q -> q
-                .field(ATTRIBUTE_KEY_ID)
-                .query(query));
-    }
-
-    private static MatchQuery mustMatchAttributeValueId(String query) {
-        return MatchQuery.of(q -> q
-                .field(ATTRIBUTE_VALUE_ID)
-                .query(query));
-    }
-
-    private static MatchQuery mustMatchCategoryId(UUID query) {
-        return MatchQuery.of(q -> q
-                .field(CATEGORY_ID)
-                .query(FieldValue.of(query)));
-    }
-
-
-    private static MatchQuery mustMatchParentCategoryId(UUID query) {
-        return MatchQuery.of(q -> q
-                .field(PARENT_CATEGORY_ID)
-                .query(FieldValue.of(query)));
-    }
-
-    private static MatchPhrasePrefixQuery matchPhrasePrefixQuery(String query) {
-        return MatchPhrasePrefixQuery.of(q -> q
-                .field("model")
-                .query(query)
-                .maxExpansions(50)
-                .slop(3)
-        );
-    }
-
-}
-
-record DocumentRecords() {
-    public static final String CATEGORY_ID = "categoryId";
-    public static final String PARENT_CATEGORY_ID = "parentCategoryId";
-    public static final String ATTRIBUTE_KEY_ID = "attributeKeys.id";
-    public static final String ATTRIBUTE_VALUE_ID = "attributeKeys.attributeValues.id";
-    public static final String BARGAIN = "bargain";
-    public static final String PRICE = "price";
-    public static final String PRODUCT_CONDITION = "productCondition";
-    public static final String LOCATION_NAME = "locationName";
-
-
-    public static final String TITLE = "title";
-    public static final String DESCRIPTION = "description";
-    public static final String CATEGORY_NAME = "categoryName";
-    public static final String PARENT_CATEGORY_NAME = "parentCategoryName";
 }

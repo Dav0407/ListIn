@@ -47,7 +47,7 @@ public class PublicationSearchController {
     @GetMapping("/all/{pCategory}/{category}")
     public List<PublicationNode> deepSearch(@PathVariable UUID pCategory,
                                                            @PathVariable UUID category,
-                                                           @RequestParam("query") String query,
+                                                           @RequestParam(required = false) String query,
                                                            @RequestParam(defaultValue = "0") Integer page,
                                                            @RequestParam(defaultValue = "5") Integer size,
                                                            @RequestParam(required = false) Boolean bargain,
