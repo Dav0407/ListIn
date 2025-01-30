@@ -29,6 +29,6 @@ public class PublicationLike {
 
     @ManyToOne
     @JoinColumn(name = "publication_id", nullable = false)
-    private Publication publicationId;
+    private Publication publication;
 
 }

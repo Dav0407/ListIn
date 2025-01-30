@@ -105,7 +105,7 @@ public class QueryRepository {
 
         addPriceRangeFilter(priceFrom, priceTo, builder);
 
-        if (!Objects.equals(input, "")) {
+        if (!Objects.equals(input, null)) {
             addTextSearchQuery(input, builder);
             builder.minimumShouldMatch("1");
         }
@@ -132,12 +132,14 @@ public class QueryRepository {
     }
 
     private static void addTextSearchQuery(String query, BoolQuery.Builder builder) {
-        builder.should(m -> m.multiMatch(mm -> mm
-                .fields(SearchFields.TITLE, SearchFields.DESCRIPTION,
-                        SearchFields.CATEGORY_NAME, SearchFields.PARENT_CATEGORY_NAME)
-                .type(TextQueryType.PhrasePrefix)
-                .query(query))
-        );
+        if (query != null && !query.trim().isEmpty()) {
+            builder.should(m -> m.multiMatch(mm -> mm
+                    .fields(SearchFields.TITLE, SearchFields.DESCRIPTION,
+                            SearchFields.CATEGORY_NAME, SearchFields.PARENT_CATEGORY_NAME)
+                    .type(TextQueryType.PhrasePrefix)
+                    .query(query))
+            );
+        }
     }
 
     private static void addBargainFilter(Boolean bargain, BoolQuery.Builder builder) {

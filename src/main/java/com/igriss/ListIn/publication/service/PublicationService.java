@@ -27,4 +27,6 @@ public interface PublicationService {
     PageResponse<PublicationResponseDTO> findPublicationsContainingVideo( int page, int size);
 
     UUID likePublication(UUID publicationId, Authentication connectedUser);
+
+    PageResponse<PublicationResponseDTO> findAllLikedPublications(Integer page, Integer size, Authentication authentication);
 }

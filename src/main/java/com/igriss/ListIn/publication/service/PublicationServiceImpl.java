@@ -20,6 +20,7 @@ import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,7 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final PublicationLikeRepository publicationLikeRepository;
     private final PublicationRepository publicationRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductVideoRepository productVideoRepository;
@@ -177,9 +179,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size) {
 
-        Pageable pageable = PageRequest.of(page, size);
-
-        Page<PublicationVideo> publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(pageable);
+        Page<PublicationVideo> publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(PageRequest.of(page, size));
 
         List<Publication> publications = publicationVideos.getContent().stream().map(
                 publicationVideo -> publicationRepository.findById(
@@ -210,17 +210,37 @@ public class PublicationServiceImpl implements PublicationService {
     public UUID likePublication(UUID publicationId, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
 
-        Publication publication = publicationRepository.findById(publicationId).orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
 
         Integer isUpdated = publicationRepository.incrementLike(publication.getId());
 
         if (isUpdated != 0)
-            log.info("Publication with ID: '{}' UPDATED",publicationId);
+            log.info("Publication with ID: '{}' UPDATED", publicationId);
         else
             log.warn("Failed to UPDATE publication with ID: '{}'", publicationId);
 
+        publicationLikeRepository.save(PublicationLike.builder()
+                .user(user)
+                .publication(publication)
+                .build());
 
         return publication.getId();
+    }
+
+    @Override
+    public PageResponse<PublicationResponseDTO> findAllLikedPublications(Integer page, Integer size, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+
+        Page<Publication> publicationPage = publicationLikeRepository.findAllByUser(user, PageRequest.of(page, size))
+                .map(publicationLike ->
+                        publicationRepository.findById(publicationLike.getPublication().getId()).orElseThrow(() -> new PublicationNotFoundException(
+                                String.format("Publication with ID '%s' not found", publicationLike.getPublication().getId()))
+                        )
+
+                );
+
+        return toPageResponse(publicationPage);
     }
 
     @Override
@@ -230,23 +250,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         Page<Publication> publicationPage = publicationRepository.findAllBySeller_UserId(userId, pageable);
 
-        List<PublicationResponseDTO> publicationsDTOList = publicationPage.stream()
-                .map(publication ->
-                        publicationMapper.toPublicationResponseDTO(publication,
-                                productFileService.findImagesByPublicationId(publication.getId()),
-                                productFileService.findVideoUrlByPublicationId(publication.getId())
-                        )
-                ).toList();
-
-        return new PageResponse<>(
-                publicationsDTOList,
-                publicationPage.getNumber(),
-                publicationPage.getSize(),
-                publicationPage.getTotalElements(),
-                publicationPage.getTotalPages(),
-                publicationPage.isFirst(),
-                publicationPage.isLast()
-        );
+        return toPageResponse(publicationPage);
     }
 
     @Override
@@ -341,5 +345,26 @@ public class PublicationServiceImpl implements PublicationService {
 
         //map into elastic search engine and save publication document
         publicationDocumentService.saveIntoPublicationDocument(publication, pavList);
+    }
+
+    @NotNull
+    private PageResponse<PublicationResponseDTO> toPageResponse(Page<Publication> publicationPage) {
+        List<PublicationResponseDTO> publicationsDTOList = publicationPage.stream()
+                .map(publication ->
+                        publicationMapper.toPublicationResponseDTO(publication,
+                                productFileService.findImagesByPublicationId(publication.getId()),
+                                productFileService.findVideoUrlByPublicationId(publication.getId())
+                        )
+                ).toList();
+
+        return new PageResponse<>(
+                publicationsDTOList,
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast()
+        );
     }
 }

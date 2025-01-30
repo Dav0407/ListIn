@@ -2,7 +2,6 @@ package com.igriss.ListIn.user.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.igriss.ListIn.publication.entity.PublicationLike;
 import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Getter

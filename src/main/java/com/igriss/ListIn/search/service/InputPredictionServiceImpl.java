@@ -1,6 +1,5 @@
 package com.igriss.ListIn.search.service;
 
-import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.entity.CategoryAttribute;
 import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;

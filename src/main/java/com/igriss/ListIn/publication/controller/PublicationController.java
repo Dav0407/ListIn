@@ -3,8 +3,8 @@ package com.igriss.ListIn.publication.controller;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
+import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
@@ -92,14 +92,19 @@ public class PublicationController {
     @Operation(summary = "${publication-controller.videos.summary}", description = "${publication-controller.videos.description}")
     @GetMapping("/videos")
     public PageResponse<PublicationResponseDTO> getVideos(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                         @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
+                                                          @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
         return publicationService.findPublicationsContainingVideo(page, size);
     }
 
     @PatchMapping("/like/{publicationId}")
-    public UUID likePublication(@PathVariable UUID publicationId, Authentication connectedUser){
+    public UUID likePublication(@PathVariable UUID publicationId, Authentication connectedUser) {
         return publicationService.likePublication(publicationId, connectedUser);
     }
 
-    //@PatchMapping("/view")
+    @GetMapping("/like")
+    public PageResponse<PublicationResponseDTO> getLikedPublications(@RequestParam(defaultValue = "0") Integer page,
+                                                                     @RequestParam(defaultValue = "5") Integer size,
+                                                                     Authentication connectedUser) {
+        return publicationService.findAllLikedPublications(page, size, connectedUser);
+    }
 }

@@ -29,8 +29,6 @@ public class PublicationMapper {
     private final UserMapper userMapper;
     private final PublicationImageMapper publicationImageMapper;
 
-    public static PublicationResponseDTO waitingPublication;
-
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
         PublicationType publicationType = switch (connectedUser.getRole()) {
