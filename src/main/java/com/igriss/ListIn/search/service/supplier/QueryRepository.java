@@ -24,7 +24,7 @@ public class QueryRepository {
                     params.getProductCondition(),
                     params.getPriceFrom(),
                     params.getPriceTo(),
-                    preprocessInput(params.getInput()),
+                    null,
                     params.getLocationName(),
                     builder
             );
@@ -94,7 +94,7 @@ public class QueryRepository {
             String productCondition,
             Float priceFrom,
             Float priceTo,
-            String cleanedInput,
+            String input,
             String locationName,
             BoolQuery.Builder builder) {
 
@@ -105,8 +105,8 @@ public class QueryRepository {
 
         addPriceRangeFilter(priceFrom, priceTo, builder);
 
-        if (!Objects.equals(cleanedInput, "")) {
-            addTextSearchQuery(cleanedInput, builder);
+        if (!Objects.equals(input, "")) {
+            addTextSearchQuery(input, builder);
             builder.minimumShouldMatch("1");
         }
     }

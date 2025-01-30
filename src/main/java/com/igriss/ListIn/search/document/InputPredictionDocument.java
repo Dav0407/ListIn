@@ -2,6 +2,7 @@ package com.igriss.ListIn.search.document;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.data.annotation.TypeAlias;
@@ -20,22 +21,32 @@ import java.util.UUID;
 @TypeAlias("search_predictions")
 @Document(indexName = "search_predictions")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class InputPredictionDocument {
 
     @Id
     private UUID id;
 
-    @Field(type = FieldType.Search_As_You_Type)
-    private String modelValue;
+    private String childAttributeValue;
 
     @Field(storeNullValue = true)
-    private UUID brandId;
+    private UUID parentAttributeValueId;
 
-    @Field(type = FieldType.Search_As_You_Type, storeNullValue = true)
-    private String brandValue;
+    @Field(storeNullValue = true)
+    private String parentAttributeValue;
+
+    @Field(storeNullValue = true)
+    private UUID parentAttributeKeyId;
+
+    @Field(storeNullValue = true)
+    private UUID childAttributeKeyId;
 
     private UUID parentCategoryId;
 
+    private String parentCategoryName;
+
     private UUID categoryId;
+
+    private String categoryName;
 
 }

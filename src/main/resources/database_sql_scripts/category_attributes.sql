@@ -90,6 +90,7 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 
 --Home Electronics category-attributes
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('a7cbd320-46b0-4baa-9a12-a34826c17ea6','1fb4b553-a8d8-4563-9352-5a8889c2a13f','d856497c-3a0a-43a8-9630-3b023f76115d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('e33456c6-ea48-4c86-aa4e-c8dfa52cb4cc','536e35f6-8999-4f3c-a2b2-729560594eb3','d856497c-3a0a-43a8-9630-3b023f76115d');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('0c823509-edfb-42ca-86fb-4389b1561709','046fc206-f7f5-4c7d-aabf-5550666b6b99','d856497c-3a0a-43a8-9630-3b023f76115d');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('0d44958a-8e65-4a27-b185-9444bed400cf','a1fa350a-a2a9-420c-a75e-dda7917e317b','d856497c-3a0a-43a8-9630-3b023f76115d');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('0d0bd8bc-61ee-47aa-b4d9-3c880531987a','3fc333c3-096d-4762-a60e-e0a2368ec8c8','d856497c-3a0a-43a8-9630-3b023f76115d');

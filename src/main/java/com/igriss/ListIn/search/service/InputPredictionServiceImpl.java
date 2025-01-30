@@ -7,6 +7,7 @@ import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import com.igriss.ListIn.search.document.InputPredictionDocument;
 import com.igriss.ListIn.search.dto.InputPredictionRequestDTO;
 import com.igriss.ListIn.search.dto.InputPredictionResponseDTO;
+import com.igriss.ListIn.search.mapper.InputPredictionMapper;
 import com.igriss.ListIn.search.repository.InputPredictionDocumentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.util.List;
 public class InputPredictionServiceImpl implements InputPredictionService {
 
     private final InputPredictionDocumentRepository predictionDocumentRepository;
+    private final InputPredictionMapper inputPredictionMapper;
 
     private final AttributeValueRepository attributeValueRepository;
     private final CategoryAttributeRepository categoryAttributeRepository;
@@ -40,17 +42,7 @@ public class InputPredictionServiceImpl implements InputPredictionService {
         PageRequest pageRequest = PageRequest.of(0, 5);
 
         List<InputPredictionDocument> matchPhrase = predictionDocumentRepository.findByModelValueContainingIgnoreCase(model, pageRequest);
-
-        return matchPhrase.stream().map(document ->
-                        InputPredictionResponseDTO.builder()
-                                .modelId(document.getId())
-                                .modelValue(document.getModelValue())
-                                .brandId(document.getBrandId())
-                                .brandValue(document.getBrandValue())
-                                .parentCategoryId(document.getParentCategoryId())
-                                .categoryId(document.getCategoryId())
-                                .build())
-                .toList();
+        return matchPhrase.stream().map(inputPredictionMapper::toInputPredictionResponseDTO).toList();
     }
 
     @Override
@@ -59,7 +51,8 @@ public class InputPredictionServiceImpl implements InputPredictionService {
                 matching -> InputPredictionDocument.builder()
                         .categoryId(matching.getCategoryId())
                         .parentCategoryId(matching.getParentCategoryId())
-                        .modelValue(matching.getModel())
+                        .parentCategoryName(matching.getModel())
+                        .childAttributeValue(matching.getModel())
                         .build()
         ).toList());
     }
@@ -67,20 +60,9 @@ public class InputPredictionServiceImpl implements InputPredictionService {
     @Override
     public String indexInputPredictionDocuments() {
         models.forEach(model -> attributeValueRepository.findByAttributeKey_Name(model).parallelStream().forEach(av -> {
-
             CategoryAttribute ca = categoryAttributeRepository.findByAttributeKey_Id(av.getAttributeKey().getId())
                     .orElseThrow(() -> new RuntimeException("Error during the elastic indexation occurred"));
-
-            predictionDocumentRepository.save(InputPredictionDocument.builder()
-                    .id(av.getId())
-                    .modelValue(av.getValue())
-                    .brandId(av.getParentValue() != null ? av.getParentValue().getId() : null)
-                    .brandValue(av.getParentValue() != null ? av.getParentValue().getValue() : null)
-                    .categoryId(ca.getCategory().getId())
-                    .parentCategoryId(ca.getCategory().getParentCategory().getId())
-                    .build()
-            );
-
+            predictionDocumentRepository.save(inputPredictionMapper.toInputPredictionDocument(av, ca));
         }));
         return "Success";
     }

@@ -22,7 +22,9 @@ public interface PublicationService {
 
     PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size);
 
-    PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication);
+    PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication, Authentication authentication);
 
     PageResponse<PublicationResponseDTO> findPublicationsContainingVideo( int page, int size);
+
+    UUID likePublication(UUID publicationId, Authentication connectedUser);
 }

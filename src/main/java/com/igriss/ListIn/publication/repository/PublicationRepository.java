@@ -54,4 +54,12 @@ public interface PublicationRepository extends JpaRepository<Publication, UUID> 
 
     Page<Publication> findAllBySeller_UserId(UUID sellerUserId, Pageable pageable);
 
+    @Modifying
+    @Query(value = """
+            UPDATE publications
+            SET likes = likes + 1
+            WHERE publication_id = :publicationId
+            """, nativeQuery = true)
+    Integer incrementLike(UUID publicationId);
+
 }

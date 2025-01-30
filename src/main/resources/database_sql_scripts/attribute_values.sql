@@ -725,6 +725,38 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('a625cfaa-2bbf-44d8-9c29-328e33c56d78', null, '1fb4b553-a8d8-4563-9352-5a8889c2a13f','Heater');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('9d1de2d3-215e-43b5-b040-69fa0524dd69', null, '1fb4b553-a8d8-4563-9352-5a8889c2a13f','Speaker');
 
+----Home Electronics Brands
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('3698e07a-1d37-46ad-b9c7-b1a7d2007fcb', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','LG');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('15cf5141-bb6b-45b6-9265-6ad911139cfd', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Samsung');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('e04358ff-0223-4196-910b-969ea76e17d7', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Sony');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('aa553550-fb66-4299-ab40-b5ddb8841afe', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Whirlpool');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('f7792f94-fbe3-4a83-b84b-ade31b217424', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Bosch');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('d7f71351-8cfe-42f2-8d45-421fdbd8655d', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Panasonic');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('41fe5373-3d8a-4698-b4a4-a5bdf9c06536', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Sharp');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('524d5a6f-0081-4ac6-bb41-1175db825190', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','GE');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('33323071-699e-4faf-959b-1fd7d30e9274', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','iRobot');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('42346215-ec98-4ca3-b9d8-21e8c307dd2b', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Dyson');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('afbe51ca-6534-41ac-a009-de73ab48c5d6', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Miele');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('3c9a1372-2602-4455-8c59-f2b9b8a1807d', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Daikin');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('50621e68-1d95-4019-8fc5-f93b2b1a2ca0', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Hitachi');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('d51157be-8d08-4137-a5ad-e94a6b8629e1', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Philips');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('5a10397c-dc25-444b-a36d-f60745bd8354', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Toshiba');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('94da61c7-4bb0-4d31-930d-1c7eb32fc921', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Electrolux');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('c2a51471-de4c-4a8b-96ec-469877eeb2ee', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Haier');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('7b09cf57-4e1b-44ea-be71-082c3292de2a', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Hisense');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('3e5a7bb9-e69b-4c19-8e00-e9587870256c', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Vizio');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('82f0ea84-56cf-4b6b-8698-d82b1ba15b45', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Bose');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('c0144221-f0b7-40ad-b67b-8a0d0e42b07d', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','JBL');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('db2741fb-35b0-44cb-ae6d-d80124a8d335', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','KitchenAid');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('928ad629-e832-4f85-b42c-a193f79d34f8', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Kenmore');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('11c9b1bf-ff69-4088-9bcc-7eed829bd60b', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Frigidaire');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('057641b6-cd51-4d36-90a7-3cd9d56d7db3', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Midea');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('27e5d903-d95e-4ae7-aa08-7cc70242c3e9', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Braun');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('443ee574-e34f-453f-b68c-6b2374fd36f2', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Smeg');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('3c4af49b-d2e6-4d8c-b603-a16b18f026ff', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Gree');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('09b417b3-6d7c-4d94-97b6-50dbafd49507', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Casper');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('cc768b79-0dba-4009-a658-28ead67e60bf', null, '536e35f6-8999-4f3c-a2b2-729560594eb3','Arçelik');
+
 ----Home Electronics Color value attributes
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('4b630aee-09f6-4765-a6f7-95d88d867fb8', null, '046fc206-f7f5-4c7d-aabf-5550666b6b99','Black');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value) VALUES ('7144e6a1-e4eb-4111-8c87-a7be262993db', null, '046fc206-f7f5-4c7d-aabf-5550666b6b99','White');

@@ -16,7 +16,7 @@ public interface InputPredictionDocumentRepository extends ElasticsearchReposito
         "should": [
           {
             "match_phrase_prefix": {
-              "modelValue": {
+              "childAttributeValue": {
                 "query": "?0",
                 "slop": 3
               }

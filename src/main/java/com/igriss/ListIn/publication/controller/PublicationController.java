@@ -69,8 +69,8 @@ public class PublicationController {
 
     @Operation(summary = "${publication-controller.update.summary}", description = "${publication-controller.update.description}")
     @PatchMapping("/update/{publicationId}")
-    public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication) {
-        return ResponseEntity.ok(publicationService.updateUserPublication(publicationId, updatePublication));
+    public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication, Authentication authentication) {
+        return ResponseEntity.ok(publicationService.updateUserPublication(publicationId, updatePublication, authentication));
     }
 
     @Operation(summary = "${publication-controller.find-by-user.summary}", description = "${publication-controller.find-by-user.description}")
@@ -95,4 +95,11 @@ public class PublicationController {
                                                          @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
         return publicationService.findPublicationsContainingVideo(page, size);
     }
+
+    @PatchMapping("/like/{publicationId}")
+    public UUID likePublication(@PathVariable UUID publicationId, Authentication connectedUser){
+        return publicationService.likePublication(publicationId, connectedUser);
+    }
+
+    //@PatchMapping("/view")
 }

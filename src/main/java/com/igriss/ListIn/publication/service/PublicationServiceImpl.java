@@ -2,6 +2,7 @@ package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
+import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
 import com.igriss.ListIn.exceptions.ValidationException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
@@ -205,6 +206,24 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    @Transactional
+    public UUID likePublication(UUID publicationId, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+
+        Publication publication = publicationRepository.findById(publicationId).orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
+
+        Integer isUpdated = publicationRepository.incrementLike(publication.getId());
+
+        if (isUpdated != 0)
+            log.info("Publication with ID: '{}' UPDATED",publicationId);
+        else
+            log.warn("Failed to UPDATE publication with ID: '{}'", publicationId);
+
+
+        return publication.getId();
+    }
+
+    @Override
     public PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
@@ -232,10 +251,16 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication) {
+    public PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication, Authentication authentication) {
 
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(() -> new PublicationNotFoundException(String.format("Publication with id [%s] does not exist!", publicationId)));
+
+        if (!publication.getSeller().getUserId().equals(((User) authentication.getPrincipal()).getUserId())) {
+            log.warn("User with ID: '{}' trying to update publication with id: '{}' which belongs to user with ID: '{}'",
+                    ((User) authentication.getPrincipal()).getUserId(), publicationId, publication.getSeller().getUserId());
+            throw new UnauthorizedAccessException(String.format("Permission denied: you do not have access to update publication with ID %s", publicationId));
+        }
 
         Integer isUpdatedPublication = publicationRepository.updatePublicationById(
                 publicationId,

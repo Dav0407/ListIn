@@ -60,6 +60,10 @@ public class Publication {
     @Enumerated(EnumType.STRING)
     private ProductCondition productCondition;
 
+    private Long likes;
+
+    private Long views;
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime datePosted;
