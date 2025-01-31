@@ -28,6 +28,8 @@ public class PublicationResponseDTO implements Serializable {
 
     private Boolean bargain;
 
+    private Boolean isLiked;
+
     private String locationName;
 
     private Double latitude;
@@ -41,6 +43,10 @@ public class PublicationResponseDTO implements Serializable {
     private PublicationType publicationType;
 
     private ProductCondition productCondition;
+
+    private Long likes;
+
+    private Long views;
 
     private LocalDateTime createdAt;
 

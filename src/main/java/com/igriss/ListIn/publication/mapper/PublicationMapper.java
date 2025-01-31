@@ -15,9 +15,7 @@ import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 //todo 1 -> write an implementation for advanced mapping from PublicationRequestDTO <-> Publication
 //todo 2 -> also for PublicationResponseDTO <- Publication (The entire mapper part will be done by Davron)
@@ -51,19 +49,22 @@ public class PublicationMapper {
                 .longitude(requestDTO.getLongitude())
                 .category(categoryMapper.toCategory(requestDTO.getCategoryId()))
                 .productCondition(productCondition)
+                .likes(0L)
+                .views(0L)
                 .publicationType(publicationType)
                 .publicationStatus(publicationStatus)
                 .seller(connectedUser)
                 .build();
     }
 
-    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo) {
+    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, Boolean liked) {
         return PublicationResponseDTO.builder()
                 .id(publication.getId())
                 .title(publication.getTitle())
                 .description(publication.getDescription())
                 .price(publication.getPrice())
                 .bargain(publication.getBargain())
+                .isLiked(liked)
                 .productImages(publicationImageMapper.toImageDTOList(publicationImages))
                 .videoUrl(publicationVideo)
                 .locationName(publication.getLocationName())
@@ -71,6 +72,8 @@ public class PublicationMapper {
                 .longitude(publication.getLongitude())
                 .publicationType(publication.getPublicationType())
                 .productCondition(publication.getProductCondition())
+                .likes(publication.getLikes() != null ? publication.getLikes() : 0L)
+                .views(publication.getViews() != null ? publication.getViews() : 0L)
                 .createdAt(publication.getDatePosted())
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))

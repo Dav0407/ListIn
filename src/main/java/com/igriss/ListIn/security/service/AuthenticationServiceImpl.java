@@ -70,7 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                             request.getPassword()
                     )
             );
-            var user = userRepository.findByEmail(request.getEmail())
+            var user = userRepository.findByEmail(request.getEmail().toLowerCase())
                     .orElseThrow();
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);

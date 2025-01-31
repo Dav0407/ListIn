@@ -62,9 +62,10 @@ public class PublicationController {
     @Operation(summary = "${publication-controller.get-latest.summary}", description = "${publication-controller.get-latest.description}")
     @GetMapping
     public ResponseEntity<List<PublicationNode>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size
+                                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                                           Authentication connectedUser
     ) {
-        return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size));
+        return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size, connectedUser));
     }
 
     @Operation(summary = "${publication-controller.update.summary}", description = "${publication-controller.update.description}")
@@ -77,23 +78,28 @@ public class PublicationController {
     @GetMapping("/user/{userId}")
     public PageResponse<PublicationResponseDTO> findByUser(@PathVariable UUID userId,
                                                            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
-        return publicationService.findAllByUserId(userId, page, size);
+                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                           Authentication connectedUser) {
+        return publicationService.findAllByUserId(userId, page, size, connectedUser);
     }
 
     @Operation(summary = "${publication-controller.parent-category.summary}", description = "${publication-controller.parent-category.description}")
     @GetMapping("/p/{pCategory}")
     public List<PublicationNode> parentCategorySearch(@PathVariable UUID pCategory,
                                                       @RequestParam(defaultValue = "0") Integer page,
-                                                      @RequestParam(defaultValue = "5") Integer size) {
-        return publicationService.findWithParentCategory(pCategory, page, size);
+                                                      @RequestParam(defaultValue = "5") Integer size,
+                                                      Authentication connectedUser
+    ) {
+        return publicationService.findWithParentCategory(pCategory, page, size, connectedUser);
     }
 
     @Operation(summary = "${publication-controller.videos.summary}", description = "${publication-controller.videos.description}")
     @GetMapping("/videos")
     public PageResponse<PublicationResponseDTO> getVideos(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                          @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
-        return publicationService.findPublicationsContainingVideo(page, size);
+                                                          @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                          Authentication connectedUser
+    ) {
+        return publicationService.findPublicationsContainingVideo(page, size, connectedUser);
     }
 
     @PatchMapping("/like/{publicationId}")

@@ -93,10 +93,9 @@ public class PublicationServiceImpl implements PublicationService {
 
         Page<Publication> publicationPage = publicationRepository.findAllBySeller(pageable, user);
 
-        // Convert publications to DTOs and populate fields
         List<UserPublicationDTO> publicationsDTOList = publicationPage.stream()
                 .map(publication -> {
-                    // Map publication to UserPublicationDTO
+
                     UserPublicationDTO userPublicationDTO = publicationMapper.toUserPublicationDTO(publication);
 
                     userPublicationDTO.setProductImages(
@@ -133,76 +132,40 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public List<PublicationNode> findAllLatestPublications(int page, int size) {
+    public List<PublicationNode> findAllLatestPublications(int page, int size, Authentication connectedUser) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
         Page<Publication> publicationPage = publicationRepository.findAllByOrderByDatePostedDesc(pageable);
 
-        return publicationNodeHandler1.handlePublicationNodes(publicationPage
-                .getContent()
-                .stream()
-                .map(publication -> publicationMapper.toPublicationResponseDTO(
-                        publication,
-                        productImageRepository.findAllByPublication_Id(publication.getId()),
-                        productVideoRepository.findByPublication_Id(publication.getId())
-                                .map(PublicationVideo::getVideoUrl)
-                                .orElse(null)
-                ))
-                .toList(), publicationPage.isLast());
+        return getPublicationNodes(connectedUser, publicationPage, publicationNodeHandler1);
     }
 
-
     @Override
-    public List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size) {
+    public List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size, Authentication connectedUser) {
 
         Page<Publication> publicationPage = publicationRepository.findAllByCategory_ParentCategory_Id(parentCategoryId, PageRequest.of(page, size, Sort.by("datePosted").descending()));
 
-        List<PublicationResponseDTO> publications =
-                publicationPage
-                        .getContent()
-                        .stream()
-                        .map(publication ->
-                                publicationMapper
-                                        .toPublicationResponseDTO(publication,
-                                                productImageRepository
-                                                        .findAllByPublication_Id(publication.getId()),
-                                                productVideoRepository
-                                                        .findByPublication_Id(publication.getId())
-                                                        .map(PublicationVideo::getVideoUrl)
-                                                        .orElse(null))
-                        )
-                        .toList();
-        return publicationNodeHandler2.handlePublicationNodes(publications, publicationPage.isLast());
+        return getPublicationNodes(connectedUser, publicationPage, publicationNodeHandler2);
     }
 
     @Override
-    public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size) {
+    public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size, Authentication connectedUser) {
 
         Page<PublicationVideo> publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(PageRequest.of(page, size));
 
-        List<Publication> publications = publicationVideos.getContent().stream().map(
+        Page<Publication> publicationPage = publicationVideos.map(
                 publicationVideo -> publicationRepository.findById(
                                 publicationVideo.getPublication().getId())
                         .orElseThrow(() -> new PublicationNotFoundException(
                                 String.format("Publication with id '%s' doesn't exist", publicationVideo.getPublication().getId())))
-        ).toList();
-
-        return new PageResponse<>(
-                publications.stream()
-                        .map(publication ->
-                                publicationMapper.toPublicationResponseDTO(publication,
-                                        productFileService.findImagesByPublicationId(publication.getId()),
-                                        productFileService.findVideoUrlByPublicationId(publication.getId())
-                                )
-                        ).toList(),
-                publicationVideos.getNumber(),
-                publicationVideos.getSize(),
-                publicationVideos.getTotalElements(),
-                publicationVideos.getTotalPages(),
-                publicationVideos.isFirst(),
-                publicationVideos.isLast()
         );
+
+        User user = (User) connectedUser.getPrincipal();
+
+        List<PublicationResponseDTO> responseDTOList = getPublicationResponseDTOS(publicationPage, user);
+
+        return getPageResponse(publicationPage, responseDTOList);
     }
 
     @Override
@@ -240,17 +203,29 @@ public class PublicationServiceImpl implements PublicationService {
 
                 );
 
-        return toPageResponse(publicationPage);
+        List<PublicationResponseDTO> publicationResponseDTOS = publicationPage.stream()
+                .map(publication ->
+                        publicationMapper.toPublicationResponseDTO(publication,
+                                productFileService.findImagesByPublicationId(publication.getId()),
+                                productFileService.findVideoUrlByPublicationId(publication.getId()),
+                                true)
+                ).toList();
+
+        return getPageResponse(publicationPage, publicationResponseDTOS);
     }
 
     @Override
-    public PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size) {
+    public PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size, Authentication connectedUser) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
         Page<Publication> publicationPage = publicationRepository.findAllBySeller_UserId(userId, pageable);
 
-        return toPageResponse(publicationPage);
+        User user = (User) connectedUser.getPrincipal();
+
+        List<PublicationResponseDTO> publicationResponseDTOS = getPublicationResponseDTOS(publicationPage, user);
+
+        return getPageResponse(publicationPage, publicationResponseDTOS);
     }
 
     @Override
@@ -300,7 +275,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
 
-        return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl);
+        return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl, false);
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
@@ -348,15 +323,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @NotNull
-    private PageResponse<PublicationResponseDTO> toPageResponse(Page<Publication> publicationPage) {
-        List<PublicationResponseDTO> publicationsDTOList = publicationPage.stream()
-                .map(publication ->
-                        publicationMapper.toPublicationResponseDTO(publication,
-                                productFileService.findImagesByPublicationId(publication.getId()),
-                                productFileService.findVideoUrlByPublicationId(publication.getId())
-                        )
-                ).toList();
-
+    private PageResponse<PublicationResponseDTO> getPageResponse(Page<Publication> publicationPage, List<PublicationResponseDTO> publicationsDTOList) {
         return new PageResponse<>(
                 publicationsDTOList,
                 publicationPage.getNumber(),
@@ -366,5 +333,36 @@ public class PublicationServiceImpl implements PublicationService {
                 publicationPage.isFirst(),
                 publicationPage.isLast()
         );
+    }
+
+    @NotNull
+    private List<PublicationResponseDTO> getPublicationResponseDTOS(Page<Publication> publicationPage, User user) {
+        return publicationPage.stream()
+                .map(publication ->
+                        publicationMapper.toPublicationResponseDTO(publication,
+                                productFileService.findImagesByPublicationId(publication.getId()),
+                                productFileService.findVideoUrlByPublicationId(publication.getId()),
+                                isLiked(user, publication))
+                ).toList();
+    }
+
+    private Boolean isLiked(User user, Publication publication) {
+        return publicationLikeRepository.existsByUserAndPublication(user, publication);
+    }
+
+    private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
+        List<PublicationResponseDTO> publications = publicationPage
+                .getContent()
+                .stream()
+                .map(publication -> publicationMapper.toPublicationResponseDTO(
+                        publication,
+                        productImageRepository.findAllByPublication_Id(publication.getId()),
+                        productVideoRepository.findByPublication_Id(publication.getId())
+                                .map(PublicationVideo::getVideoUrl)
+                                .orElse(null),
+                        isLiked((User) connectedUser.getPrincipal(), publication)))
+                .toList();
+
+        return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
     }
 }

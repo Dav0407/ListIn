@@ -1,5 +1,6 @@
 package com.igriss.ListIn.publication.repository;
 
+import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationLike;
 import com.igriss.ListIn.user.entity.User;
 import org.springframework.data.domain.Page;
@@ -12,4 +13,5 @@ public interface PublicationLikeRepository extends JpaRepository<PublicationLike
 
     Page<PublicationLike> findAllByUser(User user, Pageable pageable);
 
+    Boolean existsByUserAndPublication(User user, Publication publication);
 }

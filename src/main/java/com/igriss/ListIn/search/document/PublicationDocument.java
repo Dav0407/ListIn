@@ -26,10 +26,6 @@ public class PublicationDocument {
     @Id
     private UUID id;
 
-    /*
-    standard analyzer means saving coming data in form of tokens and
-    in small cases by removing 'the' 'is' ...
-    */
     @Field(type = FieldType.Text, analyzer = "standard")
     private String title;
 

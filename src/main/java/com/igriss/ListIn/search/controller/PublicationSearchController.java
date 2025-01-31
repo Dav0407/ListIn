@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,9 +39,10 @@ public class PublicationSearchController {
                                                @RequestParam(value = "condition", required = false) String productCondition,
                                                @RequestParam(required = false) Float from,
                                                @RequestParam(required = false) Float to,
-                                               @RequestParam(required = false) String locationName
+                                               @RequestParam(required = false) String locationName,
+                                               Authentication connectedUser
     ) throws SearchQueryException {
-        return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to, locationName);
+        return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to, locationName, connectedUser);
     }
 
     @Operation(summary = "${search-controller.deepSearch.summary}", description = "${search-controller.deepSearch.description}")
@@ -55,9 +57,10 @@ public class PublicationSearchController {
                                             @RequestParam(required = false) Float from,
                                             @RequestParam(required = false) Float to,
                                             @RequestParam(required = false) String locationName,
-                                            @RequestParam(value = "filter", required = false) List<String> filters
+                                            @RequestParam(value = "filter", required = false) List<String> filters,
+                                            Authentication connectedUser
     ) throws SearchQueryException {
-        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters);
+        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, connectedUser);
     }
 
     @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")

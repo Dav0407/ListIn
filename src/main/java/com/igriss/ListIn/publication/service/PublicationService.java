@@ -16,15 +16,15 @@ public interface PublicationService {
 
     PageResponse<UserPublicationDTO> findAllByUser(int page, int size, Authentication connectedUser);
 
-    List<PublicationNode> findAllLatestPublications(int page, int size);
+    List<PublicationNode> findAllLatestPublications(int page, int size, Authentication connectedUser);
 
-    List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size);
+    List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size, Authentication connectedUser);
 
-    PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size);
+    PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size, Authentication connectedUser);
 
     PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication, Authentication authentication);
 
-    PageResponse<PublicationResponseDTO> findPublicationsContainingVideo( int page, int size);
+    PageResponse<PublicationResponseDTO> findPublicationsContainingVideo( int page, int size, Authentication authentication);
 
     UUID likePublication(UUID publicationId, Authentication connectedUser);
 

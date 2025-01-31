@@ -6,20 +6,24 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationVideo;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.ProductImageRepository;
 import com.igriss.ListIn.publication.repository.ProductVideoRepository;
+import com.igriss.ListIn.publication.repository.PublicationLikeRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.publication.service.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
 import com.igriss.ListIn.search.service.supplier.SearchParams;
+import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -41,6 +45,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final PublicationRepository publicationRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductVideoRepository productVideoRepository;
+    private final PublicationLikeRepository publicationLikeRepository;
 
     private final PublicationNodeHandler publicationNodeHandler1;
     private final PublicationNodeHandler publicationNodeHandler2;
@@ -49,7 +54,9 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                           Integer page, Integer size, Boolean bargain, String productCondition,
-                                                          Float from, Float to, String locationName, List<String> filters) throws SearchQueryException {
+                                                          Float from, Float to, String locationName, List<String> filters, Authentication connectedUser) throws SearchQueryException {
+
+        User user = (User) connectedUser.getPrincipal();
 
         List<PublicationDocument> publicationDocuments = new ArrayList<>();
 
@@ -87,13 +94,12 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
         boolean isLast = ((long) (page + 1) * size) >= totalElements;
 
-        return publicationNodeHandler1.handlePublicationNodes(
-                editQuery(publicationDocuments), isLast);
+        return publicationNodeHandler1.handlePublicationNodes(editQuery(publicationDocuments, user), isLast);
     }
 
     @Override
     public List<PublicationNode> searchWithDefaultFilter(String query, Integer page, Integer size,
-                                                         Boolean bargain, String productCondition, Float from, Float to, String locationName) throws SearchQueryException {
+                                                         Boolean bargain, String productCondition, Float from, Float to, String locationName, Authentication connectedUser) throws SearchQueryException {
         try {
             SearchResponse<PublicationDocument> response = elasticsearchClient.search(q -> q
                             .index(indexName)
@@ -123,8 +129,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
             long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
             boolean isLast = ((long) (page + 1) * size) >= totalElements;
 
-            return publicationNodeHandler2.handlePublicationNodes(
-                    editQuery(publicationDocuments), isLast);
+            User user = (User) connectedUser.getPrincipal();
+            return publicationNodeHandler2.handlePublicationNodes(editQuery(publicationDocuments, user), isLast);
 
         } catch (IOException ioException) {
             log.error("Exception occurred: ", ioException);
@@ -149,7 +155,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     }
 
     @NotNull
-    private List<PublicationResponseDTO> editQuery(List<PublicationDocument> publicationDocuments) {
+    private List<PublicationResponseDTO> editQuery(List<PublicationDocument> publicationDocuments, User user) {
         return publicationDocuments.stream()
                 .map(document -> publicationRepository.findById(document.getId())
                         .map(publication ->
@@ -160,13 +166,17 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                                 productVideoRepository
                                                         .findByPublication_Id(publication.getId())
                                                         .map(PublicationVideo::getVideoUrl)
-                                                        .orElse(null)
-                                        ))
+                                                        .orElse(null),
+                                                isLiked(user,publication)))
                         .orElseThrow(() -> {
                             log.info("No resources found with publication id: {}", document.getId());
                             return new ResourceNotFoundException("No resources found with publication id: " + document.getId());
                         }))
                 .toList();
+    }
+
+    private Boolean isLiked(User user, Publication publication) {
+        return publicationLikeRepository.existsByUserAndPublication(user, publication);
     }
 
 }

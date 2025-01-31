@@ -16,7 +16,7 @@ public class InputPredictionMapper {
         return InputPredictionResponseDTO.builder()
                 .childAttributeValueId(document.getId())
                 .childAttributeValue(document.getChildAttributeValue())
-                .parentAttributeValueId(document.getParentCategoryId())
+                .parentAttributeValueId(document.getParentAttributeValueId())
                 .parentAttributeValue(document.getParentAttributeValue())
                 .parentAttributeKeyId(document.getParentAttributeKeyId())
                 .childAttributeKeyId(document.getChildAttributeKeyId())
@@ -28,13 +28,14 @@ public class InputPredictionMapper {
     }
 
     public InputPredictionDocument toInputPredictionDocument(AttributeValue av, CategoryAttribute ca){
+
         return InputPredictionDocument.builder()
                 .id(av.getId())
                 .childAttributeValue(av.getValue())
                 .parentAttributeValueId(av.getParentValue() != null ? av.getParentValue().getId() : null)
                 .parentAttributeValue(av.getParentValue() != null ? av.getParentValue().getValue() : null)
-                .parentAttributeKeyId(ca.getAttributeKey().getId())
-                .childAttributeKeyId(av.getParentValue() != null ? av.getParentValue().getAttributeKey().getId(): null)
+                .parentAttributeKeyId(av.getParentValue() != null ? av.getParentValue().getAttributeKey().getId(): null)
+                .childAttributeKeyId(ca.getAttributeKey().getId())
                 .categoryId(ca.getCategory().getId())
                 .categoryName(ca.getCategory().getName())
                 .parentCategoryId(ca.getCategory().getParentCategory().getId())
