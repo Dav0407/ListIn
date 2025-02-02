@@ -39,6 +39,8 @@ public class BrandModelServiceImpl implements BrandModelService {
                 .map(element -> BrandModelDTO.builder()
                         .modelId(element.getId())
                         .name(element.getValue())
+                        .nameUz(element.getValueUz())
+                        .nameRu(element.getValueRu())
                         .attributeId(element.getAttributeKey().getId().toString())
                         .build()
                 ).toList();

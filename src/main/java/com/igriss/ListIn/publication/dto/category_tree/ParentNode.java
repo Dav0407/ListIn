@@ -14,6 +14,10 @@ import java.util.UUID;
 public class ParentNode implements Serializable {
     private UUID id;
     private String name;
+    private String nameUz;
+    private String nameRu;
+    private String descriptionUz;
+    private String descriptionRu;
     private String description;
     private String logoUrl;
     private List<ChildNode> childCategories;

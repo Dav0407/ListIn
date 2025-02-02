@@ -34,7 +34,11 @@ public class CategoryTreeService {
                 return ChildNode.builder()
                         .id(child.getId())
                         .name(child.getName())
+                        .nameUz(child.getNameUz())
+                        .nameRu(child.getNameRu())
                         .description(child.getDescription())
+                        .descriptionUz(child.getDescriptionUz())
+                        .descriptionRu(child.getDescriptionRu())
                         .logoUrl(child.getImageUrl())
                         .attributes(attributePairs)
                         .build();
@@ -42,7 +46,11 @@ public class CategoryTreeService {
             return ParentNode.builder()
                     .id(parent.getId())
                     .name(parent.getName())
+                    .nameUz(parent.getNameUz())
+                    .nameRu(parent.getNameRu())
                     .description(parent.getDescription())
+                    .descriptionUz(parent.getDescriptionUz())
+                    .descriptionRu(parent.getDescriptionRu())
                     .logoUrl(parent.getImageUrl())
                     .childCategories(childNodes)
                     .build();

@@ -16,4 +16,6 @@ public interface ProductVideoRepository extends JpaRepository<PublicationVideo, 
     void deleteByPublication_Id(UUID publicationId);
 
     Page<PublicationVideo> findAllByOrderByPublication_DateUpdatedDesc(Pageable pageable);
+
+    Page<PublicationVideo> findAllByPublication_Category_ParentCategory_IdOrderByPublication_DateUpdatedDesc(UUID publicationId, Pageable pageable);
 }

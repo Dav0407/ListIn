@@ -24,7 +24,7 @@ public interface PublicationService {
 
     PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication, Authentication authentication);
 
-    PageResponse<PublicationResponseDTO> findPublicationsContainingVideo( int page, int size, Authentication authentication);
+    PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size, Authentication authentication, UUID pCategory);
 
     UUID likePublication(UUID publicationId, Authentication connectedUser);
 

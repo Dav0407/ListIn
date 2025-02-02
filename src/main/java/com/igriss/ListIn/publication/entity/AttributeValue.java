@@ -24,6 +24,12 @@ public class AttributeValue {
     @Column(nullable = false)
     private String value;
 
+    @Column(nullable = false, name = "value_uz")
+    private String valueUz;
+
+    @Column(nullable = false, name = "value_ru")
+    private String valueRu;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private AttributeValue parentValue;
