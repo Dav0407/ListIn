@@ -13,5 +13,7 @@ import java.util.UUID;
 public class BrandModelDTO implements Serializable {
     private UUID modelId;
     private String name;
+    private String nameUz;
+    private String nameRu;
     private String attributeId;
 }

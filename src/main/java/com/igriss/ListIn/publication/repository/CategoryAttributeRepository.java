@@ -26,7 +26,19 @@ public interface CategoryAttributeRepository extends JpaRepository<CategoryAttri
                     ak.sub_filter_widget_type AS subFilterWidgetType,
                     ak.data_type AS dataType,
                     av.attribute_value_id AS attributeValueId,
-                    av.value AS attributeValue
+                    av.value AS attributeValue,
+                    av.value_uz AS attributeValueUz,
+                    av.value_ru AS attributeValueRu,
+                    ak.helper_text_uz AS helperTextUz,
+                    ak.sub_helper_text_uz AS subHelperTextUz,
+                    ak.helper_text_ru AS helperTextRu,
+                    ak.sub_helper_text_ru AS subHelperTextRu,
+                    ak.filter_text_uz AS filterTextUz,
+                    ak.sub_filter_text_uz AS subFilterTextUz,
+                    ak.filter_text_ru AS filterTextRu,
+                    ak.sub_filter_text_ru AS subFilterTextRu,
+                    ak.name_uz AS NameUz,
+                    ak.name_ru AS NameRu
                 FROM
                     category_attributes ca
                 INNER JOIN

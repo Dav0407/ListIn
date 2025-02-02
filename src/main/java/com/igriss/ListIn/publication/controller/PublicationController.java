@@ -94,12 +94,13 @@ public class PublicationController {
     }
 
     @Operation(summary = "${publication-controller.videos.summary}", description = "${publication-controller.videos.description}")
-    @GetMapping("/videos")
-    public PageResponse<PublicationResponseDTO> getVideos(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+    @GetMapping({"/videos", "/videos/{pCategory}"})
+    public PageResponse<PublicationResponseDTO> getVideos(@PathVariable(required = false) UUID pCategory,
+                                                          @RequestParam(name = "page", defaultValue = "0", required = false) int page,
                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size,
                                                           Authentication connectedUser
     ) {
-        return publicationService.findPublicationsContainingVideo(page, size, connectedUser);
+        return publicationService.findPublicationsContainingVideo(page, size, connectedUser, pCategory);
     }
 
     @PatchMapping("/like/{publicationId}")

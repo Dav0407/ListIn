@@ -22,7 +22,17 @@ public class Category {
     @Column(name = "category_name")
     private String name;
 
+    @Column(name = "category_name_uz")
+    private String nameUz;
+
+    @Column(name = "category_name_ru")
+    private String nameRu;
+
     private String description;
+
+    private String descriptionUz;
+
+    private String descriptionRu;
 
     private String imageUrl;
 

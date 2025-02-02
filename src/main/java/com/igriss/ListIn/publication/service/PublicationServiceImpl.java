@@ -150,9 +150,13 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size, Authentication connectedUser) {
+    public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size, Authentication connectedUser, UUID pCategory) {
+        Page<PublicationVideo> publicationVideos;
 
-        Page<PublicationVideo> publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(PageRequest.of(page, size));
+        if (pCategory != null)
+            publicationVideos = productVideoRepository.findAllByPublication_Category_ParentCategory_IdOrderByPublication_DateUpdatedDesc(pCategory, PageRequest.of(page, size));
+        else
+            publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(PageRequest.of(page, size));
 
         Page<Publication> publicationPage = publicationVideos.map(
                 publicationVideo -> publicationRepository.findById(

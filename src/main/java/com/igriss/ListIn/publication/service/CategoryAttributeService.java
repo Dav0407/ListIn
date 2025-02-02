@@ -5,10 +5,12 @@ import com.igriss.ListIn.publication.entity.AttributeKey;
 import com.igriss.ListIn.publication.entity.AttributeValue;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryAttributeService {
@@ -35,21 +37,43 @@ public class CategoryAttributeService {
                     .filterWidgetType((String) record[8])
                     .subFilterWidgetType((String) record[9])
                     .dataType((String) record[10])
+                    .helperTextUz((String) record[15])
+                    .subHelperTextUz((String) record[16])
+                    .helperTextRu((String) record[17])
+                    .subHelperTextRu((String) record[18])
+                    .filterTextUz((String) record[19])
+                    .subFilterTextUz((String) record[20])
+                    .filterTextRu((String) record[21])
+                    .subFilterTextRu((String) record[22])
+                    .nameUz((String) record[23])
+                    .nameRu((String) record[24])
                     .build();
 
             AttributeValue attributeValue = AttributeValue.builder()
                     .id((UUID) record[11])
                     .value((String) record[12])
+                    .valueUz((String) record[13])
+                    .valueRu((String) record[14])
                     .build();
 
             groupedAttributes.computeIfAbsent(attributeKey.getName(), key -> GroupedAttributeDTO.builder()
                     .attributeKey(attributeKey.getName())
+                    .attributeKeyUz(attributeKey.getNameUz())
+                    .attributeKeyRu(attributeKey.getNameRu())
                     .helperText(attributeKey.getHelperText())
+                    .helperTextUz(attributeKey.getHelperTextUz())
+                    .helperTextRu(attributeKey.getHelperTextRu())
                     .subHelperText(attributeKey.getSubHelperText())
+                    .subHelperTextUz(attributeKey.getSubHelperTextUz())
+                    .subHelperTextRu(attributeKey.getSubHelperTextRu())
                     .widgetType(attributeKey.getWidgetType())
                     .subWidgetType(attributeKey.getSubWidgetType())
                     .filterText(attributeKey.getFilterText())
+                    .filterTextUz(attributeKey.getFilterTextUz())
+                    .filterTextRu(attributeKey.getFilterTextRu())
                     .subFilterText(attributeKey.getSubFilterText())
+                    .subFilterTextUz(attributeKey.getSubFilterTextUz())
+                    .subFilterTextRu(attributeKey.getSubFilterTextRu())
                     .filterWidgetType(attributeKey.getFilterWidgetType())
                     .subFilterWidgetType(attributeKey.getSubFilterWidgetType())
                     .dataType(attributeKey.getDataType())
@@ -64,6 +88,8 @@ public class CategoryAttributeService {
                                 attributeValue.getId().toString(),
                                 attributeKey.getId().toString(),
                                 attributeValue.getValue(),
+                                attributeValue.getValueUz(),
+                                attributeValue.getValueRu(),
                                 brandModelService.getModels(attributeValue)
                         )
                 );
