@@ -72,7 +72,10 @@ public class ProductFileServiceImpl implements ProductFileService {
 
         List<PublicationImage> images = productImageRepository.deleteAllByPublication_Id(publication.getId());
 
-        images.forEach(image -> deleteFile(image.getImageUrl()));
+        images.forEach(image -> {
+            if (!imageUrls.contains(image.getImageUrl()))
+                deleteFile(image.getImageUrl());
+        });
 
         saveImages(imageUrls, publication);
     }
@@ -83,7 +86,7 @@ public class ProductFileServiceImpl implements ProductFileService {
 
         productVideoRepository.deleteByPublication_Id(publication.getId());
 
-        if (publicationVideo.getVideoUrl() != null) {
+        if (publicationVideo.getVideoUrl() != null && !publicationVideo.getVideoUrl().equals(videoUrl)) {
             deleteFile(publicationVideo.getVideoUrl());
         }
 
