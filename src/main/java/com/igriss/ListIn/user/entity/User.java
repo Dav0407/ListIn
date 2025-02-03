@@ -52,6 +52,8 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(unique = true, nullable = false)
     private String email;
 
+    private String biography;
+
     @Column(nullable = false)
     private String password;
 

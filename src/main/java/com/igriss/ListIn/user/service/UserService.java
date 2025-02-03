@@ -19,7 +19,7 @@ public interface UserService {
 
     User findByEmail(String username);
 
-    User findById(UUID id);
+    UserResponseDTO findById(UUID id);
 
     UserResponseDTO getUserDetails(Authentication authentication);
 

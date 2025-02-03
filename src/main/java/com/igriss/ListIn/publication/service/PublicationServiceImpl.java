@@ -236,12 +236,14 @@ public class PublicationServiceImpl implements PublicationService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public PublicationResponseDTO updateUserPublication(UUID publicationId, UpdatePublicationRequestDTO updatePublication, Authentication authentication) {
 
+        User connectedUser = (User) authentication.getPrincipal();
+
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(() -> new PublicationNotFoundException(String.format("Publication with id [%s] does not exist!", publicationId)));
 
-        if (!publication.getSeller().getUserId().equals(((User) authentication.getPrincipal()).getUserId())) {
+        if (!publication.getSeller().getUserId().equals(connectedUser.getUserId())) {
             log.warn("User with ID: '{}' trying to update publication with id: '{}' which belongs to user with ID: '{}'",
-                    ((User) authentication.getPrincipal()).getUserId(), publicationId, publication.getSeller().getUserId());
+                    connectedUser.getUserId(), publicationId, publication.getSeller().getUserId());
             throw new UnauthorizedAccessException(String.format("Permission denied: you do not have access to update publication with ID %s", publicationId));
         }
 
@@ -264,11 +266,11 @@ public class PublicationServiceImpl implements PublicationService {
                     publication,
                     updatePublication.getImageUrls()
             );
-        if (updatePublication.getVideoUrl() != null)
-            productFileService.updateVideoByPublication(
-                    publication,
-                    updatePublication.getVideoUrl()
-            );
+
+        productFileService.updateVideoByPublication(
+                publication,
+                updatePublication.getVideoUrl()
+        );
         publicationDocumentService.updateInPublicationDocument(publicationId, updatePublication);
 
 

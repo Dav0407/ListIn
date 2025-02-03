@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductVideoRepository extends JpaRepository<PublicationVideo, UUID> {
-    PublicationVideo findByVideoUrl(String videoUrl);
 
     Optional<PublicationVideo> findByPublication_Id(UUID publicationId);
 

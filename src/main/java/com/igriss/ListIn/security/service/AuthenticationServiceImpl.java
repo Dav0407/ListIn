@@ -1,7 +1,6 @@
 package com.igriss.ListIn.security.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.igriss.ListIn.exceptions.EmailNotFoundException;
 import com.igriss.ListIn.exceptions.UserHasAccountException;
 import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;
@@ -39,6 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .fromTime(request.getFromTime())
                 .toTime(request.getToTime())
                 .email(request.getEmail().toLowerCase())
+                .biography(request.getBiography())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRoles())
                 .isGrantedForPreciseLocation(request.getIsGrantedForPreciseLocation())

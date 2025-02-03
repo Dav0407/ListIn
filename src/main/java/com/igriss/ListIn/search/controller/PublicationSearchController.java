@@ -75,4 +75,21 @@ public class PublicationSearchController {
         return ResponseEntity.ok(inputPredictionService.indexInputPredictionDocuments());
     }
 
+    @GetMapping("/{pCategory}/{category}")
+    public ResponseEntity<Long> getFoundPublicationsCount(
+            @PathVariable UUID pCategory,
+            @PathVariable UUID category,
+            @RequestParam(required = false) String query,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "5") Integer size,
+            @RequestParam(required = false) Boolean bargain,
+            @RequestParam(value = "condition", required = false) String productCondition,
+            @RequestParam(required = false) Float from,
+            @RequestParam(required = false) Float to,
+            @RequestParam(required = false) String locationName,
+            @RequestParam(value = "filter", required = false) List<String> filters
+    )throws SearchQueryException{
+        return ResponseEntity.ok(searchService.getPublicationsCount(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters));
+    }
+
 }

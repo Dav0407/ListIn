@@ -138,6 +138,35 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         }
     }
 
+    @Override
+    public Long getPublicationsCount(UUID pCategory, UUID category, String query,
+                                     Integer page, Integer size, Boolean bargain, String productCondition,
+                                     Float from, Float to, String locationName, List<String> filters) throws SearchQueryException {
+        try {
+            return Objects.requireNonNull(elasticsearchClient.search(q -> q
+                            .index(indexName)
+                            .query(QueryRepository.deepSearchQuerySupplier(
+                                    SearchParams.builder()
+                                            .parentCategory(pCategory)
+                                            .category(category)
+                                            .input(query)
+                                            .bargain(bargain)
+                                            .productCondition(productCondition)
+                                            .priceFrom(from)
+                                            .priceTo(to)
+                                            .locationName(locationName)
+                                            .filters(filters != null ? parseFilter(filters) : null)
+                                            .build()
+                            ).get())
+                            .from(page * size)
+                            .size(size),
+                    PublicationDocument.class).hits().total()).value();
+        }catch (IOException ioException){
+            log.error("Exception occurred: ", ioException);
+            throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
+        }
+    }
+
     private Map<String, List<String>> parseFilter(List<String> filters) {
         return filters.stream()
                 .map(filter -> filter.split(":"))

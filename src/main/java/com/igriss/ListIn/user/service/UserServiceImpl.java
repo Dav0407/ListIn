@@ -4,10 +4,8 @@ package com.igriss.ListIn.user.service;
 import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.security.roles.Role;
-import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.security.service.AuthenticationServiceImpl;
-import com.igriss.ListIn.security.service.JwtService;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
@@ -117,9 +115,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(UUID userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public UserResponseDTO findById(UUID userId) {
+        return userMapper.toUserResponseDTO(userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found")));
     }
 
     public UserResponseDTO getUserDetails(Authentication authentication) {

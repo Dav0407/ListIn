@@ -12,5 +12,5 @@ public interface ProductImageRepository extends JpaRepository<PublicationImage, 
 
     List<PublicationImage> findAllByPublication_Id(UUID publicationId);
 
-    void deleteAllByPublication_Id(UUID publicationId);
+    List<PublicationImage> deleteAllByPublication_Id(UUID publicationId);
 }
