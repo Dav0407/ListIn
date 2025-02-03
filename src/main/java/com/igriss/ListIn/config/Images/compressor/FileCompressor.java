@@ -1,5 +1,6 @@
-package com.igriss.ListIn.config.Images;
+package com.igriss.ListIn.config.Images.compressor;
 
+import com.igriss.ListIn.config.Images.CompressedMultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FilenameUtils;
@@ -7,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 
 @Slf4j

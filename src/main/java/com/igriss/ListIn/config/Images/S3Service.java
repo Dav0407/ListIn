@@ -1,5 +1,6 @@
 package com.igriss.ListIn.config.Images;
 
+import com.igriss.ListIn.config.Images.compressor.FileCompressor;
 import com.igriss.ListIn.exceptions.FailedToUploadFileException;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
