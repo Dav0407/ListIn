@@ -32,16 +32,16 @@ public class DatabaseInitializer {
             "/database_sql_scripts/attribute_keys.sql",
             "/database_sql_scripts/attribute_values.sql",
             "/database_sql_scripts/category_attributes.sql",
-            "/database_sql_scripts/models/smartphone_brand_models.sql",
-            "/database_sql_scripts/models/laptop_brand_models.sql",
-            "/database_sql_scripts/models/smartwatch_brand_models.sql",
-            "/database_sql_scripts/models/tablet_brand_models.sql",
-            "/database_sql_scripts/models/console_brand_models.sql",
-            "/database_sql_scripts/models/laptop_processor_models.sql",
-            "/database_sql_scripts/models/pc_processor_models.sql",
-            "/database_sql_scripts/models/laptop_gpu_models.sql",
-            "/database_sql_scripts/models/pc_gpu_models.sql",
-            "/database_sql_scripts/models/pc_brand_models.sql"
+            "/database_sql_scripts/models/electronics/smartphone_brand_models.sql",
+            "/database_sql_scripts/models/electronics/laptop_brand_models.sql",
+            "/database_sql_scripts/models/electronics/smartwatch_brand_models.sql",
+            "/database_sql_scripts/models/electronics/tablet_brand_models.sql",
+            "/database_sql_scripts/models/electronics/console_brand_models.sql",
+            "/database_sql_scripts/models/electronics/laptop_processor_models.sql",
+            "/database_sql_scripts/models/electronics/pc_processor_models.sql",
+            "/database_sql_scripts/models/electronics/laptop_gpu_models.sql",
+            "/database_sql_scripts/models/electronics/pc_gpu_models.sql",
+            "/database_sql_scripts/models/electronics/pc_brand_models.sql"
     );
 
     @PostConstruct

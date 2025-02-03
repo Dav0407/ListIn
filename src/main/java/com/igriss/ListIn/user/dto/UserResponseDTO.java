@@ -24,6 +24,8 @@ public class UserResponseDTO {
 
     private String phoneNumber;
 
+    private String biography;
+
     @JsonFormat(pattern = "HH:mm")
     private LocalTime fromTime;
 

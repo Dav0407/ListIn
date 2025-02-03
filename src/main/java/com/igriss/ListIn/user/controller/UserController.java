@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/user")
@@ -27,4 +29,10 @@ public class UserController {
     public UserResponseDTO getUserDetails(Authentication authentication) {
         return userService.getUserDetails(authentication);
     }
+
+    @GetMapping("/{userId}")
+    public UserResponseDTO getUserInfo(@PathVariable UUID userId){
+        return userService.findById(userId);
+    }
+
 }

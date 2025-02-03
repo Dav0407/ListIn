@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,14 +69,39 @@ public class ProductFileServiceImpl implements ProductFileService {
 
     @Override
     public void updateImagesByPublication(Publication publication, List<String> imageUrls) {
-        productImageRepository.deleteAllByPublication_Id(publication.getId());
-        saveImages(imageUrls,publication);
+
+        List<PublicationImage> images = productImageRepository.deleteAllByPublication_Id(publication.getId());
+
+        images.forEach(image -> deleteFile(image.getImageUrl()));
+
+        saveImages(imageUrls, publication);
     }
 
     @Override
     public void updateVideoByPublication(Publication publication, String videoUrl) {
-       productVideoRepository.deleteByPublication_Id(publication.getId());
-       saveVideo(videoUrl,publication);
+        PublicationVideo publicationVideo = productVideoRepository.findByPublication_Id(publication.getId()).orElseThrow();
+
+        productVideoRepository.deleteByPublication_Id(publication.getId());
+
+        if (publicationVideo.getVideoUrl() != null) {
+            deleteFile(publicationVideo.getVideoUrl());
+        }
+
+        if (videoUrl != null) {
+            saveVideo(videoUrl, publication);
+        }
+
+    }
+
+    private void deleteFile(String url) {
+        try {
+            URL u = new URL("https://" + url);
+            String path = u.getPath();
+            String fileName = path.startsWith("/") ? path.substring(1) : path;
+            s3Service.deleteFiles(Collections.singletonList(fileName));
+        } catch (MalformedURLException e) {
+            log.error("Invalid video URL format: {}", url);
+        }
     }
 
 }

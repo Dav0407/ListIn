@@ -15,6 +15,7 @@ public class UserMapper {
                 .fromTime(user.getFromTime())
                 .toTime(user.getToTime())
                 .email(user.getEmail())
+                .biography(user.getBiography())
                 .profileImagePath(user.getProfileImagePath())
                 .rating(user.getRating())
                 .isGrantedForPreciseLocation(user.getIsGrantedForPreciseLocation())
