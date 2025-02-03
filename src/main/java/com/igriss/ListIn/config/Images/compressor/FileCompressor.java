@@ -46,48 +46,63 @@ public class FileCompressor {
         try {
             videoBytes = videoFile.getBytes();
         } catch (IOException e) {
-            log.error("Can not get bytes from video file: {},{}", videoFile, e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Cannot get bytes from video file {}: {}", videoFile.getOriginalFilename(), e.getMessage());
+            throw new RuntimeException("Failed to read video file bytes", e);
         }
 
         try (ByteArrayInputStream inputStream = new ByteArrayInputStream(videoBytes);
-             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-             FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(inputStream);
-             FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(
-                     outputStream,
-                     grabber.getImageWidth(),
-                     grabber.getImageHeight(),
-                     grabber.getAudioChannels())) {
+             FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(inputStream)) {
 
             grabber.start();
 
-            // Set compression parameters
-            recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
-            recorder.setFormat("mp4");
-            recorder.setVideoBitrate(grabber.getVideoBitrate() / 2);
-            recorder.setFrameRate(grabber.getFrameRate());
-            recorder.setGopSize((int) grabber.getFrameRate() * 2);
+            // Retrieve video properties after starting the grabber.
+            int width = grabber.getImageWidth();
+            int height = grabber.getImageHeight();
+            int audioChannels = grabber.getAudioChannels();
+            int videoBitrate = grabber.getVideoBitrate();
+            double frameRate = grabber.getFrameRate();
+            int gopSize = (int) (frameRate * 2);
 
-            // Preserve audio if present
-            recorder.setAudioChannels(grabber.getAudioChannels());
-            recorder.setAudioBitrate(grabber.getAudioBitrate());
-            recorder.setSampleRate(grabber.getSampleRate());
+            // Create an output stream for the compressed video.
+            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                 FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputStream, width, height, audioChannels)) {
 
-            recorder.start();
+                // Set compression parameters
+                recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
+                recorder.setFormat("mp4");
+                // For non-seekable output (ByteArrayOutputStream), use fragmented MP4 flags.
+                recorder.setOption("movflags", "frag_keyframe+empty_moov");
+                recorder.setVideoBitrate(videoBitrate > 0 ? videoBitrate / 2 : 800 * 1000); // fallback if bitrate is 0
+                recorder.setFrameRate(frameRate);
+                recorder.setGopSize(gopSize);
 
-            // Process frames
-            Frame frame;
-            while ((frame = grabber.grab()) != null) {
-                recorder.record(frame);
+                // Preserve audio if present
+                if (audioChannels > 0) {
+                    recorder.setAudioChannels(audioChannels);
+                    recorder.setAudioBitrate(grabber.getAudioBitrate());
+                    recorder.setSampleRate(grabber.getSampleRate());
+                }
+
+                recorder.start();
+
+                // Process all frames
+                Frame frame;
+                while ((frame = grabber.grab()) != null) {
+                    recorder.record(frame);
+                }
+
+                // Stop the recorder and grabber to flush buffers and finalize the output.
+                recorder.stop();
+                grabber.stop();
+
+                return convertIntoMultipart(videoFile, outputStream);
             }
-
-            return convertIntoMultipart(videoFile, outputStream);
         } catch (IOException e) {
-            log.error("Video Compress Failed Exception {}", e.getMessage());
+            log.error("Video compression failed: {}", e.getMessage());
+            throw new RuntimeException("Video compression failed", e);
         }
-
-        return videoFile;
     }
+
 
     private static MultipartFile convertIntoMultipart(MultipartFile file, ByteArrayOutputStream fileContent) {
         return new CompressedMultipartFile(
