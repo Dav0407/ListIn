@@ -112,5 +112,21 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Modifying
     @Query(value = "UPDATE users SET role = :role WHERE user_id = :userId", nativeQuery = true)
     void updateUserRole(@Param("userId") UUID userId, @Param("role") String role);
+
+    @Modifying
+    @Query(value = """
+            UPDATE users
+            SET following = following + 1
+            WHERE user_id = :userId
+            """, nativeQuery = true)
+    Integer incrementFollowingColumn(UUID userId);
+
+    @Modifying
+    @Query(value = """
+            UPDATE users
+            SET following = following - 1
+            WHERE user_id = :userId
+            """, nativeQuery = true)
+    Integer decrementFollowingColumn(UUID userId);
 }
 

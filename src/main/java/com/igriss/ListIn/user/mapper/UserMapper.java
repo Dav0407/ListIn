@@ -15,6 +15,8 @@ public class UserMapper {
                 .fromTime(user.getFromTime())
                 .toTime(user.getToTime())
                 .email(user.getEmail())
+                .followers(user.getFollowers())
+                .following(user.getFollowing())
                 .biography(user.getBiography())
                 .profileImagePath(user.getProfileImagePath())
                 .rating(user.getRating())

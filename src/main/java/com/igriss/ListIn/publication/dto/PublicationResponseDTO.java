@@ -1,5 +1,6 @@
 package com.igriss.ListIn.publication.dto;
 
+import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import com.igriss.ListIn.publication.enums.PublicationType;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
@@ -55,4 +56,6 @@ public class PublicationResponseDTO implements Serializable {
     private CategoryDTO category;
 
     private UserResponseDTO seller;
+
+    private PublicationAttributeValueDTO attributeValue;
 }
