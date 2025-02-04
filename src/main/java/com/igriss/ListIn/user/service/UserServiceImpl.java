@@ -10,7 +10,9 @@ import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.entity.UserFollower;
 import com.igriss.ListIn.user.mapper.UserMapper;
+import com.igriss.ListIn.user.repository.UserFollowerRepository;
 import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -36,6 +40,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
 
     @Override // todo -> will be fixed the logical bug
     public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
@@ -70,6 +75,7 @@ public class UserServiceImpl implements UserService {
                 request.getIsGrantedForPreciseLocation()
         );
     }
+
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)

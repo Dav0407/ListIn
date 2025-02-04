@@ -26,6 +26,8 @@ public class PublicationMapper {
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
     private final PublicationImageMapper publicationImageMapper;
+    private final PublicationAttributeValueMapper publicationAttributeValueMapper;
+
 
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
@@ -78,6 +80,7 @@ public class PublicationMapper {
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
                 .seller(userMapper.toUserResponseDTO(publication.getSeller()))
+                .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication))
                 .build();
     }
 

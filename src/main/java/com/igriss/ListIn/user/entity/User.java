@@ -61,6 +61,12 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     private Float rating;
 
+    @Builder.Default
+    private Long followers = 0L;
+
+    @Builder.Default
+    private Long following = 0L;
+
     @Column(nullable = false)
     private Boolean isGrantedForPreciseLocation;
 
