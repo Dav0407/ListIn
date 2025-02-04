@@ -44,6 +44,10 @@ public class UserResponseDTO {
 
     private Double longitude;
 
+    private Long followers;
+
+    private Long following;
+
     private Double latitude;
 
     private Role role;
