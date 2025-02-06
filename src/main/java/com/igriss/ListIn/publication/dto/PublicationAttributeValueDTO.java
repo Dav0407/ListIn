@@ -17,5 +17,5 @@ public class PublicationAttributeValueDTO {
 
     private String category;
 
-    private Map<String, List<String>> attributes;
+    private Map<String, Map<String, List<String>>> attributes;
 }

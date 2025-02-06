@@ -4,6 +4,7 @@ import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
 import com.igriss.ListIn.exceptions.ValidationException;
+import com.igriss.ListIn.publication.dto.NumericValueRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
@@ -54,6 +55,8 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationNodeHandler publicationNodeHandler1;
     private final PublicationNodeHandler publicationNodeHandler2;
 
+    private final NumericValueRepository numericValueRepository;
+    private final NumericFieldRepository numericFieldRepository;
 
     @Override
     @Transactional
@@ -77,9 +80,11 @@ public class PublicationServiceImpl implements PublicationService {
                 .filter(url -> !url.isEmpty())
                 .ifPresent(url -> productFileService.saveVideo(url, finalPublication));
 
+
         // Save attribute values
         savePublicationAttributeValues(request.getAttributeValues(), publication);
 
+        savePublicationNumericValues(request.getNumericValues(), publication);
 
         return publication.getId();
     }
@@ -212,7 +217,7 @@ public class PublicationServiceImpl implements PublicationService {
                         publicationMapper.toPublicationResponseDTO(publication,
                                 productFileService.findImagesByPublicationId(publication.getId()),
                                 productFileService.findVideoUrlByPublicationId(publication.getId()),
-                                true)
+                                numericValueRepository.findAllByPublication_Id(publication.getId()), true)
                 ).toList();
 
         return getPageResponse(publicationPage, publicationResponseDTOS);
@@ -281,7 +286,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
 
-        return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl, false);
+        return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()), false);
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
@@ -348,6 +353,7 @@ public class PublicationServiceImpl implements PublicationService {
                         publicationMapper.toPublicationResponseDTO(publication,
                                 productFileService.findImagesByPublicationId(publication.getId()),
                                 productFileService.findVideoUrlByPublicationId(publication.getId()),
+                                numericValueRepository.findAllByPublication_Id(publication.getId()),
                                 isLiked(user, publication))
                 ).toList();
     }
@@ -366,9 +372,22 @@ public class PublicationServiceImpl implements PublicationService {
                         productVideoRepository.findByPublication_Id(publication.getId())
                                 .map(PublicationVideo::getVideoUrl)
                                 .orElse(null),
-                        isLiked((User) connectedUser.getPrincipal(), publication)))
+                        numericValueRepository.findAllByPublication_Id(publication.getId()), isLiked((User) connectedUser.getPrincipal(), publication)))
                 .toList();
 
         return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
+    }
+
+    private void savePublicationNumericValues(List<NumericValueRequestDTO> request, Publication publication) {
+        if (request != null && !request.isEmpty()) {
+            List<NumericValue> numericValues = request.stream()
+                    .map(numericDto -> NumericValue.builder()
+                            .publication(publication)
+                            .numericField(numericFieldRepository.getReferenceById(numericDto.getNumericFieldId()))
+                            .value(numericDto.getNumericValue())
+                            .build())
+                    .toList();
+            numericValueRepository.saveAll(numericValues);
+        }
     }
 }

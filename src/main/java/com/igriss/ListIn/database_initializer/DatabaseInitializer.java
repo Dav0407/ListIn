@@ -41,7 +41,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/electronics/pc_processor_models.sql",
             "/database_sql_scripts/models/electronics/laptop_gpu_models.sql",
             "/database_sql_scripts/models/electronics/pc_gpu_models.sql",
-            "/database_sql_scripts/models/electronics/pc_brand_models.sql"
+            "/database_sql_scripts/models/electronics/pc_brand_models.sql",
+            "/database_sql_scripts/numerics/auto_numeric_fields.sql"
     );
 
     @PostConstruct

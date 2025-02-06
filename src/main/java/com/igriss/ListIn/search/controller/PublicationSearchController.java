@@ -2,15 +2,12 @@ package com.igriss.ListIn.search.controller;
 
 
 import com.igriss.ListIn.exceptions.SearchQueryException;
-import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
-import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.search.dto.InputPredictionResponseDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.InputPredictionService;
 import com.igriss.ListIn.search.service.PublicationSearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

@@ -2,7 +2,6 @@ package com.igriss.ListIn.publication.dto;
 
 import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 

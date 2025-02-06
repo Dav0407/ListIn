@@ -1,9 +1,12 @@
 package com.igriss.ListIn.publication.mapper;
 
 
+import com.igriss.ListIn.publication.dto.NumericValueRequestDTO;
+import com.igriss.ListIn.publication.dto.NumericValueResponseDTO;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
+import com.igriss.ListIn.publication.entity.NumericValue;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationImage;
 import com.igriss.ListIn.publication.enums.ProductCondition;
@@ -59,7 +62,7 @@ public class PublicationMapper {
                 .build();
     }
 
-    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, Boolean liked) {
+    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, List<NumericValue> numericValues, Boolean liked) {
         return PublicationResponseDTO.builder()
                 .id(publication.getId())
                 .title(publication.getTitle())
@@ -76,6 +79,7 @@ public class PublicationMapper {
                 .productCondition(publication.getProductCondition())
                 .likes(publication.getLikes() != null ? publication.getLikes() : 0L)
                 .views(publication.getViews() != null ? publication.getViews() : 0L)
+                .numericValues(!(numericValues == null || numericValues.isEmpty()) ? toNumericValueDTO(numericValues) : null)
                 .createdAt(publication.getDatePosted())
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
@@ -109,5 +113,14 @@ public class PublicationMapper {
                 .secondPublication(second)
                 .build();
     }
+
+    private List<NumericValueResponseDTO> toNumericValueDTO(List<NumericValue> numericValues) {
+        return numericValues.stream().map(numericValue -> NumericValueResponseDTO.builder()
+                .numericField(numericValue.getNumericField().getFieldName())
+                .numericValue(numericValue.getValue())
+                .build()
+        ).toList();
+    }
+
 }
 
