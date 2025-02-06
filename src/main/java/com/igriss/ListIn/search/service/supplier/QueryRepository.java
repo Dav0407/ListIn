@@ -14,11 +14,16 @@ import java.util.function.Supplier;
 public class QueryRepository {
 
     public static Supplier<Query> deepSearchQuerySupplier(SearchParams params) {
+
         Query boolQuery = BoolQuery.of(builder -> {
-            if (params.getFilters() != null)
+
+            if (params.getFilters() != null && !params.getFilters().isEmpty())
                 addNestedAttributeFilters(params.getFilters(), builder);
 
+            if (params.getNumericFilter() != null && !params.getNumericFilter().isEmpty())
+                addNumericFilters(params.getNumericFilter(), builder);
             addCategoryFilters(params.getParentCategory(), params.getCategory(), builder);
+
             addBasicSearchFilters(
                     params.getBargain(),
                     params.getProductCondition(),
@@ -30,9 +35,11 @@ public class QueryRepository {
             );
 
             return builder;
+
         })._toQuery();
 
         log.info("Generated deep search query: {}", boolQuery);
+
         return () -> boolQuery;
     }
 
@@ -84,6 +91,20 @@ public class QueryRepository {
                                         )
                                         .minimumShouldMatch("1")
                                 ))
+                        ))
+                ))
+        )));
+    }
+
+    private static void addNumericFilters(Map<String, String[]> filters, BoolQuery.Builder builder) {
+        filters.forEach((key, range) -> builder.filter(q -> q.nested(n -> n
+                .path(SearchFields.NUMERIC_FIELDS)
+                .query(nq -> nq.bool(nb -> nb
+                        .must(mq -> mq.match(createMatchQuery(SearchFields.NUMERIC_FIELD_ID, key)))
+                        .must(mq -> mq.range(r -> r
+                                .field(SearchFields.NUMERIC_FIELD_VALUE)
+                                .gte(JsonData.of(range[0]))
+                                .lte(JsonData.of(range.length > 1 ? range[1] : range[0]))
                         ))
                 ))
         )));
@@ -156,3 +177,6 @@ public class QueryRepository {
     }
 
 }
+
+
+

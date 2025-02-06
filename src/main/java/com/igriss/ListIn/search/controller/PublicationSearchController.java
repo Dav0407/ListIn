@@ -56,9 +56,10 @@ public class PublicationSearchController {
                                             @RequestParam(required = false) Float to,
                                             @RequestParam(required = false) String locationName,
                                             @RequestParam(value = "filter", required = false) List<String> filters,
+                                            @RequestParam(value = "numeric", required = false) List<String> numericFilter,
                                             Authentication connectedUser
     ) throws SearchQueryException {
-        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, connectedUser);
+        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter, connectedUser);
     }
 
     @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")
@@ -73,21 +74,21 @@ public class PublicationSearchController {
         return ResponseEntity.ok(inputPredictionService.indexInputPredictionDocuments());
     }
 
-    @GetMapping({"/","/{pCategory}","/{pCategory}/{category}"})
-    public ResponseEntity<CountPublicationsDTO> getFoundPublicationsCount(
-            @PathVariable(required = false) UUID pCategory,
-            @PathVariable(required = false) UUID category,
-            @RequestParam(required = false) String query,
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "5") Integer size,
-            @RequestParam(required = false) Boolean bargain,
-            @RequestParam(value = "condition", required = false) String productCondition,
-            @RequestParam(required = false) Float from,
-            @RequestParam(required = false) Float to,
-            @RequestParam(required = false) String locationName,
-            @RequestParam(value = "filter", required = false) List<String> filters
-    )throws SearchQueryException{
-        return ResponseEntity.ok(searchService.getPublicationsCount(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters));
+    @GetMapping({"/", "/{pCategory}", "/{pCategory}/{category}"})
+    public ResponseEntity<CountPublicationsDTO> getFoundPublicationsCount(@PathVariable(required = false) UUID pCategory,
+                                                                          @PathVariable(required = false) UUID category,
+                                                                          @RequestParam(required = false) String query,
+                                                                          @RequestParam(defaultValue = "0") Integer page,
+                                                                          @RequestParam(defaultValue = "5") Integer size,
+                                                                          @RequestParam(required = false) Boolean bargain,
+                                                                          @RequestParam(value = "condition", required = false) String productCondition,
+                                                                          @RequestParam(required = false) Float from,
+                                                                          @RequestParam(required = false) Float to,
+                                                                          @RequestParam(required = false) String locationName,
+                                                                          @RequestParam(value = "filter", required = false) List<String> filters,
+                                                                          @RequestParam(value = "numeric", required = false) List<String> numericFilter
+    ) throws SearchQueryException {
+        return ResponseEntity.ok(searchService.getPublicationsCount(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter));
     }
 
 }

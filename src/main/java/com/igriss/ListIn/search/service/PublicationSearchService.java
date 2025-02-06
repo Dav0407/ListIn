@@ -5,7 +5,6 @@ import com.igriss.ListIn.search.dto.CountPublicationsDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import org.springframework.security.core.Authentication;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,9 +16,9 @@ public interface PublicationSearchService {
 
     List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                    Integer page, Integer size, Boolean bargain, String productCondition,
-                                                   Float from, Float to, String locationName, List<String> filters, Authentication connectedUser) throws SearchQueryException;
+                                                   Float from, Float to, String locationName, List<String> filters, List<String> numericFilter, Authentication connectedUser) throws SearchQueryException;
 
     CountPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
                                               Integer page, Integer size, Boolean bargain, String productCondition,
-                                              Float from, Float to, String locationName, List<String> filters) throws SearchQueryException;
+                                              Float from, Float to, String locationName, List<String> filters, List<String> numericFilter) throws SearchQueryException;
 }
