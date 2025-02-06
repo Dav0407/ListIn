@@ -12,6 +12,7 @@ import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.*;
 import com.igriss.ListIn.publication.service.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
+import com.igriss.ListIn.search.dto.CountPublicationsDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
 import com.igriss.ListIn.search.service.supplier.SearchParams;
@@ -61,24 +62,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
         SearchResponse<PublicationDocument> response;
         try {
-            response = elasticsearchClient.search(q -> q
-                            .index(indexName)
-                            .query(QueryRepository.deepSearchQuerySupplier(
-                                    SearchParams.builder()
-                                            .parentCategory(pCategory)
-                                            .category(category)
-                                            .input(query)
-                                            .bargain(bargain)
-                                            .productCondition(productCondition)
-                                            .priceFrom(from)
-                                            .priceTo(to)
-                                            .locationName(locationName)
-                                            .filters(filters != null ? parseFilter(filters) : null)
-                                            .build()
-                            ).get())
-                            .from(page * size)
-                            .size(size),
-                    PublicationDocument.class);
+            response = getPublicationDocumentSearchResponse(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters);
+
 
             if (response.hits().hits() != null) {
                 for (var hit : response.hits().hits()) {
@@ -138,32 +123,59 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     }
 
     @Override
-    public Long getPublicationsCount(UUID pCategory, UUID category, String query,
-                                     Integer page, Integer size, Boolean bargain, String productCondition,
-                                     Float from, Float to, String locationName, List<String> filters) throws SearchQueryException {
+    public CountPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
+                                                     Integer page, Integer size, Boolean bargain, String productCondition,
+                                                     Float from, Float to, String locationName, List<String> filters) throws SearchQueryException {
         try {
-            return Objects.requireNonNull(elasticsearchClient.search(q -> q
-                            .index(indexName)
-                            .query(QueryRepository.deepSearchQuerySupplier(
-                                    SearchParams.builder()
-                                            .parentCategory(pCategory)
-                                            .category(category)
-                                            .input(query)
-                                            .bargain(bargain)
-                                            .productCondition(productCondition)
-                                            .priceFrom(from)
-                                            .priceTo(to)
-                                            .locationName(locationName)
-                                            .filters(filters != null ? parseFilter(filters) : null)
-                                            .build()
-                            ).get())
-                            .from(page * size)
-                            .size(size),
-                    PublicationDocument.class).hits().total()).value();
-        }catch (IOException ioException){
+            SearchResponse<PublicationDocument> search = getPublicationDocumentSearchResponse(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters);
+
+            Long found = search.hits().total() != null ? search.hits().total().value() : 0;
+
+            Float maxPrice = search.hits().hits().stream()
+                    .map(Hit::source).filter(Objects::nonNull)
+                    .map(PublicationDocument::getPrice)
+                    .filter(Objects::nonNull)
+                    .max(Comparator.naturalOrder())
+                    .orElse(null);
+
+            Float minPrice = search.hits().hits().stream()
+                    .map(Hit::source).filter(Objects::nonNull)
+                    .map(PublicationDocument::getPrice)
+                    .filter(Objects::nonNull)
+                    .min(Comparator.naturalOrder())
+                    .orElse(null);
+
+            return CountPublicationsDTO.builder()
+                    .foundPublications(found)
+                    .priceFrom(minPrice)
+                    .priceTo(maxPrice)
+                    .build();
+
+        } catch (IOException ioException) {
             log.error("Exception occurred: ", ioException);
             throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
+    }
+
+    private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(UUID pCategory, UUID category, String query, Integer page, Integer size, Boolean bargain, String productCondition, Float from, Float to, String locationName, List<String> filters) throws IOException {
+        return elasticsearchClient.search(q -> q
+                        .index(indexName)
+                        .query(QueryRepository.deepSearchQuerySupplier(
+                                SearchParams.builder()
+                                        .parentCategory(pCategory)
+                                        .category(category)
+                                        .input(query)
+                                        .bargain(bargain)
+                                        .productCondition(productCondition)
+                                        .priceFrom(from)
+                                        .priceTo(to)
+                                        .locationName(locationName)
+                                        .filters(filters != null ? parseFilter(filters) : null)
+                                        .build()
+                        ).get())
+                        .from(page * size)
+                        .size(size),
+                PublicationDocument.class);
     }
 
     private Map<String, List<String>> parseFilter(List<String> filters) {
@@ -195,7 +207,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                                         .findByPublication_Id(publication.getId())
                                                         .map(PublicationVideo::getVideoUrl)
                                                         .orElse(null),
-                                                numericValueRepository.findAllByPublication_Id(publication.getId()), isLiked(user,publication)))
+                                                numericValueRepository.findAllByPublication_Id(publication.getId()), isLiked(user, publication)))
                         .orElseThrow(() -> {
                             log.info("No resources found with publication id: {}", document.getId());
                             return new ResourceNotFoundException("No resources found with publication id: " + document.getId());

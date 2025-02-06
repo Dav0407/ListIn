@@ -1,6 +1,7 @@
 package com.igriss.ListIn.search.service;
 
 import com.igriss.ListIn.exceptions.SearchQueryException;
+import com.igriss.ListIn.search.dto.CountPublicationsDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import org.springframework.security.core.Authentication;
 
@@ -18,7 +19,7 @@ public interface PublicationSearchService {
                                                    Integer page, Integer size, Boolean bargain, String productCondition,
                                                    Float from, Float to, String locationName, List<String> filters, Authentication connectedUser) throws SearchQueryException;
 
-    Long getPublicationsCount(UUID pCategory, UUID category, String query,
-                              Integer page, Integer size, Boolean bargain, String productCondition,
-                              Float from, Float to, String locationName, List<String> filters) throws SearchQueryException;
+    CountPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
+                                              Integer page, Integer size, Boolean bargain, String productCondition,
+                                              Float from, Float to, String locationName, List<String> filters) throws SearchQueryException;
 }
