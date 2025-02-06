@@ -59,7 +59,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/numerics/auto_numeric_fields.sql"
     );
 
-    @PostConstruct
+/*    @PostConstruct
     public void flushRedis() {
         Objects.requireNonNull(redisTemplate
                         .getConnectionFactory()
@@ -68,7 +68,7 @@ public class DatabaseInitializer {
                 .serverCommands()
                 .flushAll();
         log.info("#Redis cache successfully cleared");
-    }
+    }*/
 
     @PostConstruct
     public void init() {
@@ -126,7 +126,7 @@ public class DatabaseInitializer {
     }
 
 
-    @PostConstruct
+/*    @PostConstruct
     public void clearElasticsearchData() {
         try {
             if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
@@ -136,7 +136,7 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             log.error("#Exception while clearing elastic search data: {}", e.getMessage());
         }
-    }
+    }*/
 }
 
 
