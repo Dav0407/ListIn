@@ -10,6 +10,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,10 +30,10 @@ public class PublicationDocument {
     @Field(type = FieldType.Text, analyzer = "standard")
     private String title;
 
-    @Field(type = FieldType.Text, analyzer = "standard" )
+    @Field(type = FieldType.Text, analyzer = "standard")
     private String description;
 
-    @Field(type = FieldType.Text, analyzer = "standard" )
+    @Field(type = FieldType.Text, analyzer = "standard")
     private String locationName;
 
     @Field(type = FieldType.Float)
@@ -47,7 +48,7 @@ public class PublicationDocument {
     @Field(type = FieldType.Keyword)
     private UUID categoryId;
 
-    @Field(type = FieldType.Text, analyzer = "standard" )
+    @Field(type = FieldType.Text, analyzer = "standard")
     private String categoryDescription;
 
     @Field(type = FieldType.Keyword)
@@ -58,4 +59,17 @@ public class PublicationDocument {
 
     @Field(type = FieldType.Nested)
     private List<AttributeKeyDocument> attributeKeys;
+
+    @Field(type = FieldType.Nested)
+    @Builder.Default
+    private List<NumericFieldDocument> numericFields = new ArrayList<>();
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class NumericFieldDocument {
+        private UUID fieldId;
+        private String value;
+    }
 }

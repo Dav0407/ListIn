@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublicationDocumentMapper {
 
-    public PublicationDocument toPublicationDocument(Publication publication, List<AttributeKeyDocument> attributes) {
+    public PublicationDocument toPublicationDocument(Publication publication, List<AttributeKeyDocument> attributes, List<PublicationDocument.NumericFieldDocument> document) {
         return PublicationDocument.builder()
                 .id(publication.getId())
                 .title(publication.getTitle())
@@ -27,6 +27,7 @@ public class PublicationDocumentMapper {
                 .parentCategoryId(publication.getCategory().getParentCategory().getId())
                 .parentCategoryDescription(publication.getCategory().getParentCategory().getDescription())
                 .attributeKeys(attributes)
+                .numericFields(document)
                 .build();
     }
 }

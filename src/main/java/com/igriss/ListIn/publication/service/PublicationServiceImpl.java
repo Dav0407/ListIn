@@ -80,11 +80,11 @@ public class PublicationServiceImpl implements PublicationService {
                 .filter(url -> !url.isEmpty())
                 .ifPresent(url -> productFileService.saveVideo(url, finalPublication));
 
+        List<NumericValue> numericValues = savePublicationNumericValues(request.getNumericValues(), publication);
 
         // Save attribute values
-        savePublicationAttributeValues(request.getAttributeValues(), publication);
+        savePublicationAttributeValues(request.getAttributeValues(), publication, numericValues);
 
-        savePublicationNumericValues(request.getNumericValues(), publication);
 
         return publication.getId();
     }
@@ -289,7 +289,7 @@ public class PublicationServiceImpl implements PublicationService {
         return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()), false);
     }
 
-    private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication) {
+    private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication, List<NumericValue> numericValues) {
 
         List<CategoryAttribute> categoryAttributes = categoryAttributeRepository
                 .findByCategory_Id(publication.getCategory().getId());
@@ -330,7 +330,7 @@ public class PublicationServiceImpl implements PublicationService {
         }
 
         //map into elastic search engine and save publication document
-        publicationDocumentService.saveIntoPublicationDocument(publication, pavList);
+        publicationDocumentService.saveIntoPublicationDocument(publication, pavList, numericValues);
     }
 
     @NotNull
@@ -378,7 +378,7 @@ public class PublicationServiceImpl implements PublicationService {
         return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
     }
 
-    private void savePublicationNumericValues(List<NumericValueRequestDTO> request, Publication publication) {
+    private List<NumericValue> savePublicationNumericValues(List<NumericValueRequestDTO> request, Publication publication) {
         if (request != null && !request.isEmpty()) {
             List<NumericValue> numericValues = request.stream()
                     .map(numericDto -> NumericValue.builder()
@@ -387,7 +387,8 @@ public class PublicationServiceImpl implements PublicationService {
                             .value(numericDto.getNumericValue())
                             .build())
                     .toList();
-            numericValueRepository.saveAll(numericValues);
+           return numericValueRepository.saveAll(numericValues);
         }
+        return null;
     }
 }
