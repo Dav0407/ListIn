@@ -2,6 +2,7 @@ package com.igriss.ListIn.search.controller;
 
 
 import com.igriss.ListIn.exceptions.SearchQueryException;
+import com.igriss.ListIn.search.dto.CountPublicationsDTO;
 import com.igriss.ListIn.search.dto.InputPredictionResponseDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.InputPredictionService;
@@ -72,10 +73,10 @@ public class PublicationSearchController {
         return ResponseEntity.ok(inputPredictionService.indexInputPredictionDocuments());
     }
 
-    @GetMapping("/{pCategory}/{category}")
-    public ResponseEntity<Long> getFoundPublicationsCount(
-            @PathVariable UUID pCategory,
-            @PathVariable UUID category,
+    @GetMapping({"/","/{pCategory}","/{pCategory}/{category}"})
+    public ResponseEntity<CountPublicationsDTO> getFoundPublicationsCount(
+            @PathVariable(required = false) UUID pCategory,
+            @PathVariable(required = false) UUID category,
             @RequestParam(required = false) String query,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "5") Integer size,
