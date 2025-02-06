@@ -54,7 +54,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                           Integer page, Integer size, Boolean bargain, String productCondition,
-                                                          Float from, Float to, String locationName, List<String> filters, Authentication connectedUser) throws SearchQueryException {
+                                                          Float from, Float to, String locationName, List<String> filters, List<String> numericFilter, Authentication connectedUser) throws SearchQueryException {
 
         User user = (User) connectedUser.getPrincipal();
 
@@ -62,7 +62,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
         SearchResponse<PublicationDocument> response;
         try {
-            response = getPublicationDocumentSearchResponse(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters);
+            response = getPublicationDocumentSearchResponse(
+                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter);
 
 
             if (response.hits().hits() != null) {
@@ -125,9 +126,10 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public CountPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
                                                      Integer page, Integer size, Boolean bargain, String productCondition,
-                                                     Float from, Float to, String locationName, List<String> filters) throws SearchQueryException {
+                                                     Float from, Float to, String locationName, List<String> filters, List<String> numericFilter) throws SearchQueryException {
         try {
-            SearchResponse<PublicationDocument> search = getPublicationDocumentSearchResponse(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters);
+            SearchResponse<PublicationDocument> search = getPublicationDocumentSearchResponse(
+                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter);
 
             Long found = search.hits().total() != null ? search.hits().total().value() : 0;
 
@@ -157,7 +159,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         }
     }
 
-    private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(UUID pCategory, UUID category, String query, Integer page, Integer size, Boolean bargain, String productCondition, Float from, Float to, String locationName, List<String> filters) throws IOException {
+    private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(
+            UUID pCategory, UUID category, String query, Integer page, Integer size, Boolean bargain, String productCondition, Float from, Float to, String locationName, List<String> filters, List<String> numericFilter) throws IOException {
         return elasticsearchClient.search(q -> q
                         .index(indexName)
                         .query(QueryRepository.deepSearchQuerySupplier(
@@ -171,6 +174,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                         .priceTo(to)
                                         .locationName(locationName)
                                         .filters(filters != null ? parseFilter(filters) : null)
+                                        .numericFilter(numericFilter != null ? parseNumericFilter(numericFilter) : null)
                                         .build()
                         ).get())
                         .from(page * size)
@@ -192,6 +196,16 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                 }
                         )
                 );
+    }
+
+    private Map<String, String[]> parseNumericFilter(List<String> filters) {
+        return filters.stream()
+                .map(filter -> filter.split(":"))
+                .filter(split -> split.length == 2)
+                .collect(Collectors.toMap(
+                        split -> split[0],
+                        split -> split[1].split("~", 2)
+                ));
     }
 
     @NotNull
