@@ -19,13 +19,13 @@ public class NumericField {
     @Column(name = "field_id")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(name = "field_name", nullable = false)
     private String fieldName;
 
-    @Column(nullable = false)
+    @Column(name = "field_name_uz", nullable = false)
     private String fieldNameUz;
 
-    @Column(nullable = false)
+    @Column(name = "field_name_ru", nullable = false)
     private String fieldNameRu;
 
     @ManyToOne

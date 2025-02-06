@@ -2,24 +2,20 @@ package com.igriss.ListIn.search.service;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
-import com.igriss.ListIn.publication.entity.AttributeKey;
-import com.igriss.ListIn.publication.entity.AttributeValue;
-import com.igriss.ListIn.publication.entity.Publication;
-import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
+import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.enums.ProductCondition;
+import com.igriss.ListIn.publication.repository.NumericFieldRepository;
 import com.igriss.ListIn.search.document.AttributeKeyDocument;
 import com.igriss.ListIn.search.document.AttributeValueDocument;
 import com.igriss.ListIn.search.document.PublicationDocument;
+import com.igriss.ListIn.search.document.PublicationDocument.NumericFieldDocument;
 import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
 import com.igriss.ListIn.search.repository.InputPredictionDocumentRepository;
 import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,10 +24,10 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
 
     private final PublicationDocumentMapper publicationDocumentMapper;
     private final PublicationDocumentRepository publicationDocumentRepository;
-    private final InputPredictionDocumentRepository matchDocumentRepository;
+
 
     @Override
-    public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList) {
+    public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues) {
 
         List<AttributeValue> attributeValues = pavList.stream()
                 .map(PublicationAttributeValue::getAttributeValue)
@@ -63,8 +59,15 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
                 })
                 .collect(Collectors.toList());
 
+        List<NumericFieldDocument> document = numericValues != null && !numericValues.isEmpty() ?
+                numericValues.stream().map(numericValue ->
+                        NumericFieldDocument.builder()
+                                .fieldId(numericValue.getNumericField().getId())
+                                .value(numericValue.getValue())
+                                .build()).toList() : new ArrayList<>();
+
         // Create a PublicationDocument and set attributeKeyDocuments
-        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments);
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments, document);
 
         publicationDocumentRepository.save(publicationDocument);
     }
