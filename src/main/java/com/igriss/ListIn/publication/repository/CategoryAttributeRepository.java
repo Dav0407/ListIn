@@ -1,8 +1,6 @@
 package com.igriss.ListIn.publication.repository;
 
-import com.igriss.ListIn.publication.entity.AttributeKey;
 import com.igriss.ListIn.publication.entity.CategoryAttribute;
-import com.igriss.ListIn.publication.entity.static_entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -37,8 +35,8 @@ public interface CategoryAttributeRepository extends JpaRepository<CategoryAttri
                     ak.sub_filter_text_uz AS subFilterTextUz,
                     ak.filter_text_ru AS filterTextRu,
                     ak.sub_filter_text_ru AS subFilterTextRu,
-                    ak.name_uz AS NameUz,
-                    ak.name_ru AS NameRu
+                    ak.name_uz AS nameUz,
+                    ak.name_ru AS nameRu
                 FROM
                     category_attributes ca
                 INNER JOIN

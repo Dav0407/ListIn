@@ -9,10 +9,7 @@ import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationVideo;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.ProductImageRepository;
-import com.igriss.ListIn.publication.repository.ProductVideoRepository;
-import com.igriss.ListIn.publication.repository.PublicationLikeRepository;
-import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.publication.repository.*;
 import com.igriss.ListIn.publication.service.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.dto.PublicationNode;
@@ -49,6 +46,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     private final PublicationNodeHandler publicationNodeHandler1;
     private final PublicationNodeHandler publicationNodeHandler2;
+
+    private final NumericValueRepository numericValueRepository;
 
 
     @Override
@@ -196,7 +195,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                                         .findByPublication_Id(publication.getId())
                                                         .map(PublicationVideo::getVideoUrl)
                                                         .orElse(null),
-                                                isLiked(user,publication)))
+                                                numericValueRepository.findAllByPublication_Id(publication.getId()), isLiked(user,publication)))
                         .orElseThrow(() -> {
                             log.info("No resources found with publication id: {}", document.getId());
                             return new ResourceNotFoundException("No resources found with publication id: " + document.getId());

@@ -1,14 +1,19 @@
 package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.publication.dto.GroupedAttributeDTO;
+import com.igriss.ListIn.publication.dto.NumericFieldDTO;
 import com.igriss.ListIn.publication.dto.category_tree.ChildNode;
 import com.igriss.ListIn.publication.dto.category_tree.ParentNode;
+import com.igriss.ListIn.publication.entity.NumericField;
 import com.igriss.ListIn.publication.entity.static_entity.Category;
 import com.igriss.ListIn.publication.repository.CategoryRepository;
+import com.igriss.ListIn.publication.repository.NumericFieldRepository;
+import com.igriss.ListIn.publication.repository.NumericValueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.cache.annotation.Cacheable;
 
@@ -18,6 +23,8 @@ public class CategoryTreeService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryAttributeService categoryAttributeService;
+
+    private final NumericFieldRepository numericFieldRepository;
 
     @Cacheable(value = "categoryTreeCache")
     public List<ParentNode> getCategoryTree() {
@@ -41,6 +48,7 @@ public class CategoryTreeService {
                         .descriptionRu(child.getDescriptionRu())
                         .logoUrl(child.getImageUrl())
                         .attributes(attributePairs)
+                        .numericFields(getNumericFields(child.getId()))
                         .build();
             }).toList();
             return ParentNode.builder()
@@ -55,5 +63,19 @@ public class CategoryTreeService {
                     .childCategories(childNodes)
                     .build();
         }).toList();
+    }
+
+    private List<NumericFieldDTO> getNumericFields(UUID categoryId){
+
+        List<NumericField> numericFields = numericFieldRepository.findAllByCategory_Id(categoryId);
+
+        return numericFields.stream().map(numericField -> NumericFieldDTO.builder()
+                .id(numericField.getId())
+                .fieldName(numericField.getFieldName())
+                .description(numericField.getDescription())
+                .descriptionUz(numericField.getDescriptionUz())
+                .descriptionRu(numericField.getDescriptionRu())
+                .build()
+        ).toList();
     }
 }

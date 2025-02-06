@@ -1,6 +1,7 @@
 package com.igriss.ListIn.publication.dto.category_tree;
 
 import com.igriss.ListIn.publication.dto.GroupedAttributeDTO;
+import com.igriss.ListIn.publication.dto.NumericFieldDTO;
 import lombok.*;
 
 import java.io.Serializable;
@@ -22,4 +23,5 @@ public class ChildNode implements Serializable {
     private String descriptionRu;
     private String logoUrl;
     private List<GroupedAttributeDTO> attributes;
+    private List<NumericFieldDTO> numericFields;
 }
