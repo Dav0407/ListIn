@@ -82,11 +82,11 @@ public class ProductFileServiceImpl implements ProductFileService {
 
     @Override
     public void updateVideoByPublication(Publication publication, String videoUrl) {
-        PublicationVideo publicationVideo = productVideoRepository.findByPublication_Id(publication.getId()).orElseThrow();
+        PublicationVideo publicationVideo = productVideoRepository.findByPublication_Id(publication.getId()).isPresent() ? productVideoRepository.findByPublication_Id(publication.getId()).get() : null;
 
         productVideoRepository.deleteByPublication_Id(publication.getId());
 
-        if (publicationVideo.getVideoUrl() != null && !publicationVideo.getVideoUrl().equals(videoUrl)) {
+        if (publicationVideo != null && publicationVideo.getVideoUrl() != null  && !publicationVideo.getVideoUrl().equals(videoUrl)) {
             deleteFile(publicationVideo.getVideoUrl());
         }
 
