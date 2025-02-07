@@ -35,7 +35,7 @@ public class GroupedAttributeDTO implements Serializable {
 
     @Data
     @AllArgsConstructor
-    public static class AttributeValueDTO implements Serializable{
+    public static class AttributeValueDTO implements Serializable {
         private String attributeValueId;
         private String attributeKeyId;
         private String value;
