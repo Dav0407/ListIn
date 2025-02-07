@@ -67,14 +67,22 @@ public class FileCompressor {
             try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                  FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputStream, width, height, audioChannels)) {
 
-                // Set compression parameters
-                recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
+                // Set parameters for H.265/HEVC while preserving quality
+                recorder.setVideoCodec(avcodec.AV_CODEC_ID_HEVC);
                 recorder.setFormat("mp4");
-                // For non-seekable output (ByteArrayOutputStream), use fragmented MP4 flags.
+
+                // For non-seekable output (ByteArrayOutputStream), use fragmented MP4 flags
                 recorder.setOption("movflags", "frag_keyframe+empty_moov");
-                recorder.setVideoBitrate(videoBitrate > 0 ? videoBitrate / 2 : 800 * 1000); // fallback if bitrate is 0
+
+                // Use lossless preset to maintain quality
+                recorder.setOption("preset", "medium");
+                recorder.setOption("x265-params", "lossless=1");
+
+                // Preserve original video parameters
+                recorder.setVideoBitrate(videoBitrate);  // Keep original bitrate
                 recorder.setFrameRate(frameRate);
                 recorder.setGopSize(gopSize);
+                recorder.setPixelFormat(grabber.getPixelFormat()); // Preserve pixel format
 
                 // Preserve audio if present
                 if (audioChannels > 0) {
