@@ -60,9 +60,10 @@ public class CompressedMultipartFile implements MultipartFile {
     }
 
     @Override
-    public void transferTo(@NonNull File dest) throws IllegalStateException {
-        var exception = new UnsupportedOperationException("Not supported");
-        log.error("Operation unsupported exception occurred", exception);
-        throw exception;
+    public void transferTo(@NonNull File dest) throws IOException {
+        try (InputStream inputStream = new ByteArrayInputStream(content)) {
+            java.nio.file.Files.copy(inputStream, dest.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
     }
+
 }
