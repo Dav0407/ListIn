@@ -356,6 +356,7 @@ public class PublicationServiceImpl implements PublicationService {
                                 numericValueRepository.findAllByPublication_Id(publication.getId()),
                                 isLiked(user, publication))
                 ).toList();
+        
     }
 
     private Boolean isLiked(User user, Publication publication) {

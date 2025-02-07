@@ -3,6 +3,8 @@ package com.igriss.ListIn.config.Images;
 
 import com.igriss.ListIn.publication.service.ProductFileService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/files")
 @CrossOrigin(maxAge = 3600)
@@ -19,13 +22,14 @@ public class FilesController {
     private final S3Service s3Service;
     private final ProductFileService productFileService;
 
-    @PostMapping("/upload/images")
+    @PostMapping(value = "/upload/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<String>> uploadImage(@RequestParam("images") List<MultipartFile> files) {
         return ResponseEntity.ok(productFileService.uploadImageURLs(files));
     }
 
-    @PostMapping("/upload/video")
+    @PostMapping(value = "/upload/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadVideo(@RequestParam(name = "video") MultipartFile video) {
+        log.info("😋😋😋😋😋 came here whooo");
         return ResponseEntity.ok(productFileService.uploadVideoURL(video));
     }
 

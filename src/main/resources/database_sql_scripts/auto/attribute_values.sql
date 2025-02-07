@@ -665,3 +665,130 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5f182eea-da29-4d8a-bcb0-fcd75a3bd81b', null, '6fc8b4ea-fc4d-4e2c-a10a-1f696fc5d02c','4 Owners', '4 egalik', '4 владельца');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f490b420-798e-487e-9c41-2111eca9de09', null, '6fc8b4ea-fc4d-4e2c-a10a-1f696fc5d02c','5 Owners', '5 egalik', '5 владельцев');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e73d857b-22a8-43a0-8806-355f17d550db', null, '6fc8b4ea-fc4d-4e2c-a10a-1f696fc5d02c','6 or more Owners', '6 yoki undan ortiq egalik', '6 или больше владельцев');
+
+
+
+
+
+--Watercraft types
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0bd8bae4-c503-4090-beb0-e24e55f4f2a9', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Sailboat', 'Yelkanli qayiq', 'Парусная лодка');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a259acb2-af76-4ea0-8169-b9e56455fc01', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Motorboat', 'Motorli qayiq', 'Моторная лодка');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a36e2a72-067d-4f24-9406-60e422eb7a56', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Yacht', 'Yaxta', 'Яхта');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('649652c7-9c2a-4613-8816-e4f998a0f1f8', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Fishing Boat', 'Baliq ovlash qayiği', 'Рыболовное судно');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7f1d6d0a-56d4-4a6f-8c1f-9737aa9c1f72', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Speedboat', 'Tezkor qayiq', 'Скоростной катер');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4b803290-3c08-4402-8297-9c8961626e31', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Catamaran', 'Katamaran', 'Катамаран');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('36f56dab-af85-4a3f-a0cb-41594ad947b4', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Houseboat', 'Uy-qayiq', 'Домашняя лодка');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4a81772d-1900-4f1a-ad93-8aeaecd4b919', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Pontoon Boat', 'Pontoon qayiq', 'Понтонная лодка');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0bb0a542-55a0-4eb3-9ebd-8770be0f4ae4', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Jet Ski', 'Gidrotsikl', 'Гидроцикл');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f4cde9d0-047e-479c-b805-7f09d225bb80', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Dinghy', 'Kichik qayiq', 'Динги');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('32622c57-2e7f-4b1c-83ac-438307c01070', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Ferry', 'Parom', 'Паром');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9c35c583-726e-49cf-9f8c-b7dcba0f9276', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Tugboat', 'Buksir', 'Буксир');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7c611f3a-81ec-42be-8929-cdf7a8906650', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Cruise Ship', 'Sayohat kemasi', 'Круизный лайнер');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f105f968-4a47-425e-be7d-f1da7de05dc5', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Cargo Ship', 'Yuk kemasi', 'Грузовое судно');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('41784d08-ae90-43c9-adbe-2124a85d17bb', null, '2430cfc1-841f-45be-be2d-4359909aa4d4','Submarine', 'Suvosti kemasi', 'Подводная лодка');
+
+--Watercraft Brands
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('83379876-a5b6-4d11-8a35-3a9bd8d77511', null, 'c8486485-3070-4fe4-a402-336c630209e4','Yamaha', 'Yamaha', 'Ямаха');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e2d8c6b3-aac7-4027-b0c1-0e8424d94b0e', null, 'c8486485-3070-4fe4-a402-336c630209e4','Sea Ray', 'Sea Ray', 'Си Рэй');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d4003e6f-316f-4e2b-957f-977e18ccadcd', null, 'c8486485-3070-4fe4-a402-336c630209e4','Bayliner', 'Bayliner', 'Бэйлайнер');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('20ee95ca-eebe-4dbc-9ace-ace0fe6749b7', null, 'c8486485-3070-4fe4-a402-336c630209e4','Boston Whaler', 'Boston Whaler', 'Бостон Уэйлер');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('482090cc-e2fa-4207-8f96-aa5ee87a56fc', null, 'c8486485-3070-4fe4-a402-336c630209e4','Beneteau', 'Beneteau', 'Бенето');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ade6b369-eeaf-49d8-a5f9-777944a3ebde', null, 'c8486485-3070-4fe4-a402-336c630209e4','Jeanneau', 'Jeanneau', 'Жанно');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('fb184944-692b-441f-963a-69808421bdca', null, 'c8486485-3070-4fe4-a402-336c630209e4','Sunseeker', 'Sunseeker', 'Сансикер');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('26822ca5-12cd-48f6-a251-ae0ecbb2e5a8', null, 'c8486485-3070-4fe4-a402-336c630209e4','Princess Yachts', 'Princess Yachts', 'Принцесс Яхтс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7c9efea6-70d1-4d33-8016-02f60d40dfda', null, 'c8486485-3070-4fe4-a402-336c630209e4','Ferretti Yachts', 'Ferretti Yachts', 'Ферретти Яхтс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f6a72df7-72a3-4d44-a909-56b9854d067c', null, 'c8486485-3070-4fe4-a402-336c630209e4','Azimut Yachts', 'Azimut Yachts', 'Азимут Яхтс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('08b317a6-ded5-47bc-989d-e4dcd416c13e', null, 'c8486485-3070-4fe4-a402-336c630209e4','Bertram', 'Bertram', 'Бертрам');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('853a96b3-3fc0-493e-8c2c-a5347ca9d204', null, 'c8486485-3070-4fe4-a402-336c630209e4','Chris-Craft', 'Chris-Craft', 'Крис-Крафт');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('18b2ce4f-6144-4709-9752-cf994ca34d1d', null, 'c8486485-3070-4fe4-a402-336c630209e4','Regal Boats', 'Regal Boats', 'Регал Боатс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('72aebb91-6bac-4174-9545-7110772c5a86', null, 'c8486485-3070-4fe4-a402-336c630209e4','MasterCraft', 'MasterCraft', 'МастерКрафт');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('bbcab433-5f36-4356-ae3e-b6a2b3c2701a', null, 'c8486485-3070-4fe4-a402-336c630209e4','Scarab', 'Scarab', 'Скараб');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b7675068-a43e-4f01-93ef-72f4f3646768', null, 'c8486485-3070-4fe4-a402-336c630209e4','Lund Boats', 'Lund Boats', 'Лунд Боатс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('944f070e-7650-4547-bb99-953764515510', null, 'c8486485-3070-4fe4-a402-336c630209e4','Tracker Boats', 'Tracker Boats', 'Трэкер Боатс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c601c3da-ac5a-4cad-858d-1deb7ecaf12c', null, 'c8486485-3070-4fe4-a402-336c630209e4','Hatteras Yachts', 'Hatteras Yachts', 'Хаттерас Яхтс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('79bb4411-f491-4a19-bdc4-51a6da4eea11', null, 'c8486485-3070-4fe4-a402-336c630209e4','Viking Yachts', 'Viking Yachts', 'Викинг Яхтс');
+
+--Watercraft Hull Type
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1c5ebdf3-8c2f-4d4c-8602-bbd41363ac7d', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Monohull', 'Bitta korpusli', 'Однокорпусный');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b0b7680a-e9fe-49cf-8a9e-c0f9e6975f20', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Catamaran', 'Katamaran', 'Катамаран');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('be6e8205-d00f-4ebd-a491-95d411968dd1', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Trimaran', 'Trikorpusli', 'Тримаран');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2ee408cd-a585-4827-a80f-4d562469e3ee', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Flat Bottom', 'Yassi taglik', 'Плоскодонный');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('60c23651-ed77-4e33-8580-5cc2d3aa422e', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','V-Hull', 'V-shaklli korpus', 'V-образный корпус');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('727b0796-f1d1-4a02-bfc2-41921edfea4d', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Round Bottom', 'Dumaloq taglik', 'Круглодонный');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('da3e87c2-fce2-4519-befb-77cabd00ac76', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Pontoon', 'Pontoon', 'Понтонный');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9a1cba48-67ed-4f34-b1ff-a41240a23a37', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Deep V-Hull', 'Chuqur V-korpus', 'Глубокий V-образный корпус');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9ceaebd4-d5aa-4da4-ba97-5420a2217fdb', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Modified V-Hull', 'O‘zgartirilgan V-korpus', 'Модифицированный V-образный корпус');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b1350862-7396-4bc0-8055-7a2cffe8977f', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Displacement Hull', 'Suv siqib chiqaruvchi korpus', 'Корпус водоизмещения');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('65a48598-0e84-46d1-bdb3-c9b7c914ea9c', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Planing Hull', 'Suv yuzasida sirpanadigan korpus', 'Скользящий корпус');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('852b97ad-bfac-448c-b32d-fd9de458c5f1', null, 'ab509ef0-cbfb-43d6-92c0-62bd76ef545a','Semi-Displacement Hull', 'Yarim suv siqib chiqaruvchi korpus', 'Полуводоизмещающий корпус');
+
+--Watercraft Transmission Type
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0fd0ad63-0490-4337-a16d-da04ba314186', null, '9279b7af-65f6-4561-9bfa-d57e41e00f39','Direct Drive', 'To‘g‘ridan-to‘g‘ri uzatma', 'Прямой привод');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f8836d45-1ec4-4be3-b3c9-49f0e060202f', null, '9279b7af-65f6-4561-9bfa-d57e41e00f39','V-Drive', 'V-shaklli uzatma', 'V-образный привод');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('25adb72f-add8-47a2-b3c6-c0391e633efa', null, '9279b7af-65f6-4561-9bfa-d57e41e00f39','Stern Drive (Inboard/Outboard)', 'Orqa uzatma (Ichki/Tashqi dvigatel)', 'Стерндрайв (внутренний/внешний мотор)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d7a5173d-580a-4bb1-bc9d-1e1184d6312d', null, '9279b7af-65f6-4561-9bfa-d57e41e00f39','Jet Drive', 'Reaktiv uzatma', 'Реактивный привод');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ec667cb0-00cc-4471-b736-11dafb995ed4', null, '9279b7af-65f6-4561-9bfa-d57e41e00f39','Pod Drive', 'Pod uzatma', 'Под-привод');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('75012075-c7d3-4bd2-a174-3eb4a94487e7', null, '9279b7af-65f6-4561-9bfa-d57e41e00f39','Sail Drive', 'Yelkanli uzatma', 'Парусный привод');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7c94f441-5ea5-4aa0-bac3-f74be01dc193', null, '9279b7af-65f6-4561-9bfa-d57e41e00f39','Electric Drive', 'Elektr uzatma', 'Электропривод');
+
+--Watercraft Engine Type
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9a0053be-8a97-420d-9312-29d5816fa82b', null, '57937787-8f68-4ea7-83db-d1ddda979725','Outboard Engine', 'Tashqi dvigatel', 'Подвесной двигатель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ba58bb76-e5e6-43a3-af7e-c5f2c253f39f', null, '57937787-8f68-4ea7-83db-d1ddda979725','Inboard Engine', 'Ichki dvigatel', 'Встроенный двигатель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0401a9ef-5971-4e3c-9b36-c095441cdc76', null, '57937787-8f68-4ea7-83db-d1ddda979725','Stern Drive Engine (Inboard/Outboard)', 'Orqa uzatma dvigateli (Ichki/Tashqi)', 'Стерндрайв (встроенный/подвесной двигатель)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8387acd5-75ad-4c9e-be64-b61268ea87d9', null, '57937787-8f68-4ea7-83db-d1ddda979725','Jet Propulsion Engine', 'Reaktiv dvigatel', 'Реактивный двигатель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('50413eb3-7dbc-4380-8e51-e544cc2d855f', null, '57937787-8f68-4ea7-83db-d1ddda979725','Electric Engine', 'Elektr dvigatel', 'Электродвигатель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('772da746-3512-4677-aa12-02d82ee67647', null, '57937787-8f68-4ea7-83db-d1ddda979725','Diesel Engine', 'Dizel dvigatel', 'Дизельный двигатель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1eecdd25-9db3-4536-bcb9-77488afe1e01', null, '57937787-8f68-4ea7-83db-d1ddda979725','Hybrid Engine', 'Gibrid dvigatel', 'Гибридный двигатель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('31b5b358-7c4b-439c-afcb-21e1e4e40ff6', null, '57937787-8f68-4ea7-83db-d1ddda979725','Steam Engine', 'Bug‘ dvigateli', 'Паровой двигатель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('08ba835d-963c-451a-98ae-6f2691fec820', null, '57937787-8f68-4ea7-83db-d1ddda979725','Turbine Engine', 'Turbinali dvigatel', 'Турбинный двигатель');
+
+--Watercraft Engine Size
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9e5e3d5b-1efe-40f6-867c-77a4050cf3d5', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','Less than 10 HP', '10 HP dan kam', 'Менее 10 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('713a1cac-499f-4ed4-846f-4a8087098c3e', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','10 - 50 HP', '10 - 50 HP', '10 - 50 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('21c5cf1c-ab16-48cc-a86f-74c85941009b', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','51 - 100 HP', '51 - 100 HP', '51 - 100 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('039321ad-8a76-416e-87b4-138eec21c617', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','101 - 200 HP', '101 - 200 HP', '101 - 200 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1767ce52-e99f-4593-96aa-49ad9b5e465f', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','201 - 300 HP', '201 - 300 HP', '201 - 300 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('807a18f2-cb76-4f42-abdb-339a77f0b41f', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','301 - 500 HP', '301 - 500 HP', '301 - 500 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f6b3d665-26ef-4416-8949-082efa5319f0', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','501 - 1000 HP', '501 - 1000 HP', '501 - 1000 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8f7cdbc6-768a-4e39-9cbb-92d3e18dee62', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','1001 - 2000 HP', '1001 - 2000 HP', '1001 - 2000 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('16d12417-fb11-4a05-beb7-0357049c70bc', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','More than 2000 HP', '2000 HP dan yuqori', 'Более 2000 л.с.');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e0a496ef-d1c1-40e0-92be-beef06b84e67', null, '20d77aa8-e7a5-4323-9ab3-347e5a9a6358','Custom Engine Size', 'Maxsus dvigatel o‘lchami', 'Пользовательский размер двигателя');
+
+--Watercraft Fuel Type
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('30ee51c0-41eb-480c-9e14-98a123b4b519', null, '88799515-839f-48d5-805b-6745f61ba8a5','Gasoline', 'Benzin', 'Бензин');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ff9ee9f8-4a24-4fc7-9309-72b214712892', null, '88799515-839f-48d5-805b-6745f61ba8a5','Diesel', 'Dizel', 'Дизель');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('30a9b606-be71-48c9-b353-da116a45fa6a', null, '88799515-839f-48d5-805b-6745f61ba8a5','Electric', 'Elektr', 'Электричество');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f74e43b2-3881-4135-95fc-f9593a5821fb', null, '88799515-839f-48d5-805b-6745f61ba8a5','Hybrid', 'Gibrid', 'Гибрид');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('11d9b64a-e178-49f8-9fd9-be2842e64560', null, '88799515-839f-48d5-805b-6745f61ba8a5','Hydrogen', 'Vodorod', 'Водород');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c1af4ad8-e7f8-4acc-a62a-b26861f0a0ce', null, '88799515-839f-48d5-805b-6745f61ba8a5','LPG (Liquefied Petroleum Gas)', 'Suyultirilgan neft gazi (LPG)', 'Сжиженный нефтяной газ (LPG)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('bef0a6d0-6609-46a9-b2e9-d2e94a37781f', null, '88799515-839f-48d5-805b-6745f61ba8a5','CNG (Compressed Natural Gas)', 'Siqilgan tabiiy gaz (CNG)', 'Сжатый природный газ (CNG)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('51ec7765-a448-48bd-9f4e-4201f3defe30', null, '88799515-839f-48d5-805b-6745f61ba8a5','Ethanol', 'Etanol', 'Этанол');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d466d505-9f86-49c0-a92a-08fec3b07170', null, '88799515-839f-48d5-805b-6745f61ba8a5','Biofuel', 'Bioyoqilg‘i', 'Биотопливо');
+
+
+
+
+
+
+--Special Vehicle Brands
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7ecd201d-a037-43b1-8e6c-77ccbe464686', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Caterpillar', 'Katerpillar', 'Катерпиллар');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0f7a7ee0-3c3a-4d2e-839b-51b9ae546ea2', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','John Deere', 'Jon Dir', 'Джон Дир');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('28e8f325-2303-45f9-9da2-0e2f583ad486', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Komatsu', 'Komatsu', 'Комацу');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('69c0993a-ff30-44e0-b8ee-dfb1659987bc', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Liebherr', 'Libxer', 'Либхерр');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5bf5d240-b802-492c-b83e-8c6d0f8477c8', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Bobcat', 'Bobkat', 'Бобкэт');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('78875e78-7713-415c-a53f-5d0a8dd44b5f', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Hitachi', 'Xitachi', 'Хитачи');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e2d037ec-459e-4e05-bd77-564755849882', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Volvo Construction Equipment', 'Volvo Qurilish Uskunalari', 'Вольво Строительное Оборудование');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3605c392-6eaa-41eb-8bd4-456afe4dd791', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','JCB', 'JCB', 'Джей Си Би');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('56b5d438-3db1-4b0c-beb7-1fbf0650fa88', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Case Construction', 'Keys Qurilish', 'Кейс Строительство');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0c99e0df-08d9-4a5e-8e00-8df004bbe9f1', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Terex', 'Terex', 'Терекс');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('57197448-b346-4770-b111-a341561e3572', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Manitou', 'Manitu', 'Маниту');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('81e832bb-29ba-498c-9093-75ed16204449', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Doosan', 'Dusan', 'Дусан');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('fa71dc08-4b40-425c-9cd7-99bf4b218618', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','New Holland Construction', 'Nyuxoland Qurilish', 'Нью Холланд Строительство');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c90db9ae-9cc7-4388-9264-eb46a0e0fab8', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','SANY', 'SANY', 'САНИ');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e2d01e9d-fbe0-4875-a5db-c36dc09ed9d2', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','XCMG', 'XCMG', 'XCMG');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ff701ff6-cc08-4d8a-bcf2-308d924c1206', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Hyundai Construction Equipment', 'Xyundai Qurilish Uskunalari', 'Хёндэ Строительное Оборудование');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('21f34d76-682f-4fe1-9c43-94c11b8983ee', null, 'fca31431-c2d6-468a-8e3b-693b7d0e9f85','Bell Equipment', 'Bell Uskunalari', 'Белл Оборудование');
+
+
+
+
