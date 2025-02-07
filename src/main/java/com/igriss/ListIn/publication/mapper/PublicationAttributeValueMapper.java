@@ -30,9 +30,9 @@ public class PublicationAttributeValueMapper{
         List<PublicationAttributeValue> publicationAttributeValues = publicationAttributeValueRepository.findByPublication_Id(publicationId);
 
         publicationAttributeValues.forEach(pav -> {
-            String key = pav.getCategoryAttribute().getAttributeKey().getName();
-            String keyUz = pav.getCategoryAttribute().getAttributeKey().getNameUz();
-            String keyRu = pav.getCategoryAttribute().getAttributeKey().getNameRu();
+            String key = pav.getCategoryAttribute().getAttributeKey().getFilterText();
+            String keyUz = pav.getCategoryAttribute().getAttributeKey().getFilterTextUz();
+            String keyRu = pav.getCategoryAttribute().getAttributeKey().getFilterTextRu();
 
             String value = pav.getAttributeValue().getValue();
             String valueUz = pav.getAttributeValue().getValueUz();

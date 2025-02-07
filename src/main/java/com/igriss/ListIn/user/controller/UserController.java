@@ -53,7 +53,9 @@ public class UserController {
     }
 
     @GetMapping("/follow/{followingUserId}")
-    public ResponseEntity<UserResponseDTO> follow(@PathVariable UUID followingUserId, Authentication authentication) throws BadRequestException {
+    public ResponseEntity<UserResponseDTO> follow(@PathVariable UUID followingUserId,
+                                                  @RequestParam("action") Boolean action,
+                                                  Authentication authentication) throws BadRequestException {
         return ResponseEntity.ok(userService.followToUser(followingUserId, authentication));
     }
 
