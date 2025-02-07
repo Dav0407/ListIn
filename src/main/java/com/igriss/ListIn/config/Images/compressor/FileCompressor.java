@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FilenameUtils;
 import org.bytedeco.ffmpeg.global.avcodec;
+import org.bytedeco.ffmpeg.global.avutil;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
@@ -17,7 +18,7 @@ import java.util.Objects;
 @Slf4j
 public class FileCompressor {
 
-    public static MultipartFile compressFile(MultipartFile file) {
+    public static MultipartFile compressFile(MultipartFile file) throws IOException {
         return switch (Objects.requireNonNull(FilenameUtils.getExtension(file.getOriginalFilename())).toLowerCase()) {
             case "jpg", "jpeg", "png" -> file;
             case "mkv", "mp4", "mov" -> file;
@@ -41,75 +42,58 @@ public class FileCompressor {
         return convertIntoMultipart(file, outputStream);
     }
 
-    public static MultipartFile compressVideo(MultipartFile videoFile) {
-        byte[] videoBytes;
-        try {
-            videoBytes = videoFile.getBytes();
-        } catch (IOException e) {
-            log.error("Cannot get bytes from video file {}: {}", videoFile.getOriginalFilename(), e.getMessage());
-            throw new RuntimeException("Failed to read video file bytes", e);
-        }
 
-        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(videoBytes);
-             FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(inputStream)) {
+    public static MultipartFile compressVideo(MultipartFile inputFile) throws IOException {
+        // Convert MultipartFile to a temporary File
+        File tempInputFile = File.createTempFile("input-", ".mp4");
+        inputFile.transferTo(tempInputFile);
 
-            grabber.start();
+        // Use a ByteArrayOutputStream for the compressed output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-            // Retrieve video properties after starting the grabber.
-            int width = grabber.getImageWidth();
-            int height = grabber.getImageHeight();
-            int audioChannels = grabber.getAudioChannels();
-            int videoBitrate = grabber.getVideoBitrate();
-            double frameRate = grabber.getFrameRate();
-            int gopSize = (int) (frameRate * 2);
+        try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(tempInputFile)) {
+            grabber.start(); // Start the grabber before using its properties
 
-            // Create an output stream for the compressed video.
-            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                 FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputStream, width, height, audioChannels)) {
+            try (FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(
+                    outputStream,
+                    grabber.getImageWidth(),
+                    grabber.getImageHeight(),
+                    grabber.getAudioChannels())) {
 
-                // Set parameters for H.265/HEVC while preserving quality
-                recorder.setVideoCodec(avcodec.AV_CODEC_ID_HEVC);
                 recorder.setFormat("mp4");
+                // Use the software-based x265 encoder
+                recorder.setVideoCodecName("libx265");
+                recorder.setVideoBitrate(500000); // Adjust bitrate as needed
+                recorder.setFrameRate(grabber.getFrameRate());
+                recorder.setPixelFormat(avutil.AV_PIX_FMT_YUV420P);
+                // Audio settings
+                recorder.setAudioCodec(avcodec.AV_CODEC_ID_AAC);
+                recorder.setAudioBitrate(128000);
+                recorder.setSampleRate(grabber.getSampleRate());
 
-                // For non-seekable output (ByteArrayOutputStream), use fragmented MP4 flags
+                // Set movflags to allow non-seekable output (fragmented MP4)
                 recorder.setOption("movflags", "frag_keyframe+empty_moov");
-
-                // Use lossless preset to maintain quality
-                recorder.setOption("preset", "medium");
-                recorder.setOption("x265-params", "lossless=1");
-
-                // Preserve original video parameters
-                recorder.setVideoBitrate(videoBitrate);  // Keep original bitrate
-                recorder.setFrameRate(frameRate);
-                recorder.setGopSize(gopSize);
-                recorder.setPixelFormat(grabber.getPixelFormat()); // Preserve pixel format
-
-                // Preserve audio if present
-                if (audioChannels > 0) {
-                    recorder.setAudioChannels(audioChannels);
-                    recorder.setAudioBitrate(grabber.getAudioBitrate());
-                    recorder.setSampleRate(grabber.getSampleRate());
-                }
 
                 recorder.start();
 
-                // Process all frames
                 Frame frame;
-                while ((frame = grabber.grab()) != null) {
+                while ((frame = grabber.grabFrame()) != null) {
                     recorder.record(frame);
                 }
 
-                // Stop the recorder and grabber to flush buffers and finalize the output.
                 recorder.stop();
-                grabber.stop();
-
-                return convertIntoMultipart(videoFile, outputStream);
             }
-        } catch (IOException e) {
-            log.error("Video compression failed: {}", e.getMessage());
-            throw new RuntimeException("Video compression failed", e);
+            grabber.stop();
+        } catch (Exception e) {
+            throw new RuntimeException("Error compressing video: " + e.getMessage(), e);
+        } finally {
+            tempInputFile.delete(); // Clean up the temporary file
         }
+
+        // Convert the ByteArrayOutputStream to MultipartFile using your helper method
+        return convertIntoMultipart(inputFile, outputStream);
     }
+
 
 
     private static MultipartFile convertIntoMultipart(MultipartFile file, ByteArrayOutputStream fileContent) {
