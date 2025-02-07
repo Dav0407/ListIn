@@ -56,6 +56,7 @@ public class CategoryAttributeService {
                     .valueRu((String) record[14])
                     .build();
 
+
             groupedAttributes.computeIfAbsent(attributeKey.getName(), key -> GroupedAttributeDTO.builder()
                     .attributeKey(attributeKey.getName())
                     .attributeKeyUz(attributeKey.getNameUz())
@@ -81,8 +82,7 @@ public class CategoryAttributeService {
                     .build()
             );
 
-            if (attributeValue != null) {
-
+            if (attributeValue != null && attributeValue.getId() != null) {
                 groupedAttributes.get(attributeKey.getName()).getValues().add(
                         new GroupedAttributeDTO.AttributeValueDTO(
                                 attributeValue.getId().toString(),
