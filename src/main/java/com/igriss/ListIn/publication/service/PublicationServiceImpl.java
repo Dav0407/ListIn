@@ -49,7 +49,6 @@ public class PublicationServiceImpl implements PublicationService {
     private final UserService userService;
 
     private final PublicationDocumentService publicationDocumentService;
-    private final PublicationImageMapper publicationImageMapper;
     private final PublicationMapper publicationMapper;
 
     private final PublicationNodeHandler publicationNodeHandler1;
@@ -99,31 +98,19 @@ public class PublicationServiceImpl implements PublicationService {
         Page<Publication> publicationPage = publicationRepository.findAllBySeller(pageable, user);
 
         List<UserPublicationDTO> publicationsDTOList = publicationPage.stream()
-                .map(publication -> {
 
-                    UserPublicationDTO userPublicationDTO = publicationMapper.toUserPublicationDTO(publication);
+                .map(publication ->
 
-                    userPublicationDTO.setProductImages(
-                            publicationImageMapper.toImageDTOList(
-                                    productFileService.findImagesByPublicationId(publication.getId())
-                            )
-                    );
+                     publicationMapper.toUserPublicationDTO(publication,
 
-                    userPublicationDTO.setVideoUrl(
-                            productFileService.findVideoUrlByPublicationId(publication.getId())
-                    );
+                            productImageRepository.findAllByPublication_Id(publication.getId()),
 
-                    List<PublicationAttributeValue> pavList = publicationAttributeValueRepository.findByPublication_Id(publication.getId());
-                    List<AttributeDTO> attributes = pavList.stream()
-                            .map(pav -> AttributeDTO.builder()
-                                    .key(pav.getCategoryAttribute().getAttributeKey().getName())
-                                    .value(pav.getAttributeValue().getValue())
-                                    .build()
-                            ).toList();
-                    userPublicationDTO.setAttributes(attributes);
+                            productFileService.findVideoUrlByPublicationId(publication.getId()),
 
-                    return userPublicationDTO;
-                }).toList();
+                    numericValueRepository.findAllByPublication_Id(publication.getId())
+                    )
+
+                ).toList();
 
         return new PageResponse<>(
                 publicationsDTOList,
@@ -217,7 +204,8 @@ public class PublicationServiceImpl implements PublicationService {
                         publicationMapper.toPublicationResponseDTO(publication,
                                 productFileService.findImagesByPublicationId(publication.getId()),
                                 productFileService.findVideoUrlByPublicationId(publication.getId()),
-                                numericValueRepository.findAllByPublication_Id(publication.getId()), true)
+                                numericValueRepository.findAllByPublication_Id(publication.getId()),
+                                true, userService.isFollowingToUser(publication.getSeller(), user))
                 ).toList();
 
         return getPageResponse(publicationPage, publicationResponseDTOS);
@@ -266,16 +254,14 @@ public class PublicationServiceImpl implements PublicationService {
         } else {
             log.info("Publication update failed: {}", publication);
         }
-        if (updatePublication.getImageUrls() != null)
-            productFileService.updateImagesByPublication(
-                    publication,
-                    updatePublication.getImageUrls()
-            );
 
-        productFileService.updateVideoByPublication(
-                publication,
-                updatePublication.getVideoUrl()
-        );
+        if (!(updatePublication.getImageUrls() == null || updatePublication.getImageUrls().isEmpty()))
+            productFileService.updateImagesByPublication(publication, updatePublication.getImageUrls());
+
+
+        if (!(updatePublication.getVideoUrl() == null || updatePublication.getVideoUrl().isEmpty()))
+            productFileService.updateVideoByPublication(publication, updatePublication.getVideoUrl());
+
         publicationDocumentService.updateInPublicationDocument(publicationId, updatePublication);
 
 
@@ -286,7 +272,10 @@ public class PublicationServiceImpl implements PublicationService {
 
         String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
 
-        return publicationMapper.toPublicationResponseDTO(updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()), false);
+        return publicationMapper.toPublicationResponseDTO(
+                updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()),
+                false, userService.isFollowingToUser(publication.getSeller(), connectedUser)
+        );
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication, List<NumericValue> numericValues) {
@@ -354,9 +343,9 @@ public class PublicationServiceImpl implements PublicationService {
                                 productFileService.findImagesByPublicationId(publication.getId()),
                                 productFileService.findVideoUrlByPublicationId(publication.getId()),
                                 numericValueRepository.findAllByPublication_Id(publication.getId()),
-                                isLiked(user, publication))
+                                isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user))
                 ).toList();
-        
+
     }
 
     private Boolean isLiked(User user, Publication publication) {
@@ -364,6 +353,8 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
+        User user = (User) connectedUser.getPrincipal();
+
         List<PublicationResponseDTO> publications = publicationPage
                 .getContent()
                 .stream()
@@ -373,8 +364,9 @@ public class PublicationServiceImpl implements PublicationService {
                         productVideoRepository.findByPublication_Id(publication.getId())
                                 .map(PublicationVideo::getVideoUrl)
                                 .orElse(null),
-                        numericValueRepository.findAllByPublication_Id(publication.getId()), isLiked((User) connectedUser.getPrincipal(), publication)))
-                .toList();
+                        numericValueRepository.findAllByPublication_Id(publication.getId()),
+                        isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user)
+                )).toList();
 
         return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
     }
@@ -388,7 +380,7 @@ public class PublicationServiceImpl implements PublicationService {
                             .value(numericDto.getNumericValue())
                             .build())
                     .toList();
-           return numericValueRepository.saveAll(numericValues);
+            return numericValueRepository.saveAll(numericValues);
         }
         return null;
     }

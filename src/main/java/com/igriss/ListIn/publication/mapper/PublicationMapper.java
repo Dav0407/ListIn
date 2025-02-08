@@ -62,7 +62,7 @@ public class PublicationMapper {
                 .build();
     }
 
-    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, List<NumericValue> numericValues, Boolean liked) {
+    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, List<NumericValue> numericValues, Boolean liked, Boolean following) {
         return PublicationResponseDTO.builder()
                 .id(publication.getId())
                 .title(publication.getTitle())
@@ -79,16 +79,15 @@ public class PublicationMapper {
                 .productCondition(publication.getProductCondition())
                 .likes(publication.getLikes() != null ? publication.getLikes() : 0L)
                 .views(publication.getViews() != null ? publication.getViews() : 0L)
-                .numericValues(!(numericValues == null || numericValues.isEmpty()) ? toNumericValueDTO(numericValues) : null)
                 .createdAt(publication.getDatePosted())
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
-                .seller(userMapper.toUserResponseDTO(publication.getSeller()))
-                .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication))
+                .seller(userMapper.toUserResponseDTO(publication.getSeller(), following))
+                .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication, numericValues))
                 .build();
     }
 
-    public UserPublicationDTO toUserPublicationDTO(Publication publication) {
+    public UserPublicationDTO toUserPublicationDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, List<NumericValue> numericValues) {
         return UserPublicationDTO.builder()
                 .id(publication.getId())
                 .title(publication.getTitle())
@@ -98,6 +97,9 @@ public class PublicationMapper {
                 .locationName(publication.getLocationName())
                 .latitude(publication.getLatitude())
                 .longitude(publication.getLongitude())
+                .productImages(publicationImageMapper.toImageDTOList(publicationImages))
+                .videoUrl(publicationVideo)
+                .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication, numericValues))
                 .publicationType(publication.getPublicationType())
                 .productCondition(publication.getProductCondition())
                 .createdAt(publication.getDatePosted())
@@ -112,14 +114,6 @@ public class PublicationMapper {
                 .firstPublication(first)
                 .secondPublication(second)
                 .build();
-    }
-
-    private List<NumericValueResponseDTO> toNumericValueDTO(List<NumericValue> numericValues) {
-        return numericValues.stream().map(numericValue -> NumericValueResponseDTO.builder()
-                .numericField(numericValue.getNumericField().getFieldName())
-                .numericValue(numericValue.getValue())
-                .build()
-        ).toList();
     }
 
 }

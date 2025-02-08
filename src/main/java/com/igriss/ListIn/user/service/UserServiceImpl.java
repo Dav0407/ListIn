@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,8 +31,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.util.Collections;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -190,6 +187,11 @@ public class UserServiceImpl implements UserService {
         userFollowerRepository.deleteById(id);
 
         return userMapper.toUserResponseDTO(userToBeUnFollowed);
+    }
+
+    @Override
+    public Boolean isFollowingToUser(User followedUser, User followingUser){
+        return userFollowerRepository.existsByFollower_UserIdAndFollowing_UserId(followingUser.getUserId(), followedUser.getUserId());
     }
 
     @Override

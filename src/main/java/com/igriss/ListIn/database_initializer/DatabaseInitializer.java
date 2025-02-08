@@ -1,12 +1,16 @@
 package com.igriss.ListIn.database_initializer;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import com.igriss.ListIn.security.roles.Role;
+import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -23,6 +27,9 @@ public class DatabaseInitializer {
     private final JdbcTemplate jdbcTemplate;
     private final ElasticsearchClient elasticsearchClient;
     private final RedisTemplate<String, Object> redisTemplate;
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${elasticsearch.index-name}")
     private String indexName;
@@ -60,6 +67,16 @@ public class DatabaseInitializer {
 
     @PostConstruct
     public void init() {
+        userRepository.saveAll(
+                List.of(
+                        User.builder().nickName("Davron").enableCalling(true).phoneNumber("+998 90 000 00 09").email("d.no_replay@listin.uz").biography("Admin")
+                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
+                        User.builder().nickName("Qobil").enableCalling(true).phoneNumber("+998 90 000 00 09").email("q.no_replay@listin.uz").biography("Admin")
+                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
+                        User.builder().nickName("Abdulaxad").enableCalling(true).phoneNumber("+998 90 000 00 09").email("a.no_replay@listin.uz").biography("Admin")
+                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build()
+                )
+        );
         clearDatabase();
         for (String script : scripts) {
             executeScript(script);

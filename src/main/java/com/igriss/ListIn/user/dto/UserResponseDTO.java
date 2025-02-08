@@ -48,6 +48,8 @@ public class UserResponseDTO {
 
     private Long following;
 
+    private Boolean isFollowing;
+
     private Double latitude;
 
     private Role role;

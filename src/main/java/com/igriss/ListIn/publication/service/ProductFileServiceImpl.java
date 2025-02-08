@@ -68,30 +68,41 @@ public class ProductFileServiceImpl implements ProductFileService {
     }
 
     @Override
-    public void updateImagesByPublication(Publication publication, List<String> imageUrls) {
+    public void updateImagesByPublication(Publication publication, Map<Boolean, List<String>> imageUrls) {
 
-        List<PublicationImage> images = productImageRepository.deleteAllByPublication_Id(publication.getId());
+        if (imageUrls.containsKey(true) && imageUrls.get(true) != null) {
+            List<String> newImageUrls = imageUrls.get(true);
+            saveImages(newImageUrls, publication);
+        }
 
-        images.forEach(image -> {
-            if (!imageUrls.contains(image.getImageUrl()))
-                deleteFile(image.getImageUrl());
-        });
+        if (imageUrls.containsKey(false) && imageUrls.get(false) != null) {
+            List<String> removedImageUrls = imageUrls.get(false);
 
-        saveImages(imageUrls, publication);
+            productImageRepository.deleteAllByPublication_IdAndImageUrlIn(publication.getId(), removedImageUrls);
+
+            removedImageUrls.forEach(this::deleteFile);
+        }
     }
 
     @Override
-    public void updateVideoByPublication(Publication publication, String videoUrl) {
-        PublicationVideo publicationVideo = productVideoRepository.findByPublication_Id(publication.getId()).isPresent() ? productVideoRepository.findByPublication_Id(publication.getId()).get() : null;
+    public void updateVideoByPublication(Publication publication, Map<Boolean, String> videoUrl) {
+        Optional<PublicationVideo> existingVideo = productVideoRepository.findByPublication_Id(publication.getId());
 
-        productVideoRepository.deleteByPublication_Id(publication.getId());
+        if (existingVideo.isPresent()) {
+            String currentVideoUrl = existingVideo.get().getVideoUrl();
 
-        if (publicationVideo != null && publicationVideo.getVideoUrl() != null  && !publicationVideo.getVideoUrl().equals(videoUrl)) {
-            deleteFile(publicationVideo.getVideoUrl());
+            if (videoUrl.containsKey(false) && currentVideoUrl.equals(videoUrl.get(false))) {
+                deleteFile(currentVideoUrl);
+                productVideoRepository.deleteByPublication_Id(publication.getId());
+
+                if (videoUrl.containsKey(true)) {
+                    saveVideo(videoUrl.get(true), publication);
+                }
+
+            }
         }
-
-        if (videoUrl != null) {
-            saveVideo(videoUrl, publication);
+        else if (videoUrl.containsKey(true)) {
+            saveVideo(videoUrl.get(true), publication);
         }
 
     }
