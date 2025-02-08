@@ -213,23 +213,21 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     @NotNull
     private List<PublicationResponseDTO> editQuery(List<PublicationDocument> publicationDocuments, User user) {
-        return publicationDocuments.stream()
-                .map(document -> publicationRepository.findById(document.getId())
-                        .map(publication ->
-                                publicationMapper.
-                                        toPublicationResponseDTO(publication,
-                                                productImageRepository
-                                                        .findAllByPublication_Id(publication.getId()),
-                                                productVideoRepository
-                                                        .findByPublication_Id(publication.getId())
-                                                        .map(PublicationVideo::getVideoUrl)
-                                                        .orElse(null),
-                                                numericValueRepository.findAllByPublication_Id(publication.getId()),
-                                                isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user)))
-                        .orElseThrow(() -> {
-                            log.info("No resources found with publication id: {}", document.getId());
-                            return new ResourceNotFoundException("No resources found with publication id: " + document.getId());
-                        }))
+        List<UUID> publicationIds = publicationDocuments.stream()
+                .map(PublicationDocument::getId)
+                .toList();
+
+        return publicationRepository.findAllByIdInOrderByDatePosted(publicationIds).stream()
+                .map(publication -> publicationMapper.toPublicationResponseDTO(
+                        publication,
+                        productImageRepository.findAllByPublication_IdIn(publicationIds),
+                        productVideoRepository
+                                .findByPublication_Id(publication.getId())
+                                .map(PublicationVideo::getVideoUrl)
+                                .orElse(null),
+                        numericValueRepository.findAllByPublication_IdIn(publicationIds),
+                        isLiked(user, publication),
+                        userService.isFollowingToUser(publication.getSeller(), user)))
                 .toList();
     }
 

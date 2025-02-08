@@ -84,7 +84,6 @@ public class PublicationServiceImpl implements PublicationService {
         // Save attribute values
         savePublicationAttributeValues(request.getAttributeValues(), publication, numericValues);
 
-
         return publication.getId();
     }
 

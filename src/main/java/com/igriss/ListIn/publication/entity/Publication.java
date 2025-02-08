@@ -22,6 +22,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "publications")
+@ToString
 @EntityListeners(AuditingEntityListener.class)
 public class Publication {
 
