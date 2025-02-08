@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -62,4 +63,5 @@ public interface PublicationRepository extends JpaRepository<Publication, UUID> 
             """, nativeQuery = true)
     Integer incrementLike(UUID publicationId);
 
+    List<Publication> findAllByIdInOrderByDatePosted(List<UUID> publicationIds);
 }

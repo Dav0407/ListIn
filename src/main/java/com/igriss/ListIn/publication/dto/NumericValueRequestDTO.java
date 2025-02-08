@@ -8,6 +8,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 public class NumericValueRequestDTO {
     private UUID numericFieldId;

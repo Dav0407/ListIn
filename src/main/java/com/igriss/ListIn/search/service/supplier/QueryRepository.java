@@ -22,6 +22,7 @@ public class QueryRepository {
 
             if (params.getNumericFilter() != null && !params.getNumericFilter().isEmpty())
                 addNumericFilters(params.getNumericFilter(), builder);
+
             addCategoryFilters(params.getParentCategory(), params.getCategory(), builder);
 
             addBasicSearchFilters(
