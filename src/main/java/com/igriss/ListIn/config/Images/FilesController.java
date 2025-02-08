@@ -22,12 +22,12 @@ public class FilesController {
     private final S3Service s3Service;
     private final ProductFileService productFileService;
 
-    @PostMapping(value = "/upload/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/images")
     public ResponseEntity<List<String>> uploadImage(@RequestParam("images") List<MultipartFile> files) {
         return ResponseEntity.ok(productFileService.uploadImageURLs(files));
     }
 
-    @PostMapping(value = "/upload/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/video")
     public ResponseEntity<?> uploadVideo(@RequestParam(name = "video") MultipartFile video) {
         log.info("😋😋😋😋😋 came here whooo");
         return ResponseEntity.ok(productFileService.uploadVideoURL(video));

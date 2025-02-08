@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Builder
@@ -22,9 +23,9 @@ public class UpdatePublicationRequestDTO {
 
     private String productCondition;
 
-    private List<String> imageUrls;
+    private Map<Boolean,List<String>> imageUrls;
 
-    private String videoUrl;
+    private Map<Boolean,String> videoUrl;
 
 
     private List<UpdatePublicationRequestDTO.AttributeValueDTO> attributeValues;

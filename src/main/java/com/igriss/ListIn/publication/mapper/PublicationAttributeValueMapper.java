@@ -1,7 +1,9 @@
 package com.igriss.ListIn.publication.mapper;
 
 
+import com.igriss.ListIn.publication.dto.NumericValueResponseDTO;
 import com.igriss.ListIn.publication.dto.PublicationAttributeValueDTO;
+import com.igriss.ListIn.publication.entity.NumericValue;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
@@ -16,11 +18,12 @@ public class PublicationAttributeValueMapper{
 
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
 
-    public PublicationAttributeValueDTO toPublicationAttributeValueDTO(Publication publication) {
+    public PublicationAttributeValueDTO toPublicationAttributeValueDTO(Publication publication, List<NumericValue> numericValues) {
         return PublicationAttributeValueDTO.builder()
                 .parentCategory(publication.getCategory().getParentCategory().getName())
                 .category(publication.getCategory().getName())
                 .attributes(toAttributes(publication.getId()))
+                .numericValues(!(numericValues == null || numericValues.isEmpty()) ? toNumericValueDTO(numericValues) : null)
                 .build();
     }
 
@@ -45,4 +48,15 @@ public class PublicationAttributeValueMapper{
 
         return result;
     }
+
+    private List<NumericValueResponseDTO> toNumericValueDTO(List<NumericValue> numericValues) {
+        return numericValues.stream().map(numericValue -> NumericValueResponseDTO.builder()
+                .numericField(numericValue.getNumericField().getFieldName())
+                .numericFieldUz(numericValue.getNumericField().getFieldNameUz())
+                .numericFieldRu(numericValue.getNumericField().getFieldNameRu())
+                .numericValue(numericValue.getValue())
+                .build()
+        ).toList();
+    }
+
 }

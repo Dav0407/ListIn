@@ -1,6 +1,7 @@
 package com.igriss.ListIn.user.repository;
 
 import com.igriss.ListIn.user.dto.FollowsDTO;
+import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.entity.UserFollower;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,4 +49,5 @@ public interface UserFollowerRepository extends JpaRepository<UserFollower, User
             nativeQuery = true)
     Page<FollowsDTO> findAllFollowings(@Param("userId") UUID userId, Pageable pageable);
 
+    Boolean existsByFollower_UserIdAndFollowing_UserId(UUID followerUserId, UUID followingUserId);
 }

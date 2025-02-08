@@ -29,4 +29,10 @@ public class UserMapper {
                 .dateUpdated(user.getDateUpdated())
                 .build();
     }
+
+    public UserResponseDTO toUserResponseDTO(User user, Boolean following) {
+        UserResponseDTO userResponseDTO = toUserResponseDTO(user);
+        userResponseDTO.setIsFollowing(following);
+        return userResponseDTO;
+    }
 }

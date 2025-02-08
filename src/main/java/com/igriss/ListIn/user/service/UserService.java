@@ -20,6 +20,8 @@ public interface UserService {
 
     void changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
 
+    Boolean isFollowingToUser(User followedUser, User followingUser);
+
     User findByEmail(String username);
 
     UserResponseDTO findById(UUID id);

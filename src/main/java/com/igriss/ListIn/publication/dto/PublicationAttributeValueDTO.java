@@ -18,4 +18,6 @@ public class PublicationAttributeValueDTO {
     private String category;
 
     private Map<String, Map<String, List<String>>> attributes;
+
+    private List<NumericValueResponseDTO> numericValues;
 }

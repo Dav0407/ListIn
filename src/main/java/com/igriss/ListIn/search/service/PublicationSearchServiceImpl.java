@@ -17,6 +17,7 @@ import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
 import com.igriss.ListIn.search.service.supplier.SearchParams;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -45,10 +46,12 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final ProductVideoRepository productVideoRepository;
     private final PublicationLikeRepository publicationLikeRepository;
 
+    private final NumericValueRepository numericValueRepository;
+
     private final PublicationNodeHandler publicationNodeHandler1;
     private final PublicationNodeHandler publicationNodeHandler2;
 
-    private final NumericValueRepository numericValueRepository;
+    private final UserService userService;
 
 
     @Override
@@ -221,7 +224,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                                         .findByPublication_Id(publication.getId())
                                                         .map(PublicationVideo::getVideoUrl)
                                                         .orElse(null),
-                                                numericValueRepository.findAllByPublication_Id(publication.getId()), isLiked(user, publication)))
+                                                numericValueRepository.findAllByPublication_Id(publication.getId()),
+                                                isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user)))
                         .orElseThrow(() -> {
                             log.info("No resources found with publication id: {}", document.getId());
                             return new ResourceNotFoundException("No resources found with publication id: " + document.getId());

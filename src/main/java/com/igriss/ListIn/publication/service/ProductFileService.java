@@ -5,6 +5,7 @@ import com.igriss.ListIn.publication.entity.PublicationImage;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface ProductFileService {
@@ -20,7 +21,7 @@ public interface ProductFileService {
 
     List<PublicationImage> findImagesByPublicationId(UUID id);
 
-    void updateImagesByPublication(Publication publication, List<String> imageUrls);
+    void updateImagesByPublication(Publication publication, Map<Boolean, List<String>> imageUrls);
 
-    void updateVideoByPublication(Publication publication, String videoUrl);
+    void updateVideoByPublication(Publication publication, Map<Boolean, String> videoUrl);
 }

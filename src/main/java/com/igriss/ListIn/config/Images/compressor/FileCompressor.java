@@ -19,8 +19,8 @@ public class FileCompressor {
 
     public static MultipartFile compressFile(MultipartFile file) {
         return switch (Objects.requireNonNull(FilenameUtils.getExtension(file.getOriginalFilename())).toLowerCase()) {
-            case "jpg", "jpeg", "png" -> compressImage(file);
-            case "mkv", "mp4", "mov" -> compressVideo(file);
+            case "jpg", "jpeg", "png" -> file;
+            case "mkv", "mp4", "mov" -> file;
             default -> file;
         };
     }
