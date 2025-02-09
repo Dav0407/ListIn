@@ -11,20 +11,29 @@ import java.util.UUID;
 public interface InputPredictionDocumentRepository extends ElasticsearchRepository<InputPredictionDocument, UUID> {
 
     @Query("""
-    {
-      "bool": {
-        "should": [
-          {
-            "match_phrase_prefix": {
-              "childAttributeValue": {
-                "query": "?0",
-                "slop": 3
+            {
+              "bool": {
+                "should": [
+                  {
+                    "match_phrase_prefix": {
+                      "childAttributeValue": {
+                        "query": "?0",
+                        "slop": 3
+                      }
+                    }
+                  },
+                  {
+                    "match_phrase_prefix": {
+                      "parentAttributeValue": {
+                        "query": "?0",
+                        "slop": 3,
+                        "boost": 0.5
+                      }
+                    }
+                  }
+                ]
               }
             }
-          }
-        ]
-      }
-    }
-    """)
+            """)
     List<InputPredictionDocument> findByModelValueContainingIgnoreCase(String query, Pageable pageable);
 }

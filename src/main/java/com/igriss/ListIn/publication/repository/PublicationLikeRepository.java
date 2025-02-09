@@ -7,11 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface PublicationLikeRepository extends JpaRepository<PublicationLike, UUID> {
 
     Page<PublicationLike> findAllByUser(User user, Pageable pageable);
+
+    List<PublicationLike> findAllByUser(User user);
 
     Boolean existsByUserAndPublication(User user, Publication publication);
 }

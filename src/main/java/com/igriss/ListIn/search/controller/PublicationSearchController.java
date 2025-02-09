@@ -22,8 +22,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/publications/search")
 @RequiredArgsConstructor
-public class
-PublicationSearchController {
+public class PublicationSearchController {
 
 
     private final PublicationSearchService searchService;
