@@ -33,7 +33,8 @@ public class InputPredictionServiceImpl implements InputPredictionService {
             "Smartwatch Brand Model",
             "Tablet Brand Model",
             "PC Brand Model",
-            "Console Brand Model"
+            "Console Brand Model",
+            "Car brand model"
     );
 
     @Override
