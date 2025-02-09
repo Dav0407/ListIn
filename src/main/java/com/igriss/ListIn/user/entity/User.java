@@ -59,7 +59,8 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
 
     private String profileImagePath;
 
-    private Float rating;
+    @Builder.Default
+    private Float rating = 5.0F;
 
     @Builder.Default
     private Long followers = 0L;

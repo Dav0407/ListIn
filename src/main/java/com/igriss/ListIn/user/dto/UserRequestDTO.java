@@ -26,6 +26,8 @@ public class UserRequestDTO implements Serializable {
 
     private Double latitude;
 
+    private String biography;
+
     @JsonFormat(pattern = "HH:mm")
     @Builder.Default
     private LocalTime fromTime = LocalTime.of(0, 0);
