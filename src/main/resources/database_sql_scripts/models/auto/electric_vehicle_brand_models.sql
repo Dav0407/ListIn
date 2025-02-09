@@ -140,3 +140,101 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 
 --Opel Mokka-e brand models
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '4da2f5ca-e463-4893-9245-b98e6d18f1c3', 'fd63bc02-bab6-4d9b-8324-8cabe20dc5d2','', '', 'Опель Мокка-e');
+
+
+
+-- Kangaroo Ele brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '5226bdae-e698-4801-8542-6528c8817d20', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+
+-- Livan brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '2e5921b0-705b-4f48-b909-88d95b69529b', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- LiXiang brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '4cc05b5d-d332-4673-b6bc-4ecf3c9b6fe7', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Luxeed brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'c1a85d8f-f59a-4d1d-a007-c552d62c4df6', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Maple brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '1d72eef3-bb3a-4bed-a4cd-76a3fae8cbe2', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Maxus brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '4b2b9efc-91d4-46c6-a57e-0a48412c2bf5', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Mobilize brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '6b522776-f6df-4e25-86a5-9bd61e3c9cdd', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Polar Stone  brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'cff26aa0-53e5-4267-aaf1-25ea10382989', '49405788-6d5a-4736-b30a-59f77e6ed121',' ', ' ', ' ');
+
+
+
+
+-- Puma brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'aeafc52b-d04a-4a86-9478-d0c2717c280d', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Qoros brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'ab6f88a9-61ca-4618-8576-bd172b7bd30a', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Radar brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '310af12f-7969-423a-a8ef-5674acee3786', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+
+-- Renault Sams brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'ffa6c4b0-fe75-4ee2-8a9b-6abf6feb8d62', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Rising Auto brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'fa054e58-5888-4e82-9d62-d9007e00f490', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Solaris brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '15d38d80-2831-4cb2-a3b5-3f9c17b97b2e', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Wartburg brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '1032d33d-9142-42b5-be3e-808f62ac187c', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Xcite brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'eb2ddccd-bd10-423d-8baa-e5078a4e785a', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Xiaomi brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'e3825eac-eaf7-41f6-a40f-d449987e8936', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- Zuk brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'b40b9a6f-8ca8-46ba-9049-55802a460c2e', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
+
+
+
+-- ZX brand models
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '9003091e-703b-4dd7-9c91-d0ab83c5b4b0', '49405788-6d5a-4736-b30a-59f77e6ed121','', '', '');
