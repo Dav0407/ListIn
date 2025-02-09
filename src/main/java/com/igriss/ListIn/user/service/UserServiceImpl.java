@@ -96,7 +96,8 @@ public class UserServiceImpl implements UserService {
                 userRequestDTO.getLongitude(),
                 userRequestDTO.getLatitude(),
                 userRequestDTO.getFromTime(),
-                userRequestDTO.getToTime()
+                userRequestDTO.getToTime(),
+                userRequestDTO.getBiography()
         );
 
         userRepository.updateUserRole(user.getUserId(), userRequestDTO.getIsBusinessAccount() ? Role.BUSINESS_SELLER.name() : Role.INDIVIDUAL_SELLER.name());
