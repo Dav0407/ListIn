@@ -1,147 +1,229 @@
 --Mercedes-Benz brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Мерседес-Бенц');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d431087b-ffe5-4567-9e6b-49d22defc4ae', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz S-Class', 'Mercedes-Benz S-Class', 'Mercedes-Benz S-Class');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('14de0cf1-c70c-42e8-80f2-0c532d5d0890', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Maybach S-Class', 'Mercedes-Maybach S-Class', 'Mercedes-Maybach S-Class');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2c8be454-1d91-48ec-928e-738a0c2017a0', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz E-Class', 'Mercedes-Benz E-Class', 'Mercedes-Benz E-Class');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a7866152-8164-437b-ad29-08634bd85e6b', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz C-Class', 'Mercedes-Benz C-Class', 'Mercedes-Benz C-Class');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0fbf6230-8a11-4454-8f2d-bc77df34b9c2', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz GLS', 'Mercedes-Benz GLS', 'Mercedes-Benz GLS');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ef9dd1bd-bf8e-4f3d-9352-b306b5e05008', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz G-Class', 'Mercedes-Benz G-Class', 'Mercedes-Benz G-Class');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('dd5a5474-a6d5-4d9a-8002-e8b68d751333', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz V-Class', 'Mercedes-Benz V-Class', 'Mercedes-Benz V-Class');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8105e7a2-d589-482e-abc7-7550f315fe8b', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz Sprinter (Luxury Van)', 'Mercedes-Benz Sprinter (Luxury Van)', 'Mercedes-Benz Sprinter (Luxury Van)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b61dd505-d2cf-4899-8b09-a9beedd0a469', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Benz EQS (Electric Luxury Sedan)', 'Mercedes-Benz EQS (Electric Luxury Sedan)', 'Mercedes-Benz EQS (Electric Luxury Sedan)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f3ec708a-40e6-4d51-b1d5-35fdd4dcfcb8', 'ceb24a35-4622-482c-8bab-6f780a2ef5f5', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mercedes-Maybach GLS', 'Mercedes-Maybach GLS', 'Mercedes-Maybach GLS');
 
 --Volvo brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '58e8b93f-d10d-4956-9e16-481e527966dc', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Вольво');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a77e42d5-7371-44da-b7a9-dfe89fc7a2c4', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo S90', 'Volvo S90', 'Volvo S90');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('db1f0797-68c0-42fa-9fbd-9f924518d1e3', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo XC90', 'Volvo XC90', 'Volvo XC90');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('bf2c6847-4929-4911-97a4-b981f2ed65ac', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo XC60', 'Volvo XC60', 'Volvo XC60');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('17e48f24-9b50-4f0f-b97c-d2b7c0cb5f43', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo V90 Cross Country', 'Volvo V90 Cross Country', 'Volvo V90 Cross Country');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('280d4db2-f983-4e59-a3d0-42f8318cc974', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo S60', 'Volvo S60', 'Volvo S60');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('fd4f10b4-9b3b-4482-b447-045d8d0a9cf3', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo XC40', 'Volvo XC40', 'Volvo XC40');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4b596bce-5194-4a58-9621-a6784d2d8390', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo EX90 (Electric Luxury SUV)', 'Volvo EX90 (Electric Luxury SUV)', 'Volvo EX90 (Electric Luxury SUV)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('67a754a1-ceab-45b3-a9db-5435d8552bfe', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo 9700 (Luxury Coach for Guests)', 'Volvo 9700 (Luxury Coach for Guests)', 'Volvo 9700 (Luxury Coach for Guests)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c3c59fe6-3876-40c0-a8cd-5b61fb709158', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo 9900 (Premium Luxury Coach)', 'Volvo 9900 (Premium Luxury Coach)', 'Volvo 9900 (Premium Luxury Coach)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('db67c593-40fc-4257-b43c-cc916e9cfaf0', '58e8b93f-d10d-4956-9e16-481e527966dc', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Volvo FM Limousine (Custom-built Wedding Truck)', 'Volvo FM Limousine (Custom-built Wedding Truck)', 'Volvo FM Limousine (Custom-built Wedding Truck)');
 
 --Scania brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Скания');
-
-
-
---MAN brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '30795cfa-4a46-4356-862c-d49ad94a3073', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'МАН');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2c6d633f-cdf8-4805-8544-a2542b64a800', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Scania Touring HD (Luxury Coach)', 'Scania Touring HD (Luxury Coach)', 'Scania Touring HD (Luxury Coach)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a9bcbe18-0880-49e9-a0f5-6b582b470bba', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Scania Interlink HD (Premium Long-Distance Bus)', 'Scania Interlink HD (Premium Long-Distance Bus)', 'Scania Interlink HD (Premium Long-Distance Bus)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1a84ebec-4247-4e06-a44b-5f63082291c4', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Scania Irizar i8 (Luxury Coach with VIP Features)', 'Scania Irizar i8 (Luxury Coach with VIP Features)', 'Scania Irizar i8 (Luxury Coach with VIP Features)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('830cab8f-38ec-43e2-80d4-57dc0dd0842b', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Scania K-Series (Custom VIP Coach)', 'Scania K-Series (Custom VIP Coach)', 'Scania K-Series (Custom VIP Coach)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('cda4faa3-1b4d-4863-a075-a46357025ab6', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Scania Fencer F1 (Modern Low-Entry Bus for Wedding Guests)', 'Scania Fencer F1 (Modern Low-Entry Bus for Wedding Guests)', 'Scania Fencer F1 (Modern Low-Entry Bus for Wedding Guests)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7106e36e-8223-43ca-97db-0bdb612faefe', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Scania A30 (Elegant Minibus Option)', 'Scania A30 (Elegant Minibus Option)', 'Scania A30 (Elegant Minibus Option)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4fedfc81-2b7e-4d73-924e-2973fb27950c', 'e8d71273-ca6c-4b75-897f-4070be4d46e8', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Scania Citywide (For Large Wedding Events & Shuttle Services)', 'Scania Citywide (For Large Wedding Events & Shuttle Services)', 'Scania Citywide (For Large Wedding Events & Shuttle Services)');
 
 --DAF brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'ac58eb29-536a-48d4-93e9-a6b94b4b740e', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'ДАФ');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1e1c519c-14c9-456a-b6b2-51c226123f92', 'ac58eb29-536a-48d4-93e9-a6b94b4b740e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','DAF XF (Customized Luxury Truck for Wedding Convoys)', 'DAF XF (Customized Luxury Truck for Wedding Convoys)', 'DAF XF (Customized Luxury Truck for Wedding Convoys)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e2e8993b-ca11-4ace-9249-48ae57b52f6f', 'ac58eb29-536a-48d4-93e9-a6b94b4b740e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','DAF XG (Premium Long-Distance Truck, Can Be Customized for Weddings)', 'DAF XG (Premium Long-Distance Truck, Can Be Customized for Weddings)', 'DAF XG (Premium Long-Distance Truck, Can Be Customized for Weddings)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2ac3d412-d5bc-4962-8321-b1b5bbed7064', 'ac58eb29-536a-48d4-93e9-a6b94b4b740e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','DAF XG+ (High-End Luxury Truck with Custom Interior)', 'DAF XG+ (High-End Luxury Truck with Custom Interior)', 'DAF XG+ (High-End Luxury Truck with Custom Interior)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c3212d3e-545f-4c9d-b2e6-34cdc063907b', 'ac58eb29-536a-48d4-93e9-a6b94b4b740e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','DAF CF (Used for Unique Wedding Themes & Processions)', 'DAF CF (Used for Unique Wedding Themes & Processions)', 'DAF CF (Used for Unique Wedding Themes & Processions)');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c6561661-6d53-4b2d-9adf-0494a99a28d7', 'ac58eb29-536a-48d4-93e9-a6b94b4b740e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','DAF LF (Smaller Truck for Wedding Event Logistics or Flower Transport)', 'DAF LF (Smaller Truck for Wedding Event Logistics or Flower Transport)', 'DAF LF (Smaller Truck for Wedding Event Logistics or Flower Transport)');
 
 --Iveco brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Ивеко');
-
-
-
---Renault Trucks brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'bd3fb0a7-6af2-45fa-9073-254e4a658914', '4e15c596-ad00-4475-9202-01ac840b964f','Renault Trucks', '', 'Рено Тракс');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c372dfa5-5121-425a-8b0d-d5fec307b1de', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Iveco Daily Minibus', 'Iveco Daily Minibus', 'Iveco Daily Minibus');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8e9018d7-5855-4530-8783-f7169a34d555', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Iveco Daily VIP', 'Iveco Daily VIP', 'Iveco Daily VIP');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3cf359ba-97b2-4537-8a16-043ef6bf76df', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Iveco Daily Limousine', 'Iveco Daily Limousine', 'Iveco Daily Limousine');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1d4311f3-1c50-4e51-b982-2f1b3c362d2c', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Iveco Eurocargo', 'Iveco Eurocargo', 'Iveco Eurocargo');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0a777ad7-eb06-4c91-9e15-c4a4cf2f36da', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Iveco Evadys', 'Iveco Evadys', 'Iveco Evadys');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('dcb163ae-4cb1-4be7-87ca-d9f3e156aad9', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Iveco Crossway', 'Iveco Crossway', 'Iveco Crossway');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('094cc079-fac7-46e0-a3da-7c842d0ebe05', 'f0777a62-30a5-4f21-8e01-e1b27e3d0476', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Iveco Magelys', 'Iveco Magelys', 'Iveco Magelys');
 
 --Freightliner brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Фрайтлайнер');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('98e2097e-f6ec-4a08-9368-70867fd7a80f', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Freightliner Cascadia', 'Freightliner Cascadia', 'Freightliner Cascadia');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('60d2cca7-ec5e-4bb2-bd1a-854074e4a1af', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Freightliner Coronado', 'Freightliner Coronado', 'Freightliner Coronado');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a826590e-93a1-49ad-a33f-eefae06b4a78', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Freightliner M2 106', 'Freightliner M2 106', 'Freightliner M2 106');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1d5247a5-43cd-4754-b614-4f44f86e6f8a', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Freightliner M2 112', 'Freightliner M2 112', 'Freightliner M2 112');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7b59bba8-3344-4774-9985-2150416530f6', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Freightliner 114SD', 'Freightliner 114SD', 'Freightliner 114SD');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e717bc7f-f651-408b-82bd-6f511c50be00', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Freightliner 122SD', 'Freightliner 122SD', 'Freightliner 122SD');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1181ad88-172c-4869-be94-76c1a442489c', 'd3fd56e6-8e31-4f06-8ca6-558677a36536', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Freightliner Sprinter (Luxury Van Conversion)', 'Freightliner Sprinter (Luxury Van Conversion)', 'Freightliner Sprinter (Luxury Van Conversion)');
 
 --Kenworth brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Кенворт');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('406824cf-e259-42cc-b962-26337ab4bd5f', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kenworth T680', 'Kenworth T680', 'Kenworth T680');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a87d0837-73cb-4be8-b4f0-461527c2f9e5', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kenworth T880', 'Kenworth T880', 'Kenworth T880');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('97f14c48-0af3-4cd1-a57e-81ed2fc3cba7', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kenworth W990', 'Kenworth W990', 'Kenworth W990');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a327422a-dc00-45fe-8d9b-9ec6af9a1298', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kenworth T800', 'Kenworth T800', 'Kenworth T800');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('65009c05-75f8-498a-b853-fe992e396397', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kenworth T370', 'Kenworth T370', 'Kenworth T370');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7515b165-f1f7-4119-9c4d-676541a6f2f9', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kenworth C500', 'Kenworth C500', 'Kenworth C500');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6c2159ed-0a7a-4dc9-a69e-7ee0fd89b8f0', 'aef8cc42-bc90-4e38-8dd8-a06a9228ae72', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kenworth K270', 'Kenworth K270', 'Kenworth K270');
 
 --Peterbilt brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Питербилт');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f50516be-e2d0-4694-8fc6-62ac3fabd7d9', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Peterbilt 389', 'Peterbilt 389', 'Peterbilt 389');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('51ad31c8-ff16-49d8-be3a-83047dc9b5fb', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Peterbilt 579', 'Peterbilt 579', 'Peterbilt 579');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c8288442-2e9d-45e8-98a7-8f49ab984e6f', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Peterbilt 567', 'Peterbilt 567', 'Peterbilt 567');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4084ee07-8498-4ae4-883f-43d190c7ed8f', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Peterbilt 389X', 'Peterbilt 389X', 'Peterbilt 389X');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8ceac3cb-2ab5-41c5-9cbe-93293d2c8c4f', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Peterbilt 536', 'Peterbilt 536', 'Peterbilt 536');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a0d2f357-2303-401e-8369-5ffe5c15e731', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Peterbilt 537', 'Peterbilt 537', 'Peterbilt 537');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7b0057c7-0ab6-47cd-a03d-e385a0010eb7', '3f6a7cd9-e05f-4c36-b1c6-aa949cfe942a', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Peterbilt 220', 'Peterbilt 220', 'Peterbilt 220');
 
 --Mack brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'e7373d19-1d27-490f-b076-131ea17d5351', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Мак');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('49833962-1df1-4198-91c0-bf9f8c9b170a', 'e7373d19-1d27-490f-b076-131ea17d5351', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mack Anthem', 'Mack Anthem', 'Mack Anthem');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a272e4c0-33f7-4546-a312-e5a7fc70db37', 'e7373d19-1d27-490f-b076-131ea17d5351', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mack Pinnacle', 'Mack Pinnacle', 'Mack Pinnacle');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f85b3ec1-b852-47f5-a371-c059d6866441', 'e7373d19-1d27-490f-b076-131ea17d5351', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mack Granite', 'Mack Granite', 'Mack Granite');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('698bc7a7-8d69-4af0-b81b-93939b7f4f62', 'e7373d19-1d27-490f-b076-131ea17d5351', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mack MD Series', 'Mack MD Series', 'Mack MD Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('aea4639b-b21a-445e-a045-7e01c9be7b80', 'e7373d19-1d27-490f-b076-131ea17d5351', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mack LR Electric', 'Mack LR Electric', 'Mack LR Electric');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('417ce01f-5d42-4b97-a5cb-3b64c0a25fcd', 'e7373d19-1d27-490f-b076-131ea17d5351', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mack TerraPro', 'Mack TerraPro', 'Mack TerraPro');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a2967b7f-78ff-46d3-ba7f-ba6dce6ac9b8', 'e7373d19-1d27-490f-b076-131ea17d5351', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mack Super-Liner', 'Mack Super-Liner', 'Mack Super-Liner');
 
 --International brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '1585959a-6a25-4f76-9377-3a9509281bc1', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Интернешнл');
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6e2b40b0-afdd-4357-b78c-f5400d63b143', '1585959a-6a25-4f76-9377-3a9509281bc1', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','International LT Series', 'International LT Series', 'International LT Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('883894a8-64ad-4c62-9ede-77da3d29be10', '1585959a-6a25-4f76-9377-3a9509281bc1', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','International RH Series', 'International RH Series', 'International RH Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('41693f9b-73da-44d4-93a7-3fc47d4a6a65', '1585959a-6a25-4f76-9377-3a9509281bc1', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','International Lonestar', 'International Lonestar', 'International Lonestar');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('95110ce4-d353-4d1a-9a6a-292e93488afc', '1585959a-6a25-4f76-9377-3a9509281bc1', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','International HX Series', 'International HX Series', 'International HX Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e19d3c3d-561b-450e-8439-481a330285aa', '1585959a-6a25-4f76-9377-3a9509281bc1', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','International MV Series', 'International MV Series', 'International MV Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0bfe5063-e938-4d9a-a8d5-1d15b985076b', '1585959a-6a25-4f76-9377-3a9509281bc1', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','International CV Series', 'International CV Series', 'International CV Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6f4a42f4-78e7-4668-8fa0-323fbeae5ddf', '1585959a-6a25-4f76-9377-3a9509281bc1', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','International HV Series', 'International HV Series', 'International HV Series');
 
 
 --Ford Trucks brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '614f1d78-3697-46ed-b12a-312b5e3a0b65', '4e15c596-ad00-4475-9202-01ac840b964f','Ford Trucks', '', 'Форд Тракс');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0d819f00-7ae0-434e-a4e7-c75e2b4fb943', '614f1d78-3697-46ed-b12a-312b5e3a0b65', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ford F-750', 'Ford F-750', 'Ford F-750');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('439f3bf7-5e31-4243-8b7a-40ae78dd011f', '614f1d78-3697-46ed-b12a-312b5e3a0b65', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ford F-650', 'Ford F-650', 'Ford F-650');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4694dce3-18f3-411a-b49d-c04f7c4cc075', '614f1d78-3697-46ed-b12a-312b5e3a0b65', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ford F-550', 'Ford F-550', 'Ford F-550');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('98170271-b087-42ed-9835-eb2167eb2a7c', '614f1d78-3697-46ed-b12a-312b5e3a0b65', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ford F-450', 'Ford F-450', 'Ford F-450');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c0e19a5e-ff77-4732-8028-6caf1631a33f', '614f1d78-3697-46ed-b12a-312b5e3a0b65', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ford Transit Limousine', 'Ford Transit Limousine', 'Ford Transit Limousine');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('44982f5a-0d88-422c-b178-8f92c81ac2f7', '614f1d78-3697-46ed-b12a-312b5e3a0b65', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ford E-Series Cutaway', 'Ford E-Series Cutaway', 'Ford E-Series Cutaway');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('75a1635a-88ba-41b8-8330-f0952e4a6c3c', '614f1d78-3697-46ed-b12a-312b5e3a0b65', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ford L-Series', 'Ford L-Series', 'Ford L-Series');
 
 --Hino brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Хино');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('58993eb8-ae78-4d8a-8a3d-b48e24eac14d', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hino 300 Series', 'Hino 300 Series', 'Hino 300 Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('82ad95fd-0110-4eff-bbba-5e5f634f4c85', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hino 500 Series', 'Hino 500 Series', 'Hino 500 Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0bd9a5b1-275b-487a-98c5-8572bd4f208f', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hino 700 Series', 'Hino 700 Series', 'Hino 700 Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5abb5ea3-6608-4a51-917e-445837955ea1', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hino XL Series', 'Hino XL Series', 'Hino XL Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c25068b9-35d1-46dc-9e88-988af2b38a8f', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hino Dutro', 'Hino Dutro', 'Hino Dutro');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('361ddcf6-9d66-44ca-b47e-628d9ff68c25', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hino Ranger', 'Hino Ranger', 'Hino Ranger');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('59325c99-5ed6-4a3e-9477-fd928b49d771', 'a9ceb6c8-10a2-410c-a8f2-0ddca7e9e609', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hino Liesse II', 'Hino Liesse II', 'Hino Liesse II');
 
 --Isuzu brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Исузу');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('02c7887b-04d4-420f-a088-daff8cf91df8', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Isuzu N-Series', 'Isuzu N-Series', 'Isuzu N-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0a09cd83-8657-4ef5-96f2-11c4878c2706', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Isuzu F-Series', 'Isuzu F-Series', 'Isuzu F-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7c2466cd-a3d8-4cd9-8496-6b095abc1531', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Isuzu C-Series', 'Isuzu C-Series', 'Isuzu C-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a9544309-a5ad-4716-bb15-616c9710d2ac', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Isuzu E-Series', 'Isuzu E-Series', 'Isuzu E-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('201368fa-c126-4bd2-bc9b-8c5b0fd67e82', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Isuzu Giga', 'Isuzu Giga', 'Isuzu Giga');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('741705f1-33fc-4d89-953f-d6c666fe43ac', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Isuzu Erga', 'Isuzu Erga', 'Isuzu Erga');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('79b04bf5-a1dc-44a4-a4b0-9158f1366502', 'e6f3ee2b-92f4-42af-8bf0-5ca5a068ad53', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Isuzu Gala', 'Isuzu Gala', 'Isuzu Gala');
 
 --Fuso brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Фусо');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('91210023-8548-4596-8e9a-612190810705', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Fuso Canter', 'Fuso Canter', 'Fuso Canter');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('58cc34f2-2431-4828-8f53-000075b7462b', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Fuso Fighter', 'Fuso Fighter', 'Fuso Fighter');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4e1e284f-158d-4f48-8041-7a59cf81c1a1', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Fuso Super Great', 'Fuso Super Great', 'Fuso Super Great');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('85c92e1e-201b-42e5-86eb-1bfe98cd9afb', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Fuso Rosa', 'Fuso Rosa', 'Fuso Rosa');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e3521636-f4ff-499c-bdbe-f633c4b725e2', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Fuso Aero Star', 'Fuso Aero Star', 'Fuso Aero Star');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1fcd9d2f-37c4-4c51-9654-c5323dde09da', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Fuso Aero Queen', 'Fuso Aero Queen', 'Fuso Aero Queen');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d5de99ae-1cdc-48a7-82b0-278974a3f7db', '548e9c00-8c54-479c-ad1c-7c1b2b5f74a4', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Fuso Aero Ace', 'Fuso Aero Ace', 'Fuso Aero Ace');
 
 --Tata brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '2765aee8-859a-4618-890d-05fb31d84f9b', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Тата');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3ddb8304-667f-4ecf-b4f4-e46b3407f765', '2765aee8-859a-4618-890d-05fb31d84f9b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Tata Ultra', 'Tata Ultra', 'Tata Ultra');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5eb886a4-a7be-4617-9619-2b23ff04c68d', '2765aee8-859a-4618-890d-05fb31d84f9b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Tata LPT', 'Tata LPT', 'Tata LPT');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d50a21a9-5e15-4981-b7fc-3ad5705a55af', '2765aee8-859a-4618-890d-05fb31d84f9b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Tata Signa', 'Tata Signa', 'Tata Signa');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('08d145bb-486d-4e05-853d-120ad865f74a', '2765aee8-859a-4618-890d-05fb31d84f9b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Tata Prima', 'Tata Prima', 'Tata Prima');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0c081088-38b9-4423-ad9e-de41770cc75c', '2765aee8-859a-4618-890d-05fb31d84f9b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Tata Ace', 'Tata Ace', 'Tata Ace');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d984b435-39ff-40fd-928b-ed5552fc8d7d', '2765aee8-859a-4618-890d-05fb31d84f9b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Tata Winger', 'Tata Winger', 'Tata Winger');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0f201ddd-db53-4a7a-9796-fbee207840a9', '2765aee8-859a-4618-890d-05fb31d84f9b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Tata Starbus', 'Tata Starbus', 'Tata Starbus');
 
 --Ashok Leyland brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'b82d0399-3745-4518-a134-cd113feeacbe', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Ашок Лейланд');
-
-
-
---Kamaz brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'ff4bb49f-4ce2-441f-8b13-8e7bbadfa2c0', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Камаз');
-
-
-
---Ural brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '287f1a1e-3198-40c6-baf0-6d10214840b9', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Урал');
-
-
-
---GAZ brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '37dc7a00-8018-4581-9c51-a88424e35715', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'ГАЗ');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7d5da113-35b9-4228-8314-2d28cffc88de', 'b82d0399-3745-4518-a134-cd113feeacbe', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ashok Leyland Dost', 'Ashok Leyland Dost', 'Ashok Leyland Dost');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('61b141f9-f33a-4af3-81e0-61f2af7f4c1c', 'b82d0399-3745-4518-a134-cd113feeacbe', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ashok Leyland Bada Dost', 'Ashok Leyland Bada Dost', 'Ashok Leyland Bada Dost');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3a3521f2-a2d2-4565-b56c-e8e00029e41d', 'b82d0399-3745-4518-a134-cd113feeacbe', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ashok Leyland Partner', 'Ashok Leyland Partner', 'Ashok Leyland Partner');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5f85e4f1-141b-46eb-a421-2507aef008c8', 'b82d0399-3745-4518-a134-cd113feeacbe', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ashok Leyland Ecomet', 'Ashok Leyland Ecomet', 'Ashok Leyland Ecomet');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e676e974-7765-4db2-9a88-433e5d1ff862', 'b82d0399-3745-4518-a134-cd113feeacbe', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ashok Leyland Boss', 'Ashok Leyland Boss', 'Ashok Leyland Boss');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d35ca476-3684-4a3e-b8f5-9add0653c2e1', 'b82d0399-3745-4518-a134-cd113feeacbe', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ashok Leyland 3120', 'Ashok Leyland 3120', 'Ashok Leyland 3120');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('765a8518-2945-43f9-a509-d976b6c5b391', 'b82d0399-3745-4518-a134-cd113feeacbe', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Ashok Leyland Oyster', 'Ashok Leyland Oyster', 'Ashok Leyland Oyster');
 
 --Mahindra brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Махиндра');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('39f11fac-7b66-41fa-8a2b-56f32fce6705', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mahindra Supro', 'Mahindra Supro', 'Mahindra Supro');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1a82b40e-328a-4f98-a627-067333ebd49c', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mahindra Jeeto', 'Mahindra Jeeto', 'Mahindra Jeeto');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('928809e6-feb1-4e11-a8e4-1c03bfea4118', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mahindra Bolero Pik-Up', 'Mahindra Bolero Pik-Up', 'Mahindra Bolero Pik-Up');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('12fdeb94-68f2-4eb0-a941-a6681d71dd8d', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mahindra Furio', 'Mahindra Furio', 'Mahindra Furio');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4085113b-a37b-4673-943d-c28f30819676', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mahindra Blazo X', 'Mahindra Blazo X', 'Mahindra Blazo X');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3ab0a80b-7a4f-4d4d-91fb-4ef22380a73e', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mahindra Optimo', 'Mahindra Optimo', 'Mahindra Optimo');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ccea8e30-5034-4504-bdb9-5bc5e64f04d0', 'f94a27c8-5a37-4b25-8fdc-13593bd9f458', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Mahindra Cruzio', 'Mahindra Cruzio', 'Mahindra Cruzio');
 
 --Shacman brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '9f49832b-3032-4593-aafd-614cfd3ae77d', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Шакман');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('04cc9994-1ccb-465c-a2ba-f32a9d0e13f7', '9f49832b-3032-4593-aafd-614cfd3ae77d', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Shacman X3000', 'Shacman X3000', 'Shacman X3000');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('130b9f27-45e0-441b-9063-e6ab143664c9', '9f49832b-3032-4593-aafd-614cfd3ae77d', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Shacman F3000', 'Shacman F3000', 'Shacman F3000');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a21a00ca-4ec2-4728-8785-ee3774651639', '9f49832b-3032-4593-aafd-614cfd3ae77d', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Shacman H3000', 'Shacman H3000', 'Shacman H3000');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('edd808bb-77e9-4693-9b86-f39af6005f4d', '9f49832b-3032-4593-aafd-614cfd3ae77d', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Shacman L3000', 'Shacman L3000', 'Shacman L3000');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('fea9c979-6b38-4c19-8563-507490b09e8f', '9f49832b-3032-4593-aafd-614cfd3ae77d', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Shacman X5000', 'Shacman X5000', 'Shacman X5000');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9495bfd4-fd9e-471a-9ee3-e15fa5221d3b', '9f49832b-3032-4593-aafd-614cfd3ae77d', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Shacman M3000', 'Shacman M3000', 'Shacman M3000');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('40520895-973b-471a-9b47-4715970ab931', '9f49832b-3032-4593-aafd-614cfd3ae77d', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Shacman F2000', 'Shacman F2000', 'Shacman F2000');
 
 --Sinotruk brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '2825d479-6050-438e-81ea-a526fc40a41b', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Синотрук');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6a2459ba-c4bf-4e88-b14d-b57d3ff16737', '2825d479-6050-438e-81ea-a526fc40a41b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Sinotruk Howo 7', 'Sinotruk Howo 7', 'Sinotruk Howo 7');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c8e880f6-42a4-41db-8cd7-752c2a10bfdc', '2825d479-6050-438e-81ea-a526fc40a41b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Sinotruk Howo A7', 'Sinotruk Howo A7', 'Sinotruk Howo A7');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7c02a16a-20fe-44d7-81ed-44ee4c285e26', '2825d479-6050-438e-81ea-a526fc40a41b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Sinotruk Howo T7H', 'Sinotruk Howo T7H', 'Sinotruk Howo T7H');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('40ef39f0-ac77-4108-ad61-cb2c291e1308', '2825d479-6050-438e-81ea-a526fc40a41b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Sinotruk Howo TX', 'Sinotruk Howo TX', 'Sinotruk Howo TX');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f279ea85-9518-4ea0-9b59-3d31908b3ebb', '2825d479-6050-438e-81ea-a526fc40a41b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Sinotruk Howo N7G', 'Sinotruk Howo N7G', 'Sinotruk Howo N7G');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b56b6e85-e6c3-478f-9086-19ac69e1f271', '2825d479-6050-438e-81ea-a526fc40a41b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Sinotruk Sitrak C7H', 'Sinotruk Sitrak C7H', 'Sinotruk Sitrak C7H');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0b822b59-0381-43d1-a619-751ee0519836', '2825d479-6050-438e-81ea-a526fc40a41b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Sinotruk Howo V7G', 'Sinotruk Howo V7G', 'Sinotruk Howo V7G');
 
 --FAW brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '8340a024-a5b0-4b84-946e-e2d81936b518', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'ФАВ');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('77221a20-1fdf-488a-a060-226c4854599a', '8340a024-a5b0-4b84-946e-e2d81936b518', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','FAW JH6', 'FAW JH6', 'FAW JH6');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('000bdfce-9b13-42fd-8798-afd357d0212e', '8340a024-a5b0-4b84-946e-e2d81936b518', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','FAW J7', 'FAW J7', 'FAW J7');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('aa99a7f4-f1e1-491d-9302-51bd315c452e', '8340a024-a5b0-4b84-946e-e2d81936b518', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','FAW J6P', 'FAW J6P', 'FAW J6P');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f968b957-0b8e-48ce-b3a4-77847d4f43c0', '8340a024-a5b0-4b84-946e-e2d81936b518', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','FAW J6L', 'FAW J6L', 'FAW J6L');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ad0c25df-000d-42fa-8703-0d09c68eed9a', '8340a024-a5b0-4b84-946e-e2d81936b518', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','FAW J5M', 'FAW J5M', 'FAW J5M');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8f4c41d5-10cd-4b52-b390-b1f0a7308c89', '8340a024-a5b0-4b84-946e-e2d81936b518', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','FAW Tiger V', 'FAW Tiger V', 'FAW Tiger V');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2e3126d1-1283-4902-bce3-3b6807df8d9d', '8340a024-a5b0-4b84-946e-e2d81936b518', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','FAW X-PV', 'FAW X-PV', 'FAW X-PV');
 
 --Dongfeng brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'a9547813-52f2-4011-9dbc-494698e82b3b', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'Дунфэн');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('450464e7-752a-4531-8507-56dec7198805', 'a9547813-52f2-4011-9dbc-494698e82b3b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Dongfeng KX', 'Dongfeng KX', 'Dongfeng KX');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('29b79fe6-e1ce-41ea-a43f-36792ff11f25', 'a9547813-52f2-4011-9dbc-494698e82b3b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Dongfeng KL', 'Dongfeng KL', 'Dongfeng KL');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('05f19c43-0bef-4d62-83a1-207cf0171d7b', 'a9547813-52f2-4011-9dbc-494698e82b3b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Dongfeng KR', 'Dongfeng KR', 'Dongfeng KR');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('317f2a98-ffee-4e0e-9ab2-335de54e2940', 'a9547813-52f2-4011-9dbc-494698e82b3b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Dongfeng Captain', 'Dongfeng Captain', 'Dongfeng Captain');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4ef4285d-bdf8-4904-9071-e698f8893a65', 'a9547813-52f2-4011-9dbc-494698e82b3b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Dongfeng Rich', 'Dongfeng Rich', 'Dongfeng Rich');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f658c5f1-c73b-41da-adfe-47168847e2ec', 'a9547813-52f2-4011-9dbc-494698e82b3b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Dongfeng Tianlong', 'Dongfeng Tianlong', 'Dongfeng Tianlong');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('aaae0c60-b811-4ae5-be54-ff6e0a449930', 'a9547813-52f2-4011-9dbc-494698e82b3b', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Dongfeng Tianjin', 'Dongfeng Tianjin', 'Dongfeng Tianjin');
 
 --JAC brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'b03ddedb-91de-4a10-9315-a3bca011980e', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'ДЖАК');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f268969d-e7ef-47f4-96ec-49850541c93e', 'b03ddedb-91de-4a10-9315-a3bca011980e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','JAC Gallop', 'JAC Gallop', 'JAC Gallop');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6133de75-4df6-4431-903d-6601d4c4e7e4', 'b03ddedb-91de-4a10-9315-a3bca011980e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','JAC Hunter', 'JAC Hunter', 'JAC Hunter');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('55680b8a-fce3-49aa-9e6c-2231fbf4c5fe', 'b03ddedb-91de-4a10-9315-a3bca011980e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','JAC Sunray', 'JAC Sunray', 'JAC Sunray');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('bdf83acc-a2f5-41f0-843e-4e6f75f301d3', 'b03ddedb-91de-4a10-9315-a3bca011980e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','JAC N-Series', 'JAC N-Series', 'JAC N-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f523a631-6184-4704-89ee-1773c20b2032', 'b03ddedb-91de-4a10-9315-a3bca011980e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','JAC X-Series', 'JAC X-Series', 'JAC X-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('338b9892-66a4-4751-9b64-cb61c1128322', 'b03ddedb-91de-4a10-9315-a3bca011980e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','JAC K-Series', 'JAC K-Series', 'JAC K-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e5c11188-ffce-463c-8ff6-d85ee5ce87e8', 'b03ddedb-91de-4a10-9315-a3bca011980e', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','JAC iEV1200', 'JAC iEV1200', 'JAC iEV1200');
 
 --BYD brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', '4e15c596-ad00-4475-9202-01ac840b964f','', '', 'БИД');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8d8b3b79-fe61-4528-ab71-63635282205b', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','BYD T3', 'BYD T3', 'BYD T3');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8fda2eae-faed-40d1-9015-4286b9332a82', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','BYD T4', 'BYD T4', 'BYD T4');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2037cfc5-260f-48dd-9a60-d778824e8efa', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','BYD Q1', 'BYD Q1', 'BYD Q1');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b448a1f6-158f-41fd-ad7f-648f5c1ba06f', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','BYD Q3', 'BYD Q3', 'BYD Q3');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('29d8e729-a7ae-4ac6-a914-c1c30845651e', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','BYD K8', 'BYD K8', 'BYD K8');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9c6186d0-e00e-4c60-8989-5a6766179406', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','BYD K9', 'BYD K9', 'BYD K9');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('70784d6a-8bcd-47d4-b0ca-31e0ff6523e1', 'fbbf6b0f-a553-44e5-9351-4a246367ab0c', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','BYD E6', 'BYD E6', 'BYD E6');
 
 --Hyundai Commercial brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', '8eee0a08-de8a-4937-9069-cd38257f3889', '4e15c596-ad00-4475-9202-01ac840b964f','Hyundai Commercial', '', 'Хёндэ Коммерческий');
-
-
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1f982f31-1ac0-40d0-b1d4-aa977e8f7be1', '8eee0a08-de8a-4937-9069-cd38257f3889', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hyundai Mighty', 'Hyundai Mighty', 'Hyundai Mighty');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5aadc641-4140-4952-af99-cfa46446946a', '8eee0a08-de8a-4937-9069-cd38257f3889', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hyundai Pavise', 'Hyundai Pavise', 'Hyundai Pavise');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('94dc39bf-d9cc-46e0-ba0a-e7cae3382b9b', '8eee0a08-de8a-4937-9069-cd38257f3889', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hyundai Xcient', 'Hyundai Xcient', 'Hyundai Xcient');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('45eb88e6-e338-4099-b004-fd2d683e54f2', '8eee0a08-de8a-4937-9069-cd38257f3889', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hyundai County', 'Hyundai County', 'Hyundai County');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('bc6f8f59-4bb7-45fd-8b66-55f20f775cf6', '8eee0a08-de8a-4937-9069-cd38257f3889', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hyundai Universe', 'Hyundai Universe', 'Hyundai Universe');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b2f76179-957d-40c2-ac4c-e0b7372ebd83', '8eee0a08-de8a-4937-9069-cd38257f3889', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hyundai Solati', 'Hyundai Solati', 'Hyundai Solati');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9dc1e60d-97db-4526-b7d7-0d4031564a22', '8eee0a08-de8a-4937-9069-cd38257f3889', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Hyundai HD Series', 'Hyundai HD Series', 'Hyundai HD Series');
 
 --Kia Commercial brand models
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', '4e15c596-ad00-4475-9202-01ac840b964f','Kia Commercial', '', 'Киа Коммерческий');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9d3ac25f-e070-4f87-97f6-8de9b8448ef0', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kia Bongo', 'Kia Bongo', 'Kia Bongo');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('93d76cf6-d0e5-455d-864e-1b7def3995de', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kia K-Series', 'Kia K-Series', 'Kia K-Series');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ba9af80f-4b44-49a5-bb66-90dd4032cdbd', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kia Pregio', 'Kia Pregio', 'Kia Pregio');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c3d2212c-3684-4de6-84d3-ab190e53369d', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kia Granbird', 'Kia Granbird', 'Kia Granbird');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('530acd64-b3e4-4847-8b7d-beffd6c00663', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kia Frontier', 'Kia Frontier', 'Kia Frontier');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d1659c04-3256-48ff-ab22-34f2772996cf', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kia Rhino', 'Kia Rhino', 'Kia Rhino');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5f9709aa-8861-44d1-b9ca-dd1eb69fca53', 'f65a4fb7-28fc-47fc-adbf-f9e292ef0daa', 'e88fa0a3-92c3-4b15-bd1d-fc8d5f9ef798','Kia Trade', 'Kia Trade', 'Kia Trade');

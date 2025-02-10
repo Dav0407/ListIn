@@ -95,7 +95,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
                     ELSE latitude
                 END,
                 biography = CASE
-                    WHEN CAST(:biography AS double precision) IS NOT NULL THEN CAST(:biography AS double precision)
+                    WHEN CAST(:biography AS varchar) IS NOT NULL THEN CAST(:biography AS varchar)
                     ELSE biography
                 END
             WHERE user_id = :userId
