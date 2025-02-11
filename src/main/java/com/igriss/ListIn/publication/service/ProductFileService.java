@@ -24,4 +24,6 @@ public interface ProductFileService {
     void updateImagesByPublication(Publication publication, Map<Boolean, List<String>> imageUrls);
 
     void updateVideoByPublication(Publication publication, Map<Boolean, String> videoUrl);
+
+    void deletePublicationFiles(UUID publicationId);
 }

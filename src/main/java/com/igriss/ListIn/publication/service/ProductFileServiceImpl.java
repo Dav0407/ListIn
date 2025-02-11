@@ -107,6 +107,18 @@ public class ProductFileServiceImpl implements ProductFileService {
 
     }
 
+    @Override
+    public void deletePublicationFiles(UUID publicationId) {
+        productImageRepository.findAllByPublication_Id(publicationId).forEach(publication -> {
+            productImageRepository.deleteById(publication.getImageId());
+            deleteFile(publication.getImageUrl());
+        });
+        productVideoRepository.findByPublication_Id(publicationId).ifPresent(publicationVideo -> {
+            productVideoRepository.deleteById(publicationVideo.getVideoId());
+            deleteFile(publicationVideo.getVideoUrl());
+        });
+    }
+
     private void deleteFile(String url) {
         try {
             URL u = new URL("https://" + url);

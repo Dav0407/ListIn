@@ -36,7 +36,9 @@ public class InputPredictionServiceImpl implements InputPredictionService {
             "Console Brand Model",
             "Car brand model",
             "Motorcycle Model",
-            "Commercial Vehicle Model"
+            "Commercial Vehicle Model",
+            "Special Vehicle Model",
+            "Electric Vehicle Model"
     );
 
     @Override

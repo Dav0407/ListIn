@@ -4,13 +4,11 @@ import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.enums.ProductCondition;
-import com.igriss.ListIn.publication.repository.NumericFieldRepository;
 import com.igriss.ListIn.search.document.AttributeKeyDocument;
 import com.igriss.ListIn.search.document.AttributeValueDocument;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.document.PublicationDocument.NumericFieldDocument;
 import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
-import com.igriss.ListIn.search.repository.InputPredictionDocumentRepository;
 import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,6 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
 
     private final PublicationDocumentMapper publicationDocumentMapper;
     private final PublicationDocumentRepository publicationDocumentRepository;
-
 
     @Override
     public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues) {
@@ -99,6 +96,11 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
     @Override
     public void updateInPublicationDocumentAttributes() {
 
+    }
+
+    @Override
+    public void deleteById(UUID publicationId) {
+        publicationDocumentRepository.deleteById(publicationId);
     }
 
 }

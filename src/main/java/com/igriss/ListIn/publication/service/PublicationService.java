@@ -6,6 +6,7 @@ import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.search.dto.PublicationNode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface PublicationService {
     UUID likePublication(UUID publicationId, Authentication connectedUser);
 
     PageResponse<PublicationResponseDTO> findAllLikedPublications(Integer page, Integer size, Authentication authentication);
+
+    ResponseEntity<Object> deletePublication(UUID publicationId, Authentication authentication);
 }
