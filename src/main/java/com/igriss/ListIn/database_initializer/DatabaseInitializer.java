@@ -44,6 +44,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/auto/motorcycle_brand_models.sql",
             "/database_sql_scripts/models/auto/car_brand_models.sql",
             "/database_sql_scripts/models/auto/commercial_vehicle_brand_models.sql",
+            "/database_sql_scripts/models/auto/electric_vehicle_brand_models.sql",
+            "/database_sql_scripts/models/auto/agricultural_&_construction_vehicle_brand_models.sql",
             "/database_sql_scripts/models/electronics/smartphone_brand_models.sql",
             "/database_sql_scripts/models/electronics/laptop_brand_models.sql",
             "/database_sql_scripts/models/electronics/smartwatch_brand_models.sql",

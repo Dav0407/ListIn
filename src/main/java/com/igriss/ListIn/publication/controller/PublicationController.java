@@ -114,4 +114,10 @@ public class PublicationController {
                                                                      Authentication connectedUser) {
         return publicationService.findAllLikedPublications(page, size, connectedUser);
     }
+
+    @DeleteMapping("/delete/{publicationId}")
+    public ResponseEntity<Object> deletePublication(@PathVariable UUID publicationId, Authentication authentication){
+        publicationService.deletePublication(publicationId, authentication);
+        return ResponseEntity.status(204).body("Publication deleted successfully");
+    }
 }

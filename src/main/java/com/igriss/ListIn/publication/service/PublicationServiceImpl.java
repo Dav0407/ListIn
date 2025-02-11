@@ -1,5 +1,6 @@
 package com.igriss.ListIn.publication.service;
 
+import ch.qos.logback.core.rolling.RolloverFailure;
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
@@ -26,6 +27,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -56,6 +58,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     private final NumericValueRepository numericValueRepository;
     private final NumericFieldRepository numericFieldRepository;
+    private final PublicationAttributeValueService publicationAttributeValueService;
 
     @Override
     @Transactional
@@ -210,6 +213,7 @@ public class PublicationServiceImpl implements PublicationService {
         return getPageResponse(publicationPage, publicationResponseDTOS);
     }
 
+
     @Override
     public PageResponse<PublicationResponseDTO> findAllByUserId(UUID userId, Integer page, Integer size, Authentication connectedUser) {
 
@@ -275,6 +279,26 @@ public class PublicationServiceImpl implements PublicationService {
                 updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()),
                 false, userService.isFollowingToUser(publication.getSeller(), connectedUser)
         );
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<Object> deletePublication(UUID publicationId, Authentication authentication) {
+
+        return publicationRepository.findById(publicationId).map(publication -> {
+
+            publicationRepository.deleteById(publicationId);
+
+            publicationAttributeValueService.deletePublicationAttributes(publicationId);
+
+            productFileService.deletePublicationFiles(publicationId);
+
+            publicationDocumentService.deleteById(publicationId);
+
+            return ResponseEntity.noContent().build();
+
+        }).orElse(ResponseEntity.notFound().build());
+
     }
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication, List<NumericValue> numericValues) {

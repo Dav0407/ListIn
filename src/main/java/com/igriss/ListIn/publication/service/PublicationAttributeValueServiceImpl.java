@@ -5,6 +5,8 @@ import com.igriss.ListIn.publication.repository.PublicationAttributeValueReposit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class PublicationAttributeValueServiceImpl implements PublicationAttributeValueService {
@@ -14,5 +16,10 @@ public class PublicationAttributeValueServiceImpl implements PublicationAttribut
     @Override
     public void savePublicationAttributeValue(PublicationAttributeValue publicationAttributeValue) {
         repository.save(publicationAttributeValue);
+    }
+
+    @Override
+    public void deletePublicationAttributes(UUID publicationId) {
+        repository.deleteAllByPublication_Id(publicationId);
     }
 }

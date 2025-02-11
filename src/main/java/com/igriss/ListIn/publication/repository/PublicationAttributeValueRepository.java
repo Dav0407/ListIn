@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface PublicationAttributeValueRepository extends JpaRepository<PublicationAttributeValue, UUID> {
     List<PublicationAttributeValue> findByPublication_Id(UUID publicationId);
 
+    void deleteAllByPublication_Id(UUID publicationId);
 }

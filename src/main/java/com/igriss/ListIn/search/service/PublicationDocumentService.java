@@ -14,4 +14,6 @@ public interface PublicationDocumentService {
     void updateInPublicationDocument(UUID publicationId, UpdatePublicationRequestDTO updatePublication);
 
     void updateInPublicationDocumentAttributes();
+
+    void deleteById(UUID publicationId);
 }
