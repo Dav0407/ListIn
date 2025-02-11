@@ -2,16 +2,11 @@ package com.igriss.ListIn.config.Images.compressor;
 
 import com.igriss.ListIn.config.Images.CompressedMultipartFile;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FilenameUtils;
-import org.bytedeco.ffmpeg.global.avcodec;
-import org.bytedeco.ffmpeg.global.avutil;
-import org.bytedeco.javacv.FFmpegFrameGrabber;
-import org.bytedeco.javacv.FFmpegFrameRecorder;
-import org.bytedeco.javacv.Frame;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -26,7 +21,8 @@ public class FileCompressor {
         };
     }
 
-    private static MultipartFile compressImage(MultipartFile file) {
+
+    /*private static MultipartFile compressImage(MultipartFile file) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             Thumbnails.of(file.getInputStream())
@@ -93,8 +89,7 @@ public class FileCompressor {
         // Convert the ByteArrayOutputStream to MultipartFile using your helper method
         return convertIntoMultipart(inputFile, outputStream);
     }
-
-
+*/
 
     private static MultipartFile convertIntoMultipart(MultipartFile file, ByteArrayOutputStream fileContent) {
         return new CompressedMultipartFile(
