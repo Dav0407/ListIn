@@ -34,8 +34,8 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public UserResponseDTO getUserInfo(@PathVariable UUID userId) {
-        return userService.findById(userId);
+    public UserResponseDTO getUserInfo(@PathVariable UUID userId, Authentication authentication) {
+        return userService.findById(userId, authentication);
     }
 
     @GetMapping("/followers/{userId}")

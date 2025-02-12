@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
         UserFollower userFollower = new UserFollower(connectedUser, userToBeFollowed);
         userFollowerRepository.save(userFollower);
 
-        return userMapper.toUserResponseDTO(userToBeFollowed);
+        return userMapper.toUserResponseDTO(userToBeFollowed, isFollowingToUser(connectedUser, userToBeFollowed));
     }
 
     @Override
@@ -187,12 +187,12 @@ public class UserServiceImpl implements UserService {
 
         userFollowerRepository.deleteById(id);
 
-        return userMapper.toUserResponseDTO(userToBeUnFollowed);
+        return userMapper.toUserResponseDTO(userToBeUnFollowed, isFollowingToUser(connectedUser, userToBeUnFollowed));
     }
 
     @Override
     public Boolean isFollowingToUser(User followedUser, User followingUser){
-        return userFollowerRepository.existsByFollower_UserIdAndFollowing_UserId(followingUser.getUserId(), followedUser.getUserId());
+        return userFollowerRepository.existsByFollower_UserIdAndFollowing_UserId(followedUser.getUserId(), followingUser.getUserId());
     }
 
     @Override
@@ -202,9 +202,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO findById(UUID userId) {
+    public UserResponseDTO findById(UUID userId, Authentication authentication) {
+
+        User followedUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        User connectedUser = (User) authentication.getPrincipal();
+
+        Boolean followingToUser = isFollowingToUser(followedUser, connectedUser);
+
         return userMapper.toUserResponseDTO(userRepository.findById(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found")));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found")), followingToUser);
     }
 
     public UserResponseDTO getUserDetails(Authentication authentication) {

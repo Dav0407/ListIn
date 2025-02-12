@@ -24,7 +24,7 @@ public interface UserService {
 
     User findByEmail(String username);
 
-    UserResponseDTO findById(UUID id);
+    UserResponseDTO findById(UUID id, Authentication authentication);
 
     UserResponseDTO getUserDetails(Authentication authentication);
 
