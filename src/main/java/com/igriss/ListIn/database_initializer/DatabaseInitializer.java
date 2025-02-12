@@ -45,6 +45,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/auto/car_brand_models.sql",
             "/database_sql_scripts/models/auto/commercial_vehicle_brand_models.sql",
             "/database_sql_scripts/models/auto/electric_vehicle_brand_models.sql",
+            "/database_sql_scripts/models/auto/watercraft_brand_models.sql",
+            "/database_sql_scripts/models/auto/special_vehicle_brand_models.sql",
             "/database_sql_scripts/models/auto/agricultural_&_construction_vehicle_brand_models.sql",
             "/database_sql_scripts/models/electronics/smartphone_brand_models.sql",
             "/database_sql_scripts/models/electronics/laptop_brand_models.sql",
@@ -126,7 +128,7 @@ public class DatabaseInitializer {
     }
 
 
-/*    @PostConstruct
+    @PostConstruct
     public void clearElasticsearchData() {
         try {
             if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
@@ -136,7 +138,7 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             log.error("#Exception while clearing elastic search data: {}", e.getMessage());
         }
-    }*/
+    }
 }
 
 
