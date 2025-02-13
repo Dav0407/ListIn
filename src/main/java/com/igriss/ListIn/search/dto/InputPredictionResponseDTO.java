@@ -35,4 +35,6 @@ public class InputPredictionResponseDTO implements Serializable {
 
     private String categoryName;
 
+    private Long totalFound;
+
 }

@@ -2,7 +2,7 @@ package com.igriss.ListIn.search.controller;
 
 
 import com.igriss.ListIn.exceptions.SearchQueryException;
-import com.igriss.ListIn.search.dto.CountPublicationsDTO;
+import com.igriss.ListIn.search.dto.FoundPublicationsDTO;
 import com.igriss.ListIn.search.dto.InputPredictionResponseDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.InputPredictionService;
@@ -28,25 +28,10 @@ public class PublicationSearchController {
     private final PublicationSearchService searchService;
     private final InputPredictionService inputPredictionService;
 
-    @Operation(summary = "${search-controller.shallowSearch.summary}", description = "${search-controller.shallowSearch.description}")
-    @GetMapping("/all")
-    public List<PublicationNode> shallowSearch(@RequestParam("query") String query,
-                                               @RequestParam(defaultValue = "0") Integer page,
-                                               @RequestParam(defaultValue = "5") Integer size,
-                                               @RequestParam(required = false) Boolean bargain,
-                                               @RequestParam(value = "condition", required = false) String productCondition,
-                                               @RequestParam(required = false) Float from,
-                                               @RequestParam(required = false) Float to,
-                                               @RequestParam(required = false) String locationName,
-                                               Authentication connectedUser
-    ) throws SearchQueryException {
-        return searchService.searchWithDefaultFilter(query, page, size, bargain, productCondition, from, to, locationName, connectedUser);
-    }
-
     @Operation(summary = "${search-controller.deepSearch.summary}", description = "${search-controller.deepSearch.description}")
-    @GetMapping("/all/{pCategory}/{category}")
+    @GetMapping({"/",  "/{pCategory}", "/{pCategory}/{category}"})
     public List<PublicationNode> deepSearch(@PathVariable UUID pCategory,
-                                            @PathVariable UUID category,
+                                            @PathVariable(required = false) UUID category,
                                             @RequestParam(required = false) String query,
                                             @RequestParam(defaultValue = "0") Integer page,
                                             @RequestParam(defaultValue = "5") Integer size,
@@ -55,11 +40,13 @@ public class PublicationSearchController {
                                             @RequestParam(required = false) Float from,
                                             @RequestParam(required = false) Float to,
                                             @RequestParam(required = false) String locationName,
+                                            @RequestParam(required = false) Boolean isFree,
+                                            @RequestParam(required = false) String sellerType,
                                             @RequestParam(value = "filter", required = false) List<String> filters,
                                             @RequestParam(value = "numeric", required = false) List<String> numericFilter,
                                             Authentication connectedUser
     ) throws SearchQueryException {
-        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter, connectedUser);
+        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter, connectedUser);
     }
 
     @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")
@@ -74,21 +61,40 @@ public class PublicationSearchController {
         return ResponseEntity.ok(inputPredictionService.indexInputPredictionDocuments());
     }
 
-    @GetMapping({"/", "/{pCategory}", "/{pCategory}/{category}"})
-    public ResponseEntity<CountPublicationsDTO> getFoundPublicationsCount(@PathVariable(required = false) UUID pCategory,
+    @Operation(summary = "${publication-controller.get-latest.summary}", description = "${publication-controller.get-latest.description}")
+    @GetMapping("/latest")
+    public ResponseEntity<List<PublicationNode>> findAllLatestPublications(@RequestParam(required = false) Boolean bargain,
+                                                                           @RequestParam(value = "condition", required = false) String productCondition,
+                                                                           @RequestParam(required = false) Float from,
+                                                                           @RequestParam(required = false) Float to,
+                                                                           @RequestParam(required = false) String locationName,
+                                                                           @RequestParam(value = "filter", required = false) List<String> filters,
+                                                                           @RequestParam(value = "numeric", required = false) List<String> numericFilter,
+                                                                           @RequestParam(defaultValue = "0") Integer page,
+                                                                           @RequestParam(defaultValue = "5") Integer size,
+                                                                           Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(searchService.findAllLatestPublications(page, size, bargain, productCondition, from, to, locationName, filters, numericFilter, connectedUser));
+    }
+
+    @GetMapping({"/count", "/count/{pCategory}", "/count/{pCategory}/{category}"})
+    public ResponseEntity<FoundPublicationsDTO> getFoundPublicationsCount(@PathVariable(required = false) UUID pCategory,
                                                                           @PathVariable(required = false) UUID category,
                                                                           @RequestParam(required = false) String query,
-                                                                          @RequestParam(defaultValue = "0") Integer page,
-                                                                          @RequestParam(defaultValue = "5") Integer size,
                                                                           @RequestParam(required = false) Boolean bargain,
                                                                           @RequestParam(value = "condition", required = false) String productCondition,
                                                                           @RequestParam(required = false) Float from,
                                                                           @RequestParam(required = false) Float to,
                                                                           @RequestParam(required = false) String locationName,
+                                                                          @RequestParam(required = false) Boolean isFree,
+                                                                          @RequestParam(required = false) String sellerType,
                                                                           @RequestParam(value = "filter", required = false) List<String> filters,
-                                                                          @RequestParam(value = "numeric", required = false) List<String> numericFilter
+                                                                          @RequestParam(value = "numeric", required = false) List<String> numericFilter,
+                                                                          @RequestParam(defaultValue = "0") Integer page,
+                                                                          @RequestParam(defaultValue = "5") Integer size
     ) throws SearchQueryException {
-        return ResponseEntity.ok(searchService.getPublicationsCount(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter));
+        return ResponseEntity.ok(searchService.getPublicationsCount(pCategory, category, query, page, size, bargain,
+                productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter));
     }
 
 }

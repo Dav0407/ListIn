@@ -43,6 +43,9 @@ public class PublicationDocument {
     private Boolean bargain;
 
     @Field(type = FieldType.Keyword)
+    private String sellerType;
+
+    @Field(type = FieldType.Keyword)
     private ProductCondition productCondition;
 
     @Field(type = FieldType.Keyword)

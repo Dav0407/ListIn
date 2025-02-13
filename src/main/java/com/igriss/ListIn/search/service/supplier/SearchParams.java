@@ -21,6 +21,8 @@ public class SearchParams {
     private Float priceFrom;
     private Float priceTo;
     private String locationName;
+    private Boolean isFree;
+    private String sellerType;
     private Map<String, List<String>> filters;
     private Map<String, String[]> numericFilter;
 
@@ -35,6 +37,7 @@ class SearchFields {
     static final String PRICE = "price";
     static final String PRODUCT_CONDITION = "productCondition";
     static final String LOCATION_NAME = "locationName";
+    static final String SELLER_TYPE = "sellerType";
 
     static final String TITLE = "title^4";
     static final String DESCRIPTION = "description^2";
