@@ -3,7 +3,6 @@ package com.igriss.ListIn.search.service;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.Publication;
@@ -12,7 +11,7 @@ import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.*;
 import com.igriss.ListIn.publication.service.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
-import com.igriss.ListIn.search.dto.CountPublicationsDTO;
+import com.igriss.ListIn.search.dto.FoundPublicationsDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
 import com.igriss.ListIn.search.service.supplier.SearchParams;
@@ -22,6 +21,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +60,9 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                           Integer page, Integer size, Boolean bargain, String productCondition,
-                                                          Float from, Float to, String locationName, List<String> filters, List<String> numericFilter, Authentication connectedUser) throws SearchQueryException {
+                                                          Float from, Float to, String locationName, Boolean isFree,
+                                                          String sellerType, List<String> filters, List<String> numericFilter, Authentication connectedUser)
+            throws SearchQueryException {
 
         User user = (User) connectedUser.getPrincipal();
 
@@ -66,7 +71,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         SearchResponse<PublicationDocument> response;
         try {
             response = getPublicationDocumentSearchResponse(
-                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter);
+                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter);
 
 
             if (response.hits().hits() != null) {
@@ -86,53 +91,22 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     }
 
     @Override
-    public List<PublicationNode> searchWithDefaultFilter(String query, Integer page, Integer size,
-                                                         Boolean bargain, String productCondition, Float from, Float to, String locationName, Authentication connectedUser) throws SearchQueryException {
-        try {
-            SearchResponse<PublicationDocument> response = elasticsearchClient.search(q -> q
-                            .index(indexName)
-                            .query(QueryRepository.shallowSearchQuerySupplier(
-                                    SearchParams.builder()
-                                            .input(query)
-                                            .bargain(bargain)
-                                            .productCondition(productCondition)
-                                            .priceFrom(from)
-                                            .priceTo(to)
-                                            .locationName(locationName)
-                                            .build()
-                            ).get())
-                            .from(page * size)
-                            .size(size),
-                    PublicationDocument.class);
+    public List<PublicationNode> findAllLatestPublications(Integer page, Integer size, Boolean bargain, String productCondition, Float from, Float to, String locationName, List<String> filters, List<String> numericFilter, Authentication connectedUser) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
-            log.info("Access time taken for the query: {}ms", response.took());
+        Page<Publication> publicationPage = publicationRepository.findAllByOrderByDatePostedDesc(pageable);
 
-            List<PublicationDocument> publicationDocuments = response.hits().hits() != null ?
-                    response.hits().hits().stream()
-                            .map(Hit::source)
-                            .toList() :
-                    new ArrayList<>();
-
-
-            long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
-            boolean isLast = ((long) (page + 1) * size) >= totalElements;
-
-            User user = (User) connectedUser.getPrincipal();
-            return publicationNodeHandler2.handlePublicationNodes(editQuery(publicationDocuments, user), isLast);
-
-        } catch (IOException ioException) {
-            log.error("Exception occurred: ", ioException);
-            throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
-        }
+        return getPublicationNodes(connectedUser, publicationPage, publicationNodeHandler2);
     }
 
     @Override
-    public CountPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
+    public FoundPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
                                                      Integer page, Integer size, Boolean bargain, String productCondition,
-                                                     Float from, Float to, String locationName, List<String> filters, List<String> numericFilter) throws SearchQueryException {
+                                                     Float from, Float to, String locationName,Boolean isFree,
+                                                     String sellerType, List<String> filters, List<String> numericFilter) throws SearchQueryException {
         try {
             SearchResponse<PublicationDocument> search = getPublicationDocumentSearchResponse(
-                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, filters, numericFilter);
+                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter);
 
             Long found = search.hits().total() != null ? search.hits().total().value() : 0;
 
@@ -150,7 +124,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                     .min(Comparator.naturalOrder())
                     .orElse(null);
 
-            return CountPublicationsDTO.builder()
+            return FoundPublicationsDTO.builder()
                     .foundPublications(found)
                     .priceFrom(minPrice)
                     .priceTo(maxPrice)
@@ -163,7 +137,10 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     }
 
     private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(
-            UUID pCategory, UUID category, String query, Integer page, Integer size, Boolean bargain, String productCondition, Float from, Float to, String locationName, List<String> filters, List<String> numericFilter) throws IOException {
+            UUID pCategory, UUID category, String query, Integer page, Integer size, Boolean bargain,
+            String productCondition, Float from, Float to, String locationName, Boolean isFree,
+            String sellerType, List<String> filters, List<String> numericFilter) throws IOException {
+
         return elasticsearchClient.search(q -> q
                         .index(indexName)
                         .query(QueryRepository.deepSearchQuerySupplier(
@@ -176,6 +153,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                         .priceFrom(from)
                                         .priceTo(to)
                                         .locationName(locationName)
+                                        .isFree(isFree)
+                                        .sellerType(sellerType)
                                         .filters(filters != null ? parseFilter(filters) : null)
                                         .numericFilter(numericFilter != null ? parseNumericFilter(numericFilter) : null)
                                         .build()
@@ -220,7 +199,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         return publicationRepository.findAllByIdInOrderByDatePosted(publicationIds).stream()
                 .map(publication -> publicationMapper.toPublicationResponseDTO(
                         publication,
-                        productImageRepository.findAllByPublication_IdIn(publicationIds),
+                        productImageRepository.findAllByPublication_Id(publication.getId()),
                         productVideoRepository
                                 .findByPublication_Id(publication.getId())
                                 .map(PublicationVideo::getVideoUrl)
@@ -233,6 +212,25 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     private Boolean isLiked(User user, Publication publication) {
         return publicationLikeRepository.existsByUserAndPublication(user, publication);
+    }
+
+    private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
+        User user = (User) connectedUser.getPrincipal();
+
+        List<PublicationResponseDTO> publications = publicationPage
+                .getContent()
+                .stream()
+                .map(publication -> publicationMapper.toPublicationResponseDTO(
+                        publication,
+                        productImageRepository.findAllByPublication_Id(publication.getId()),
+                        productVideoRepository.findByPublication_Id(publication.getId())
+                                .map(PublicationVideo::getVideoUrl)
+                                .orElse(null),
+                        numericValueRepository.findAllByPublication_Id(publication.getId()),
+                        isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user)
+                )).toList();
+
+        return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
     }
 
 }

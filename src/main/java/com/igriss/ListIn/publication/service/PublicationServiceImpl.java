@@ -53,9 +53,6 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationDocumentService publicationDocumentService;
     private final PublicationMapper publicationMapper;
 
-    private final PublicationNodeHandler publicationNodeHandler1;
-    private final PublicationNodeHandler publicationNodeHandler2;
-
     private final NumericValueRepository numericValueRepository;
     private final NumericFieldRepository numericFieldRepository;
     private final PublicationAttributeValueService publicationAttributeValueService;
@@ -123,24 +120,6 @@ public class PublicationServiceImpl implements PublicationService {
                 publicationPage.isFirst(),
                 publicationPage.isLast()
         );
-    }
-
-    @Override
-    public List<PublicationNode> findAllLatestPublications(int page, int size, Authentication connectedUser) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
-
-        Page<Publication> publicationPage = publicationRepository.findAllByOrderByDatePostedDesc(pageable);
-
-        return getPublicationNodes(connectedUser, publicationPage, publicationNodeHandler1);
-    }
-
-    @Override
-    public List<PublicationNode> findWithParentCategory(UUID parentCategoryId, Integer page, Integer size, Authentication connectedUser) {
-
-        Page<Publication> publicationPage = publicationRepository.findAllByCategory_ParentCategory_Id(parentCategoryId, PageRequest.of(page, size, Sort.by("datePosted").descending()));
-
-        return getPublicationNodes(connectedUser, publicationPage, publicationNodeHandler2);
     }
 
     @Override
@@ -373,25 +352,6 @@ public class PublicationServiceImpl implements PublicationService {
 
     private Boolean isLiked(User user, Publication publication) {
         return publicationLikeRepository.existsByUserAndPublication(user, publication);
-    }
-
-    private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
-        User user = (User) connectedUser.getPrincipal();
-
-        List<PublicationResponseDTO> publications = publicationPage
-                .getContent()
-                .stream()
-                .map(publication -> publicationMapper.toPublicationResponseDTO(
-                        publication,
-                        productImageRepository.findAllByPublication_Id(publication.getId()),
-                        productVideoRepository.findByPublication_Id(publication.getId())
-                                .map(PublicationVideo::getVideoUrl)
-                                .orElse(null),
-                        numericValueRepository.findAllByPublication_Id(publication.getId()),
-                        isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user)
-                )).toList();
-
-        return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
     }
 
     private List<NumericValue> savePublicationNumericValues(List<NumericValueRequestDTO> request, Publication publication) {

@@ -30,6 +30,10 @@ public class PublicationResponseDTO implements Serializable {
 
     private Boolean isLiked;
 
+    private String sellerType;
+
+    private Boolean isFree;
+
     private String locationName;
 
     private Double latitude;

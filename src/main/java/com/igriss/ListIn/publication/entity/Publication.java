@@ -37,7 +37,6 @@ public class Publication {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
     private Float price;
 
     @Column(nullable = false)
@@ -80,4 +79,12 @@ public class Publication {
     @JoinColumn(name = "user_id")
     private User seller;
 
+
+    @PrePersist
+    @PreUpdate
+    public void init() {
+        if (this.price == null) {
+            this.price = 0.0F;
+        }
+    }
 }

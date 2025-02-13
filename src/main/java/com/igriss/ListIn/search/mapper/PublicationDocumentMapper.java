@@ -20,6 +20,7 @@ public class PublicationDocumentMapper {
                 .description(publication.getDescription())
                 .locationName(publication.getLocationName())
                 .price(publication.getPrice())
+                .sellerType(publication.getSeller().getRole().name())
                 .bargain(publication.getBargain())
                 .productCondition(publication.getProductCondition())
                 .categoryId(publication.getCategory().getId())

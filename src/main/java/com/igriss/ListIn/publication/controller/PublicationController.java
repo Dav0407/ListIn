@@ -10,7 +10,6 @@ import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.publication.service.PublicationService;
-import com.igriss.ListIn.search.dto.PublicationNode;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,15 +58,6 @@ public class PublicationController {
         return ResponseEntity.ok(repo.findByPublication_Id(publicationId));
     }
 
-    @Operation(summary = "${publication-controller.get-latest.summary}", description = "${publication-controller.get-latest.description}")
-    @GetMapping
-    public ResponseEntity<List<PublicationNode>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-                                                                           Authentication connectedUser
-    ) {
-        return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size, connectedUser));
-    }
-
     @Operation(summary = "${publication-controller.update.summary}", description = "${publication-controller.update.description}")
     @PatchMapping("/update/{publicationId}")
     public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication, Authentication authentication) {
@@ -81,16 +71,6 @@ public class PublicationController {
                                                            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
                                                            Authentication connectedUser) {
         return publicationService.findAllByUserId(userId, page, size, connectedUser);
-    }
-
-    @Operation(summary = "${publication-controller.parent-category.summary}", description = "${publication-controller.parent-category.description}")
-    @GetMapping("/p/{pCategory}")
-    public List<PublicationNode> parentCategorySearch(@PathVariable UUID pCategory,
-                                                      @RequestParam(defaultValue = "0") Integer page,
-                                                      @RequestParam(defaultValue = "5") Integer size,
-                                                      Authentication connectedUser
-    ) {
-        return publicationService.findWithParentCategory(pCategory, page, size, connectedUser);
     }
 
     @Operation(summary = "${publication-controller.videos.summary}", description = "${publication-controller.videos.description}")
