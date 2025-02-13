@@ -79,6 +79,6 @@ public class PublicationDocument {
         private UUID fieldId;
         private String value;
     }
+
+
 }
-
-

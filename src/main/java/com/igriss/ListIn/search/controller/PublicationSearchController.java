@@ -29,8 +29,8 @@ public class PublicationSearchController {
     private final InputPredictionService inputPredictionService;
 
     @Operation(summary = "${search-controller.deepSearch.summary}", description = "${search-controller.deepSearch.description}")
-    @GetMapping({"/",  "/{pCategory}", "/{pCategory}/{category}"})
-    public List<PublicationNode> deepSearch(@PathVariable UUID pCategory,
+    @GetMapping({"",  "/{pCategory}", "/{pCategory}/{category}"})
+    public List<PublicationNode> deepSearch(@PathVariable(required = false) UUID pCategory,
                                             @PathVariable(required = false) UUID category,
                                             @RequestParam(required = false) String query,
                                             @RequestParam(defaultValue = "0") Integer page,
