@@ -68,18 +68,17 @@ public class PublicationDocument {
     @Builder.Default
     private List<NumericFieldDocument> numericFields = new ArrayList<>();
 
-    @Getter
-    @Setter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @TypeAlias("numericFields")
-    @Document(indexName = "numericFields")
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static public class NumericFieldDocument {
-        private UUID fieldId;
-        private String value;
-    }
 }
 
-
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@TypeAlias("numericFields")
+@Document(indexName = "numericFields")
+@JsonIgnoreProperties(ignoreUnknown = true)
+class NumericFieldDocument {
+    private UUID fieldId;
+    private String value;
+}
