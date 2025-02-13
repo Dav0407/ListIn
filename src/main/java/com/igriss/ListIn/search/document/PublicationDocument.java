@@ -74,7 +74,7 @@ public class PublicationDocument {
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TypeAlias("attributeKeyDocument")
+@TypeAlias("numericFields")
 @Document(indexName = "numericFields")
 @JsonIgnoreProperties(ignoreUnknown = true)
 class NumericFieldDocument {
