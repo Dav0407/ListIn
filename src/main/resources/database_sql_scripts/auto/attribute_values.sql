@@ -814,7 +814,6 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ce6fc8e5-512f-45db-8810-e6fcabb20e44', null, 'fd63bc02-bab6-4d9b-8324-8cabe20dc5d2','Peugeot e-208', 'Peugeot e-208', 'Пежо e-208');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('59340b56-2639-42d4-8d61-6e53d3cdd018', null, 'fd63bc02-bab6-4d9b-8324-8cabe20dc5d2','Renault Zoe', 'Renault Zoe', 'Рено Зои');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4da2f5ca-e463-4893-9245-b98e6d18f1c3', null, 'fd63bc02-bab6-4d9b-8324-8cabe20dc5d2','Opel Mokka-e', 'Opel Mokka-e', 'Опель Мокка-e');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5226bdae-e698-4801-8542-6528c8817d20', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Kangaroo Ele', 'Kangaroo Ele', 'Kangaroo Ele');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2e5921b0-705b-4f48-b909-88d95b69529b', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Livan', 'Livan', 'Livan');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4cc05b5d-d332-4673-b6bc-4ecf3c9b6fe7', null, '49405788-6d5a-4736-b30a-59f77e6ed121','LiXiang', 'LiXiang', 'LiXiang');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c1a85d8f-f59a-4d1d-a007-c552d62c4df6', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Luxeed', 'Luxeed', 'Luxeed');
@@ -828,10 +827,8 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ffa6c4b0-fe75-4ee2-8a9b-6abf6feb8d62', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Renault Sams', 'Renault Sams', 'Renault Sams');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('fa054e58-5888-4e82-9d62-d9007e00f490', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Rising Auto', 'Rising Auto', 'Rising Auto');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('15d38d80-2831-4cb2-a3b5-3f9c17b97b2e', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Solaris', 'Solaris', 'Solaris');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1032d33d-9142-42b5-be3e-808f62ac187c', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Wartburg', 'Wartburg', 'Wartburg');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('eb2ddccd-bd10-423d-8baa-e5078a4e785a', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Xcite', 'Xcite', 'Xcite');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e3825eac-eaf7-41f6-a40f-d449987e8936', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Xiaomi', 'Xiaomi', 'Xiaomi');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b40b9a6f-8ca8-46ba-9049-55802a460c2e', null, '49405788-6d5a-4736-b30a-59f77e6ed121','Zuk', 'Zuk', 'Zuk');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9003091e-703b-4dd7-9c91-d0ab83c5b4b0', null, '49405788-6d5a-4736-b30a-59f77e6ed121','ZX', 'ZX', 'ZX');
 
 
