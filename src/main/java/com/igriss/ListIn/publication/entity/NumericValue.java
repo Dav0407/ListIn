@@ -12,6 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "numeric_values")
 public class NumericValue {
     @Id
@@ -26,5 +27,5 @@ public class NumericValue {
     @JoinColumn(name = "numeric_field_id", nullable = false)
     private NumericField numericField;
 
-    private String value;
+    private Long value;
 }

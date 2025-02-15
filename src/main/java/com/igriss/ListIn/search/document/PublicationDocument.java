@@ -72,12 +72,10 @@ public class PublicationDocument {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    @TypeAlias("numericFields")
-    @Document(indexName = "numericFields")
     @JsonIgnoreProperties(ignoreUnknown = true)
     static public class NumericFieldDocument {
         private UUID fieldId;
-        private String value;
+        private Long value;
     }
 
 

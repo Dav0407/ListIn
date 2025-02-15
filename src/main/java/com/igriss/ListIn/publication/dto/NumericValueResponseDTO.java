@@ -11,5 +11,5 @@ public class NumericValueResponseDTO {
     private String numericField;
     private String numericFieldUz;
     private String numericFieldRu;
-    private String numericValue;
+    private Long numericValue;
 }

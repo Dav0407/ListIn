@@ -359,7 +359,8 @@ public class PublicationServiceImpl implements PublicationService {
             List<NumericValue> numericValues = request.stream()
                     .map(numericDto -> NumericValue.builder()
                             .publication(publication)
-                            .numericField(numericFieldRepository.getReferenceById(numericDto.getNumericFieldId()))
+                            .numericField(numericFieldRepository.findById(numericDto.getNumericFieldId()).orElseThrow(() ->
+                                    new ResourceNotFoundException(String.format("Numeric filed with ID [%s] does not exist!!!", numericDto.getNumericFieldId()))))
                             .value(numericDto.getNumericValue())
                             .build())
                     .toList();

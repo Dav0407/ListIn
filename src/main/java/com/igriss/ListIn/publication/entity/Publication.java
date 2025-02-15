@@ -17,12 +17,12 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "publications")
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "publications")
 @EntityListeners(AuditingEntityListener.class)
 public class Publication {
 

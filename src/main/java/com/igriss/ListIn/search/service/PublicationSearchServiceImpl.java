@@ -204,7 +204,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                 .findByPublication_Id(publication.getId())
                                 .map(PublicationVideo::getVideoUrl)
                                 .orElse(null),
-                        numericValueRepository.findAllByPublication_IdIn(publicationIds),
+                        numericValueRepository.findAllByPublication_Id(publication.getId()),
                         isLiked(user, publication),
                         userService.isFollowingToUser(publication.getSeller(), user)))
                 .toList();
