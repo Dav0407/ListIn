@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @TypeAlias("attributeKeyDocument")
-@Document(indexName = "attributeKeyDocument")
+@Document(indexName = "attribute_key_documents")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttributeKeyDocument {
 

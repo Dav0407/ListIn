@@ -23,6 +23,7 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
     private final PublicationDocumentMapper publicationDocumentMapper;
     private final PublicationDocumentRepository publicationDocumentRepository;
 
+
     @Override
     public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues) {
 

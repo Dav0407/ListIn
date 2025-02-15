@@ -12,5 +12,5 @@ import java.util.UUID;
 @Builder
 public class NumericValueRequestDTO {
     private UUID numericFieldId;
-    private String numericValue;
+    private Long numericValue;
 }
