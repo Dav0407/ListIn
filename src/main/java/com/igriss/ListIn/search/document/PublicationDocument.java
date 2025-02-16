@@ -16,9 +16,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @TypeAlias("publications")
 @Document(indexName = "publications")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -70,6 +71,7 @@ public class PublicationDocument {
     @Getter
     @Setter
     @Builder
+    @ToString
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)

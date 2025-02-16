@@ -5,7 +5,9 @@ import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.entity.NumericValue;
 import com.igriss.ListIn.publication.entity.Publication;
+import com.igriss.ListIn.publication.entity.PublicationImage;
 import com.igriss.ListIn.publication.entity.PublicationVideo;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.*;
@@ -64,30 +66,51 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                                           String sellerType, List<String> filters, List<String> numericFilter, Authentication connectedUser)
             throws SearchQueryException {
 
+        log.info("😊😊😊Starting advanced filter search with parameters: pCategory={}, category={}, query={}, page={}, size={}, bargain={}, " +
+                        "condition={}, priceFrom={}, priceTo={}, location={}, isFree={}, sellerType={}",
+                pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType);
+
+        if (filters != null) {
+            log.info("😤😤😤Filters provided: {}", filters);
+        }
+        if (numericFilter != null) {
+            log.info("😤😤😤Numeric filters provided: {}", numericFilter);
+        }
+
         User user = (User) connectedUser.getPrincipal();
+        log.info("User retrieved from authentication: {}", user.getUserId());
 
         List<PublicationDocument> publicationDocuments = new ArrayList<>();
 
-        SearchResponse<PublicationDocument> response;
         try {
-            response = getPublicationDocumentSearchResponse(
+            log.info("😤😤😤Executing Elasticsearch query");
+            SearchResponse<PublicationDocument> response = getPublicationDocumentSearchResponse(
                     pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter);
 
+            log.info("😊😊😊Search response received. Total hits: {}", response.hits().total() != null ? response.hits().total().value() : 0);
 
             if (response.hits().hits() != null) {
+                log.info("😊😊😊Processing {} search hits", response.hits().hits().size());
                 for (var hit : response.hits().hits()) {
                     publicationDocuments.add(hit.source());
                 }
             }
+
+            long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
+            boolean isLast = ((long) (page + 1) * size) >= totalElements;
+            log.info("Pagination info: totalElements={}, isLast={}", totalElements, isLast);
+
+            List<PublicationResponseDTO> editedPublications = editQuery(publicationDocuments, user);
+            log.info("Transformed {} publication documents to DTOs", editedPublications.size());
+
+            List<PublicationNode> result = publicationNodeHandler1.handlePublicationNodes(editedPublications, isLast);
+            log.info("😅😅😅Successfully processed search results. Returning {} publication nodes", result.size());
+            return result;
+
         } catch (IOException ioException) {
-            log.error("Exception occurred: ", ioException);
+            log.error("IOException occurred during search: ", ioException);
             throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
-
-        long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
-        boolean isLast = ((long) (page + 1) * size) >= totalElements;
-
-        return publicationNodeHandler1.handlePublicationNodes(editQuery(publicationDocuments, user), isLast);
     }
 
     @Override
@@ -141,43 +164,77 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
             String productCondition, Float from, Float to, String locationName, Boolean isFree,
             String sellerType, List<String> filters, List<String> numericFilter) throws IOException {
 
-        return elasticsearchClient.search(q -> q
-                        .index(indexName)
-                        .query(QueryRepository.deepSearchQuerySupplier(
-                                SearchParams.builder()
-                                        .parentCategory(pCategory)
-                                        .category(category)
-                                        .input(query)
-                                        .bargain(bargain)
-                                        .productCondition(productCondition)
-                                        .priceFrom(from)
-                                        .priceTo(to)
-                                        .locationName(locationName)
-                                        .isFree(isFree)
-                                        .sellerType(sellerType)
-                                        .filters(filters != null ? parseFilter(filters) : null)
-                                        .numericFilter(numericFilter != null ? parseNumericFilter(numericFilter) : null)
-                                        .build()
-                        ).get())
-                        .from(page * size)
-                        .size(size),
-                PublicationDocument.class);
+        log.info("😤😤😤Building Elasticsearch query with params: page={}, size={}", page, size);
+
+        if (filters != null) {
+            Map<String, List<String>> parsedFilters = parseFilter(filters);
+            log.info("😤😤😤Parsed filters: {}", parsedFilters);
+        }
+
+        if (numericFilter != null) {
+            Map<String, String[]> parsedNumericFilters = parseNumericFilter(numericFilter);
+            log.info("😤😤😤Parsed numeric filters: {}", parsedNumericFilters);
+        }
+
+        try {
+            SearchResponse<PublicationDocument> response = elasticsearchClient.search(q -> q
+                            .index(indexName)
+                            .query(QueryRepository.deepSearchQuerySupplier(
+                                    SearchParams.builder()
+                                            .parentCategory(pCategory)
+                                            .category(category)
+                                            .input(query)
+                                            .bargain(bargain)
+                                            .productCondition(productCondition)
+                                            .priceFrom(from)
+                                            .priceTo(to)
+                                            .locationName(locationName)
+                                            .isFree(isFree)
+                                            .sellerType(sellerType)
+                                            .filters(filters != null ? parseFilter(filters) : null)
+                                            .numericFilter(numericFilter != null ? parseNumericFilter(numericFilter) : null)
+                                            .build()
+                            ).get())
+                            .from(page * size)
+                            .size(size),
+                    PublicationDocument.class);
+
+            log.info("😊😊😊Elasticsearch query executed successfully. Response: took={}ms, total_hits={}",
+                    response.took(), response.hits().total() != null ? response.hits().total().value() : 0);
+            return response;
+
+        } catch (IOException e) {
+            log.error("🥵🥵🥵Failed to execute Elasticsearch query: ", e);
+            throw e;
+        }
     }
 
     private Map<String, List<String>> parseFilter(List<String> filters) {
-        return filters.stream()
-                .map(filter -> filter.split(":"))
-                .filter(split -> split.length == 2)
+        log.info("😤😤😤Parsing filters: {}", filters);
+        Map<String, List<String>> result = filters.stream()
+                .map(filter -> {
+                    String[] split = filter.split(":");
+                    log.trace("😤😤😤Split filter '{}' into: {}", filter, Arrays.toString(split));
+                    return split;
+                })
+                .filter(split -> {
+                    boolean valid = split.length == 2;
+                    if (!valid) {
+                        log.warn("😤😤😤Invalid filter format: {}", Arrays.toString(split));
+                    }
+                    return valid;
+                })
                 .collect(Collectors.toMap(
-                                split -> split[0],
-                                split -> Arrays.stream(split[1].split(",")).toList(),
-                                (existing, replacement) -> {
-                                    List<String> merged = new ArrayList<>(existing);
-                                    merged.addAll(replacement);
-                                    return merged;
-                                }
-                        )
-                );
+                        split -> split[0],
+                        split -> Arrays.stream(split[1].split(",")).toList(),
+                        (existing, replacement) -> {
+                            List<String> merged = new ArrayList<>(existing);
+                            merged.addAll(replacement);
+                            return merged;
+                        }
+                ));
+        log.info("😊😊😊Parsed filters result: {}", result);
+        return result;
     }
 
     private Map<String, String[]> parseNumericFilter(List<String> filters) {
@@ -192,22 +249,40 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     @NotNull
     private List<PublicationResponseDTO> editQuery(List<PublicationDocument> publicationDocuments, User user) {
+        log.info("😊😊😊Starting editQuery for {} publications", publicationDocuments.size());
+
         List<UUID> publicationIds = publicationDocuments.stream()
                 .map(PublicationDocument::getId)
                 .toList();
+        log.info("😤😤😤Extracted {} publication IDs", publicationIds.size());
 
-        return publicationRepository.findAllByIdInOrderByDatePosted(publicationIds).stream()
-                .map(publication -> publicationMapper.toPublicationResponseDTO(
-                        publication,
-                        productImageRepository.findAllByPublication_Id(publication.getId()),
-                        productVideoRepository
-                                .findByPublication_Id(publication.getId())
-                                .map(PublicationVideo::getVideoUrl)
-                                .orElse(null),
-                        numericValueRepository.findAllByPublication_Id(publication.getId()),
-                        isLiked(user, publication),
-                        userService.isFollowingToUser(publication.getSeller(), user)))
+        List<Publication> publications = publicationRepository.findAllByIdInOrderByDatePosted(publicationIds);
+        log.info("😤😤😤Retrieved {} publications from repository", publications.size());
+
+        List<PublicationResponseDTO> result = publications.stream()
+                .map(publication -> {
+                    log.trace("😤😤😤Processing publication ID: {}", publication.getId());
+                    List<PublicationImage> images = productImageRepository.findAllByPublication_Id(publication.getId());
+                    log.trace("😤😤😤Found {} images for publication {}", images.size(), publication.getId());
+
+                    Optional<String> videoUrl = productVideoRepository.findByPublication_Id(publication.getId())
+                            .map(PublicationVideo::getVideoUrl);
+                    log.trace("😤😤😤Video URL present: {}", videoUrl.isPresent());
+
+                    List<NumericValue> numericValues = numericValueRepository.findAllByPublication_Id(publication.getId());
+                    log.trace("😤😤😤Found {} numeric values for publication {}", numericValues.size(), publication.getId());
+
+                    boolean liked = isLiked(user, publication);
+                    boolean following = userService.isFollowingToUser(publication.getSeller(), user);
+                    log.trace("😤😤😤Publication {} - liked: {}, following seller: {}", publication.getId(), liked, following);
+
+                    return publicationMapper.toPublicationResponseDTO(
+                            publication, images, videoUrl.orElse(null), numericValues, liked, following);
+                })
                 .toList();
+
+        log.info("😊😊😊Completed editQuery processing. Returning {} DTOs", result.size());
+        return result;
     }
 
     private Boolean isLiked(User user, Publication publication) {

@@ -11,11 +11,13 @@ import com.igriss.ListIn.search.document.PublicationDocument.NumericFieldDocumen
 import com.igriss.ListIn.search.mapper.PublicationDocumentMapper;
 import com.igriss.ListIn.search.repository.PublicationDocumentRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class PublicationDocumentServiceImpl implements PublicationDocumentService {
@@ -67,7 +69,16 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
         // Create a PublicationDocument and set attributeKeyDocuments
         PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments, document);
 
+        log.info("☺️☺️☺️Saving attribute keys: {}", publicationDocument.getAttributeKeys());
+        log.info("☺️☺️☺️Saving attribute values: {}", publicationDocument.getAttributeKeys().stream().map(AttributeKeyDocument::getAttributeValues).toList());
+        log.info("☺️☺️☺️Saving numeric fields: {}", publicationDocument.getNumericFields());
+
         publicationDocumentRepository.save(publicationDocument);
+
+        log.info("☺️☺️☺️attribute keys saved: {}", publicationDocument.getAttributeKeys());
+        log.info("☺️☺️☺️attribute values saved: {}", publicationDocument.getAttributeKeys().stream().map(AttributeKeyDocument::getAttributeValues).toList());
+        log.info("☺️☺️☺️attribute numeric fields: {}", publicationDocument.getNumericFields());
+
     }
 
     @Override

@@ -14,13 +14,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @TypeAlias("attributeValueDocument")
-@Document(indexName = "attributeValueDocument")
+@Document(indexName = "attribute_value_document")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttributeValueDocument {
+
     @Id
+    @Field(type = FieldType.Keyword)
     private UUID id;
 
     @Field(type = FieldType.Text, analyzer = "standard")
