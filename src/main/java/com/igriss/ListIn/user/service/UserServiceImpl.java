@@ -191,8 +191,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean isFollowingToUser(User followedUser, User followingUser){
-        return userFollowerRepository.existsByFollower_UserIdAndFollowing_UserId(followedUser.getUserId(), followingUser.getUserId());
+    public Boolean isFollowingToUser(User sourceUser, User targetUser){
+        return userFollowerRepository.existsByFollower_UserIdAndFollowing_UserId(sourceUser.getUserId(), targetUser.getUserId());
     }
 
     @Override

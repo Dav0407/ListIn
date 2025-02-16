@@ -206,7 +206,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                 .orElse(null),
                         numericValueRepository.findAllByPublication_Id(publication.getId()),
                         isLiked(user, publication),
-                        userService.isFollowingToUser(publication.getSeller(), user)))
+                        userService.isFollowingToUser(user, publication.getSeller())))
                 .toList();
     }
 
@@ -227,7 +227,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                                 .map(PublicationVideo::getVideoUrl)
                                 .orElse(null),
                         numericValueRepository.findAllByPublication_Id(publication.getId()),
-                        isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user)
+                        isLiked(user, publication), userService.isFollowingToUser(user, publication.getSeller())
                 )).toList();
 
         return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
