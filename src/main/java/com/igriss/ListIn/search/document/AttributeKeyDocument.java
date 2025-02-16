@@ -15,6 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @TypeAlias("attributeKeyDocument")
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class AttributeKeyDocument {
 
     @Id
+    @Field(type = FieldType.Keyword)
     private UUID id;
 
     @Field(type = FieldType.Text, analyzer = "standard")
