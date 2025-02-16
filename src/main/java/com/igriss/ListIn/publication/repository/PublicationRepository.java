@@ -64,6 +64,14 @@ public interface PublicationRepository extends JpaRepository<Publication, UUID> 
             """, nativeQuery = true)
     Integer incrementLike(UUID publicationId);
 
+    @Modifying
+    @Query(value = """
+            UPDATE publications
+            SET likes = likes - 1
+            WHERE publication_id = :publicationId
+            """, nativeQuery = true)
+    Integer decrementLike(UUID publicationId);
+
     List<Publication> findAllByIdInOrderByDatePosted(List<UUID> publicationIds);
 
     
@@ -80,25 +88,4 @@ public interface PublicationRepository extends JpaRepository<Publication, UUID> 
             Pageable pageable
     );
 
-    Page<Publication> findByPriceBetweenAndPublicationStatus(
-            Float minPrice,
-            Float maxPrice,
-            PublicationStatus status,
-            Pageable pageable
-    );
-
-//    @Query(value = """
-//        SELECT p FROM Publication p
-//        WHERE ST_Distance_Sphere(
-//            point(p.longitude, p.latitude),
-//            point(:userLong, :userLat)
-//        ) <= :radiusKm * 1000.0
-//        AND p.publicationStatus = 'ACTIVE'
-//        """)
-//    List<Publication> findByLocationNearby(
-//            Double userLat,
-//            Double userLong,
-//            Double radiusKm,
-//            Pageable pageable
-//    );
 }

@@ -1,6 +1,5 @@
 package com.igriss.ListIn.publication.service;
 
-import ch.qos.logback.core.rolling.RolloverFailure;
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
@@ -10,13 +9,10 @@ import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
-import com.igriss.ListIn.publication.dto.user_publications.AttributeDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.entity.*;
-import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.*;
-import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.service.PublicationDocumentService;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
@@ -100,14 +96,14 @@ public class PublicationServiceImpl implements PublicationService {
 
                 .map(publication ->
 
-                     publicationMapper.toUserPublicationDTO(publication,
+                        publicationMapper.toUserPublicationDTO(publication,
 
-                            productImageRepository.findAllByPublication_Id(publication.getId()),
+                                productImageRepository.findAllByPublication_Id(publication.getId()),
 
-                            productFileService.findVideoUrlByPublicationId(publication.getId()),
+                                productFileService.findVideoUrlByPublicationId(publication.getId()),
 
-                    numericValueRepository.findAllByPublication_Id(publication.getId())
-                    )
+                                numericValueRepository.findAllByPublication_Id(publication.getId())
+                        )
 
                 ).toList();
 
@@ -164,6 +160,28 @@ public class PublicationServiceImpl implements PublicationService {
                 .user(user)
                 .publication(publication)
                 .build());
+
+        return publication.getId();
+    }
+
+    @Override
+    @Transactional
+    public UUID unLikePublication(UUID publicationId, Authentication connectedUser) {
+        User user = (User) connectedUser.getPrincipal();
+
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
+
+        Integer isUpdated = publicationRepository.decrementLike(publication.getId());
+
+        if (isUpdated != 0)
+            log.info("Publication with ID: '{}' UNLIKED", publicationId);
+        else
+            log.warn("Failed to UNLIKE publication with ID: '{}'", publicationId);
+
+
+        publicationLikeRepository.findByPublication_IdAndUser_UserId(publicationId, user.getUserId())
+                        .ifPresent(publicationLike -> publicationLikeRepository.deleteById(publicationLike.getId()));
 
         return publication.getId();
     }
@@ -279,6 +297,7 @@ public class PublicationServiceImpl implements PublicationService {
         }).orElse(ResponseEntity.notFound().build());
 
     }
+
 
     private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication, List<NumericValue> numericValues) {
 

@@ -28,4 +28,6 @@ public interface PublicationService {
     PageResponse<PublicationResponseDTO> findAllLikedPublications(Integer page, Integer size, Authentication authentication);
 
     ResponseEntity<Object> deletePublication(UUID publicationId, Authentication authentication);
+
+    UUID unLikePublication(UUID publicationId, Authentication connectedUser);
 }

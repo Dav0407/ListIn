@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PublicationLikeRepository extends JpaRepository<PublicationLike, UUID> {
@@ -17,4 +18,8 @@ public interface PublicationLikeRepository extends JpaRepository<PublicationLike
     List<PublicationLike> findAllByUser(User user);
 
     Boolean existsByUserAndPublication(User user, Publication publication);
+
+    void deleteByPublication(Publication publication);
+
+    Optional<PublicationLike> findByPublication_IdAndUser_UserId(UUID publicationId, UUID userUserId);
 }

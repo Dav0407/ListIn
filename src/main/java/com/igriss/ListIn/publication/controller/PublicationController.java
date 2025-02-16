@@ -88,6 +88,11 @@ public class PublicationController {
         return publicationService.likePublication(publicationId, connectedUser);
     }
 
+    @PatchMapping("/unlike/{publicationId}")
+    public UUID unLikePublication(@PathVariable UUID publicationId, Authentication connectedUser) {
+        return publicationService.unLikePublication(publicationId, connectedUser);
+    }
+
     @GetMapping("/like")
     public PageResponse<PublicationResponseDTO> getLikedPublications(@RequestParam(defaultValue = "0") Integer page,
                                                                      @RequestParam(defaultValue = "5") Integer size,
