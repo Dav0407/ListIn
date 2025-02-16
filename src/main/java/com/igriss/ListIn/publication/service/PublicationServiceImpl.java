@@ -186,7 +186,7 @@ public class PublicationServiceImpl implements PublicationService {
                                 productFileService.findImagesByPublicationId(publication.getId()),
                                 productFileService.findVideoUrlByPublicationId(publication.getId()),
                                 numericValueRepository.findAllByPublication_Id(publication.getId()),
-                                true, userService.isFollowingToUser(publication.getSeller(), user))
+                                true, userService.isFollowingToUser(user, publication.getSeller()))
                 ).toList();
 
         return getPageResponse(publicationPage, publicationResponseDTOS);
@@ -256,7 +256,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         return publicationMapper.toPublicationResponseDTO(
                 updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()),
-                false, userService.isFollowingToUser(publication.getSeller(), connectedUser)
+                false, userService.isFollowingToUser(connectedUser, publication.getSeller())
         );
     }
 
@@ -345,7 +345,7 @@ public class PublicationServiceImpl implements PublicationService {
                                 productFileService.findImagesByPublicationId(publication.getId()),
                                 productFileService.findVideoUrlByPublicationId(publication.getId()),
                                 numericValueRepository.findAllByPublication_Id(publication.getId()),
-                                isLiked(user, publication), userService.isFollowingToUser(publication.getSeller(), user))
+                                isLiked(user, publication), userService.isFollowingToUser(user, publication.getSeller()))
                 ).toList();
 
     }
