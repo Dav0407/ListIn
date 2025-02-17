@@ -1,9 +1,6 @@
 package com.igriss.ListIn.publication.service;
 
-import com.igriss.ListIn.exceptions.PublicationNotFoundException;
-import com.igriss.ListIn.exceptions.ResourceNotFoundException;
-import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
-import com.igriss.ListIn.exceptions.ValidationException;
+import com.igriss.ListIn.exceptions.*;
 import com.igriss.ListIn.publication.dto.NumericValueRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
@@ -149,6 +146,11 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
 
+        if (publicationLikeRepository.existsByUserAndPublication(user, publication)) {
+            log.error("User have already liked to publication with id: {}", publication.getId());
+            throw new BadRequestException(String.format("You have already liked to publication with id: %s", publication.getId()));
+        }
+
         Integer isUpdated = publicationRepository.incrementLike(publication.getId());
 
         if (isUpdated != 0)
@@ -172,6 +174,11 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
 
+        if (!publicationLikeRepository.existsByUserAndPublication(user, publication)) {
+            log.error("User have not liked to this publication before: {}", publication.getId());
+            throw new BadRequestException(String.format("You have not liked to this publication before: %s", publication.getId()));
+        }
+        
         Integer isUpdated = publicationRepository.decrementLike(publication.getId());
 
         if (isUpdated != 0)
@@ -181,7 +188,7 @@ public class PublicationServiceImpl implements PublicationService {
 
 
         publicationLikeRepository.findByPublication_IdAndUser_UserId(publicationId, user.getUserId())
-                        .ifPresent(publicationLike -> publicationLikeRepository.deleteById(publicationLike.getId()));
+                .ifPresent(publicationLike -> publicationLikeRepository.deleteById(publicationLike.getId()));
 
         return publication.getId();
     }
