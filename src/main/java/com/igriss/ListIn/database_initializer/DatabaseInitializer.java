@@ -132,7 +132,7 @@ public class DatabaseInitializer {
         }
     }
 
-
+/*
     @PostConstruct
     public void clearElasticsearchData() {
         try {
@@ -143,7 +143,7 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             log.error("#Exception while clearing elastic search data: {}", e.getMessage());
         }
-    }
+    }*/
 }
 
 
