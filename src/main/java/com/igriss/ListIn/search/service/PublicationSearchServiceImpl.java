@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PublicationSearchServiceImpl implements PublicationSearchService {
 
+    private final PublicationViewRepository publicationViewRepository;
     @Value("${elasticsearch.index-name}")
     private String indexName;
 
@@ -102,7 +103,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public FoundPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
                                                      Integer page, Integer size, Boolean bargain, String productCondition,
-                                                     Float from, Float to, String locationName,Boolean isFree,
+                                                     Float from, Float to, String locationName, Boolean isFree,
                                                      String sellerType, List<String> filters, List<String> numericFilter) throws SearchQueryException {
         try {
             SearchResponse<PublicationDocument> search = getPublicationDocumentSearchResponse(
@@ -197,22 +198,10 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .toList();
 
         return publicationRepository.findAllByIdInOrderByDatePosted(publicationIds).stream()
-                .map(publication -> publicationMapper.toPublicationResponseDTO(
-                        publication,
-                        productImageRepository.findAllByPublication_Id(publication.getId()),
-                        productVideoRepository
-                                .findByPublication_Id(publication.getId())
-                                .map(PublicationVideo::getVideoUrl)
-                                .orElse(null),
-                        numericValueRepository.findAllByPublication_Id(publication.getId()),
-                        isLiked(user, publication),
-                        userService.isFollowingToUser(user, publication.getSeller())))
+                .map(publication -> mapToPublicationDTO(publication, user))
                 .toList();
     }
 
-    private Boolean isLiked(User user, Publication publication) {
-        return publicationLikeRepository.existsByUserAndPublication(user, publication);
-    }
 
     private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
         User user = (User) connectedUser.getPrincipal();
@@ -220,17 +209,32 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         List<PublicationResponseDTO> publications = publicationPage
                 .getContent()
                 .stream()
-                .map(publication -> publicationMapper.toPublicationResponseDTO(
-                        publication,
-                        productImageRepository.findAllByPublication_Id(publication.getId()),
-                        productVideoRepository.findByPublication_Id(publication.getId())
-                                .map(PublicationVideo::getVideoUrl)
-                                .orElse(null),
-                        numericValueRepository.findAllByPublication_Id(publication.getId()),
-                        isLiked(user, publication), userService.isFollowingToUser(user, publication.getSeller())
-                )).toList();
+                .map(publication -> mapToPublicationDTO(publication, user)).toList();
 
         return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
+    }
+
+    private PublicationResponseDTO mapToPublicationDTO(Publication publication, User user) {
+        PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(
+                publication,
+                productImageRepository.findAllByPublication_Id(publication.getId()),
+                productVideoRepository.findByPublication_Id(publication.getId())
+                        .map(PublicationVideo::getVideoUrl)
+                        .orElse(null),
+                numericValueRepository.findAllByPublication_Id(publication.getId()),
+                isLiked(user, publication), userService.isFollowingToUser(user, publication.getSeller()));
+
+        publicationResponseDTO.setIsViewed(isViewed(user, publication));
+
+        return publicationResponseDTO;
+    }
+
+    private Boolean isLiked(User user, Publication publication) {
+        return publicationLikeRepository.existsByUserAndPublication(user, publication);
+    }
+
+    private Boolean isViewed(User user, Publication publication) {
+        return publicationViewRepository.existsByPublicationAndUser(publication, user);
     }
 
 }

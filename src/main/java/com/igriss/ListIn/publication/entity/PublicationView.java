@@ -3,7 +3,6 @@ package com.igriss.ListIn.publication.entity;
 import com.igriss.ListIn.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -37,6 +36,7 @@ public class PublicationView {
     private Publication publication;
 
     @Builder.Default
+    @Column(name = "count", nullable = false)
     private Long count = 1L;
 
     @LastModifiedDate

@@ -172,7 +172,7 @@ public class PublicationServiceImpl implements PublicationService {
     public UUID unLikePublication(UUID publicationId, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
 
-        if(!publicationRepository.existsById(publicationId)){
+        if (!publicationRepository.existsById(publicationId)) {
             throw new PublicationNotFoundException("No such Publication found");
         }
 
@@ -180,7 +180,7 @@ public class PublicationServiceImpl implements PublicationService {
             log.error("User have not liked to this publication before: {}", publicationId);
             throw new BadRequestException(String.format("You have not liked to this publication before: %s", publicationId));
         }
-        
+
         Integer isUpdated = publicationRepository.decrementLike(publicationId);
 
         if (isUpdated != 0)
@@ -197,7 +197,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     @Transactional
-    public UUID viewPublication(UUID publicationId, Authentication connectedUser){
+    public UUID viewPublication(UUID publicationId, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
 
         if (!publicationRepository.existsById(publicationId)) {
@@ -222,12 +222,15 @@ public class PublicationServiceImpl implements PublicationService {
                 );
 
         List<PublicationResponseDTO> publicationResponseDTOS = publicationPage.stream()
-                .map(publication ->
-                        publicationMapper.toPublicationResponseDTO(publication,
-                                productFileService.findImagesByPublicationId(publication.getId()),
-                                productFileService.findVideoUrlByPublicationId(publication.getId()),
-                                numericValueRepository.findAllByPublication_Id(publication.getId()),
-                                true, userService.isFollowingToUser(user, publication.getSeller()))
+                .map(publication -> {
+                            PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(publication,
+                                    productFileService.findImagesByPublicationId(publication.getId()),
+                                    productFileService.findVideoUrlByPublicationId(publication.getId()),
+                                    numericValueRepository.findAllByPublication_Id(publication.getId()),
+                                    true, userService.isFollowingToUser(user, publication.getSeller()));
+                            publicationResponseDTO.setIsViewed(isViewed(user, publication));
+                            return publicationResponseDTO;
+                        }
                 ).toList();
 
         return getPageResponse(publicationPage, publicationResponseDTOS);
@@ -295,10 +298,12 @@ public class PublicationServiceImpl implements PublicationService {
 
         String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
 
-        return publicationMapper.toPublicationResponseDTO(
+        PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(
                 updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()),
                 false, userService.isFollowingToUser(connectedUser, publication.getSeller())
         );
+        publicationResponseDTO.setIsViewed(isViewed(connectedUser, publication));
+        return publicationResponseDTO;
     }
 
     @Override
@@ -382,18 +387,26 @@ public class PublicationServiceImpl implements PublicationService {
     @NotNull
     private List<PublicationResponseDTO> getPublicationResponseDTOS(Page<Publication> publicationPage, User user) {
         return publicationPage.stream()
-                .map(publication ->
-                        publicationMapper.toPublicationResponseDTO(publication,
-                                productFileService.findImagesByPublicationId(publication.getId()),
-                                productFileService.findVideoUrlByPublicationId(publication.getId()),
-                                numericValueRepository.findAllByPublication_Id(publication.getId()),
-                                isLiked(user, publication), userService.isFollowingToUser(user, publication.getSeller()))
+                .map(publication -> {
+                            PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(publication,
+                                    productFileService.findImagesByPublicationId(publication.getId()),
+                                    productFileService.findVideoUrlByPublicationId(publication.getId()),
+                                    numericValueRepository.findAllByPublication_Id(publication.getId()),
+                                    isLiked(user, publication),
+                                    userService.isFollowingToUser(user, publication.getSeller()));
+                            publicationResponseDTO.setIsViewed(isViewed(user, publication));
+                            return publicationResponseDTO;
+                        }
                 ).toList();
 
     }
 
     private Boolean isLiked(User user, Publication publication) {
         return publicationLikeRepository.existsByUserAndPublication(user, publication);
+    }
+
+    private Boolean isViewed(User user, Publication publication) {
+        return publicationViewRepository.existsByPublicationAndUser(publication, user);
     }
 
     private List<NumericValue> savePublicationNumericValues(List<NumericValueRequestDTO> request, Publication publication) {
