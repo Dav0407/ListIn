@@ -49,6 +49,7 @@ public class PublicationServiceImpl implements PublicationService {
     private final NumericValueRepository numericValueRepository;
     private final NumericFieldRepository numericFieldRepository;
     private final PublicationAttributeValueService publicationAttributeValueService;
+    private final PublicationViewRepository publicationViewRepository;
 
     @Override
     @Transactional
@@ -171,15 +172,16 @@ public class PublicationServiceImpl implements PublicationService {
     public UUID unLikePublication(UUID publicationId, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
 
-        Publication publication = publicationRepository.findById(publicationId)
-                .orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
+        if(!publicationRepository.existsById(publicationId)){
+            throw new PublicationNotFoundException("No such Publication found");
+        }
 
-        if (!publicationLikeRepository.existsByUserAndPublication(user, publication)) {
-            log.error("User have not liked to this publication before: {}", publication.getId());
-            throw new BadRequestException(String.format("You have not liked to this publication before: %s", publication.getId()));
+        if (!publicationLikeRepository.existsByUserAndPublication_Id(user, publicationId)) {
+            log.error("User have not liked to this publication before: {}", publicationId);
+            throw new BadRequestException(String.format("You have not liked to this publication before: %s", publicationId));
         }
         
-        Integer isUpdated = publicationRepository.decrementLike(publication.getId());
+        Integer isUpdated = publicationRepository.decrementLike(publicationId);
 
         if (isUpdated != 0)
             log.info("Publication with ID: '{}' UNLIKED", publicationId);
@@ -190,7 +192,21 @@ public class PublicationServiceImpl implements PublicationService {
         publicationLikeRepository.findByPublication_IdAndUser_UserId(publicationId, user.getUserId())
                 .ifPresent(publicationLike -> publicationLikeRepository.deleteById(publicationLike.getId()));
 
-        return publication.getId();
+        return publicationId;
+    }
+
+    @Override
+    @Transactional
+    public UUID viewPublication(UUID publicationId, Authentication connectedUser){
+        User user = (User) connectedUser.getPrincipal();
+
+        if (!publicationRepository.existsById(publicationId)) {
+            log.error("Publication with id: {} does not exist", publicationId);
+        }
+
+        UUID newId = UUID.randomUUID();
+        publicationViewRepository.upsertView(newId, publicationId, user.getUserId());
+        return publicationId;
     }
 
     @Override

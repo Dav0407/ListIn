@@ -34,7 +34,7 @@ public class Publication {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 5000)
     private String description;
 
     private Float price;

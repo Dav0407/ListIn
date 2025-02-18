@@ -15,8 +15,9 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "publication_likes")
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "publication_likes", uniqueConstraints = {
+        @UniqueConstraint(name = "exception", columnNames = {"publication_id", "user_id"})
+})@EntityListeners(AuditingEntityListener.class)
 public class PublicationLike {
 
     @Id

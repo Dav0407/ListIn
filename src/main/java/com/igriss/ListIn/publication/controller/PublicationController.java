@@ -1,5 +1,6 @@
 package com.igriss.ListIn.publication.controller;
 
+import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
@@ -104,5 +105,10 @@ public class PublicationController {
     public ResponseEntity<Object> deletePublication(@PathVariable UUID publicationId, Authentication authentication){
         publicationService.deletePublication(publicationId, authentication);
         return ResponseEntity.status(204).body("Publication deleted successfully");
+    }
+
+    @PostMapping("/view/{publicationId}")
+    public ResponseEntity<UUID> viewPublication(@PathVariable UUID publicationId, Authentication connectedUser) {
+        return ResponseEntity.ok(publicationService.viewPublication(publicationId, connectedUser));
     }
 }

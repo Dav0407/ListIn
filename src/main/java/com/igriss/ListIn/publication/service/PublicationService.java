@@ -30,4 +30,6 @@ public interface PublicationService {
     ResponseEntity<Object> deletePublication(UUID publicationId, Authentication authentication);
 
     UUID unLikePublication(UUID publicationId, Authentication connectedUser);
+
+    UUID viewPublication(UUID publicationId, Authentication connectedUser);
 }

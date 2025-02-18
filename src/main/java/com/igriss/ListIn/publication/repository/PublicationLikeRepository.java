@@ -19,7 +19,7 @@ public interface PublicationLikeRepository extends JpaRepository<PublicationLike
 
     Boolean existsByUserAndPublication(User user, Publication publication);
 
-    void deleteByPublication(Publication publication);
-
     Optional<PublicationLike> findByPublication_IdAndUser_UserId(UUID publicationId, UUID userUserId);
+
+    boolean existsByUserAndPublication_Id(User user, UUID publicationId);
 }
