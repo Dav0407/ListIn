@@ -118,6 +118,8 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public PageResponse<PublicationResponseDTO> findPublicationsContainingVideo(int page, int size, Authentication connectedUser, UUID pCategory) {
+        User user = (User) connectedUser.getPrincipal();
+
         Page<PublicationVideo> publicationVideos;
 
         if (pCategory != null)
@@ -131,9 +133,6 @@ public class PublicationServiceImpl implements PublicationService {
                         .orElseThrow(() -> new PublicationNotFoundException(
                                 String.format("Publication with id '%s' doesn't exist", publicationVideo.getPublication().getId())))
         );
-
-        User user = (User) connectedUser.getPrincipal();
-
         List<PublicationResponseDTO> responseDTOList = getPublicationResponseDTOS(publicationPage, user);
 
         return getPageResponse(publicationPage, responseDTOList);
@@ -228,7 +227,11 @@ public class PublicationServiceImpl implements PublicationService {
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
                                     numericValueRepository.findAllByPublication_Id(publication.getId()),
                                     true, userService.isFollowingToUser(user, publication.getSeller()));
+
+                            publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
+
                             publicationResponseDTO.setIsViewed(isViewed(user, publication));
+
                             return publicationResponseDTO;
                         }
                 ).toList();
@@ -302,7 +305,11 @@ public class PublicationServiceImpl implements PublicationService {
                 updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()),
                 false, userService.isFollowingToUser(connectedUser, publication.getSeller())
         );
+
+        publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
+
         publicationResponseDTO.setIsViewed(isViewed(connectedUser, publication));
+
         return publicationResponseDTO;
     }
 
@@ -388,13 +395,19 @@ public class PublicationServiceImpl implements PublicationService {
     private List<PublicationResponseDTO> getPublicationResponseDTOS(Page<Publication> publicationPage, User user) {
         return publicationPage.stream()
                 .map(publication -> {
+
                             PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(publication,
+
                                     productFileService.findImagesByPublicationId(publication.getId()),
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
                                     numericValueRepository.findAllByPublication_Id(publication.getId()),
                                     isLiked(user, publication),
                                     userService.isFollowingToUser(user, publication.getSeller()));
+
+                            publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
+
                             publicationResponseDTO.setIsViewed(isViewed(user, publication));
+
                             return publicationResponseDTO;
                         }
                 ).toList();

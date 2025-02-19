@@ -25,6 +25,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private String indexName;
 
     private final ElasticsearchClient elasticsearchClient;
+
+    private final RedisTemplate<UUID, String> redisHistoryTemplate;
 
     private final PublicationMapper publicationMapper;
 
@@ -61,8 +65,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     @Override
     public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                           Integer page, Integer size, Boolean bargain, String productCondition,
-                                                          Float from, Float to, String locationName, Boolean isFree,
-                                                          String sellerType, List<String> filters, List<String> numericFilter, Authentication connectedUser)
+                                                          Float from, Float to, String locationName, Boolean isFree, String sellerType,
+                                                          String searchText, List<String> filters, List<String> numericFilter, Authentication connectedUser)
             throws SearchQueryException {
 
         User user = (User) connectedUser.getPrincipal();
@@ -87,6 +91,9 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
         long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
         boolean isLast = ((long) (page + 1) * size) >= totalElements;
+
+
+        saveIntoSearchHistory(user, searchText);
 
         return publicationNodeHandler1.handlePublicationNodes(editQuery(publicationDocuments, user), isLast);
     }
@@ -135,6 +142,12 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
             log.error("Exception occurred: ", ioException);
             throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
+    }
+
+    @Override
+    public List<String> getLastQueriedValues(Authentication connectedUser) {
+            User user = (User) connectedUser.getPrincipal();
+            return redisHistoryTemplate.opsForList().range(user.getUserId(), 0, -1);
     }
 
     private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(
@@ -202,6 +215,11 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .toList();
     }
 
+    private void saveIntoSearchHistory(User user, String query) {
+        UUID userId = user.getUserId();
+        redisHistoryTemplate.opsForList().leftPush(userId, query);
+        redisHistoryTemplate.opsForList().trim(userId, 0, 9);
+    }
 
     private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
         User user = (User) connectedUser.getPrincipal();
@@ -224,6 +242,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 numericValueRepository.findAllByPublication_Id(publication.getId()),
                 isLiked(user, publication), userService.isFollowingToUser(user, publication.getSeller()));
 
+        publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
         publicationResponseDTO.setIsViewed(isViewed(user, publication));
 
         return publicationResponseDTO;

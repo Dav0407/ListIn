@@ -1,8 +1,6 @@
 package com.igriss.ListIn.publication.mapper;
 
 
-import com.igriss.ListIn.publication.dto.NumericValueRequestDTO;
-import com.igriss.ListIn.publication.dto.NumericValueResponseDTO;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
@@ -80,7 +78,6 @@ public class PublicationMapper {
                 .publicationType(publication.getPublicationType())
                 .productCondition(publication.getProductCondition())
                 .likes(publication.getLikes() != null ? publication.getLikes() : 0L)
-                .views(publication.getViews() != null ? publication.getViews() : 0L)
                 .createdAt(publication.getDatePosted())
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))

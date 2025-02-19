@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -29,7 +30,7 @@ public class PublicationSearchController {
     private final InputPredictionService inputPredictionService;
 
     @Operation(summary = "${search-controller.deepSearch.summary}", description = "${search-controller.deepSearch.description}")
-    @GetMapping({"",  "/{pCategory}", "/{pCategory}/{category}"})
+    @GetMapping({"", "/{pCategory}", "/{pCategory}/{category}"})
     public List<PublicationNode> deepSearch(@PathVariable(required = false) UUID pCategory,
                                             @PathVariable(required = false) UUID category,
                                             @RequestParam(required = false) String query,
@@ -42,11 +43,12 @@ public class PublicationSearchController {
                                             @RequestParam(required = false) String locationName,
                                             @RequestParam(required = false) Boolean isFree,
                                             @RequestParam(required = false) String sellerType,
+                                            @RequestParam String searchText,
                                             @RequestParam(value = "filter", required = false) List<String> filters,
                                             @RequestParam(value = "numeric", required = false) List<String> numericFilter,
                                             Authentication connectedUser
     ) throws SearchQueryException {
-        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter, connectedUser);
+        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, searchText, filters, numericFilter, connectedUser);
     }
 
     @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")
@@ -95,6 +97,11 @@ public class PublicationSearchController {
     ) throws SearchQueryException {
         return ResponseEntity.ok(searchService.getPublicationsCount(pCategory, category, query, page, size, bargain,
                 productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter));
+    }
+
+    @GetMapping("/last-queried")
+    public ResponseEntity<List<String>> getLastQueriedValues(Authentication connectedUser) {
+        return ResponseEntity.of(Optional.ofNullable(searchService.getLastQueriedValues(connectedUser)));
     }
 
 }

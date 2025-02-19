@@ -24,4 +24,8 @@ public interface PublicationViewRepository extends JpaRepository<PublicationView
             last_viewed_at = CURRENT_TIMESTAMP
         """, nativeQuery = true)
     void upsertView(UUID id, UUID publicationId, UUID userId);
+
+    Long countAllByPublication_IdAndUser_UserId(UUID publicationId, UUID userUserId);
+
+    Long countAllByPublication_Id(UUID publicationId);
 }
