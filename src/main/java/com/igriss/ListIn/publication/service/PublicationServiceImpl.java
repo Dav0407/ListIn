@@ -6,7 +6,6 @@ import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
-import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.*;
@@ -82,7 +81,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public PageResponse<UserPublicationDTO> findAllByUser(int page, int size, Authentication connectedUser) {
+    public PageResponse<PublicationResponseDTO> findAllByUser(int page, int size, Authentication connectedUser) {
 
         User user = (User) connectedUser.getPrincipal();
 
@@ -90,30 +89,9 @@ public class PublicationServiceImpl implements PublicationService {
 
         Page<Publication> publicationPage = publicationRepository.findAllBySeller(pageable, user);
 
-        List<UserPublicationDTO> publicationsDTOList = publicationPage.stream()
+        List<PublicationResponseDTO> publicationsDTOList = getPublicationResponseDTOS(publicationPage, user);
 
-                .map(publication ->
-
-                        publicationMapper.toUserPublicationDTO(publication,
-
-                                productImageRepository.findAllByPublication_Id(publication.getId()),
-
-                                productFileService.findVideoUrlByPublicationId(publication.getId()),
-
-                                numericValueRepository.findAllByPublication_Id(publication.getId())
-                        )
-
-                ).toList();
-
-        return new PageResponse<>(
-                publicationsDTOList,
-                publicationPage.getNumber(),
-                publicationPage.getSize(),
-                publicationPage.getTotalElements(),
-                publicationPage.getTotalPages(),
-                publicationPage.isFirst(),
-                publicationPage.isLast()
-        );
+        return getPageResponse(publicationPage,publicationsDTOList);
     }
 
     @Override

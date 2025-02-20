@@ -1,11 +1,9 @@
 package com.igriss.ListIn.publication.controller;
 
-import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
-import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
@@ -42,9 +40,9 @@ public class PublicationController {
 
     @Operation(summary = "${publication-controller.user-publications.summary}", description = "${publication-controller.user-publications.description}")
     @GetMapping("/user-publications")
-    public ResponseEntity<PageResponse<UserPublicationDTO>> getPublicationsOfUser(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                                  @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-                                                                                  Authentication connectedUser) {
+    public ResponseEntity<PageResponse<PublicationResponseDTO>> getPublicationsOfUser(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                                                      @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                                                      Authentication connectedUser) {
         return ResponseEntity.ok(publicationService.findAllByUser(page, size, connectedUser));
     }
 
@@ -102,7 +100,7 @@ public class PublicationController {
     }
 
     @DeleteMapping("/delete/{publicationId}")
-    public ResponseEntity<Object> deletePublication(@PathVariable UUID publicationId, Authentication authentication){
+    public ResponseEntity<Object> deletePublication(@PathVariable UUID publicationId, Authentication authentication) {
         publicationService.deletePublication(publicationId, authentication);
         return ResponseEntity.status(204).body("Publication deleted successfully");
     }

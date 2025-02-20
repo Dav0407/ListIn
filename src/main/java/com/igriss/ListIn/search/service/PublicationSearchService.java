@@ -14,12 +14,12 @@ public interface PublicationSearchService {
 
     List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                    Integer page, Integer size, Boolean bargain, String productCondition,
-                                                   Float from, Float to, String locationName,Boolean isFree, String sellerType,
+                                                   Float from, Float to, String locationName, Boolean isFree, String sellerType,
                                                    String searchText, List<String> filters, List<String> numericFilter, Authentication connectedUser) throws SearchQueryException;
 
     FoundPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
                                               Integer page, Integer size, Boolean bargain, String productCondition,
-                                              Float from, Float to, String locationName,Boolean isFree,
+                                              Float from, Float to, String locationName, Boolean isFree,
                                               String sellerType, List<String> filters, List<String> numericFilter) throws SearchQueryException;
 
     List<PublicationNode> findAllLatestPublications(Integer page, Integer size, Boolean bargain, String productCondition,

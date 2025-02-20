@@ -3,7 +3,6 @@ package com.igriss.ListIn.publication.mapper;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
-import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.entity.NumericValue;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationImage;
@@ -83,27 +82,6 @@ public class PublicationMapper {
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
                 .seller(userMapper.toUserResponseDTO(publication.getSeller(), following))
                 .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication, numericValues))
-                .build();
-    }
-
-    public UserPublicationDTO toUserPublicationDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, List<NumericValue> numericValues) {
-        return UserPublicationDTO.builder()
-                .id(publication.getId())
-                .title(publication.getTitle())
-                .description(publication.getDescription())
-                .price(publication.getPrice() != null ? publication.getPrice() : 0F)
-                .bargain(publication.getBargain())
-                .locationName(publication.getLocationName())
-                .latitude(publication.getLatitude())
-                .longitude(publication.getLongitude())
-                .productImages(publicationImageMapper.toImageDTOList(publicationImages))
-                .videoUrl(publicationVideo)
-                .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication, numericValues))
-                .publicationType(publication.getPublicationType())
-                .productCondition(publication.getProductCondition())
-                .createdAt(publication.getDatePosted())
-                .updatedAt(publication.getDateUpdated())
-                .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
                 .build();
     }
 
