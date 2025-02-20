@@ -92,8 +92,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
         boolean isLast = ((long) (page + 1) * size) >= totalElements;
 
-
-        saveIntoSearchHistory(user, searchText);
+        if (searchText != null)
+            saveIntoSearchHistory(user, searchText);
 
         return publicationNodeHandler1.handlePublicationNodes(editQuery(publicationDocuments, user), isLast);
     }
@@ -146,8 +146,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     @Override
     public List<String> getLastQueriedValues(Authentication connectedUser) {
-            User user = (User) connectedUser.getPrincipal();
-            return redisHistoryTemplate.opsForList().range(user.getUserId(), 0, -1);
+        User user = (User) connectedUser.getPrincipal();
+        return redisHistoryTemplate.opsForList().range(user.getUserId(), 0, -1);
     }
 
     private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(

@@ -13,8 +13,4 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping({"/zohoverify/verifyforzoho", "/zohoverify/verifyforzoho.html"})
-    public String zohoPage(){
-        return "verifyforzoho";
-    }
 }

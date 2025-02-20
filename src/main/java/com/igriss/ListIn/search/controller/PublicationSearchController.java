@@ -43,7 +43,7 @@ public class PublicationSearchController {
                                             @RequestParam(required = false) String locationName,
                                             @RequestParam(required = false) Boolean isFree,
                                             @RequestParam(required = false) String sellerType,
-                                            @RequestParam String searchText,
+                                            @RequestParam(required = false) String searchText,
                                             @RequestParam(value = "filter", required = false) List<String> filters,
                                             @RequestParam(value = "numeric", required = false) List<String> numericFilter,
                                             Authentication connectedUser
