@@ -77,7 +77,7 @@ public class DatabaseInitializer {
         log.info("#Redis cache successfully cleared");
     }
 
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         userRepository.saveAll(
                 List.of(
@@ -93,7 +93,7 @@ public class DatabaseInitializer {
         for (String script : scripts) {
             executeScript(script);
         }
-    }
+    }*/
 
     private void clearDatabase() {
         try {
