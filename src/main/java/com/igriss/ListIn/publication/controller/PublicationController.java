@@ -102,7 +102,7 @@ public class PublicationController {
     @DeleteMapping("/delete/{publicationId}")
     public ResponseEntity<Object> deletePublication(@PathVariable UUID publicationId, Authentication authentication) {
         publicationService.deletePublication(publicationId, authentication);
-        return ResponseEntity.status(204).body("Publication deleted successfully");
+        return ResponseEntity.ok().body("Publication deleted successfully");
     }
 
     @PostMapping("/view/{publicationId}")

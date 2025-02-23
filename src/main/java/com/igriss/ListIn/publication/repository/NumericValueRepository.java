@@ -11,4 +11,6 @@ public interface NumericValueRepository extends JpaRepository<NumericValue, UUID
     List<NumericValue> findAllByPublication_Id(UUID publicationId);
 
     List<NumericValue> findAllByPublication_IdIn(Collection<UUID> publicationIds);
+
+    void deleteAllByPublication_Id(UUID publicationId);
 }

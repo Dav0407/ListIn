@@ -1,9 +1,10 @@
-package com.igriss.ListIn.publication.service;
+package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.publication.dto.GroupedAttributeDTO;
 import com.igriss.ListIn.publication.entity.AttributeKey;
 import com.igriss.ListIn.publication.entity.AttributeValue;
 import com.igriss.ListIn.publication.repository.CategoryAttributeRepository;
+import com.igriss.ListIn.publication.service.BrandModelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

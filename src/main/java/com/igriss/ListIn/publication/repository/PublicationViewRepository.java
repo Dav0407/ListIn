@@ -25,7 +25,11 @@ public interface PublicationViewRepository extends JpaRepository<PublicationView
         """, nativeQuery = true)
     void upsertView(UUID id, UUID publicationId, UUID userId);
 
-    Long countAllByPublication_IdAndUser_UserId(UUID publicationId, UUID userUserId);
-
     Long countAllByPublication_Id(UUID publicationId);
+
+    Boolean existsByUser_UserIdAndPublication_Id(UUID userUserId, UUID publicationId);
+
+    @Modifying
+    @Query("DELETE FROM PublicationView pl WHERE pl.publication.id = :publicationId")
+    void deleteAllByPublication_Id(UUID publicationId);
 }

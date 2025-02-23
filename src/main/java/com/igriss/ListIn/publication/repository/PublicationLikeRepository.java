@@ -6,6 +6,9 @@ import com.igriss.ListIn.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,5 +24,12 @@ public interface PublicationLikeRepository extends JpaRepository<PublicationLike
 
     Optional<PublicationLike> findByPublication_IdAndUser_UserId(UUID publicationId, UUID userUserId);
 
-    boolean existsByUserAndPublication_Id(User user, UUID publicationId);
+    Boolean existsByPublication_IdAndUser_UserId(UUID publicationId, UUID userId);
+
+    @Modifying
+    @Query("DELETE FROM PublicationLike pl WHERE pl.publication.id = :publicationId")
+    void deleteByPublicationId(@Param("publicationId") UUID publicationId);
+
+    boolean existsByUser_UserIdAndPublication_Id(UUID userUserId, UUID publicationId);
+
 }

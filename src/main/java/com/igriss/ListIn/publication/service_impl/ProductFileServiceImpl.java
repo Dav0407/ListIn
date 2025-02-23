@@ -1,4 +1,4 @@
-package com.igriss.ListIn.publication.service;
+package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.config.Images.S3Service;
 import com.igriss.ListIn.publication.entity.PublicationImage;
@@ -8,16 +8,17 @@ import com.igriss.ListIn.publication.mapper.PublicationImageMapper;
 import com.igriss.ListIn.publication.mapper.PublicationVideoMapper;
 import com.igriss.ListIn.publication.repository.ProductImageRepository;
 import com.igriss.ListIn.publication.repository.ProductVideoRepository;
+import com.igriss.ListIn.publication.service.ProductFileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +66,16 @@ public class ProductFileServiceImpl implements ProductFileService {
     @Override
     public String findVideoUrlByPublicationId(UUID id) {
         return productVideoRepository.findByPublication_Id(id).orElse(new PublicationVideo()).getVideoUrl();
+    }
+
+    @Override
+    public Page<PublicationVideo> getVideoPublicationsByParent(UUID parentCategoryId, PageRequest of) {
+      return productVideoRepository.findAllByPublication_Category_ParentCategory_IdOrderByPublication_DateUpdatedDesc(parentCategoryId, of);
+    }
+
+    @Override
+    public Page<PublicationVideo> getVideoPublications(PageRequest of) {
+      return productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(of);
     }
 
     @Override

@@ -1,11 +1,8 @@
-package com.igriss.ListIn.publication.service;
+package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
-import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.PublicationLikeRepository;
 import com.igriss.ListIn.search.dto.PublicationNode;
-import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

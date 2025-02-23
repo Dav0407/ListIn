@@ -1,14 +1,15 @@
-package com.igriss.ListIn.publication.service;
+package com.igriss.ListIn.publication.service_impl;
 
-import com.igriss.ListIn.exceptions.*;
-import com.igriss.ListIn.publication.dto.NumericValueRequestDTO;
+import com.igriss.ListIn.exceptions.PublicationNotFoundException;
+import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.*;
+import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.publication.service.*;
 import com.igriss.ListIn.search.service.PublicationDocumentService;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
@@ -25,30 +26,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class PublicationServiceImpl implements PublicationService {
 
-    private final PublicationAttributeValueRepository publicationAttributeValueRepository;
-    private final CategoryAttributeRepository categoryAttributeRepository;
-    private final AttributeValueRepository attributeValueRepository;
-    private final PublicationLikeRepository publicationLikeRepository;
     private final PublicationRepository publicationRepository;
-    private final ProductImageRepository productImageRepository;
-    private final ProductVideoRepository productVideoRepository;
+
     private final ProductFileService productFileService;
     private final UserService userService;
 
     private final PublicationDocumentService publicationDocumentService;
     private final PublicationMapper publicationMapper;
 
-    private final NumericValueRepository numericValueRepository;
-    private final NumericFieldRepository numericFieldRepository;
+    private final NumericValueService numericValueService;
+
     private final PublicationAttributeValueService publicationAttributeValueService;
-    private final PublicationViewRepository publicationViewRepository;
+    private final PublicationLikeService publicationLikeService;
+    private final PublicationViewService publicationViewService;
 
     @Override
     @Transactional
@@ -72,10 +71,10 @@ public class PublicationServiceImpl implements PublicationService {
                 .filter(url -> !url.isEmpty())
                 .ifPresent(url -> productFileService.saveVideo(url, finalPublication));
 
-        List<NumericValue> numericValues = savePublicationNumericValues(request.getNumericValues(), publication);
+        List<NumericValue> numericValues = numericValueService.savePublicationNumericValues(request.getNumericValues(), publication);
 
         // Save attribute values
-        savePublicationAttributeValues(request.getAttributeValues(), publication, numericValues);
+        publicationAttributeValueService.savePublicationAttributeValues(request.getAttributeValues(), publication, numericValues);
 
         return publication.getId();
     }
@@ -101,9 +100,9 @@ public class PublicationServiceImpl implements PublicationService {
         Page<PublicationVideo> publicationVideos;
 
         if (pCategory != null)
-            publicationVideos = productVideoRepository.findAllByPublication_Category_ParentCategory_IdOrderByPublication_DateUpdatedDesc(pCategory, PageRequest.of(page, size));
+            publicationVideos = productFileService.getVideoPublicationsByParent(pCategory, PageRequest.of(page, size));
         else
-            publicationVideos = productVideoRepository.findAllByOrderByPublication_DateUpdatedDesc(PageRequest.of(page, size));
+            publicationVideos = productFileService.getVideoPublications(PageRequest.of(page, size));
 
         Page<Publication> publicationPage = publicationVideos.map(
                 publicationVideo -> publicationRepository.findById(
@@ -124,10 +123,7 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(() -> new PublicationNotFoundException("No such Publication found"));
 
-        if (publicationLikeRepository.existsByUserAndPublication(user, publication)) {
-            log.error("User have already liked to publication with id: {}", publication.getId());
-            throw new BadRequestException(String.format("You have already liked to publication with id: %s", publication.getId()));
-        }
+        UUID like = publicationLikeService.like(user, publication);
 
         Integer isUpdated = publicationRepository.incrementLike(publication.getId());
 
@@ -136,12 +132,7 @@ public class PublicationServiceImpl implements PublicationService {
         else
             log.warn("Failed to UPDATE publication with ID: '{}'", publicationId);
 
-        publicationLikeRepository.save(PublicationLike.builder()
-                .user(user)
-                .publication(publication)
-                .build());
-
-        return publication.getId();
+        return like;
     }
 
     @Override
@@ -153,10 +144,7 @@ public class PublicationServiceImpl implements PublicationService {
             throw new PublicationNotFoundException("No such Publication found");
         }
 
-        if (!publicationLikeRepository.existsByUserAndPublication_Id(user, publicationId)) {
-            log.error("User have not liked to this publication before: {}", publicationId);
-            throw new BadRequestException(String.format("You have not liked to this publication before: %s", publicationId));
-        }
+        UUID unlike = publicationLikeService.unlike(publicationId, user.getUserId());
 
         Integer isUpdated = publicationRepository.decrementLike(publicationId);
 
@@ -165,11 +153,8 @@ public class PublicationServiceImpl implements PublicationService {
         else
             log.warn("Failed to UNLIKE publication with ID: '{}'", publicationId);
 
+        return unlike;
 
-        publicationLikeRepository.findByPublication_IdAndUser_UserId(publicationId, user.getUserId())
-                .ifPresent(publicationLike -> publicationLikeRepository.deleteById(publicationLike.getId()));
-
-        return publicationId;
     }
 
     @Override
@@ -181,17 +166,16 @@ public class PublicationServiceImpl implements PublicationService {
             log.error("Publication with id: {} does not exist", publicationId);
         }
 
-        UUID newId = UUID.randomUUID();
-        publicationViewRepository.upsertView(newId, publicationId, user.getUserId());
-        return publicationId;
+        return publicationViewService.view(publicationId, user.getUserId());
     }
 
     @Override
     public PageResponse<PublicationResponseDTO> findAllLikedPublications(Integer page, Integer size, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
 
-        Page<Publication> publicationPage = publicationLikeRepository.findAllByUser(user, PageRequest.of(page, size))
-                .map(publicationLike ->
+        Page<PublicationLike> likedPublications = publicationLikeService.getLikedPublications(user, PageRequest.of(page, size));
+
+        Page<Publication> publicationPage = likedPublications.map(publicationLike ->
                         publicationRepository.findById(publicationLike.getPublication().getId()).orElseThrow(() -> new PublicationNotFoundException(
                                 String.format("Publication with ID '%s' not found", publicationLike.getPublication().getId()))
                         )
@@ -203,12 +187,12 @@ public class PublicationServiceImpl implements PublicationService {
                             PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(publication,
                                     productFileService.findImagesByPublicationId(publication.getId()),
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
-                                    numericValueRepository.findAllByPublication_Id(publication.getId()),
+                                    numericValueService.findNumericFields(publication.getId()),
                                     true, userService.isFollowingToUser(user, publication.getSeller()));
 
-                            publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
+                            publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
 
-                            publicationResponseDTO.setIsViewed(isViewed(user, publication));
+                            publicationResponseDTO.setIsViewed(publicationViewService.isViewed(user.getUserId(), publication.getId()));
 
                             return publicationResponseDTO;
                         }
@@ -280,13 +264,13 @@ public class PublicationServiceImpl implements PublicationService {
         String videoUrl = productFileService.findVideoUrlByPublicationId(updatedPublication.getId());
 
         PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(
-                updatedPublication, images, videoUrl, numericValueRepository.findAllByPublication_Id(publication.getId()),
+                updatedPublication, images, videoUrl, numericValueService.findNumericFields(publication.getId()),
                 false, userService.isFollowingToUser(connectedUser, publication.getSeller())
         );
 
-        publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
+        publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
 
-        publicationResponseDTO.setIsViewed(isViewed(connectedUser, publication));
+        publicationResponseDTO.setIsViewed(publicationViewService.isViewed(connectedUser.getUserId(), publication.getId()));
 
         return publicationResponseDTO;
     }
@@ -305,55 +289,16 @@ public class PublicationServiceImpl implements PublicationService {
 
             publicationDocumentService.deleteById(publicationId);
 
+            numericValueService.deletePublicationNumericFields(publicationId);
+
+            publicationLikeService.deletePublicationLikes(publicationId);
+
+            publicationViewService.deletePublicationViews(publicationId);
+
             return ResponseEntity.noContent().build();
 
         }).orElse(ResponseEntity.notFound().build());
 
-    }
-
-
-    private void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication, List<NumericValue> numericValues) {
-
-        List<CategoryAttribute> categoryAttributes = categoryAttributeRepository
-                .findByCategory_Id(publication.getCategory().getId());
-        List<PublicationAttributeValue> pavList = new ArrayList<>();
-        for (PublicationRequestDTO.AttributeValueDTO attributeValueDTO : attributeValues) {
-            CategoryAttribute categoryAttribute = categoryAttributes.stream()
-                    .filter(ca -> ca.getAttributeKey().getId().equals(attributeValueDTO.getAttributeId()))
-                    .findFirst()
-                    .orElseThrow(() -> new ValidationException(
-                            "Invalid attribute for category",
-                            List.of("Attribute " + attributeValueDTO.getAttributeId() + " is not valid for this category")
-                    ));
-
-            String widgetType = categoryAttribute.getAttributeKey().getWidgetType();
-
-            if (("oneSelectable".equals(widgetType) || "colorSelectable".equals(widgetType)) && attributeValueDTO.getAttributeValueIds().size() > 1) {
-                var exception = new ValidationException(
-                        "This attribute allows only one value",
-                        List.of("Attribute " + attributeValueDTO.getAttributeId() + " allows only one value"));
-                log.error("Exception occurred: ", exception);
-                throw exception;
-            }
-
-            for (int i = 0; i < attributeValueDTO.getAttributeValueIds().size(); i++) {
-                UUID valueId = attributeValueDTO.getAttributeValueIds().get(i);
-                AttributeValue attributeValue = attributeValueRepository.findById(valueId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Attribute value not found: " + valueId));
-
-                PublicationAttributeValue pav = PublicationAttributeValue.builder()
-                        .publication(publication)
-                        .categoryAttribute(categoryAttribute)
-                        .attributeValue(attributeValue)
-                        .valueOrder("multiSelectable".equals(widgetType) ? i : 0)
-                        .build();
-
-                pavList.add(publicationAttributeValueRepository.save(pav));
-            }
-        }
-
-        //map into elastic search engine and save publication document
-        publicationDocumentService.saveIntoPublicationDocument(publication, pavList, numericValues);
     }
 
     @NotNull
@@ -370,7 +315,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @NotNull
-    private List<PublicationResponseDTO> getPublicationResponseDTOS(Page<Publication> publicationPage, User user) {
+    public List<PublicationResponseDTO> getPublicationResponseDTOS(Page<Publication> publicationPage, User user) {
         return publicationPage.stream()
                 .map(publication -> {
 
@@ -378,13 +323,13 @@ public class PublicationServiceImpl implements PublicationService {
 
                                     productFileService.findImagesByPublicationId(publication.getId()),
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
-                                    numericValueRepository.findAllByPublication_Id(publication.getId()),
-                                    isLiked(user, publication),
+                                    numericValueService.findNumericFields(publication.getId()),
+                                    publicationLikeService.isLiked(user.getUserId(), publication.getId()),
                                     userService.isFollowingToUser(user, publication.getSeller()));
 
-                            publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
+                            publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
 
-                            publicationResponseDTO.setIsViewed(isViewed(user, publication));
+                            publicationResponseDTO.setIsViewed(publicationViewService.isViewed(user.getUserId(), publication.getId()));
 
                             return publicationResponseDTO;
                         }
@@ -392,26 +337,4 @@ public class PublicationServiceImpl implements PublicationService {
 
     }
 
-    private Boolean isLiked(User user, Publication publication) {
-        return publicationLikeRepository.existsByUserAndPublication(user, publication);
-    }
-
-    private Boolean isViewed(User user, Publication publication) {
-        return publicationViewRepository.existsByPublicationAndUser(publication, user);
-    }
-
-    private List<NumericValue> savePublicationNumericValues(List<NumericValueRequestDTO> request, Publication publication) {
-        if (request != null && !request.isEmpty()) {
-            List<NumericValue> numericValues = request.stream()
-                    .map(numericDto -> NumericValue.builder()
-                            .publication(publication)
-                            .numericField(numericFieldRepository.findById(numericDto.getNumericFieldId()).orElseThrow(() ->
-                                    new ResourceNotFoundException(String.format("Numeric filed with ID [%s] does not exist!!!", numericDto.getNumericFieldId()))))
-                            .value(numericDto.getNumericValue())
-                            .build())
-                    .toList();
-            return numericValueRepository.saveAll(numericValues);
-        }
-        return null;
-    }
 }

@@ -1,4 +1,4 @@
-package com.igriss.ListIn.publication.service;
+package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.publication.dto.BrandModelDTO;
 import com.igriss.ListIn.publication.entity.AttributeKey;
@@ -6,12 +6,12 @@ import com.igriss.ListIn.publication.entity.AttributeValue;
 import com.igriss.ListIn.publication.entity.brand_models.*;
 import com.igriss.ListIn.publication.repository.AttributeValueRepository;
 import com.igriss.ListIn.publication.repository.brand_models_repository.*;
+import com.igriss.ListIn.publication.service.BrandModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

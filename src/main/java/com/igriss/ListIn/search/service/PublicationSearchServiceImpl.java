@@ -6,10 +6,13 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.Publication;
-import com.igriss.ListIn.publication.entity.PublicationVideo;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.*;
-import com.igriss.ListIn.publication.service.PublicationNodeHandler;
+import com.igriss.ListIn.publication.service.NumericValueService;
+import com.igriss.ListIn.publication.service.ProductFileService;
+import com.igriss.ListIn.publication.service.PublicationLikeService;
+import com.igriss.ListIn.publication.service.PublicationViewService;
+import com.igriss.ListIn.publication.service_impl.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.dto.FoundPublicationsDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
@@ -26,7 +29,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -37,24 +39,20 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PublicationSearchServiceImpl implements PublicationSearchService {
+public class PublicationSearchServiceImpl implements PublicationSearchService{
 
-    private final PublicationViewRepository publicationViewRepository;
     @Value("${elasticsearch.index-name}")
     private String indexName;
 
     private final ElasticsearchClient elasticsearchClient;
 
-    private final RedisTemplate<UUID, String> redisHistoryTemplate;
-
     private final PublicationMapper publicationMapper;
-
+    private final ProductFileService productFileService;
     private final PublicationRepository publicationRepository;
-    private final ProductImageRepository productImageRepository;
-    private final ProductVideoRepository productVideoRepository;
-    private final PublicationLikeRepository publicationLikeRepository;
+    private final PublicationLikeService publicationLikeService;
+    private final PublicationViewService publicationViewService;
 
-    private final NumericValueRepository numericValueRepository;
+    private final NumericValueService numericValueService;
 
     private final PublicationNodeHandler publicationNodeHandler1;
     private final PublicationNodeHandler publicationNodeHandler2;
@@ -144,10 +142,19 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         }
     }
 
+    private final RedisTemplate<UUID, String> redisHistoryTemplate;
+
+
     @Override
     public List<String> getLastQueriedValues(Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
         return redisHistoryTemplate.opsForList().range(user.getUserId(), 0, -1);
+    }
+
+    private void saveIntoSearchHistory(User user, String query) {
+        UUID userId = user.getUserId();
+        redisHistoryTemplate.opsForList().leftPush(userId, query);
+        redisHistoryTemplate.opsForList().trim(userId, 0, 9);
     }
 
     private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(
@@ -215,12 +222,6 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .toList();
     }
 
-    private void saveIntoSearchHistory(User user, String query) {
-        UUID userId = user.getUserId();
-        redisHistoryTemplate.opsForList().leftPush(userId, query);
-        redisHistoryTemplate.opsForList().trim(userId, 0, 9);
-    }
-
     private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
         User user = (User) connectedUser.getPrincipal();
 
@@ -235,25 +236,15 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private PublicationResponseDTO mapToPublicationDTO(Publication publication, User user) {
         PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(
                 publication,
-                productImageRepository.findAllByPublication_Id(publication.getId()),
-                productVideoRepository.findByPublication_Id(publication.getId())
-                        .map(PublicationVideo::getVideoUrl)
-                        .orElse(null),
-                numericValueRepository.findAllByPublication_Id(publication.getId()),
-                isLiked(user, publication), userService.isFollowingToUser(user, publication.getSeller()));
+                productFileService.findImagesByPublicationId(publication.getId()),
+                productFileService.findVideoUrlByPublicationId(publication.getId()),
+                numericValueService.findNumericFields(publication.getId()),
+                publicationLikeService.isLiked(user.getUserId(), publication.getId()), userService.isFollowingToUser(user, publication.getSeller()));
 
-        publicationResponseDTO.setViews(publicationViewRepository.countAllByPublication_Id(publication.getId()));
-        publicationResponseDTO.setIsViewed(isViewed(user, publication));
+        publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
+        publicationResponseDTO.setIsViewed(publicationViewService.isViewed(user.getUserId(), publication.getId()));
 
         return publicationResponseDTO;
-    }
-
-    private Boolean isLiked(User user, Publication publication) {
-        return publicationLikeRepository.existsByUserAndPublication(user, publication);
-    }
-
-    private Boolean isViewed(User user, Publication publication) {
-        return publicationViewRepository.existsByPublicationAndUser(publication, user);
     }
 
 }

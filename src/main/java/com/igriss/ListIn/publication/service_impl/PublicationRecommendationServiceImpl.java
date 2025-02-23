@@ -1,10 +1,11 @@
-package com.igriss.ListIn.publication.service;
+package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.static_entity.Category;
 import com.igriss.ListIn.publication.enums.PublicationStatus;
 import com.igriss.ListIn.publication.repository.PublicationLikeRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
+import com.igriss.ListIn.publication.service.PublicationRecommendationService;
 import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PublicationRecommendationServiceImpl implements PublicationRecommendationService{
+public class PublicationRecommendationServiceImpl implements PublicationRecommendationService {
 
 
     private final PublicationRepository publicationRepository;

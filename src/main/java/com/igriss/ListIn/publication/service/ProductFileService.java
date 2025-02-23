@@ -2,6 +2,9 @@ package com.igriss.ListIn.publication.service;
 
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationImage;
+import com.igriss.ListIn.publication.entity.PublicationVideo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -26,4 +29,8 @@ public interface ProductFileService {
     void updateVideoByPublication(Publication publication, Map<Boolean, String> videoUrl);
 
     void deletePublicationFiles(UUID publicationId);
+
+    Page<PublicationVideo> getVideoPublicationsByParent(UUID pCategory, PageRequest of);
+
+    Page<PublicationVideo> getVideoPublications(PageRequest of);
 }

@@ -1,4 +1,4 @@
-package com.igriss.ListIn.publication.service;
+package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.publication.dto.GroupedAttributeDTO;
 import com.igriss.ListIn.publication.dto.NumericFieldDTO;
@@ -8,7 +8,6 @@ import com.igriss.ListIn.publication.entity.NumericField;
 import com.igriss.ListIn.publication.entity.static_entity.Category;
 import com.igriss.ListIn.publication.repository.CategoryRepository;
 import com.igriss.ListIn.publication.repository.NumericFieldRepository;
-import com.igriss.ListIn.publication.repository.NumericValueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
