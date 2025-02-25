@@ -177,3 +177,13 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('5389b1e9-34ad-4a15-801a-b273aad54401','1727a544-ef6c-4fb9-bdaf-8a3eea1e1c23','30ed6de6-3a89-4f57-8166-d9f6a29fd81b');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('7d6b37f3-12d5-43e6-9503-007d4f2cbae7','bf253285-21a8-424b-9045-661b2b900a48','30ed6de6-3a89-4f57-8166-d9f6a29fd81b');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('37f6a6ac-751d-4515-9231-c2717dcc8d22','fdffecf1-2ff8-44d5-8efc-40868b39f836','30ed6de6-3a89-4f57-8166-d9f6a29fd81b');
+
+--Vehicle rental category-attributes
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b702f47e-50eb-4d8a-8c1a-afba232ee2e3','e61c2d80-8f51-4beb-b813-23faab8e71b5','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b8cc678a-ea60-4b5e-9461-24f1018b4438','80443ee6-bf93-4ac7-b88b-4cfbf4ceb911','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('0f376f15-238d-4a05-85de-9f17c5d7105b','e980fb54-71b9-49fb-bf4c-a79439566d35','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2810d966-b8d7-4397-acc4-ff2f9d5120fc','2e4b73cf-bd02-4d4d-8502-8bbaedaedcf4','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('3785be81-5921-4c1e-a0bc-c77eed7f6701','01830921-0d2b-4496-a0f2-5d79aaed0277','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('737370f0-1298-40ad-a939-2070249c652d','8ab4a9cf-2936-4eef-a243-dbaf3ca9aaff','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('027fb408-dd05-4955-ac2d-4093ef62de1d','de880191-98ec-49b8-9c19-6dc17501971f','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a248b206-2e4a-4bee-9930-58841e7f612c','c4864c4e-eed8-4588-8eed-010761d677d1','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');

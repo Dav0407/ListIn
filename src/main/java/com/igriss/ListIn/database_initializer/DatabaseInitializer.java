@@ -48,6 +48,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/auto/watercraft_brand_models.sql",
             "/database_sql_scripts/models/auto/special_vehicle_brand_models.sql",
             "/database_sql_scripts/models/auto/agricultural_&_construction_vehicle_brand_models.sql",
+            "/database_sql_scripts/models/auto/vehicle_rental_brand_models.sql",
             "/database_sql_scripts/models/electronics/smartphone_brand_models.sql",
             "/database_sql_scripts/models/electronics/laptop_brand_models.sql",
             "/database_sql_scripts/models/electronics/smartwatch_brand_models.sql",
@@ -61,7 +62,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/numerics/auto_numeric_fields.sql"
     );
 
-/*    @PostConstruct
+   @PostConstruct
     public void flushRedis() {
         Objects.requireNonNull(redisTemplate
                         .getConnectionFactory()
@@ -70,7 +71,7 @@ public class DatabaseInitializer {
                 .serverCommands()
                 .flushAll();
         log.info("#Redis cache successfully cleared");
-    }*/
+    }
 
     @PostConstruct
     public void init() {

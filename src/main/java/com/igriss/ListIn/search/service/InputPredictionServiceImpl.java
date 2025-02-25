@@ -36,6 +36,7 @@ public class InputPredictionServiceImpl implements InputPredictionService {
             "Console Brand Model",
 
             "Car brand model",
+            "Vehicle Model",
             "Motorcycle Model",
             "Commercial Vehicle Model",
             "Watercraft Model",
