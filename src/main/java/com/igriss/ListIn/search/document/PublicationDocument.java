@@ -46,6 +46,18 @@ public class PublicationDocument {
     @Field(type = FieldType.Keyword)
     private String sellerType;
 
+    @Field(type = FieldType.Keyword, storeNullValue = true)
+    private UUID city_id;
+
+    @Field(type = FieldType.Keyword, storeNullValue = true)
+    private UUID country_id;
+
+    @Field(type = FieldType.Keyword, storeNullValue = true)
+    private UUID state_id;
+
+    @Field(type = FieldType.Keyword, storeNullValue = true)
+    private UUID county_id;
+
     @Field(type = FieldType.Keyword)
     private ProductCondition productCondition;
 

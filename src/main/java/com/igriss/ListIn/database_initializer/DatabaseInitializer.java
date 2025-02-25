@@ -59,7 +59,11 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/electronics/laptop_gpu_models.sql",
             "/database_sql_scripts/models/electronics/pc_gpu_models.sql",
             "/database_sql_scripts/models/electronics/pc_brand_models.sql",
-            "/database_sql_scripts/numerics/auto_numeric_fields.sql"
+            "/database_sql_scripts/numerics/auto_numeric_fields.sql",
+            "/database_sql_scripts/location-tree/countries.sql",
+            "/database_sql_scripts/location-tree/states.sql",
+            "/database_sql_scripts/location-tree/county.sql"
+//            "/database_sql_scripts/location-tree/cities.sql"
     );
 
    @PostConstruct
