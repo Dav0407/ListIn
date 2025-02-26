@@ -20,3 +20,4 @@ public class PublicationNode {
     private PublicationResponseDTO secondPublication;
 
 }
+
