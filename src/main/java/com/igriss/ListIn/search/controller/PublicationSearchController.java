@@ -44,11 +44,12 @@ public class PublicationSearchController {
                                             @RequestParam(required = false) Boolean isFree,
                                             @RequestParam(required = false) String sellerType,
                                             @RequestParam(required = false) String searchText,
+                                            @RequestParam(required = false) String locationIds,
                                             @RequestParam(value = "filter", required = false) List<String> filters,
                                             @RequestParam(value = "numeric", required = false) List<String> numericFilter,
                                             Authentication connectedUser
     ) throws SearchQueryException {
-        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, searchText, filters, numericFilter, connectedUser);
+        return searchService.searchWithAdvancedFilter(pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, locationIds, searchText, filters, numericFilter, connectedUser);
     }
 
     @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")
@@ -90,13 +91,14 @@ public class PublicationSearchController {
                                                                           @RequestParam(required = false) String locationName,
                                                                           @RequestParam(required = false) Boolean isFree,
                                                                           @RequestParam(required = false) String sellerType,
+                                                                          @RequestParam(required = false) String locationIds,
                                                                           @RequestParam(value = "filter", required = false) List<String> filters,
                                                                           @RequestParam(value = "numeric", required = false) List<String> numericFilter,
                                                                           @RequestParam(defaultValue = "0") Integer page,
                                                                           @RequestParam(defaultValue = "5") Integer size
     ) throws SearchQueryException {
         return ResponseEntity.ok(searchService.getPublicationsCount(pCategory, category, query, page, size, bargain,
-                productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter));
+                productCondition, from, to, locationName, isFree, sellerType, locationIds, filters, numericFilter));
     }
 
     @GetMapping("/last-queried")

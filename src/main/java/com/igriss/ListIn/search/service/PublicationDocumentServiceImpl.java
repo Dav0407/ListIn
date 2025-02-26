@@ -1,6 +1,7 @@
 package com.igriss.ListIn.search.service;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
+import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.entity.*;
 import com.igriss.ListIn.publication.enums.ProductCondition;
@@ -23,9 +24,10 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
     private final PublicationDocumentMapper publicationDocumentMapper;
     private final PublicationDocumentRepository publicationDocumentRepository;
 
+    private final LocationService locationService;
 
     @Override
-    public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues) {
+    public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues, Map<String, UUID> locationIds) {
 
         List<AttributeValue> attributeValues = pavList.stream()
                 .map(PublicationAttributeValue::getAttributeValue)
@@ -64,8 +66,9 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
                                 .value(numericValue.getValue())
                                 .build()).toList() : new ArrayList<>();
 
+
         // Create a PublicationDocument and set attributeKeyDocuments
-        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments, document);
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments, document, locationIds);
 
         publicationDocumentRepository.save(publicationDocument);
     }

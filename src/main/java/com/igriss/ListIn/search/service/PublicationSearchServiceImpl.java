@@ -16,6 +16,7 @@ import com.igriss.ListIn.publication.service_impl.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.dto.FoundPublicationsDTO;
 import com.igriss.ListIn.search.dto.PublicationNode;
+import com.igriss.ListIn.search.repository.SearchParamMapper;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
 import com.igriss.ListIn.search.service.supplier.SearchParams;
 import com.igriss.ListIn.user.entity.User;
@@ -39,13 +40,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PublicationSearchServiceImpl implements PublicationSearchService{
+public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     @Value("${elasticsearch.index-name}")
     private String indexName;
 
     private final ElasticsearchClient elasticsearchClient;
 
+    private final SearchParamMapper searchParamMapper;
     private final PublicationMapper publicationMapper;
     private final ProductFileService productFileService;
     private final PublicationRepository publicationRepository;
@@ -64,17 +66,25 @@ public class PublicationSearchServiceImpl implements PublicationSearchService{
     public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
                                                           Integer page, Integer size, Boolean bargain, String productCondition,
                                                           Float from, Float to, String locationName, Boolean isFree, String sellerType,
-                                                          String searchText, List<String> filters, List<String> numericFilter, Authentication connectedUser)
+                                                          String locationIds, String searchText, List<String> filters, List<String> numericFilter, Authentication connectedUser)
             throws SearchQueryException {
 
         User user = (User) connectedUser.getPrincipal();
+
+        Map<String, String> locations = !locationIds.isBlank() ? parseLocations(locationIds) : new HashMap<>();
+
+        Map<String, List<String>> attributeFilter = !(filters == null || filters.isEmpty()) ? parseAttributeFilter(filters) : new HashMap<>();
+
+        Map<String, String[]> numericFilters = !(numericFilter == null || numericFilter.isEmpty()) ? parseNumericFilter(numericFilter) : new HashMap<>();
 
         List<PublicationDocument> publicationDocuments = new ArrayList<>();
 
         SearchResponse<PublicationDocument> response;
         try {
-            response = getPublicationDocumentSearchResponse(
-                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter);
+            response = getPublicationDocumentSearchResponse(page, size,
+                    searchParamMapper.toSearchParams(
+                            pCategory, category, query, bargain, productCondition, from, to, locationName, isFree, locations, sellerType, attributeFilter, numericFilters)
+            );
 
 
             if (response.hits().hits() != null) {
@@ -108,11 +118,22 @@ public class PublicationSearchServiceImpl implements PublicationSearchService{
     @Override
     public FoundPublicationsDTO getPublicationsCount(UUID pCategory, UUID category, String query,
                                                      Integer page, Integer size, Boolean bargain, String productCondition,
-                                                     Float from, Float to, String locationName, Boolean isFree,
-                                                     String sellerType, List<String> filters, List<String> numericFilter) throws SearchQueryException {
+                                                     Float from, Float to, String locationName, Boolean isFree, String sellerType,
+                                                     String locationIds, List<String> filters, List<String> numericFilter)
+            throws SearchQueryException {
         try {
-            SearchResponse<PublicationDocument> search = getPublicationDocumentSearchResponse(
-                    pCategory, category, query, page, size, bargain, productCondition, from, to, locationName, isFree, sellerType, filters, numericFilter);
+
+            Map<String, String> locations = !(locationIds.isBlank()) ? parseLocations(locationIds) : new HashMap<>();
+
+            Map<String, List<String>> attributeFilter = filters != null && !filters.isEmpty() ? parseAttributeFilter(filters) : new HashMap<>();
+
+            Map<String, String[]> numericFilters = !(numericFilter == null || numericFilter.isEmpty()) ? parseNumericFilter(numericFilter) : new HashMap<>();
+
+
+            SearchResponse<PublicationDocument> search = getPublicationDocumentSearchResponse(page, size,
+                    searchParamMapper.toSearchParams(
+                            pCategory, category, query, bargain, productCondition, from, to, locationName, isFree, locations, sellerType, attributeFilter, numericFilters)
+            );
 
             Long found = search.hits().total() != null ? search.hits().total().value() : 0;
 
@@ -157,35 +178,17 @@ public class PublicationSearchServiceImpl implements PublicationSearchService{
         redisHistoryTemplate.opsForList().trim(userId, 0, 9);
     }
 
-    private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(
-            UUID pCategory, UUID category, String query, Integer page, Integer size, Boolean bargain,
-            String productCondition, Float from, Float to, String locationName, Boolean isFree,
-            String sellerType, List<String> filters, List<String> numericFilter) throws IOException {
+    private SearchResponse<PublicationDocument> getPublicationDocumentSearchResponse(Integer page, Integer size, SearchParams searchParams) throws IOException {
 
         return elasticsearchClient.search(q -> q
                         .index(indexName)
-                        .query(QueryRepository.deepSearchQuerySupplier(
-                                SearchParams.builder()
-                                        .parentCategory(pCategory)
-                                        .category(category)
-                                        .input(query)
-                                        .bargain(bargain)
-                                        .productCondition(productCondition)
-                                        .priceFrom(from)
-                                        .priceTo(to)
-                                        .locationName(locationName)
-                                        .isFree(isFree)
-                                        .sellerType(sellerType)
-                                        .filters(filters != null ? parseFilter(filters) : null)
-                                        .numericFilter(numericFilter != null ? parseNumericFilter(numericFilter) : null)
-                                        .build()
-                        ).get())
+                        .query(QueryRepository.deepSearchQuerySupplier(searchParams).get())
                         .from(page * size)
                         .size(size),
                 PublicationDocument.class);
     }
 
-    private Map<String, List<String>> parseFilter(List<String> filters) {
+    private Map<String, List<String>> parseAttributeFilter(List<String> filters) {
         return filters.stream()
                 .map(filter -> filter.split(":"))
                 .filter(split -> split.length == 2)
@@ -209,6 +212,26 @@ public class PublicationSearchServiceImpl implements PublicationSearchService{
                         split -> split[0],
                         split -> split[1].split("~", 2)
                 ));
+    }
+
+    private Map<String, String> parseLocations(String locationIds) {
+
+        List<String> hierarchy = Arrays.asList(locationIds.split("\\."));
+
+        int size = hierarchy.size();
+
+        Map<String, String> locationMap = new HashMap<>(Map.of("countryId", hierarchy.get(0)));
+
+        if (size >= 2)
+            locationMap.put("stateId", hierarchy.get(1));
+
+        if (size >= 3)
+            locationMap.put("countyId", hierarchy.get(2));
+
+        if (size == 4)
+            locationMap.put("cityId", hierarchy.get(3));
+
+        return locationMap;
     }
 
     @NotNull

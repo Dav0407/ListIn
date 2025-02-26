@@ -6,10 +6,11 @@ import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface PublicationDocumentService {
-    void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues);
+    void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues, Map<String, UUID> locationIds);
 
     void updateInPublicationDocument(UUID publicationId, UpdatePublicationRequestDTO updatePublication);
 

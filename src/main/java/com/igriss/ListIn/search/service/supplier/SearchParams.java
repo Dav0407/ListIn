@@ -23,6 +23,7 @@ public class SearchParams {
     private String locationName;
     private Boolean isFree;
     private String sellerType;
+    private Map<String, String> locationIds;
     private Map<String, List<String>> filters;
     private Map<String, String[]> numericFilter;
 

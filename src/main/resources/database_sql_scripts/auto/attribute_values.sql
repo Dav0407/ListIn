@@ -214,6 +214,8 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6a761cc3-e110-47d2-b134-12d01c1f0f46', null, 'bcad079c-532e-4474-b9ed-568f34792f2a','Purple', 'Binafsha rang', 'Фиолетовый');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7dc87009-d8e1-425d-86b0-b68ed31eb627', null, 'bcad079c-532e-4474-b9ed-568f34792f2a','Custom Color', 'Maxsus rang', 'Пользовательский цвет');
 
+
+
 ----Cars Interior Material
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ee96d604-6831-45c5-827d-3e75c01b7bd3', null, '2f01906f-4b83-4d9b-9877-88ce573dadd0','Leather', 'Teridan', 'Кожаный');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('90263196-9746-41f2-8148-d8f334c088e1', null, '2f01906f-4b83-4d9b-9877-88ce573dadd0','Fabric', 'Mato', 'Тканевый');
@@ -934,7 +936,7 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a401507f-a6ae-4c1e-b4d5-35b15838f601', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','Maserati','Maserati','Maserati');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b4cb87f2-e29a-4615-b111-2b889cf2e4e3', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','Mazda','Mazda','Mazda');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('79c9a96a-e3cb-4e30-838d-17a68b5219df', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','McLaren','McLaren','McLaren');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4c77e90b-4747-4b4f-958e-6d366e39365a', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','Mercedes-Ben','Mercedes-Ben','Mercedes-Ben');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4c77e90b-4747-4b4f-958e-6d366e39365a', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','Mercedes-Benz','Mercedes-Ben','Mercedes-Ben');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('52a35ce5-ca18-4624-9ee9-0476591da7bc', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','Mini','Mini','Mini');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f2a660e8-ff45-4744-9b6c-f68853e31606', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','Mitsubishi','Mitsubishi','Mitsubishi');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8d1dc7f8-6ec9-4271-b6e4-1f7742ef4374', null, 'e61c2d80-8f51-4beb-b813-23faab8e71b5','Nio','Nio','Nio');

@@ -2,6 +2,7 @@ package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
+import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,6 +39,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationRepository publicationRepository;
 
+    private final LocationService locationService;
     private final ProductFileService productFileService;
     private final UserService userService;
 
@@ -57,8 +60,10 @@ public class PublicationServiceImpl implements PublicationService {
 
         userService.updateContactDetails(request, connectedUser);
 
+        Map<String, UUID> locationIds = locationService.getMapIds(request);
+
         // Map and save publication
-        Publication publication = publicationMapper.toPublication(request, connectedUser);
+        Publication publication = publicationMapper.toPublication(request, connectedUser, locationIds);
         publication = publicationRepository.save(publication);
 
         // Save images //todo -> then removed the assignment
@@ -74,7 +79,10 @@ public class PublicationServiceImpl implements PublicationService {
         List<NumericValue> numericValues = numericValueService.savePublicationNumericValues(request.getNumericValues(), publication);
 
         // Save attribute values
-        publicationAttributeValueService.savePublicationAttributeValues(request.getAttributeValues(), publication, numericValues);
+        List<PublicationAttributeValue> pavList = publicationAttributeValueService.savePublicationAttributeValues(request.getAttributeValues(), publication, numericValues);
+
+        //map into elastic search engine and save publication document
+        publicationDocumentService.saveIntoPublicationDocument(publication, pavList, numericValues, locationIds);
 
         return publication.getId();
     }

@@ -25,6 +25,18 @@ public class QueryRepository {
 
             addCategoryFilters(params.getParentCategory(), params.getCategory(), builder);
 
+            if (params.getLocationIds().get("countryId") != null)
+                addLocationFilter(params.getLocationIds().get("countryId"), "countryId", builder);
+
+            if (params.getLocationIds().get("stateId") != null)
+                addLocationFilter(params.getLocationIds().get("stateId"), "stateId", builder);
+
+            if (params.getLocationIds().get("countyId") != null)
+                addLocationFilter(params.getLocationIds().get("countyId"), "countyId", builder);
+
+            if (params.getLocationIds().get("cityId") != null)
+                addLocationFilter(params.getLocationIds().get("cityId"), "cityId", builder);
+
             addBasicSearchFilters(
                     params.getBargain(),
                     params.getProductCondition(),
@@ -172,6 +184,11 @@ public class QueryRepository {
         if (sellerType != null) {
             builder.filter(m -> m.match(createMatchQuery(SearchFields.SELLER_TYPE, sellerType)));
         }
+    }
+
+    private static void addLocationFilter(String locationId, String field, BoolQuery.Builder builder) {
+        if (locationId != null)
+            builder.filter(m -> m.match(createMatchQuery(field, locationId)));
     }
 
 }

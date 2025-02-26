@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 //todo 1 -> write an implementation for advanced mapping from PublicationRequestDTO <-> Publication
 //todo 2 -> also for PublicationResponseDTO <- Publication (The entire mapper part will be done by Davron)
@@ -29,7 +31,7 @@ public class PublicationMapper {
     private final PublicationAttributeValueMapper publicationAttributeValueMapper;
 
 
-    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
+    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser, Map<String, UUID> locationIds) {
 
         PublicationType publicationType = switch (connectedUser.getRole()) {
             case BUSINESS_SELLER -> PublicationType.BUSINESS_PUBLICATION;
@@ -47,6 +49,10 @@ public class PublicationMapper {
                 .price(requestDTO.getPrice())
                 .bargain(requestDTO.getBargain())
                 .locationName(requestDTO.getLocationName())
+                .cityId(locationIds.get("cityId"))
+                .countryId(locationIds.get("countryId"))
+                .countyId(locationIds.get("countyId"))
+                .stateId(locationIds.get("stateId"))
                 .latitude(requestDTO.getLatitude())
                 .longitude(requestDTO.getLongitude())
                 .category(categoryMapper.toCategory(requestDTO.getCategoryId()))

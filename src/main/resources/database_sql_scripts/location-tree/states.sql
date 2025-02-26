@@ -11,44 +11,5 @@ INSERT INTO states (state_id, country_id, value, value_ru, value_uz) VALUES ('45
 INSERT INTO states (state_id, country_id, value, value_ru, value_uz) VALUES ('78b69c3e-1992-49af-9890-fa42957b9afe','15854ca1-064b-47cf-8491-11400c21f187','Syrdarya','Сырдарьинская область','Sirdaryo viloyati');
 INSERT INTO states (state_id, country_id, value, value_ru, value_uz) VALUES ('78aabdd3-c389-446c-a9df-03b05216dd74','15854ca1-064b-47cf-8491-11400c21f187','Surkhandarya','Сурхандарьинская область','Surxondaryo viloyati');
 INSERT INTO states (state_id, country_id, value, value_ru, value_uz) VALUES ('3d0c94e5-ab1f-43ba-9fa3-3eda573a8f13','15854ca1-064b-47cf-8491-11400c21f187','Khorezm','Хорезмская область','Xorazm viloyati');
-INSERT INTO states (state_id, country_id, value, value_ru, value_uz) VALUES ('accb4160-0d78-4fcd-b242-b6caec2db3be','15854ca1-064b-47cf-8491-11400c21f187','Tashkent','Ташкент','Toshkent');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+INSERT INTO states (state_id, country_id, value, value_ru, value_uz) VALUES ('accb4160-0d78-4fcd-b242-b6caec2db3be','15854ca1-064b-47cf-8491-11400c21f187', 'Tashkent province', 'Ташкентская область', 'Toshkent viloyati');
+INSERT INTO states (state_id, country_id, value, value_ru, value_uz) VALUES ('1ce4b796-74c9-45ac-ae6e-206cdd69e97c','15854ca1-064b-47cf-8491-11400c21f187', 'Tashkent city', 'Ташкентская город', 'Toshkent shahar');

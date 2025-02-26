@@ -47,16 +47,16 @@ public class PublicationDocument {
     private String sellerType;
 
     @Field(type = FieldType.Keyword, storeNullValue = true)
-    private UUID city_id;
+    private UUID cityId;
 
     @Field(type = FieldType.Keyword, storeNullValue = true)
-    private UUID country_id;
+    private UUID countryId;
 
     @Field(type = FieldType.Keyword, storeNullValue = true)
-    private UUID state_id;
+    private UUID stateId;
 
     @Field(type = FieldType.Keyword, storeNullValue = true)
-    private UUID county_id;
+    private UUID countyId;
 
     @Field(type = FieldType.Keyword)
     private ProductCondition productCondition;

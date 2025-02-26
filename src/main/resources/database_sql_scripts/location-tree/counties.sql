@@ -1,5 +1,4 @@
 --Andijan counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('ea262360-041e-4880-bf4a-7d7697becb6a','64cd814e-6069-497a-9da4-2dc3a9f5583b','Andijan','Андижан','Andijon');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4621c8ab-aaef-489a-97dd-867e2ae557cd','64cd814e-6069-497a-9da4-2dc3a9f5583b','Asaka','Асака','Asaka');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('dc042241-9711-482e-99ad-8552f8e99b1a','64cd814e-6069-497a-9da4-2dc3a9f5583b','Khanabad','Ханабад','Xonobod');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('8c035188-fbc7-46d2-91f5-59b36750270e','64cd814e-6069-497a-9da4-2dc3a9f5583b','Shakhrikhan','Шахрихан','Shahrixon');
@@ -14,7 +13,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f2c96130
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('6fb3d6ce-477f-40b7-abbd-b0360b2a35ea','64cd814e-6069-497a-9da4-2dc3a9f5583b','Izbaskan','Избаскан','Izboskan');
 
 --Bukhara counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('070992d1-7baf-42f0-9a24-5a89ef3bdb4e','5cc1a5e7-ed1d-43e8-8f2e-f2f39c525ebe','Buxoro','Бухара','Buxoro');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('c59ee803-6e7b-4c74-ae45-125072cba25d','5cc1a5e7-ed1d-43e8-8f2e-f2f39c525ebe','Kogon','Когон','Kogon');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('14b39ae6-30ef-429e-9b4c-73be20519725','5cc1a5e7-ed1d-43e8-8f2e-f2f39c525ebe','Olot','Алат','Olot');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('00f9de0c-cfae-4d9f-944f-3d4af2b273f0','5cc1a5e7-ed1d-43e8-8f2e-f2f39c525ebe','Galaosiyo','Галаасия','Galaosiyo');
@@ -27,7 +25,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('57c4f148
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('b20185d9-a08b-4f6d-bda3-1071e631d9d0','5cc1a5e7-ed1d-43e8-8f2e-f2f39c525ebe','Shofirkon','Шафиркан','Shofirkon');
 
 --Fergana counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4c0420c4-742c-4164-a375-95cdffd8c0af','202491e2-e514-48ba-b27e-862541018856','Fergana','Фергана','Fargʻona');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('e7b57ca2-d1be-4618-bf6b-0b96a38e6c52','202491e2-e514-48ba-b27e-862541018856','Kokand','Коканд','Qoʻqon');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('c70d6483-13ee-49c2-b700-0b711da5d11a','202491e2-e514-48ba-b27e-862541018856','Margilan','Маргилан','Margʻilon');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('51e26901-9baa-4951-84a4-19d622b681f4','202491e2-e514-48ba-b27e-862541018856','Kuva','Кува','Quva');
@@ -43,7 +40,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('52e3e9de
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('6648a303-efdb-4d9d-8c40-1492a131c7c3','202491e2-e514-48ba-b27e-862541018856','Uzbekistan','Узбекистан','Oʻzbekiston');
 
 --Jizzakh counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('e54bed64-7bb5-4e12-94cc-b39c211ecad9','aaf54886-3339-433e-a029-100d80eb00e8','Jizzakh','Джизак','Jizzax');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('c70c6169-7729-4dc4-9868-3c12f561f277','aaf54886-3339-433e-a029-100d80eb00e8','Gallaorol','Галлаарал','Gʻallaorol');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('07f48456-e175-480d-94b8-53d43155ebdd','aaf54886-3339-433e-a029-100d80eb00e8','Paxtakor','Пахтакор','Paxtakor');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('42340d8e-f122-49a0-a241-1bdf83dc79c8','aaf54886-3339-433e-a029-100d80eb00e8','Dostlik','Дустлик','Doʻstlik');
@@ -57,7 +53,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('56227207
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('18ed413a-7b16-4beb-9c6e-32c7bcde1cf7','aaf54886-3339-433e-a029-100d80eb00e8','Marjonbuloq','Маржонбулок','Marjonbuloq');
 
 --Karakalpakstan counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('2ad4a9be-c2ac-4d07-850e-33434fd06449','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Nukus','Нукус','Nukus');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('621932fc-8735-4e84-aea5-be8b803fa7c0','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Takhiatash','Тахиаташ','Taxiatosh');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('1323ac0d-5083-45e3-ac2d-7df2230a57a2','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Turtkul','Турткуль','Toʻrtkoʻl');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('b84d88a7-50e9-4eba-8202-ab37b81021bb','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Khojayli','Ходжейли','Xoʻjayli');
@@ -74,7 +69,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('cf959dc7
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('7c67ed6b-142c-42fb-9911-0ccbb1323b54','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Amudarya','Амударья','Amudaryo');
 
 --Namangan counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('76f2bddf-ae05-4c5f-932c-13d0402f91fa','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Namangan','Наманган','Namangan');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('5759a3a3-856c-40b6-9f87-c42f0ce37509','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Chortoq','Чартак','Chortoq');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f8270dac-7b59-4c2a-b727-84733489b40e','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Chust','Чуст','Chust');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('90722458-c78c-4545-bb6f-0e1fdaa763c1','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Kosonsoy','Касансай','Kosonsoy');
@@ -87,7 +81,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('d6db10d8
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('68869235-adc5-4748-9bbb-bfe656bcf944','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Davlatobod','Давлатабад','Davlatobod');
 
 --Navoiy counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4204940a-6115-4728-9be1-4b6d702a2cdb','a6b204d9-fae8-41a3-9663-a9b137246eca','Navoiy','Навои','Navoiy');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('12927509-f31b-44dd-800e-18c91b1ad7f8','a6b204d9-fae8-41a3-9663-a9b137246eca','Zarafshan','Зарафшан','Zarafshon');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('ce90d7a9-4636-4b37-9b49-c1b45568595a','a6b204d9-fae8-41a3-9663-a9b137246eca','Qiziltepa','Кызылтепа','Qiziltepa');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('dda9b8b0-f23a-4d8f-896d-86b721744d8a','a6b204d9-fae8-41a3-9663-a9b137246eca','Konimex','Канимех','Konimex');
@@ -97,7 +90,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('e6a93d9c
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('bb0d5d86-ea98-42b1-b150-b6914a50bfc9','a6b204d9-fae8-41a3-9663-a9b137246eca','Tomdi','Тамды','Tomdi');
 
 --Kashkadarya counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('eb96b08e-fef6-4c9d-8877-0ac423eeb966','4bfd2fc1-594a-4ef7-9889-adf539321acf','Qarshi','Карши','Qarshi');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('df039fc6-ac3f-47c6-b2f8-0bbdbf04c604','4bfd2fc1-594a-4ef7-9889-adf539321acf','Shahrisabz','Шахрисабз','Shahrisabz');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('3e2a4cb5-6cef-4f70-b81e-86cf3eb8057f','4bfd2fc1-594a-4ef7-9889-adf539321acf','Kitob','Китаб','Kitob');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('ee00bed1-37ad-4da1-922b-51c31b272620','4bfd2fc1-594a-4ef7-9889-adf539321acf','Guzar','Гузар','Gʻuzor');
@@ -111,7 +103,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('03e85bcc
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('eeaa7533-7f73-48bc-9135-9a09935ac3c4','4bfd2fc1-594a-4ef7-9889-adf539321acf','Nishon','Нишон','Nishon');
 
 --Samarkand counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('cf1d14d8-599f-4a17-bd63-79498815bfa1','4595730a-e6d6-4780-8de3-4e75479f27a3','Samarkand','Самарканд','Samarqand');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('49135944-0836-4d5f-8b2d-4f688e321c60','4595730a-e6d6-4780-8de3-4e75479f27a3','Urgut','Ургут','Urgut');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('174aa219-0460-4d27-9bd8-5d6548ffa635','4595730a-e6d6-4780-8de3-4e75479f27a3','Kattakurgan','Каттакурган','Kattaqoʻrgʻon');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4094b916-4758-4977-80b2-162408c029a0','4595730a-e6d6-4780-8de3-4e75479f27a3','Ishtikhon','Иштихан','Ishtixon');
@@ -127,7 +118,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('5e135136
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('31d03381-29d3-4f51-834d-8f2e8d69386e','4595730a-e6d6-4780-8de3-4e75479f27a3','Narpay','Нарпай','Narpay');
 
 --Syrdarya counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('799d3ec8-95b1-459a-a625-d834bcfc3725','78b69c3e-1992-49af-9890-fa42957b9afe','Gulistan','Гулистан','Guliston');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('9a13129a-e588-4c4e-b0e9-ab49b88034c2','78b69c3e-1992-49af-9890-fa42957b9afe','Shirin','Ширин','Shirin');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('6082c845-e1f6-493b-834b-738b6d3744ab','78b69c3e-1992-49af-9890-fa42957b9afe','Yangiyer','Янгиер','Yangiyer');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('00c7e390-a649-466a-9a25-58a299624e58','78b69c3e-1992-49af-9890-fa42957b9afe','Boyovut','Баяут','Boyovut');
@@ -138,7 +128,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('13373127
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('7a2eb296-360f-4d62-aeb5-8cf4fa403217','78b69c3e-1992-49af-9890-fa42957b9afe','Khovos','Хавас','Xovos');
 
 --Surkhandarya counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('a42fcf02-2a3f-4ef7-82f4-b9237660ca5a','78aabdd3-c389-446c-a9df-03b05216dd74','Termez','Термез','Termiz');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('a919389e-2ffc-4f13-a29a-18b79ac24dfb','78aabdd3-c389-446c-a9df-03b05216dd74','Denov','Денау','Denov');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('b6c24a39-c6a3-4012-89d2-439d9ed5437b','78aabdd3-c389-446c-a9df-03b05216dd74','Sherabad','Шерабад','Sherobod');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f5cf7dda-d475-4457-b357-0c89e9f0a320','78aabdd3-c389-446c-a9df-03b05216dd74','Boysun','Байсун','Boysun');
@@ -153,7 +142,6 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('a8b56ab6
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('0c865184-dde1-4915-b395-8434b94d7f53','78aabdd3-c389-446c-a9df-03b05216dd74','Altinsay','Алтынсай','Oltinsoy');
 
 --Khorezm counties
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('89bee332-0616-4434-ab1e-e41d83ca5e2a','3d0c94e5-ab1f-43ba-9fa3-3eda573a8f13','Urgench','Ургенч','Urganch');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('2f2cf0f7-dd49-4595-b916-773445f13721','3d0c94e5-ab1f-43ba-9fa3-3eda573a8f13','Khiva','Хива','Xiva');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('c3c978a0-2809-4d2a-bcb1-41836d1a6283','3d0c94e5-ab1f-43ba-9fa3-3eda573a8f13','Pitnak','Питнак','Pitnak');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('a2e1e5da-436e-44ef-8bbb-3da274d41513','3d0c94e5-ab1f-43ba-9fa3-3eda573a8f13','Gurlan','Гурлен','Gurlan');
@@ -185,14 +173,16 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('55ba2c53
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('3f4bb4a9-c60a-4f22-8dba-4df54b943877','accb4160-0d78-4fcd-b242-b6caec2db3be','Pskent','Пскент','Piskent');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('648c90d3-7894-4898-ab53-f02598a44142','accb4160-0d78-4fcd-b242-b6caec2db3be','Chinoz','Чиназ','Chinoz');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('5cbbd526-398a-4849-8a91-b1ae27cab6bf','accb4160-0d78-4fcd-b242-b6caec2db3be','Upper Chirchiq','Юкори Чирчик','Yuqori Chirchiq');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('e8759a3b-65fb-4476-8acc-9b6d7814f34b','accb4160-0d78-4fcd-b242-b6caec2db3be','Bektemir','Бектемир','Bektemir');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4aea921e-04bc-44f9-ba41-0891a2b9782a','accb4160-0d78-4fcd-b242-b6caec2db3be','Mirobod','Миробод','Mirobod');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('bf1be115-50eb-4072-a405-e088b7ccc434','accb4160-0d78-4fcd-b242-b6caec2db3be','Mirzo Ulugbek','Мирзо Улугбек','Mirzo Ulugʻbek');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f14a3d7d-eb27-46d0-93c0-6ffbedf2d786','accb4160-0d78-4fcd-b242-b6caec2db3be','Almazar','Алмазар','Olmazor');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('0cc30cdb-f709-4659-8079-01974122da32','accb4160-0d78-4fcd-b242-b6caec2db3be','Sergeli','Сергели','Sergeli');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('c9164469-9e81-4c1a-94be-5f3b373a01c6','accb4160-0d78-4fcd-b242-b6caec2db3be','Shaykhantohur','Шайхантахур','Shayxontohur');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('061c671c-29ac-41b0-9e91-587be7284a4e','accb4160-0d78-4fcd-b242-b6caec2db3be','Uchtepa','Учтепа','Uchtepa');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('36e5eb99-e8ae-43df-96dc-ca581278f2b2','accb4160-0d78-4fcd-b242-b6caec2db3be','Chilonzor','Чиланзар','Chilonzor');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('846f39d7-5a78-4352-b129-136b5eaa277d','accb4160-0d78-4fcd-b242-b6caec2db3be','Yakkasaray','Яккасарай','Yakkasaroy');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('eba823eb-5668-4484-a9e4-456ff24b07fa','accb4160-0d78-4fcd-b242-b6caec2db3be','Yashnobod','Яшнобод','Yashnobod');
-INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f2cf4dd1-c983-4447-b747-ec0fc622a2fb','accb4160-0d78-4fcd-b242-b6caec2db3be','Yunusobod','Юнусабад','Yunusobod');
+
+
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('e8759a3b-65fb-4476-8acc-9b6d7814f34b','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Bektemir','Бектемир','Bektemir');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4aea921e-04bc-44f9-ba41-0891a2b9782a','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Mirobod','Миробод','Mirobod');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('bf1be115-50eb-4072-a405-e088b7ccc434','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Mirzo Ulugbek','Мирзо Улугбек','Mirzo Ulugʻbek');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f14a3d7d-eb27-46d0-93c0-6ffbedf2d786','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Almazar','Алмазар','Olmazor');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('0cc30cdb-f709-4659-8079-01974122da32','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Sergeli','Сергели','Sergeli');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('c9164469-9e81-4c1a-94be-5f3b373a01c6','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Shaykhantohur','Шайхантахур','Shayxontohur');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('061c671c-29ac-41b0-9e91-587be7284a4e','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Uchtepa','Учтепа','Uchtepa');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('36e5eb99-e8ae-43df-96dc-ca581278f2b2','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Chilonzor','Чиланзар','Chilonzor');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('846f39d7-5a78-4352-b129-136b5eaa277d','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Yakkasaray','Яккасарай','Yakkasaroy');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('eba823eb-5668-4484-a9e4-456ff24b07fa','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Yashnobod','Яшнобод','Yashnobod');
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f2cf4dd1-c983-4447-b747-ec0fc622a2fb','1ce4b796-74c9-45ac-ae6e-206cdd69e97c','Yunusobod','Юнусабад','Yunusobod');

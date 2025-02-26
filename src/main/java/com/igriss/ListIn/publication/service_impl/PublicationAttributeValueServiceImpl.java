@@ -28,10 +28,9 @@ public class PublicationAttributeValueServiceImpl implements PublicationAttribut
 
     private final PublicationAttributeValueRepository publicationAttributeValueRepository;
 
-    private final PublicationDocumentService publicationDocumentService;
 
     @Override
-    public void savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication, List<NumericValue> numericValues) {
+    public List<PublicationAttributeValue> savePublicationAttributeValues(List<PublicationRequestDTO.AttributeValueDTO> attributeValues, Publication publication, List<NumericValue> numericValues) {
 
         List<CategoryAttribute> categoryAttributes = categoryAttributeRepository
                 .findByCategory_Id(publication.getCategory().getId());
@@ -71,8 +70,7 @@ public class PublicationAttributeValueServiceImpl implements PublicationAttribut
             }
         }
 
-        //map into elastic search engine and save publication document
-        publicationDocumentService.saveIntoPublicationDocument(publication, pavList, numericValues);
+        return pavList;
     }
 
 

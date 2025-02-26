@@ -62,7 +62,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/numerics/auto_numeric_fields.sql",
             "/database_sql_scripts/location-tree/countries.sql",
             "/database_sql_scripts/location-tree/states.sql",
-            "/database_sql_scripts/location-tree/county.sql",
+            "/database_sql_scripts/location-tree/counties.sql",
             "/database_sql_scripts/location-tree/cities.sql"
     );
 
@@ -77,7 +77,7 @@ public class DatabaseInitializer {
         log.info("#Redis cache successfully cleared");
     }
 
-    /*@PostConstruct
+    @PostConstruct
     public void init() {
         userRepository.saveAll(
                 List.of(
@@ -93,7 +93,7 @@ public class DatabaseInitializer {
         for (String script : scripts) {
             executeScript(script);
         }
-    }*/
+    }
 
     private void clearDatabase() {
         try {
@@ -132,7 +132,7 @@ public class DatabaseInitializer {
         }
     }
 
-/*
+
     @PostConstruct
     public void clearElasticsearchData() {
         try {
@@ -143,7 +143,7 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             log.error("#Exception while clearing elastic search data: {}", e.getMessage());
         }
-    }*/
+    }
 }
 
 

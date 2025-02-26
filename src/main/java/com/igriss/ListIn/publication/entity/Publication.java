@@ -10,6 +10,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -41,6 +43,18 @@ public class Publication {
 
     @Column(nullable = false)
     private Boolean bargain;
+
+    @Column
+    private UUID cityId;
+
+    @Column
+    private UUID countryId;
+
+    @Column
+    private UUID stateId;
+
+    @Column
+    private UUID countyId;
 
     @Column(nullable = false)
     private String locationName;
