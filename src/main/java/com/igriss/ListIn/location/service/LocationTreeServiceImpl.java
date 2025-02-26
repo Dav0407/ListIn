@@ -6,6 +6,7 @@ import com.igriss.ListIn.location.repository.CountryRepository;
 import com.igriss.ListIn.location.repository.CountyRepository;
 import com.igriss.ListIn.location.repository.StateRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class LocationTreeServiceImpl implements LocationTreeService {
     private final CityRepository cityRepository;
 
     @Override
+    @Cacheable("location-tree")
     public LocationTreeNode getLocationTree() {
         LocationTreeNode root = new LocationTreeNode();
 
