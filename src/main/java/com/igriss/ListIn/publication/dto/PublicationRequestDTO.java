@@ -41,14 +41,6 @@ public class PublicationRequestDTO implements Serializable {
 
     private Double longitude;
 
-    private String city;
-
-    private String country;
-
-    private String county;
-
-    private String state;
-
     private String productCondition;
 
     private List<String> imageUrls;

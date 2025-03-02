@@ -39,7 +39,6 @@ public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationRepository publicationRepository;
 
-    private final LocationService locationService;
     private final ProductFileService productFileService;
     private final UserService userService;
 
@@ -60,10 +59,8 @@ public class PublicationServiceImpl implements PublicationService {
 
         userService.updateContactDetails(request, connectedUser);
 
-        Map<String, UUID> locationIds = locationService.getMapIds(request);
-
         // Map and save publication
-        Publication publication = publicationMapper.toPublication(request, connectedUser, locationIds);
+        Publication publication = publicationMapper.toPublication(request, connectedUser);
         publication = publicationRepository.save(publication);
 
         // Save images //todo -> then removed the assignment
@@ -82,7 +79,7 @@ public class PublicationServiceImpl implements PublicationService {
         List<PublicationAttributeValue> pavList = publicationAttributeValueService.savePublicationAttributeValues(request.getAttributeValues(), publication, numericValues);
 
         //map into elastic search engine and save publication document
-        publicationDocumentService.saveIntoPublicationDocument(publication, pavList, numericValues, locationIds);
+        publicationDocumentService.saveIntoPublicationDocument(publication, pavList, numericValues);
 
         return publication.getId();
     }

@@ -74,6 +74,18 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String locationName;
 
+    @Column
+    private UUID cityId;
+
+    @Column
+    private UUID countryId;
+
+    @Column
+    private UUID stateId;
+
+    @Column
+    private UUID countyId;
+
     @Column(nullable = false)
     private Double longitude;
 

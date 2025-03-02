@@ -2,6 +2,7 @@ package com.igriss.ListIn.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igriss.ListIn.security.roles.Role;
+import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,14 @@ public class UserResponseDTO {
     private Boolean isGrantedForPreciseLocation;
 
     private String locationName;
+
+    private UUID cityId;
+
+    private UUID countryId;
+
+    private UUID stateId;
+
+    private UUID countyId;
 
     private Double longitude;
 

@@ -31,7 +31,7 @@ public class PublicationMapper {
     private final PublicationAttributeValueMapper publicationAttributeValueMapper;
 
 
-    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser, Map<String, UUID> locationIds) {
+    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
         PublicationType publicationType = switch (connectedUser.getRole()) {
             case BUSINESS_SELLER -> PublicationType.BUSINESS_PUBLICATION;
@@ -48,13 +48,6 @@ public class PublicationMapper {
                 .description(requestDTO.getDescription())
                 .price(requestDTO.getPrice())
                 .bargain(requestDTO.getBargain())
-                .locationName(requestDTO.getLocationName())
-                .cityId(locationIds.get("cityId"))
-                .countryId(locationIds.get("countryId"))
-                .countyId(locationIds.get("countyId"))
-                .stateId(locationIds.get("stateId"))
-                .latitude(requestDTO.getLatitude())
-                .longitude(requestDTO.getLongitude())
                 .category(categoryMapper.toCategory(requestDTO.getCategoryId()))
                 .productCondition(productCondition)
                 .likes(0L)
@@ -77,9 +70,6 @@ public class PublicationMapper {
                 .isFree(publication.getPrice() == null || publication.getPrice() == 0F)
                 .productImages(publicationImageMapper.toImageDTOList(publicationImages))
                 .videoUrl(publicationVideo)
-                .locationName(publication.getLocationName())
-                .latitude(publication.getLatitude())
-                .longitude(publication.getLongitude())
                 .publicationType(publication.getPublicationType())
                 .productCondition(publication.getProductCondition())
                 .likes(publication.getLikes() != null ? publication.getLikes() : 0L)

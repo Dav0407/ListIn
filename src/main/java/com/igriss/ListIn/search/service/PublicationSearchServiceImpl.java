@@ -71,7 +71,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
         User user = (User) connectedUser.getPrincipal();
 
-        Map<String, String> locations = !locationIds.isBlank() ? parseLocations(locationIds) : new HashMap<>();
+        Map<String, String> locations = locationIds != null ? parseLocations(locationIds) : new HashMap<>();
 
         Map<String, List<String>> attributeFilter = !(filters == null || filters.isEmpty()) ? parseAttributeFilter(filters) : new HashMap<>();
 

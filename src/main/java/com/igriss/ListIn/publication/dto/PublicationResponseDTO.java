@@ -36,12 +36,6 @@ public class PublicationResponseDTO implements Serializable {
 
     private String sellerType;
 
-    private String locationName;
-
-    private Double latitude;
-
-    private Double longitude;
-
     private List<ImageDTO> productImages;
 
     private String videoUrl;

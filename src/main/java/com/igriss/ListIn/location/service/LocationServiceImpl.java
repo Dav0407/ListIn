@@ -12,6 +12,7 @@ import com.igriss.ListIn.location.repository.CountryRepository;
 import com.igriss.ListIn.location.repository.CountyRepository;
 import com.igriss.ListIn.location.repository.StateRepository;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.security.security_dto.RegisterRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -77,7 +78,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Map<String, UUID> getMapIds(PublicationRequestDTO request) {
+    public Map<String, UUID> getMapIds(RegisterRequestDTO request) {
 
         Country country = countryRepository.findByValueIgnoreCase(request.getCountry())
                 .orElseThrow(() -> new ResourceNotFoundException("No country found in the database!"));

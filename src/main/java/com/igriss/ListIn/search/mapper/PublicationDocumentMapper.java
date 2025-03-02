@@ -16,16 +16,16 @@ import java.util.UUID;
 public class PublicationDocumentMapper {
 
     public PublicationDocument toPublicationDocument(Publication publication, List<AttributeKeyDocument> attributes,
-                                                     List<PublicationDocument.NumericFieldDocument> document, Map<String, UUID> locationIds) {
+                                                     List<PublicationDocument.NumericFieldDocument> document) {
         return PublicationDocument.builder()
                 .id(publication.getId())
                 .title(publication.getTitle())
                 .description(publication.getDescription())
-                .locationName(publication.getLocationName())
-                .countryId(locationIds.get("countryId"))
-                .stateId(locationIds.get("stateId"))
-                .countyId(locationIds.get("countyId"))
-                .cityId(locationIds.get("cityId"))
+                .locationName(publication.getSeller().getLocationName())
+                .countryId(publication.getSeller().getCountryId())
+                .stateId(publication.getSeller().getStateId())
+                .countyId(publication.getSeller().getCountyId())
+                .cityId(publication.getSeller().getCityId())
                 .price(publication.getPrice())
                 .sellerType(publication.getSeller().getRole().name())
                 .bargain(publication.getBargain())

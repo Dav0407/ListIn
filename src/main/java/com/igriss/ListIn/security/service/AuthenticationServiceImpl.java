@@ -3,6 +3,7 @@ package com.igriss.ListIn.security.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.igriss.ListIn.exceptions.UserHasAccountException;
 import com.igriss.ListIn.exceptions.UserNotFoundException;
+import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.RegisterRequestDTO;
@@ -19,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -29,8 +32,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final LocationService locationService;
 
     public AuthenticationResponseDTO register(RegisterRequestDTO request) throws UserHasAccountException {
+
+        Map<String, UUID> locationIds = locationService.getMapIds(request);
+
         var user = User.builder()
                 .nickName(request.getNickName())
                 .enableCalling(request.getEnableCalling())
@@ -43,6 +50,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(request.getRoles())
                 .isGrantedForPreciseLocation(request.getIsGrantedForPreciseLocation())
                 .locationName(request.getLocationName())
+                .cityId(locationIds.get("cityId"))
+                .countryId(locationIds.get("countryId"))
+                .stateId(locationIds.get("stateId"))
+                .countyId(locationIds.get("countyId"))
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())
                 .build();

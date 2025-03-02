@@ -24,10 +24,8 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
     private final PublicationDocumentMapper publicationDocumentMapper;
     private final PublicationDocumentRepository publicationDocumentRepository;
 
-    private final LocationService locationService;
-
     @Override
-    public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues, Map<String, UUID> locationIds) {
+    public void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues) {
 
         List<AttributeValue> attributeValues = pavList.stream()
                 .map(PublicationAttributeValue::getAttributeValue)
@@ -66,9 +64,8 @@ public class PublicationDocumentServiceImpl implements PublicationDocumentServic
                                 .value(numericValue.getValue())
                                 .build()).toList() : new ArrayList<>();
 
-
         // Create a PublicationDocument and set attributeKeyDocuments
-        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments, document, locationIds);
+        PublicationDocument publicationDocument = publicationDocumentMapper.toPublicationDocument(publication, attributeKeyDocuments, document);
 
         publicationDocumentRepository.save(publicationDocument);
     }

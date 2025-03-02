@@ -44,27 +44,6 @@ public class Publication {
     @Column(nullable = false)
     private Boolean bargain;
 
-    @Column
-    private UUID cityId;
-
-    @Column
-    private UUID countryId;
-
-    @Column
-    private UUID stateId;
-
-    @Column
-    private UUID countyId;
-
-    @Column(nullable = false)
-    private String locationName;
-
-    @Column(nullable = false)
-    private Double latitude;
-
-    @Column(nullable = false)
-    private Double longitude;
-
     @Enumerated(EnumType.STRING)
     private PublicationType publicationType;
 

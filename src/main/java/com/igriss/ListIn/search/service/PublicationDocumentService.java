@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface PublicationDocumentService {
-    void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues, Map<String, UUID> locationIds);
+    void saveIntoPublicationDocument(Publication publication, List<PublicationAttributeValue> pavList, List<NumericValue> numericValues);
 
     void updateInPublicationDocument(UUID publicationId, UpdatePublicationRequestDTO updatePublication);
 
