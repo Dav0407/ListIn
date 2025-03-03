@@ -3,6 +3,7 @@ package com.igriss.ListIn.security.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.igriss.ListIn.exceptions.UserHasAccountException;
 import com.igriss.ListIn.exceptions.UserNotFoundException;
+import com.igriss.ListIn.location.dto.LocationDTO;
 import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
@@ -36,7 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public AuthenticationResponseDTO register(RegisterRequestDTO request) throws UserHasAccountException {
 
-        Map<String, UUID> locationIds = locationService.getMapIds(request);
+        LocationDTO location = locationService.getLocation(request);
 
         var user = User.builder()
                 .nickName(request.getNickName())
@@ -50,10 +51,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(request.getRoles())
                 .isGrantedForPreciseLocation(request.getIsGrantedForPreciseLocation())
                 .locationName(request.getLocationName())
-                .cityId(locationIds.get("cityId"))
-                .countryId(locationIds.get("countryId"))
-                .stateId(locationIds.get("stateId"))
-                .countyId(locationIds.get("countyId"))
+                .country(location.getCountry())
+                .state(location.getState())
+                .city(location.getCity())
+                .county(location.getCounty())
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())
                 .build();

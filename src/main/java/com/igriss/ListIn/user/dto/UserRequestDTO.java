@@ -24,13 +24,13 @@ public class UserRequestDTO implements Serializable {
 
     private String locationName;
 
-    private UUID cityId;
+    private String city;
 
-    private UUID countryId;
+    private String country;
 
-    private UUID stateId;
+    private String state;
 
-    private UUID countyId;
+    private String county;
 
     private Double longitude;
 

@@ -16,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 //todo 1 -> write an implementation for advanced mapping from PublicationRequestDTO <-> Publication
 //todo 2 -> also for PublicationResponseDTO <- Publication (The entire mapper part will be done by Davron)

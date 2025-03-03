@@ -78,7 +78,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Map<String, UUID> getMapIds(RegisterRequestDTO request) {
+    public LocationDTO getLocation(RegisterRequestDTO request) {
 
         Country country = countryRepository.findByValueIgnoreCase(request.getCountry())
                 .orElseThrow(() -> new ResourceNotFoundException("No country found in the database!"));
@@ -96,9 +96,11 @@ public class LocationServiceImpl implements LocationService {
                 : cityRepository.findByValueIgnoreCase(request.getCity())
                 .orElseThrow(() -> new ResourceNotFoundException("No city found in the database!"));
 
-        return Map.of("countryId", country.getId(),
-                "stateId", state.getId(),
-                "countyId", county.getId(),
-                "cityId", city.getId());
+        return LocationDTO.builder()
+                .country(country)
+                .state(state)
+                .county(county)
+                .city(city)
+                .build();
     }
 }
