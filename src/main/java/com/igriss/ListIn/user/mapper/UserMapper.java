@@ -1,11 +1,17 @@
 package com.igriss.ListIn.user.mapper;
 
+import com.igriss.ListIn.location.mapper.LocationMapper;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserMapper {
+
+    private final LocationMapper locationMapper;
+
     public UserResponseDTO toUserResponseDTO(User user) {
         return UserResponseDTO.builder()
                 .id(user.getUserId())
@@ -22,6 +28,10 @@ public class UserMapper {
                 .rating(user.getRating())
                 .isGrantedForPreciseLocation(user.getIsGrantedForPreciseLocation())
                 .locationName(user.getLocationName())
+                .country(locationMapper.toCountryDTO(user.getCountry()))
+                .state(locationMapper.toStateDTO(user.getState()))
+                .county(locationMapper.toCountyDTO(user.getCounty()))
+                .city(locationMapper.toCityDTO(user.getCity()))
                 .longitude(user.getLongitude())
                 .latitude(user.getLatitude())
                 .role(user.getRole())
