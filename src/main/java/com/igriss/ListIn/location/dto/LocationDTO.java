@@ -1,6 +1,5 @@
 package com.igriss.ListIn.location.dto;
 
-import com.igriss.ListIn.location.entity.City;
 import com.igriss.ListIn.location.entity.Country;
 import com.igriss.ListIn.location.entity.County;
 import com.igriss.ListIn.location.entity.State;
@@ -16,12 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class LocationDTO {
-    private City city;
-
-    private County county;
-
     private Country country;
-
     private State state;
-
+    private County county;
 }

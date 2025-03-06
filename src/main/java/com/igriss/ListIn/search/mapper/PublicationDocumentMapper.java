@@ -25,7 +25,7 @@ public class PublicationDocumentMapper {
                 .countryId(publication.getSeller().getCountry().getId())
                 .stateId(publication.getSeller().getState().getId())
                 .countyId(publication.getSeller().getCounty().getId())
-                .cityId(publication.getSeller().getCity().getId())
+                //.cityId(publication.getSeller().getCityId()) todo -> marked for removal
                 .price(publication.getPrice())
                 .sellerType(publication.getSeller().getRole().name())
                 .bargain(publication.getBargain())

@@ -62,8 +62,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/numerics/auto_numeric_fields.sql",
             "/database_sql_scripts/location-tree/countries.sql",
             "/database_sql_scripts/location-tree/states.sql",
-            "/database_sql_scripts/location-tree/counties.sql",
-            "/database_sql_scripts/location-tree/cities.sql"
+            "/database_sql_scripts/location-tree/counties.sql"
     );
 
    @PostConstruct

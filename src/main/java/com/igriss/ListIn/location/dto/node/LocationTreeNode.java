@@ -1,4 +1,4 @@
-package com.igriss.ListIn.location.dto;
+package com.igriss.ListIn.location.dto.node;
 
 import lombok.Getter;
 import lombok.Setter;

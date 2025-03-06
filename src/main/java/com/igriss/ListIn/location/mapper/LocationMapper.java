@@ -1,10 +1,8 @@
 package com.igriss.ListIn.location.mapper;
 
-import com.igriss.ListIn.location.dto.CityResponseDTO;
-import com.igriss.ListIn.location.dto.CountryResponseDTO;
-import com.igriss.ListIn.location.dto.CountyResponseDTO;
-import com.igriss.ListIn.location.dto.StateResponseDTO;
-import com.igriss.ListIn.location.entity.City;
+import com.igriss.ListIn.location.dto.CountryDTO;
+import com.igriss.ListIn.location.dto.CountyDTO;
+import com.igriss.ListIn.location.dto.StateDTO;
 import com.igriss.ListIn.location.entity.Country;
 import com.igriss.ListIn.location.entity.County;
 import com.igriss.ListIn.location.entity.State;
@@ -13,36 +11,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationMapper {
 
-    public CountryResponseDTO toCountryDTO(Country country) {
-        return CountryResponseDTO.builder()
-                .valueEng(country.getValue())
-                .valueUz(country.getValueUz())
+    public CountryDTO toCountryDTO(Country country) {
+        return CountryDTO.builder()
+                .value(country.getValue())
                 .valueRu(country.getValueRu())
+                .valueUz(country.getValueUz())
                 .build();
     }
 
-    public StateResponseDTO toStateDTO(State state) {
-        return StateResponseDTO.builder()
-                .valueEng(state.getValue())
-                .valueUz(state.getValueUz())
+    public StateDTO toStateDTO(State state) {
+        return StateDTO.builder()
+                .value(state.getValue())
                 .valueRu(state.getValueRu())
+                .valueUz(state.getValueUz())
                 .build();
     }
 
-    public CountyResponseDTO toCountyDTO(County county) {
-        return CountyResponseDTO.builder()
-                .valueEng(county.getValue())
-                .valueUz(county.getValueUz())
+    public CountyDTO toCountyDTO(County county) {
+        return CountyDTO.builder()
+                .value(county.getValue())
                 .valueRu(county.getValueRu())
+                .valueUz(county.getValueUz())
                 .build();
     }
-
-    public CityResponseDTO toCityDTO(City city) {
-        return CityResponseDTO.builder()
-                .valueEng(city.getValue())
-                .valueUz(city.getValueUz())
-                .valueRu(city.getValueRu())
-                .build();
-    }
-
 }

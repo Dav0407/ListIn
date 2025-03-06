@@ -35,9 +35,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final LocationService locationService;
 
-    public AuthenticationResponseDTO register(RegisterRequestDTO request) throws UserHasAccountException {
+    public AuthenticationResponseDTO register(RegisterRequestDTO request, String language) throws UserHasAccountException {
 
-        LocationDTO location = locationService.getLocation(request);
+        LocationDTO location = locationService.getLocation(request.getCountry(), request.getState(), request.getCounty(), language);
 
         var user = User.builder()
                 .nickName(request.getNickName())
@@ -53,7 +53,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .locationName(request.getLocationName())
                 .country(location.getCountry())
                 .state(location.getState())
-                .city(location.getCity())
                 .county(location.getCounty())
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())

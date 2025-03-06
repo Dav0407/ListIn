@@ -28,8 +28,8 @@ public class AuthenticationController {
     private final EmailService emailService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponseDTO> registerUser(@RequestBody RegisterRequestDTO request) throws UserHasAccountException {
-        return ResponseEntity.ok(authenticationService.register(request));
+    public ResponseEntity<AuthenticationResponseDTO> registerUser(@RequestBody RegisterRequestDTO request, @RequestHeader(value = "Accept-Language", defaultValue = "en") String language) throws UserHasAccountException {
+        return ResponseEntity.ok(authenticationService.register(request, language));
     }
 
     @PostMapping("/authenticate")

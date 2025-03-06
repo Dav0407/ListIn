@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface AuthenticationService {
-    AuthenticationResponseDTO register(RegisterRequestDTO request) throws UserHasAccountException;
+    AuthenticationResponseDTO register(RegisterRequestDTO request, String language) throws UserHasAccountException;
 
     AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) throws UserNotFoundException;
 

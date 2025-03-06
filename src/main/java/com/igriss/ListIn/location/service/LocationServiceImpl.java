@@ -1,25 +1,28 @@
 package com.igriss.ListIn.location.service;
 
-import co.elastic.clients.util.MapBuilder;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
-import com.igriss.ListIn.location.dto.*;
-import com.igriss.ListIn.location.entity.City;
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.dto.node.CountryNode;
+import com.igriss.ListIn.location.dto.node.CountyNode;
+import com.igriss.ListIn.location.dto.node.LocationTreeNode;
+import com.igriss.ListIn.location.dto.node.StateNode;
 import com.igriss.ListIn.location.entity.Country;
 import com.igriss.ListIn.location.entity.County;
 import com.igriss.ListIn.location.entity.State;
-import com.igriss.ListIn.location.repository.CityRepository;
 import com.igriss.ListIn.location.repository.CountryRepository;
 import com.igriss.ListIn.location.repository.CountyRepository;
 import com.igriss.ListIn.location.repository.StateRepository;
-import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
-import com.igriss.ListIn.security.security_dto.RegisterRequestDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
@@ -27,7 +30,6 @@ public class LocationServiceImpl implements LocationService {
     private final CountryRepository countryRepository;
     private final CountyRepository countyRepository;
     private final StateRepository stateRepository;
-    private final CityRepository cityRepository;
 
     @Override
     @Cacheable("location-tree")
@@ -46,20 +48,11 @@ public class LocationServiceImpl implements LocationService {
                                                 .build())
                                         .collect(Collectors.toList());
 
-                                List<CityNode> cities = cityRepository.findAllByState_Id(state.getId()).stream()
-                                        .map(city -> CityNode.builder()
-                                                .value(city.getValue())
-                                                .valueUz(city.getValueUz())
-                                                .valueRu(city.getValueRu())
-                                                .build())
-                                        .collect(Collectors.toList());
-
                                 return StateNode.builder()
                                         .value(state.getValue())
                                         .valueUz(state.getValueUz())
                                         .valueRu(state.getValueRu())
                                         .counties(counties)
-                                        .cities(cities)
                                         .build();
                             })
                             .collect(Collectors.toList());
@@ -78,29 +71,65 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public LocationDTO getLocation(RegisterRequestDTO request) {
+    public LocationDTO getLocation(String countryName, String stateName, String countyName, String language) {
+        Country country = findEntityByName(
+                countryName,
+                countryRepository::findByValueIgnoreCase,
+                countryRepository::findByValueUzIgnoreCase,
+                countryRepository::findByValueRuIgnoreCase,
+                "Country",
+                language
+        );
 
-        Country country = countryRepository.findByValueIgnoreCase(request.getCountry())
-                .orElseThrow(() -> new ResourceNotFoundException("No country found in the database!"));
+        State state = findEntityByName(
+                stateName,
+                stateRepository::findByValueIgnoreCase,
+                stateRepository::findByValueUzIgnoreCase,
+                stateRepository::findByValueRuIgnoreCase,
+                "State",
+                language
+        );
 
-        State state = stateRepository.findByValueIgnoreCase(request.getState())
-                .orElseThrow(() -> new ResourceNotFoundException("No state found in the database!"));
-
-        County county = countyRepository.findByValueIgnoreCase(request.getCounty())
-                .orElseThrow(() -> new ResourceNotFoundException("No county found in the database!"));
-
-        City city = request.getCity().equalsIgnoreCase("Tashkent city") ?
-                City.builder()
-                        .id(UUID.fromString("1ce4b796-74c9-45ac-ae6e-206cdd69e97c"))
-                        .build()
-                : cityRepository.findByValueIgnoreCase(request.getCity())
-                .orElseThrow(() -> new ResourceNotFoundException("No city found in the database!"));
+        County county = findEntityByName(
+                countyName,
+                countyRepository::findByValueIgnoreCase,
+                countyRepository::findByValueUzIgnoreCase,
+                countyRepository::findByValueRuIgnoreCase,
+                "County",
+                language
+        );
 
         return LocationDTO.builder()
                 .country(country)
                 .state(state)
                 .county(county)
-                .city(city)
                 .build();
+    }
+
+    private <T> T findEntityByName(
+            String name,
+            Function<String, Optional<T>> defaultFinder,
+            Function<String, Optional<T>> uzFinder,
+            Function<String, Optional<T>> ruFinder,
+            String entityType,
+            String language
+    ) {
+        if (name == null || name.isBlank()) {
+            return null;
+        }
+
+        Optional<T> entity;
+        switch (language.toLowerCase()) {
+            case "uz" -> entity = uzFinder.apply(name);
+            case "ru" -> entity = ruFinder.apply(name);
+            default -> entity = defaultFinder.apply(name);
+        }
+
+        if (entity.isEmpty()) {
+            log.error("Entity '{}' with name '{}' not found for language '{}'", entityType, name, language);
+            throw new ResourceNotFoundException("No " + entityType + " found in the database!");
+        }
+
+        return entity.get();
     }
 }

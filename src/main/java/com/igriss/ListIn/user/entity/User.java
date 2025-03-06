@@ -2,18 +2,12 @@ package com.igriss.ListIn.user.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.igriss.ListIn.location.entity.City;
 import com.igriss.ListIn.location.entity.Country;
 import com.igriss.ListIn.location.entity.County;
 import com.igriss.ListIn.location.entity.State;
 import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -83,21 +77,17 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String locationName;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "state_id")
     private State state;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "county_id")
     private County county;
-
-    @JoinColumn(name = "city_id")
-    @OneToOne
-    private City city;
 
     @Column(nullable = false)
     private Double longitude;
