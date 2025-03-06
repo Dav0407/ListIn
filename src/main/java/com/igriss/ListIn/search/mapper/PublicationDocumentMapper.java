@@ -1,5 +1,6 @@
 package com.igriss.ListIn.search.mapper;
 
+
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.search.document.AttributeKeyDocument;
 import com.igriss.ListIn.search.document.PublicationDocument;
@@ -7,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
