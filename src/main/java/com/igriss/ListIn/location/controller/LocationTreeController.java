@@ -1,6 +1,6 @@
 package com.igriss.ListIn.location.controller;
 
-import com.igriss.ListIn.location.dto.LocationTreeNode;
+import com.igriss.ListIn.location.dto.node.LocationTreeNode;
 import com.igriss.ListIn.location.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

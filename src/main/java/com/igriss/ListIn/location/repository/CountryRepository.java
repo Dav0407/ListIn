@@ -9,4 +9,6 @@ import java.util.UUID;
 
 public interface CountryRepository extends JpaRepository<Country, UUID> {
     Optional<Country> findByValueIgnoreCase(String value);
+    Optional<Country> findByValueUzIgnoreCase(String value);
+    Optional<Country> findByValueRuIgnoreCase(String value);
 }

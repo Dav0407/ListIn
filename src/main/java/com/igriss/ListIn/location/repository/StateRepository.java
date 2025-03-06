@@ -12,4 +12,6 @@ public interface StateRepository extends JpaRepository<State, UUID> {
     List<State> findAllByCountry_Id(UUID countryId);
 
     Optional<State> findByValueIgnoreCase(String value);
+    Optional<State> findByValueUzIgnoreCase(String value);
+    Optional<State> findByValueRuIgnoreCase(String value);
 }

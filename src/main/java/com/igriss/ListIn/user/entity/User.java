@@ -2,6 +2,9 @@ package com.igriss.ListIn.user.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.igriss.ListIn.location.entity.Country;
+import com.igriss.ListIn.location.entity.County;
+import com.igriss.ListIn.location.entity.State;
 import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -74,17 +77,17 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(nullable = false)
     private String locationName;
 
-    @Column
-    private UUID cityId;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
-    @Column
-    private UUID countryId;
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private State state;
 
-    @Column
-    private UUID stateId;
-
-    @Column
-    private UUID countyId;
+    @ManyToOne
+    @JoinColumn(name = "county_id")
+    private County county;
 
     @Column(nullable = false)
     private Double longitude;

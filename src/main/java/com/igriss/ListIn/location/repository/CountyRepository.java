@@ -12,4 +12,6 @@ public interface CountyRepository extends JpaRepository<County, UUID> {
     List<County> findAllByState_Id(UUID stateId);
 
     Optional<County> findByValueIgnoreCase(String value);
+    Optional<County> findByValueUzIgnoreCase(String value);
+    Optional<County> findByValueRuIgnoreCase(String value);
 }

@@ -1,6 +1,9 @@
 package com.igriss.ListIn.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.igriss.ListIn.location.dto.CountryDTO;
+import com.igriss.ListIn.location.dto.CountyDTO;
+import com.igriss.ListIn.location.dto.StateDTO;
 import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.Column;
 import lombok.Builder;
@@ -43,13 +46,11 @@ public class UserResponseDTO {
 
     private String locationName;
 
-    private UUID cityId;
+    private CountryDTO country;
 
-    private UUID countryId;
+    private StateDTO state;
 
-    private UUID stateId;
-
-    private UUID countyId;
+    private CountyDTO county;
 
     private Double longitude;
 

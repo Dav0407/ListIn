@@ -2,15 +2,24 @@ package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
-import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
-import com.igriss.ListIn.publication.entity.*;
+import com.igriss.ListIn.publication.entity.NumericValue;
+import com.igriss.ListIn.publication.entity.Publication;
+import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
+import com.igriss.ListIn.publication.entity.PublicationImage;
+import com.igriss.ListIn.publication.entity.PublicationLike;
+import com.igriss.ListIn.publication.entity.PublicationVideo;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
-import com.igriss.ListIn.publication.service.*;
+import com.igriss.ListIn.publication.service.NumericValueService;
+import com.igriss.ListIn.publication.service.ProductFileService;
+import com.igriss.ListIn.publication.service.PublicationAttributeValueService;
+import com.igriss.ListIn.publication.service.PublicationLikeService;
+import com.igriss.ListIn.publication.service.PublicationService;
+import com.igriss.ListIn.publication.service.PublicationViewService;
 import com.igriss.ListIn.search.service.PublicationDocumentService;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
@@ -28,7 +37,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 

@@ -1,16 +1,20 @@
-package com.igriss.ListIn.location.dto;
+package com.igriss.ListIn.location.dto.node;
 
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CountyNode  implements Serializable {
+public class StateNode  implements Serializable {
+
     private String value;
     private String valueUz;
     private String valueRu;
+
+    private List<CountyNode> counties;
 }

@@ -33,7 +33,6 @@ public class RegisterRequestDTO {
     private Role roles;
     private Boolean isGrantedForPreciseLocation;
     private String locationName;
-    private String city;
     private String country;
     private String county;
     private String state;
