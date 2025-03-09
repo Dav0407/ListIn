@@ -1,9 +1,10 @@
 package com.igriss.ListIn.security.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.igriss.ListIn.exceptions.EmailNotFoundException;
 import com.igriss.ListIn.exceptions.UserHasAccountException;
 import com.igriss.ListIn.exceptions.UserNotFoundException;
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.RegisterRequestDTO;
@@ -20,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -30,8 +33,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final LocationService locationService;
 
-    public AuthenticationResponseDTO register(RegisterRequestDTO request) throws UserHasAccountException {
+    public AuthenticationResponseDTO register(RegisterRequestDTO request, String language) throws UserHasAccountException {
+
+        LocationDTO location = locationService.getLocation(request.getCountry(), request.getState(), request.getCounty(), language);
+
         var user = User.builder()
                 .nickName(request.getNickName())
                 .enableCalling(request.getEnableCalling())
@@ -39,10 +46,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .fromTime(request.getFromTime())
                 .toTime(request.getToTime())
                 .email(request.getEmail().toLowerCase())
+                .biography(request.getBiography())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRoles())
                 .isGrantedForPreciseLocation(request.getIsGrantedForPreciseLocation())
                 .locationName(request.getLocationName())
+                .country(location.getCountry())
+                .state(location.getState())
+                .county(location.getCounty())
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())
                 .build();
@@ -70,7 +81,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                             request.getPassword()
                     )
             );
-            var user = userRepository.findByEmail(request.getEmail())
+            var user = userRepository.findByEmail(request.getEmail().toLowerCase())
                     .orElseThrow();
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);

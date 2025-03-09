@@ -1,7 +1,7 @@
 package com.igriss.ListIn.publication.controller;
 
 import com.igriss.ListIn.publication.dto.GroupedAttributeDTO;
-import com.igriss.ListIn.publication.service.CategoryAttributeService;
+import com.igriss.ListIn.publication.service_impl.CategoryAttributeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

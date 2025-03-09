@@ -35,7 +35,8 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/webjars/**",
             "/swagger-ui.html",
-            "/"
+            "/",
+            "/zohoverify/verifyforzoho.html"
     };
 
     @Bean

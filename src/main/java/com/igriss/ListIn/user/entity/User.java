@@ -2,6 +2,9 @@ package com.igriss.ListIn.user.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.igriss.ListIn.location.entity.Country;
+import com.igriss.ListIn.location.entity.County;
+import com.igriss.ListIn.location.entity.State;
 import com.igriss.ListIn.security.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -52,18 +55,39 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Column(unique = true, nullable = false)
     private String email;
 
+    private String biography;
+
     @Column(nullable = false)
     private String password;
 
     private String profileImagePath;
 
-    private Float rating;
+    @Builder.Default
+    private Float rating = 5.0F;
+
+    @Builder.Default
+    private Long followers = 0L;
+
+    @Builder.Default
+    private Long following = 0L;
 
     @Column(nullable = false)
     private Boolean isGrantedForPreciseLocation;
 
     @Column(nullable = false)
     private String locationName;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private State state;
+
+    @ManyToOne
+    @JoinColumn(name = "county_id")
+    private County county;
 
     @Column(nullable = false)
     private Double longitude;

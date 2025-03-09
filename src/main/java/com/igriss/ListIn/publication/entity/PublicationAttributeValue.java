@@ -11,6 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
+@ToString
 @Table(name = "publication_attribute_values")
 public class PublicationAttributeValue {
     @Id

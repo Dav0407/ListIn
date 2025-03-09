@@ -21,7 +21,11 @@ public class SearchParams {
     private Float priceFrom;
     private Float priceTo;
     private String locationName;
+    private Boolean isFree;
+    private String sellerType;
+    private Map<String, String> locationIds;
     private Map<String, List<String>> filters;
+    private Map<String, String[]> numericFilter;
 
 }
 
@@ -34,9 +38,14 @@ class SearchFields {
     static final String PRICE = "price";
     static final String PRODUCT_CONDITION = "productCondition";
     static final String LOCATION_NAME = "locationName";
+    static final String SELLER_TYPE = "sellerType";
 
     static final String TITLE = "title^4";
     static final String DESCRIPTION = "description^2";
     static final String CATEGORY_NAME = "categoryName^1.5";
     static final String PARENT_CATEGORY_NAME = "parentCategoryName^1";
+
+    public static final String NUMERIC_FIELDS = "numericFields";
+    public static final String NUMERIC_FIELD_ID = "numericFields.fieldId";
+    public static final String NUMERIC_FIELD_VALUE = "numericFields.value";
 }

@@ -28,10 +28,14 @@ public class RegisterRequestDTO {
     private LocalTime toTime = LocalTime.of(23, 59);
 
     private String email;
+    private String biography;
     private String password;
     private Role roles;
     private Boolean isGrantedForPreciseLocation;
     private String locationName;
+    private String country;
+    private String county;
+    private String state;
     private Double longitude;
     private Double latitude;
 }

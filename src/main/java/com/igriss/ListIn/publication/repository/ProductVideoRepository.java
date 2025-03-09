@@ -9,11 +9,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductVideoRepository extends JpaRepository<PublicationVideo, UUID> {
-    PublicationVideo findByVideoUrl(String videoUrl);
 
     Optional<PublicationVideo> findByPublication_Id(UUID publicationId);
 
     void deleteByPublication_Id(UUID publicationId);
 
     Page<PublicationVideo> findAllByOrderByPublication_DateUpdatedDesc(Pageable pageable);
+
+    Page<PublicationVideo> findAllByPublication_Category_ParentCategory_IdOrderByPublication_DateUpdatedDesc(UUID publicationId, Pageable pageable);
 }

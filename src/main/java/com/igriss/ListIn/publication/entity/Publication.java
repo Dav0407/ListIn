@@ -10,6 +10,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -17,10 +19,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "publications")
 @EntityListeners(AuditingEntityListener.class)
 public class Publication {
@@ -33,23 +36,13 @@ public class Publication {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 5000)
     private String description;
 
-    @Column(nullable = false)
     private Float price;
 
     @Column(nullable = false)
     private Boolean bargain;
-
-    @Column(nullable = false)
-    private String locationName;
-
-    @Column(nullable = false)
-    private Double latitude;
-
-    @Column(nullable = false)
-    private Double longitude;
 
     @Enumerated(EnumType.STRING)
     private PublicationType publicationType;
@@ -59,6 +52,10 @@ public class Publication {
 
     @Enumerated(EnumType.STRING)
     private ProductCondition productCondition;
+
+    private Long likes;
+
+    private Long views;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
@@ -75,4 +72,12 @@ public class Publication {
     @JoinColumn(name = "user_id")
     private User seller;
 
+
+    @PrePersist
+    @PreUpdate
+    public void init() {
+        if (this.price == null) {
+            this.price = 0.0F;
+        }
+    }
 }

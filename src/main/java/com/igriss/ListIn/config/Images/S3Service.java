@@ -1,5 +1,6 @@
 package com.igriss.ListIn.config.Images;
 
+import com.igriss.ListIn.config.Images.compressor.FileCompressor;
 import com.igriss.ListIn.exceptions.FailedToUploadFileException;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -52,7 +55,7 @@ public class S3Service {
                     String ext = FilenameUtils.getExtension(file.getOriginalFilename());
                     String fileName = fileId + "." + ext;
                     String fileUrl = String.format("%s/%s", bucketLink, fileName);
-                    MultipartFile multipartFile ;
+                    MultipartFile multipartFile;
                     try {
                         byte[] fileData = file.getBytes();
                         String contentType = file.getContentType();
@@ -110,12 +113,22 @@ public class S3Service {
     @Async
     public void deleteFiles(List<String> fileNames) {
         fileNames.forEach(fileName -> {
-            DeleteObjectRequest request = DeleteObjectRequest
-                    .builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .build();
-            s3Client.deleteObject(request);
+            try {
+                String cleanFileName = fileName.split("\\?")[0];
+
+                cleanFileName = URLDecoder.decode(cleanFileName, StandardCharsets.UTF_8);
+
+                DeleteObjectRequest request = DeleteObjectRequest
+                        .builder()
+                        .bucket(bucketName)
+                        .key(cleanFileName)
+                        .build();
+
+                s3Client.deleteObject(request);
+            } catch (Exception e) {
+                log.error("Failed to delete file: {} from bucket: {}. Error: {}",
+                        fileName, bucketName, e.getMessage());
+            }
         });
     }
 

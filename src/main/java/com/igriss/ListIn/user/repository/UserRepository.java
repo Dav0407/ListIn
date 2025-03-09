@@ -93,6 +93,10 @@ public interface UserRepository extends JpaRepository<User, UUID> {
                 latitude = CASE
                     WHEN CAST(:latitude AS double precision) IS NOT NULL THEN CAST(:latitude AS double precision)
                     ELSE latitude
+                END,
+                biography = CASE
+                    WHEN CAST(:biography AS varchar) IS NOT NULL THEN CAST(:biography AS varchar)
+                    ELSE biography
                 END
             WHERE user_id = :userId
             """, nativeQuery = true)
@@ -106,11 +110,28 @@ public interface UserRepository extends JpaRepository<User, UUID> {
             @Param("longitude") Double longitude,
             @Param("latitude") Double latitude,
             @Param("fromTime") LocalTime fromTime,
-            @Param("toTime") LocalTime toTime
+            @Param("toTime") LocalTime toTime,
+            @Param("biography") String biography
     );
 
     @Modifying
     @Query(value = "UPDATE users SET role = :role WHERE user_id = :userId", nativeQuery = true)
     void updateUserRole(@Param("userId") UUID userId, @Param("role") String role);
+
+    @Modifying
+    @Query(value = """
+            UPDATE users
+            SET following = following + 1
+            WHERE user_id = :userId
+            """, nativeQuery = true)
+    Integer incrementFollowingColumn(UUID userId);
+
+    @Modifying
+    @Query(value = """
+            UPDATE users
+            SET following = following - 1
+            WHERE user_id = :userId
+            """, nativeQuery = true)
+    Integer decrementFollowingColumn(UUID userId);
 }
 

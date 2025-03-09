@@ -3,7 +3,7 @@ package com.igriss.ListIn.publication.mapper;
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
-import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
+import com.igriss.ListIn.publication.entity.NumericValue;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationImage;
 import com.igriss.ListIn.publication.enums.ProductCondition;
@@ -15,9 +15,9 @@ import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Map;
+import java.util.UUID;
 
 //todo 1 -> write an implementation for advanced mapping from PublicationRequestDTO <-> Publication
 //todo 2 -> also for PublicationResponseDTO <- Publication (The entire mapper part will be done by Davron)
@@ -28,8 +28,8 @@ public class PublicationMapper {
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
     private final PublicationImageMapper publicationImageMapper;
+    private final PublicationAttributeValueMapper publicationAttributeValueMapper;
 
-    public static PublicationResponseDTO waitingPublication;
 
     public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
 
@@ -48,53 +48,36 @@ public class PublicationMapper {
                 .description(requestDTO.getDescription())
                 .price(requestDTO.getPrice())
                 .bargain(requestDTO.getBargain())
-                .locationName(requestDTO.getLocationName())
-                .latitude(requestDTO.getLatitude())
-                .longitude(requestDTO.getLongitude())
                 .category(categoryMapper.toCategory(requestDTO.getCategoryId()))
                 .productCondition(productCondition)
+                .likes(0L)
+                .views(0L)
                 .publicationType(publicationType)
                 .publicationStatus(publicationStatus)
                 .seller(connectedUser)
                 .build();
     }
 
-    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo) {
+    public PublicationResponseDTO toPublicationResponseDTO(Publication publication, List<PublicationImage> publicationImages, String publicationVideo, List<NumericValue> numericValues, Boolean liked, Boolean following) {
         return PublicationResponseDTO.builder()
                 .id(publication.getId())
                 .title(publication.getTitle())
                 .description(publication.getDescription())
-                .price(publication.getPrice())
+                .price(publication.getPrice() != null ? publication.getPrice() : 0F)
                 .bargain(publication.getBargain())
+                .isLiked(liked)
+                .sellerType(publication.getSeller().getRole().name())
+                .isFree(publication.getPrice() == null || publication.getPrice() == 0F)
                 .productImages(publicationImageMapper.toImageDTOList(publicationImages))
                 .videoUrl(publicationVideo)
-                .locationName(publication.getLocationName())
-                .latitude(publication.getLatitude())
-                .longitude(publication.getLongitude())
                 .publicationType(publication.getPublicationType())
                 .productCondition(publication.getProductCondition())
+                .likes(publication.getLikes() != null ? publication.getLikes() : 0L)
                 .createdAt(publication.getDatePosted())
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
-                .seller(userMapper.toUserResponseDTO(publication.getSeller()))
-                .build();
-    }
-
-    public UserPublicationDTO toUserPublicationDTO(Publication publication) {
-        return UserPublicationDTO.builder()
-                .id(publication.getId())
-                .title(publication.getTitle())
-                .description(publication.getDescription())
-                .price(publication.getPrice())
-                .bargain(publication.getBargain())
-                .locationName(publication.getLocationName())
-                .latitude(publication.getLatitude())
-                .longitude(publication.getLongitude())
-                .publicationType(publication.getPublicationType())
-                .productCondition(publication.getProductCondition())
-                .createdAt(publication.getDatePosted())
-                .updatedAt(publication.getDateUpdated())
-                .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
+                .seller(userMapper.toUserResponseDTO(publication.getSeller(), following))
+                .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication, numericValues))
                 .build();
     }
 
@@ -105,5 +88,6 @@ public class PublicationMapper {
                 .secondPublication(second)
                 .build();
     }
+
 }
 

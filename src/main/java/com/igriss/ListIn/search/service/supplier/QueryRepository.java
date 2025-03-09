@@ -14,50 +14,48 @@ import java.util.function.Supplier;
 public class QueryRepository {
 
     public static Supplier<Query> deepSearchQuerySupplier(SearchParams params) {
+
         Query boolQuery = BoolQuery.of(builder -> {
-            if (params.getFilters() != null)
+
+            if (params.getFilters() != null && !params.getFilters().isEmpty())
                 addNestedAttributeFilters(params.getFilters(), builder);
 
+            if (params.getNumericFilter() != null && !params.getNumericFilter().isEmpty())
+                addNumericFilters(params.getNumericFilter(), builder);
+
             addCategoryFilters(params.getParentCategory(), params.getCategory(), builder);
+
+            if (params.getLocationIds().get("countryId") != null)
+                addLocationFilter(params.getLocationIds().get("countryId"), "countryId", builder);
+
+            if (params.getLocationIds().get("stateId") != null)
+                addLocationFilter(params.getLocationIds().get("stateId"), "stateId", builder);
+
+            if (params.getLocationIds().get("countyId") != null)
+                addLocationFilter(params.getLocationIds().get("countyId"), "countyId", builder);
+
+            if (params.getLocationIds().get("cityId") != null)
+                addLocationFilter(params.getLocationIds().get("cityId"), "cityId", builder);
+
             addBasicSearchFilters(
                     params.getBargain(),
                     params.getProductCondition(),
                     params.getPriceFrom(),
                     params.getPriceTo(),
-                    preprocessInput(params.getInput()),
+                    params.getInput(),
                     params.getLocationName(),
+                    params.getIsFree(),
+                    params.getSellerType(),
                     builder
             );
 
             return builder;
+
         })._toQuery();
 
         log.info("Generated deep search query: {}", boolQuery);
+
         return () -> boolQuery;
-    }
-
-    public static Supplier<Query> shallowSearchQuerySupplier(SearchParams params) {
-        return () -> BoolQuery.of(builder -> {
-            addBasicSearchFilters(
-                    params.getBargain(),
-                    params.getProductCondition(),
-                    params.getPriceFrom(),
-                    params.getPriceTo(),
-                    preprocessInput(params.getInput()),
-                    params.getLocationName(),
-                    builder
-            );
-            return builder;
-        })._toQuery();
-    }
-
-    private static String preprocessInput(String input) {
-        if (input == null) {
-            return "";
-        }
-        return input.trim()
-                .replaceAll("[^а-яА-ЯёЁa-zA-Z0-9\\s]", "")
-                .toLowerCase();
     }
 
     private static void addCategoryFilters(UUID parentCategory, UUID category, BoolQuery.Builder builder) {
@@ -89,24 +87,43 @@ public class QueryRepository {
         )));
     }
 
+    private static void addNumericFilters(Map<String, String[]> filters, BoolQuery.Builder builder) {
+        filters.forEach((key, range) -> builder.filter(q -> q.nested(n -> n
+                .path(SearchFields.NUMERIC_FIELDS)
+                .query(nq -> nq.bool(nb -> nb
+                        .must(mq -> mq.match(createMatchQuery(SearchFields.NUMERIC_FIELD_ID, key)))
+                        .must(mq -> mq.range(r -> r
+                                .field(SearchFields.NUMERIC_FIELD_VALUE)
+                                .gte(JsonData.of(range[0]))
+                                .lte(JsonData.of(range.length > 1 ? range[1] : range[0]))
+                        ))
+                ))
+        )));
+    }
+
     private static void addBasicSearchFilters(
             Boolean bargain,
             String productCondition,
             Float priceFrom,
             Float priceTo,
-            String cleanedInput,
+            String input,
             String locationName,
+            Boolean isFree,
+            String sellerType,
             BoolQuery.Builder builder) {
 
         addBargainFilter(bargain, builder);
+
+        addIsFreeFilter(isFree, builder);
+        addSellerTypeFilter(sellerType, builder);
 
         addOptionalFilter(productCondition, builder, SearchFields.PRODUCT_CONDITION);
         addOptionalFilter(locationName, builder, SearchFields.LOCATION_NAME);
 
         addPriceRangeFilter(priceFrom, priceTo, builder);
 
-        if (!Objects.equals(cleanedInput, "")) {
-            addTextSearchQuery(cleanedInput, builder);
+        if (!Objects.equals(input, null)) {
+            addTextSearchQuery(input, builder);
             builder.minimumShouldMatch("1");
         }
     }
@@ -132,12 +149,14 @@ public class QueryRepository {
     }
 
     private static void addTextSearchQuery(String query, BoolQuery.Builder builder) {
-        builder.should(m -> m.multiMatch(mm -> mm
-                .fields(SearchFields.TITLE, SearchFields.DESCRIPTION,
-                        SearchFields.CATEGORY_NAME, SearchFields.PARENT_CATEGORY_NAME)
-                .type(TextQueryType.PhrasePrefix)
-                .query(query))
-        );
+        if (query != null && !query.trim().isEmpty()) {
+            builder.should(m -> m.multiMatch(mm -> mm
+                    .fields(SearchFields.TITLE, SearchFields.DESCRIPTION,
+                            SearchFields.CATEGORY_NAME, SearchFields.PARENT_CATEGORY_NAME)
+                    .type(TextQueryType.PhrasePrefix)
+                    .query(query))
+            );
+        }
     }
 
     private static void addBargainFilter(Boolean bargain, BoolQuery.Builder builder) {
@@ -153,4 +172,26 @@ public class QueryRepository {
                 .query(value));
     }
 
+    private static void addIsFreeFilter(Boolean isFree, BoolQuery.Builder builder) {
+        if (isFree != null) {
+            builder.filter(m -> m.term(t -> t
+                    .field(SearchFields.PRICE)
+                    .value(0.0f)));
+        }
+    }
+
+    private static void addSellerTypeFilter(String sellerType, BoolQuery.Builder builder) {
+        if (sellerType != null) {
+            builder.filter(m -> m.match(createMatchQuery(SearchFields.SELLER_TYPE, sellerType)));
+        }
+    }
+
+    private static void addLocationFilter(String locationId, String field, BoolQuery.Builder builder) {
+        if (locationId != null)
+            builder.filter(m -> m.match(createMatchQuery(field, locationId)));
+    }
+
 }
+
+
+

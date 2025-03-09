@@ -15,14 +15,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @TypeAlias("attributeKeyDocument")
-@Document(indexName = "attributeKeyDocument")
+@Document(indexName = "attribute_key_documents")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttributeKeyDocument {
 
     @Id
+    @Field(type = FieldType.Keyword)
     private UUID id;
 
     @Field(type = FieldType.Text, analyzer = "standard")

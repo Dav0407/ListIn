@@ -1,12 +1,10 @@
 package com.igriss.ListIn.publication.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.igriss.ListIn.publication.entity.AttributeKey;
-import com.igriss.ListIn.publication.entity.AttributeValue;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -16,6 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
 public class PublicationRequestDTO implements Serializable {
 
     private String title;
@@ -49,6 +48,8 @@ public class PublicationRequestDTO implements Serializable {
     private String videoUrl;
 
     private UUID categoryId;
+
+    private List<NumericValueRequestDTO> numericValues;
 
     private List<AttributeValueDTO> attributeValues;
 

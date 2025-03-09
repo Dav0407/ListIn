@@ -28,11 +28,13 @@ public class PublicationResponseDTO implements Serializable {
 
     private Boolean bargain;
 
-    private String locationName;
+    private Boolean isLiked;
 
-    private Double latitude;
+    private Boolean isViewed;
 
-    private Double longitude;
+    private Boolean isFree;
+
+    private String sellerType;
 
     private List<ImageDTO> productImages;
 
@@ -42,6 +44,10 @@ public class PublicationResponseDTO implements Serializable {
 
     private ProductCondition productCondition;
 
+    private Long likes;
+
+    private Long views;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
@@ -49,4 +55,7 @@ public class PublicationResponseDTO implements Serializable {
     private CategoryDTO category;
 
     private UserResponseDTO seller;
+
+    private PublicationAttributeValueDTO attributeValue;
+
 }

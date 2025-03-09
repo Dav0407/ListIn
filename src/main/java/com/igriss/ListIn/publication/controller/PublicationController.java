@@ -3,14 +3,12 @@ package com.igriss.ListIn.publication.controller;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
-import com.igriss.ListIn.publication.dto.user_publications.UserPublicationDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.entity.PublicationAttributeValue;
 import com.igriss.ListIn.publication.repository.PublicationAttributeValueRepository;
 import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.publication.service.PublicationService;
-import com.igriss.ListIn.search.dto.PublicationNode;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,9 +40,9 @@ public class PublicationController {
 
     @Operation(summary = "${publication-controller.user-publications.summary}", description = "${publication-controller.user-publications.description}")
     @GetMapping("/user-publications")
-    public ResponseEntity<PageResponse<UserPublicationDTO>> getPublicationsOfUser(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                                  @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-                                                                                  Authentication connectedUser) {
+    public ResponseEntity<PageResponse<PublicationResponseDTO>> getPublicationsOfUser(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                                                      @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                                                      Authentication connectedUser) {
         return ResponseEntity.ok(publicationService.findAllByUser(page, size, connectedUser));
     }
 
@@ -59,40 +57,56 @@ public class PublicationController {
         return ResponseEntity.ok(repo.findByPublication_Id(publicationId));
     }
 
-    @Operation(summary = "${publication-controller.get-latest.summary}", description = "${publication-controller.get-latest.description}")
-    @GetMapping
-    public ResponseEntity<List<PublicationNode>> findAllLatestPublications(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size
-    ) {
-        return ResponseEntity.ok(publicationService.findAllLatestPublications(page, size));
-    }
-
     @Operation(summary = "${publication-controller.update.summary}", description = "${publication-controller.update.description}")
     @PatchMapping("/update/{publicationId}")
-    public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication) {
-        return ResponseEntity.ok(publicationService.updateUserPublication(publicationId, updatePublication));
+    public ResponseEntity<PublicationResponseDTO> updatePublication(@PathVariable UUID publicationId, @RequestBody UpdatePublicationRequestDTO updatePublication, Authentication authentication) {
+        return ResponseEntity.ok(publicationService.updateUserPublication(publicationId, updatePublication, authentication));
     }
 
     @Operation(summary = "${publication-controller.find-by-user.summary}", description = "${publication-controller.find-by-user.description}")
     @GetMapping("/user/{userId}")
     public PageResponse<PublicationResponseDTO> findByUser(@PathVariable UUID userId,
                                                            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
-        return publicationService.findAllByUserId(userId, page, size);
-    }
-
-    @Operation(summary = "${publication-controller.parent-category.summary}", description = "${publication-controller.parent-category.description}")
-    @GetMapping("/p/{pCategory}")
-    public List<PublicationNode> parentCategorySearch(@PathVariable UUID pCategory,
-                                                      @RequestParam(defaultValue = "0") Integer page,
-                                                      @RequestParam(defaultValue = "5") Integer size) {
-        return publicationService.findWithParentCategory(pCategory, page, size);
+                                                           @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                           Authentication connectedUser) {
+        return publicationService.findAllByUserId(userId, page, size, connectedUser);
     }
 
     @Operation(summary = "${publication-controller.videos.summary}", description = "${publication-controller.videos.description}")
-    @GetMapping("/videos")
-    public PageResponse<PublicationResponseDTO> getVideos(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                         @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
-        return publicationService.findPublicationsContainingVideo(page, size);
+    @GetMapping({"/videos", "/videos/{pCategory}"})
+    public PageResponse<PublicationResponseDTO> getVideos(@PathVariable(required = false) UUID pCategory,
+                                                          @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                          @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+                                                          Authentication connectedUser
+    ) {
+        return publicationService.findPublicationsContainingVideo(page, size, connectedUser, pCategory);
+    }
+
+    @PatchMapping("/like/{publicationId}")
+    public UUID likePublication(@PathVariable UUID publicationId, Authentication connectedUser) {
+        return publicationService.likePublication(publicationId, connectedUser);
+    }
+
+    @PatchMapping("/unlike/{publicationId}")
+    public UUID unLikePublication(@PathVariable UUID publicationId, Authentication connectedUser) {
+        return publicationService.unLikePublication(publicationId, connectedUser);
+    }
+
+    @GetMapping("/like")
+    public PageResponse<PublicationResponseDTO> getLikedPublications(@RequestParam(defaultValue = "0") Integer page,
+                                                                     @RequestParam(defaultValue = "5") Integer size,
+                                                                     Authentication connectedUser) {
+        return publicationService.findAllLikedPublications(page, size, connectedUser);
+    }
+
+    @DeleteMapping("/delete/{publicationId}")
+    public ResponseEntity<Object> deletePublication(@PathVariable UUID publicationId, Authentication authentication) {
+        publicationService.deletePublication(publicationId, authentication);
+        return ResponseEntity.ok().body("Publication deleted successfully");
+    }
+
+    @PostMapping("/view/{publicationId}")
+    public ResponseEntity<UUID> viewPublication(@PathVariable UUID publicationId, Authentication connectedUser) {
+        return ResponseEntity.ok(publicationService.viewPublication(publicationId, connectedUser));
     }
 }

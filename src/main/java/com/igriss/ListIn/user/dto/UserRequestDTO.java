@@ -1,10 +1,12 @@
 package com.igriss.ListIn.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -22,9 +24,19 @@ public class UserRequestDTO implements Serializable {
 
     private String locationName;
 
+    private UUID cityId;
+
+    private UUID countryId;
+
+    private UUID stateId;
+
+    private UUID countyId;
+
     private Double longitude;
 
     private Double latitude;
+
+    private String biography;
 
     @JsonFormat(pattern = "HH:mm")
     @Builder.Default

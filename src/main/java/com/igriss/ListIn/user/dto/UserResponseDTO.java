@@ -1,7 +1,11 @@
 package com.igriss.ListIn.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.igriss.ListIn.location.dto.CountryDTO;
+import com.igriss.ListIn.location.dto.CountyDTO;
+import com.igriss.ListIn.location.dto.StateDTO;
 import com.igriss.ListIn.security.roles.Role;
+import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +28,8 @@ public class UserResponseDTO {
 
     private String phoneNumber;
 
+    private String biography;
+
     @JsonFormat(pattern = "HH:mm")
     private LocalTime fromTime;
 
@@ -40,7 +46,19 @@ public class UserResponseDTO {
 
     private String locationName;
 
+    private CountryDTO country;
+
+    private StateDTO state;
+
+    private CountyDTO county;
+
     private Double longitude;
+
+    private Long followers;
+
+    private Long following;
+
+    private Boolean isFollowing;
 
     private Double latitude;
 
