@@ -2,6 +2,8 @@ package com.igriss.ListIn.user.service;
 
 
 import com.igriss.ListIn.exceptions.UserNotFoundException;
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
@@ -39,6 +41,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final AuthenticationServiceImpl authenticationService;
+    private final LocationService locationService;
     private final UserFollowerRepository userFollowerRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -86,6 +89,16 @@ public class UserServiceImpl implements UserService {
 
         User user = (User) authentication.getPrincipal();
 
+        log.info("countyName {}", userRequestDTO.getCounty());
+        log.info("countyName {}", userRequestDTO.getCounty());
+        log.info("stateName {}", userRequestDTO.getState());
+
+        LocationDTO location = locationService.getLocation(userRequestDTO.getCountry(), userRequestDTO.getState(), userRequestDTO.getCounty(), "ru");
+
+        log.info("country {}", location.getCountry());
+        log.info("county {}", location.getCounty());
+        log.info("state {}", location.getState());
+
         Integer status = userRepository.updateUserDetails(
                 user.getUserId(),
                 userRequestDTO.getNickName(),
@@ -93,6 +106,9 @@ public class UserServiceImpl implements UserService {
                 userRequestDTO.getPhoneNumber(),
                 userRequestDTO.getIsGrantedForPreciseLocation(),
                 userRequestDTO.getLocationName(),
+                location.getCountry().getId(),
+                location.getState().getId(),
+                location.getCounty() != null ? location.getCounty().getId() : null,
                 userRequestDTO.getLongitude(),
                 userRequestDTO.getLatitude(),
                 userRequestDTO.getFromTime(),

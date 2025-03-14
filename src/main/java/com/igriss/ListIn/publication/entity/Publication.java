@@ -1,5 +1,8 @@
 package com.igriss.ListIn.publication.entity;
 
+import com.igriss.ListIn.location.entity.Country;
+import com.igriss.ListIn.location.entity.County;
+import com.igriss.ListIn.location.entity.State;
 import com.igriss.ListIn.publication.entity.static_entity.Category;
 
 import com.igriss.ListIn.publication.enums.ProductCondition;
@@ -71,6 +74,30 @@ public class Publication {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User seller;
+
+    @Column(nullable = false)
+    private Boolean isGrantedForPreciseLocation;
+
+    @Column(nullable = false)
+    private String locationName;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private State state;
+
+    @ManyToOne
+    @JoinColumn(name = "county_id")
+    private County county;
+
+    @Column(nullable = false)
+    private Double longitude;
+
+    @Column(nullable = false)
+    private Double latitude;
 
 
     @PrePersist

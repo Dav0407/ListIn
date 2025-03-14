@@ -1,6 +1,8 @@
 package com.igriss.ListIn.publication.mapper;
 
 
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.mapper.LocationMapper;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.entity.NumericValue;
@@ -9,29 +11,29 @@ import com.igriss.ListIn.publication.entity.PublicationImage;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import com.igriss.ListIn.publication.enums.PublicationStatus;
 import com.igriss.ListIn.publication.enums.PublicationType;
-import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 //todo 1 -> write an implementation for advanced mapping from PublicationRequestDTO <-> Publication
 //todo 2 -> also for PublicationResponseDTO <- Publication (The entire mapper part will be done by Davron)
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PublicationMapper {
 
-    private final CategoryMapper categoryMapper;
-    private final UserMapper userMapper;
-    private final PublicationImageMapper publicationImageMapper;
     private final PublicationAttributeValueMapper publicationAttributeValueMapper;
+    private final PublicationImageMapper publicationImageMapper;
+    private final CategoryMapper categoryMapper;
+    private final LocationMapper locationMapper;
+    private final UserMapper userMapper;
 
 
-    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser) {
+    public Publication toPublication(PublicationRequestDTO requestDTO, User connectedUser, LocationDTO location) {
 
         PublicationType publicationType = switch (connectedUser.getRole()) {
             case BUSINESS_SELLER -> PublicationType.BUSINESS_PUBLICATION;
@@ -55,6 +57,13 @@ public class PublicationMapper {
                 .publicationType(publicationType)
                 .publicationStatus(publicationStatus)
                 .seller(connectedUser)
+                .isGrantedForPreciseLocation(requestDTO.getIsGrantedForPreciseLocation())
+                .locationName(requestDTO.getLocationName())
+                .country(location.getCountry())
+                .state(location.getState())
+                .county(location.getCounty())
+                .longitude(requestDTO.getLongitude())
+                .latitude(requestDTO.getLatitude())
                 .build();
     }
 
@@ -77,17 +86,15 @@ public class PublicationMapper {
                 .updatedAt(publication.getDateUpdated())
                 .category(categoryMapper.toCategoryResponseDTO(publication.getCategory()))
                 .seller(userMapper.toUserResponseDTO(publication.getSeller(), following))
+                .isGrantedForPreciseLocation(publication.getIsGrantedForPreciseLocation())
+                .locationName(publication.getLocationName())
+                .countryDTO(locationMapper.toCountryDTO(publication.getCountry()))
+                .stateDTO(locationMapper.toStateDTO(publication.getState()))
+                .countyDTO(locationMapper.toCountyDTO(publication.getCounty()))
+                .longitude(publication.getLongitude())
+                .latitude(publication.getLatitude())
                 .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication, numericValues))
                 .build();
     }
-
-    public PublicationNode toPublicationNode(PublicationResponseDTO first, PublicationResponseDTO second) {
-        return PublicationNode.builder()
-                .isSponsored(first.getVideoUrl() != null)
-                .firstPublication(first)
-                .secondPublication(second)
-                .build();
-    }
-
 }
 
