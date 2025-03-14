@@ -40,7 +40,11 @@ public class DatabaseInitializer {
             "/database_sql_scripts/attribute_values.sql",
             "/database_sql_scripts/auto/attribute_keys.sql",
             "/database_sql_scripts/auto/attribute_values.sql",
+            "/database_sql_scripts/real_estate/attribute_keys.sql",
+            "/database_sql_scripts/real_estate/attribute_values.sql",
             "/database_sql_scripts/category_attributes.sql",
+
+
             "/database_sql_scripts/models/auto/motorcycle_brand_models.sql",
             "/database_sql_scripts/models/auto/car_brand_models.sql",
             "/database_sql_scripts/models/auto/commercial_vehicle_brand_models.sql",
@@ -59,7 +63,10 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/electronics/laptop_gpu_models.sql",
             "/database_sql_scripts/models/electronics/pc_gpu_models.sql",
             "/database_sql_scripts/models/electronics/pc_brand_models.sql",
+
             "/database_sql_scripts/numerics/auto_numeric_fields.sql",
+            "/database_sql_scripts/numerics/real_estate_numeric_fields.sql",
+
             "/database_sql_scripts/location-tree/countries.sql",
             "/database_sql_scripts/location-tree/states.sql",
             "/database_sql_scripts/location-tree/counties.sql"

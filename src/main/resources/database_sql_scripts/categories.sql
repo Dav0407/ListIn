@@ -57,7 +57,33 @@ INSERT INTO categories (category_id, parent_id, category_name, category_name_uz,
 INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a', '5d211862-168e-41ad-af27-a9ad461169f6', 'Vehicle Rentals', 'Avtomobil ijarasi', 'Прокат автомобилей', 'Car Rentals, Motorcycle Rentals, Truck Rentals...', 'Avtomobil ijarasi, mototsikl ijarasi, yuk mashinalari ijarasi...', 'Прокат автомобилей, Прокат мотоциклов, Прокат грузовиков...','https://listin-app-images.s3.eu-north-1.amazonaws.com/cars_rentals1-min.png');
 
 
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- Child category "Apartments"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('c5e9cd9a-2b84-438f-b2fa-fb4d667f0637', '534ec9ab-448d-407f-9478-30e2f0b132ca', 'Apartments', 'Kvartiralar','Квартиры','Studio, one-bedroom, two-bedroom apartments...','Studio, bir xonali, ikki xonali kvartiralar...', 'Студии, однокомнатные, двухкомнатные квартиры...','https://listin-app-images.s3.eu-north-1.amazonaws.com/home_estate.png');
+
+-- Child category "Rooms"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('b30495cc-1f0a-4492-8d21-aeac3b3ea8c5', '534ec9ab-448d-407f-9478-30e2f0b132ca', 'Rooms', 'Xonalar','Комнаты','Single rooms, shared rooms, rentals...','Yakka xonalar, umumiy xonalar, ijaralar...', 'Отдельные комнаты, общие комнаты, аренда...','https://listin-app-images.s3.eu-north-1.amazonaws.com/home_estate.png');
+
+-- Child category "Houses, Dachas, Cottages"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('7bde739d-5842-40ee-84eb-5f74d98a4f8d', '534ec9ab-448d-407f-9478-30e2f0b132ca', 'Houses, Dachas, Cottages', 'Ular, dachalar, kottejlar','Дома, дачи, коттеджи','Private houses, country homes, vacation cottages...','Xususiy uylar, dala hovlilar, dam olish kottejlari...', 'Частные дома, загородные дома, дачные коттеджи...','https://listin-app-images.s3.eu-north-1.amazonaws.com/home_estate.png');
+
+-- Child category "Land Plots"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('aa695fe5-9043-4de6-8fe6-9b3020aeb07c', '534ec9ab-448d-407f-9478-30e2f0b132ca', 'Land Plots', 'Yer uchastkalari','Земельные участки','Residential, commercial, agricultural land...','Turar-joy, tijorat, qishloq xo‘jaligi yerlari...', 'Жилые, коммерческие, сельскохозяйственные земли...','https://listin-app-images.s3.eu-north-1.amazonaws.com/home_estate.png');
+
+-- Child category "Garages and Parking Spaces"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('17da3f72-5ebc-43ee-9edc-6f00ce66a20f', '534ec9ab-448d-407f-9478-30e2f0b132ca', 'Garages and Parking Spaces', 'Garajlar va avtoturargohlar','Гаражи и машиноместа','Private garages, parking lots, covered spaces...','Xususiy garajlar, avtoturargohlar, yopiq joylar...', 'Частные гаражи, парковки, крытые стоянки...','https://listin-app-images.s3.eu-north-1.amazonaws.com/home_estate.png');
+
+-- Child category "Commercial Real Estate"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('a44e669e-9a32-4736-9aaa-f9c5f46c03ef', '534ec9ab-448d-407f-9478-30e2f0b132ca', 'Commercial Real Estate', 'Tijorat ko‘chmas mulki','Коммерческая недвижимость','Offices, retail spaces, warehouses...','Ofislar, savdo joylari, omborxonalar...', 'Офисы, торговые площади, склады...','https://listin-app-images.s3.eu-north-1.amazonaws.com/home_estate.png');
+
+-- Child category "Real Estate Abroad"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('225853b7-67d9-4248-a5f1-96386f6d9784', '534ec9ab-448d-407f-9478-30e2f0b132ca', 'Real Estate Abroad', 'Chet eldagi ko‘chmas mulk','Недвижимость за рубежом','Apartments, houses, investment properties overseas...','Kvartiralar, uylar, investitsion mulklar...', 'Квартиры, дома, инвестиционная недвижимость...','https://listin-app-images.s3.eu-north-1.amazonaws.com/home_estate.png');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 
 -- Child category "Smartphones"
