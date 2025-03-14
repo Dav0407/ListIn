@@ -27,15 +27,21 @@ public class PublicationRequestDTO implements Serializable {
 
     private String phoneNumber;
 
-    private Boolean isGrantedForPreciseLocation;
-
     @JsonFormat(pattern = "HH:mm")
     private LocalTime fromTime;
 
     @JsonFormat(pattern = "HH:mm")
     private LocalTime toTime;
 
+    private Boolean isGrantedForPreciseLocation;
+
     private String locationName;
+
+    private String countryName;
+
+    private String stateName;
+
+    private String countyName;
 
     private Double latitude;
 

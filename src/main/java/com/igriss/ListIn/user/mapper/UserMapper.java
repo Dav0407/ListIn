@@ -30,7 +30,7 @@ public class UserMapper {
                 .locationName(user.getLocationName())
                 .country(locationMapper.toCountryDTO(user.getCountry()))
                 .state(locationMapper.toStateDTO(user.getState()))
-                .county(locationMapper.toCountyDTO(user.getCounty()))
+                .county(user.getCounty() != null ? locationMapper.toCountyDTO(user.getCounty()) : null)
                 .longitude(user.getLongitude())
                 .latitude(user.getLatitude())
                 .role(user.getRole())

@@ -42,6 +42,7 @@ public class LocationServiceImpl implements LocationService {
                             .map(state -> {
                                 List<CountyNode> counties = countyRepository.findAllByState_Id(state.getId()).stream()
                                         .map(county -> CountyNode.builder()
+                                                .countyId(county.getId())
                                                 .value(county.getValue())
                                                 .valueUz(county.getValueUz())
                                                 .valueRu(county.getValueRu())
@@ -49,6 +50,7 @@ public class LocationServiceImpl implements LocationService {
                                         .collect(Collectors.toList());
 
                                 return StateNode.builder()
+                                        .stateId(state.getId())
                                         .value(state.getValue())
                                         .valueUz(state.getValueUz())
                                         .valueRu(state.getValueRu())
@@ -58,6 +60,7 @@ public class LocationServiceImpl implements LocationService {
                             .collect(Collectors.toList());
 
                     return CountryNode.builder()
+                            .countryId(country.getId())
                             .value(country.getValue())
                             .valueUz(country.getValueUz())
                             .valueRu(country.getValueRu())

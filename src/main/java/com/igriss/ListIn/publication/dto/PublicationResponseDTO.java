@@ -1,5 +1,8 @@
 package com.igriss.ListIn.publication.dto;
 
+import com.igriss.ListIn.location.dto.CountryDTO;
+import com.igriss.ListIn.location.dto.CountyDTO;
+import com.igriss.ListIn.location.dto.StateDTO;
 import com.igriss.ListIn.publication.enums.ProductCondition;
 import com.igriss.ListIn.publication.enums.PublicationType;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
@@ -55,6 +58,20 @@ public class PublicationResponseDTO implements Serializable {
     private CategoryDTO category;
 
     private UserResponseDTO seller;
+
+    private Boolean isGrantedForPreciseLocation;
+
+    private String locationName;
+
+    private CountryDTO countryDTO;
+
+    private StateDTO stateDTO;
+
+    private CountyDTO countyDTO;
+
+    private Double latitude;
+
+    private Double longitude;
 
     private PublicationAttributeValueDTO attributeValue;
 

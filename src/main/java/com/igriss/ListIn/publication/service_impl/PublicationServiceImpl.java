@@ -2,6 +2,8 @@ package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
@@ -53,6 +55,8 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationDocumentService publicationDocumentService;
     private final PublicationMapper publicationMapper;
 
+    private final LocationService locationService;
+
     private final NumericValueService numericValueService;
 
     private final PublicationAttributeValueService publicationAttributeValueService;
@@ -67,8 +71,14 @@ public class PublicationServiceImpl implements PublicationService {
 
         userService.updateContactDetails(request, connectedUser);
 
+        log.info("Country: {}", request.getCountryName());
+        log.info("State: {}", request.getStateName());
+        log.info("County: {}", request.getCountyName());
+
+        LocationDTO location = locationService.getLocation(request.getCountryName(), request.getStateName(), request.getCountyName(), "ru");
+
         // Map and save publication
-        Publication publication = publicationMapper.toPublication(request, connectedUser);
+        Publication publication = publicationMapper.toPublication(request, connectedUser, location);
         publication = publicationRepository.save(publication);
 
         // Save images //todo -> then removed the assignment
