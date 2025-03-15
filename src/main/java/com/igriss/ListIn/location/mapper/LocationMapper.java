@@ -13,7 +13,7 @@ public class LocationMapper {
 
     public CountryDTO toCountryDTO(Country country) {
         return CountryDTO.builder()
-                .id(country.getId())
+                .countryId(country.getId())
                 .value(country.getValue())
                 .valueRu(country.getValueRu())
                 .valueUz(country.getValueUz())
@@ -22,7 +22,7 @@ public class LocationMapper {
 
     public StateDTO toStateDTO(State state) {
         return StateDTO.builder()
-                .id(state.getId())
+                .stateId(state.getId())
                 .value(state.getValue())
                 .valueRu(state.getValueRu())
                 .valueUz(state.getValueUz())
@@ -31,7 +31,7 @@ public class LocationMapper {
 
     public CountyDTO toCountyDTO(County county) {
         return CountyDTO.builder()
-                .id(county.getId())
+                .countyId(county.getId())
                 .value(county.getValue())
                 .valueRu(county.getValueRu())
                 .valueUz(county.getValueUz())
