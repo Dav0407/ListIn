@@ -90,7 +90,7 @@ public class PublicationMapper {
                 .locationName(publication.getLocationName())
                 .countryDTO(locationMapper.toCountryDTO(publication.getCountry()))
                 .stateDTO(locationMapper.toStateDTO(publication.getState()))
-                .countyDTO(locationMapper.toCountyDTO(publication.getCounty()))
+                .countyDTO(publication.getCounty()!= null ? locationMapper.toCountyDTO(publication.getCounty()) : null)
                 .longitude(publication.getLongitude())
                 .latitude(publication.getLatitude())
                 .attributeValue(publicationAttributeValueMapper.toPublicationAttributeValueDTO(publication, numericValues))

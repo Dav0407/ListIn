@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class CountyDTO {
-    private UUID id;
+    private UUID countyId;
     private String value;
     private String valueUz;
     private String valueRu;
