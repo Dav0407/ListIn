@@ -42,7 +42,14 @@ public class InputPredictionServiceImpl implements InputPredictionService {
             "Watercraft Model",
             "Special Vehicle Model",
             "Electric Vehicle Model",
-            "Agricultural & Construction Vehicle Model"
+            "Agricultural & Construction Vehicle Model",
+            "Apartment Type",
+            "Building Type",
+            "House Type",
+            "Land Type",
+            "Garage Type",
+            "Commercial Real Estate Type",
+            "Real Estate Abroad Type"
     );
 
     @Override
@@ -68,6 +75,7 @@ public class InputPredictionServiceImpl implements InputPredictionService {
     @Override
     public String indexInputPredictionDocuments() {
         models.forEach(model -> attributeValueRepository.findByAttributeKey_Name(model).parallelStream().forEach(av -> {
+            log.info(av.toString());
             CategoryAttribute ca = categoryAttributeRepository.findByAttributeKey_Id(av.getAttributeKey().getId())
                     .orElseThrow(() -> new RuntimeException("Error during the elastic indexation occurred"));
             predictionDocumentRepository.save(inputPredictionMapper.toInputPredictionDocument(av, ca));

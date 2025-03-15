@@ -187,3 +187,107 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('737370f0-1298-40ad-a939-2070249c652d','8ab4a9cf-2936-4eef-a243-dbaf3ca9aaff','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('027fb408-dd05-4955-ac2d-4093ef62de1d','de880191-98ec-49b8-9c19-6dc17501971f','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a248b206-2e4a-4bee-9930-58841e7f612c','c4864c4e-eed8-4588-8eed-010761d677d1','ce0b2ef9-34b2-4ae6-9c9a-d052a3a3fe6a');
+
+--Apartment
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('d54c6590-03f7-4a30-b654-62c37d6e6e5f','6a827926-1e05-4399-8a32-104b342aee31','c5e9cd9a-2b84-438f-b2fa-fb4d667f0637');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b59e3b4b-7c16-4d42-a2cb-8db8485a277d','1592586d-c283-4b00-beff-981d663c7a53','c5e9cd9a-2b84-438f-b2fa-fb4d667f0637');
+
+--Rooms
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f8ea390f-2d5a-4dfd-bac7-571479ce23d3','e2280784-0dd1-4f04-a1cc-7b50f76aa0a8','b30495cc-1f0a-4492-8d21-aeac3b3ea8c5');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2a9abd63-12f7-4fa3-9e25-2129e57d1cce','f6d9413e-fa9d-4fdc-b101-60cbb1367766','b30495cc-1f0a-4492-8d21-aeac3b3ea8c5');
+
+--Houses, Dachas, Cottages
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('641967d8-0f3c-4293-817f-f8158c779069','382e0581-edcf-49d3-8110-eaf37420524d','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('54a5c4c4-7fac-4754-83f7-d2d896f6a97d','11d157fc-3d96-407b-862d-0b092e9ffcc0','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('7faa39b0-bbdd-4c9c-94f5-40f027645381','5708448f-7c80-4604-85ff-a618155ec323','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a2c1b24f-99f7-4ede-94d8-df2de3063b0d','7472df57-29da-4aa5-8a37-77401831d802','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b73e70a5-f9e3-481c-8db1-6913c5da5269','7ef9a8ca-5b4b-438c-8a19-4f4ad6937f61','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a63e7635-ae7f-4356-8c7b-540e17d8db2d','2342a08a-e2c2-4f5f-a6f6-2f4ce5d05ff4','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('7b1f09da-4dcf-4763-88c8-f513199f3521','c488dc70-3636-4dcb-ba9d-d254883a652d','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('d8c71ba8-f476-4abb-a89c-511a5e28230a','6e3caa28-76d9-4a79-ae3b-65c414b523d1','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('8f3211a5-dc40-4515-ada6-8b077ae86c57','d5f59a06-9d61-4eb8-8752-dbca0eabc357','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ab3220a1-c6f1-4603-933d-666b3540cc67','95bbdb20-bfd1-4b01-8c4a-e9e7e3647f2f','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('715b3784-f279-489c-83ce-9f37e745e753','e9e0539e-24e0-42b3-86fc-e6c99816c89e','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('cef5dd7a-32db-4b05-a5a2-da725b081cbf','a09e1b65-ce89-4233-920f-0f38935ed60f','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('3afc356f-ecb3-4ee0-aaaa-684a884f8ccd','fde2fc31-a3ef-437b-ae4e-afabb733a0e5','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6e968451-cde3-425f-a304-e51d0d10dca6','04d40d31-bf85-4768-bd17-f628d3943080','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('70146a6b-1abb-464d-93bf-19184543663d','a288d882-2443-4455-85c7-05c5090462fc','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('0ec3f296-b3a2-4dfb-8821-aa0e191c4fc1','b940f5d5-a9f8-4984-82c7-9593dd02439d','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('0fac357f-8509-45b3-a86a-57835f752911','75015df9-4d50-48db-8b06-6906866ef5ec','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('bf8f5195-3040-447e-bbf9-c03b09bffe66','d1c149df-db50-4178-b82c-f676dffba20a','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b152c517-5c53-412c-bdb5-0532ddaf0bb4','15ba0d43-28cb-4589-a2e8-f3f03e68be7e','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('161b3da2-3a8a-4ad1-8e7a-e7f989a7608e','5d6883d0-4fce-4ea4-bff3-cdba7e92ecef','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('7705b145-989a-44a3-80e8-e3aa58a32ff9','30e4acc0-291e-412f-9cae-9d494bf1b582','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('4e665e98-ea5c-49f1-87bc-f3b413648bcd','3e7b6153-727d-4731-b09e-db5a94431833','7bde739d-5842-40ee-84eb-5f74d98a4f8d');
+
+--Land Plots
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('89b9cd15-03f7-4b86-9965-fa087a246755','0e933c4e-50b2-4378-af7a-9b3e2e0bcc7b','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('0b4c81fd-e78e-4de0-823a-dc81e01c86b7','e7818c19-4718-4e73-a18d-ea06cad507d0','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('cae4fa4f-d68b-41b1-b044-b93ce4539a6f','0c849db8-7183-4cf5-9bad-c2750d0d501b','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('67a18971-5d28-450f-b322-10f24f50ee7b','8d02622c-d5a3-4edf-91c7-8888214b5228','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('946d31df-b40d-4d7c-ba71-f8559ecce4cd','d91afcfa-e465-4963-9b67-ce04f24c9948','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('62f75e0e-ee0a-49bc-b445-e82722449b1a','6f5295bf-a0c0-4ee9-9d96-364834a26cc2','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('45e82113-b2fd-4dee-8a99-b1c1be4ba4dc','dec12a26-d198-40fb-8253-9ae0d6ba0e3b','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('8b264bb5-a424-457c-8c7c-592f1fbe8057','75b338f3-329c-4dcb-8788-44d9c3185104','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('3dcd7c6d-369a-43d6-8bde-947b56f153e0','9b2c7262-1783-4376-9dbc-587edbb4a284','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('79f4f794-82e4-4920-bd85-90130b821fff','67b060d4-1e64-4673-91ce-1f2ef7d523c0','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('15e6abcf-b80f-4e41-b993-be17949fdb15','05d05fc4-de9c-45f5-971a-4293ce0641d1','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e84831dc-28eb-4dde-b9a0-e378523d1414','5fa80003-970d-47dd-9c71-90b5671cb7ef','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c34bf0b0-e940-4eda-9e3b-280e5c93fbc7','300144da-74e3-4565-bc76-4773f46e8eaf','aa695fe5-9043-4de6-8fe6-9b3020aeb07c');
+
+--Garage
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('64897730-0de0-4104-8837-d765ef0f2e46','ead41fdb-ace9-451f-bdf9-073bf95dbabb','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ebc58a9d-93a6-45d0-9711-7972755b18ff','13ebdb6f-42ea-4bed-b61e-ee0c32099d43','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e3ee78a5-6d03-4ec4-bc0c-9fa7308804e5','448c6e3a-4321-4324-a291-e4c9e7414eaa','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('781fc6f0-5c16-455c-8ea3-c22fd04cde60','b3f22a46-9cc8-46ac-9140-a31d78010a79','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('eea90be0-9aba-4dab-8a3a-2be19d11460e','0da1f5f5-51b0-4f36-b7a0-6164016ec4e9','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6976ea89-35be-4ad2-8b47-37fd0e3328b9','06309d21-51a2-4647-bd64-b637770eee22','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('7852c1fb-c37c-4502-ab4c-fd114f6842fb','fadd3b5a-baca-4480-9ffb-52de8c46f7c4','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('7ac6479d-09fd-4d88-aa4d-3f9cc9e7abb7','a3386bfc-d3e3-44af-ab3e-0c2522e2b6f3','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6146a362-99dc-409a-bfbe-85bd9921a126','9444be46-ad7d-4641-936d-4043f2926709','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6f29a41a-8cd0-4701-a9f8-01c39eec4559','61e7475d-7851-4a02-83c2-797eedfcc567','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('954aa257-67ff-4265-9dff-78372a1336d4','1a1a2db7-0f39-4913-8998-9e9417e546aa','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('93896d37-c603-43c3-9433-87da71191122','eabae9d2-c4a6-4243-a17f-d101892cf991','17da3f72-5ebc-43ee-9edc-6f00ce66a20f');
+
+--Commercial Real Estate
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('98d548a0-680e-445a-ac42-570f5db9f442','7245431d-6bd5-476a-809f-4eeadbfe4ed1','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ab2a7ffa-e272-4aec-86bb-6238109611c3','e903bc95-26c9-420f-bd4c-b1c1ad09b543','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e1bbeb70-a98c-4c0c-acc8-55e9bbcee6a8','13dd8308-27fb-49d9-b3ff-caebee616902','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c58b7f9b-0b2a-46af-a43f-d55cad3da369','64fb9357-f4df-48a2-87d8-8e689b3b87b5','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f785385e-7934-4ae8-8fe1-de473d913bac','eabfe4b8-6090-461c-9299-ce5a6c8ca811','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('20ac5c12-462d-40ab-92cb-d8aa75a948f4','59bed8e9-e60e-4bb5-8aaf-496ec685ec82','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b7cf25a1-9820-48e5-ba1c-65dbfa2255c7','fe7771a0-b634-402e-99e3-2ddca994b5c7','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('541631e5-a303-4e1a-a5fe-5d715b55e31c','ec589725-ddb5-4c80-8bf2-528ef83e81a3','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('62ead6d0-150e-4382-8615-46a4759e190b','f8dc8444-1bc5-48a6-93c2-363566e4d5e3','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('598d5960-aade-41a9-b9fd-bdd9eb4d3ab1','6d31546d-669b-432c-8f65-4b093918a28f','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6481c00e-8690-4dd3-b51e-8df51310a4e6','fea05e87-5a7c-4ca4-a446-1a0fe2d2504b','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('0ebe1d6c-fb79-4c69-970d-adbc6b082a89','7311bdd1-e533-47c4-87b9-b1120b84e78d','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('fd28f6df-eb58-45e1-826b-e7368f98584d','c531a43c-49ac-469e-8b77-ab4a115dc755','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('8ebbadff-027e-413f-a967-36bf7b3cce09','5539f3ad-3121-4a35-bb6d-3ec3dd546407','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('42ee9608-b30f-4d68-991a-1464821ce602','0045f0c2-2908-48eb-8c2f-9ea1eac80591','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('35609815-e21b-4fb0-b3f0-76970e2d5c0b','94cf7e3f-be56-40aa-9242-b0834ace9da1','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('31d259f0-3dfa-422a-a11a-e5f86e464da5','d040608b-c98d-4643-b783-b50c381c8851','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('529888a5-ffe5-4341-baf9-7b1e2d7c2a9b','957872a9-24c4-4cd0-99c8-36e2a42a43cb','a44e669e-9a32-4736-9aaa-f9c5f46c03ef');
+
+--Real Estate Abroad
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('9d1e74e7-2ed7-45ca-b88a-2da507be4c99','20d40c1f-1835-4f84-b651-666db7e37562','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e061ecbf-7b5f-4b0c-a123-4c7ab013629b','bd4177b0-4cde-4d05-b3b5-cad4a08ba621','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('4fa8f1c9-df19-4b8e-bd92-b5ccf1d22313','152e7df4-0aab-48ff-a354-46cd6eb723ce','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6b793713-2915-47d0-9efe-e314ca9b2f38','c6236007-391f-443b-a53f-2f36a0c630de','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('47e74ce4-c6c3-4a9b-a907-789e2e1b555f','1e9b84e3-3ad7-4773-8be4-ad56f3b27ab3','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('36025529-1f8a-41bc-b88c-5869e18367b1','881d7be0-d9e8-4c3e-8c90-582c6e8332b5','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('baba1d76-e6aa-4d19-9f08-731d1943b072','aea1a7d7-c07d-4d6b-91f7-5f5a598581e4','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('09ec2908-3c05-484a-8898-f79a09466c2e','a2b708c4-b47b-4eb9-b3b3-c40d8cd40ef7','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('bdc9c373-f260-4249-aa12-2ee4ee37ca03','e151ddcf-4bad-48ed-b370-7fe9d1778b60','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('1e52b620-a092-4fc4-8261-e4d23392f362','50f13124-592c-4340-8f3c-d04276af9acc','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('40862d7c-95bc-45ee-92c7-deccd9bc6559','e34e399b-00c5-4bc6-bf05-57788ab23292','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('354804e6-f08a-4d48-8e50-b916ab1db4ed','50dd6372-3b39-4dcf-a3c0-6539e88b0ba7','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ee8a67ec-c109-494f-bdfd-d11a1133072b','3785090c-c479-411c-9c59-176d57d0a33e','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('85d93cae-d3b7-4824-9721-6b5066a8207e','aa83b907-9705-40d9-9079-73290585f60a','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('9e973f3a-0f5b-45ae-b221-80c9aaf6d855','31c0dca0-5fde-4010-b562-d99216317ed4','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('bbdf1565-68bc-4609-b028-fa2270316ec2','8f7296ba-c020-4977-9aef-9f994b861d4c','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('937bbbc0-efcc-4fc0-aa77-b05e3f26bcb9','46f7585e-71b6-4b5d-8563-d392f6d2e8e4','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('27109862-1aa7-4aef-bc1c-aeed37af6d94','f93e5e23-135e-457d-9e3a-a7159f751b55','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('dd5bcc6e-3d82-411a-b493-ad07d9e6addb','5c0caac9-4e93-4b00-8dc6-55386921af74','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c9867815-db78-4f73-b93c-65aa114ff7a2','9226ac66-bcb4-4232-b6fb-76a0c7e0d1d3','225853b7-67d9-4248-a5f1-96386f6d9784');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('9046e9b7-7905-4761-ac72-37f4c1388cb4','c5f14a26-a705-45bf-835c-ee21226c6cbd','225853b7-67d9-4248-a5f1-96386f6d9784');
