@@ -42,6 +42,12 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('93cf32ff-0c25-45d8-93b7-959f25eb8eac', null, '1592586d-c283-4b00-beff-981d663c7a53','China cabinet', 'Idish shkafi', 'Сервант');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('bb716388-f7c6-4c33-956d-3f6c2a26b6a4', null, '1592586d-c283-4b00-beff-981d663c7a53','Entertainment center', 'Ko''ngil ochar markazi', 'Развлекательный центр');
 
+--Apartment attribute values(Rental/Purchase)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ea4d77e3-b6d7-4378-a8af-ddf589e018e6', null, '4b294ce1-03fe-448e-a6be-054fe71484ed','For Rent', 'Ijaraga', 'Аренда');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4e91b2d1-586c-4d80-a51c-8bc6bdcc1c26', null, '4b294ce1-03fe-448e-a6be-054fe71484ed','For Sale', 'Sotuvga', 'Продажа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a13dd0dc-f433-48c7-89ca-4ca057be8608', null, '4b294ce1-03fe-448e-a6be-054fe71484ed','Rent-to-Own', 'Ijaradan sotib olish', 'Аренда с правом выкупа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('69d56ecc-8322-42cb-88b0-a93bfcd5cb56', null, '4b294ce1-03fe-448e-a6be-054fe71484ed','Lease', 'Ijara', 'Лизинг');
+
 
 --Room attribute values(building types)
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0022c69e-6be4-4bd9-a99e-0a10d294c9ab', null, 'e2280784-0dd1-4f04-a1cc-7b50f76aa0a8','Living room', 'Mehmonxona', 'Гостиная');
@@ -67,6 +73,11 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('98990159-fa25-4cba-add9-fc06f8b2e13e', null, 'f6d9413e-fa9d-4fdc-b101-60cbb1367766','Master Bedroom', 'Asosiy yotoqxona', 'Главная спальня');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b951b811-133c-485f-853d-ac7489df0ab8', null, 'f6d9413e-fa9d-4fdc-b101-60cbb1367766','Guest Room', 'Mehmonxona', 'Гостевая комната');
 
+--Room attribute values(Rental/Purchase)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('db1af2a5-b028-439a-aef7-b49935a05fc1', null, '40461f9f-315e-4260-b126-62b50446a95a','For Rent', 'Ijaraga', 'Аренда');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('28928136-a5ea-496d-9170-2a2ae5a1afe8', null, '40461f9f-315e-4260-b126-62b50446a95a','For Sale', 'Sotuvga', 'Продажа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a8308a8b-93d1-4290-a0fe-2135311b36fd', null, '40461f9f-315e-4260-b126-62b50446a95a','Rent-to-Own', 'Ijaradan sotib olish', 'Аренда с правом выкупа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('52718132-8bc9-4528-9718-9e04d6e3249a', null, '40461f9f-315e-4260-b126-62b50446a95a','Lease', 'Ijara', 'Лизинг');
 
 
 
@@ -208,7 +219,11 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5fcb7c40-4835-4e1e-9c96-c30d5626724e', null, '3e7b6153-727d-4731-b09e-db5a94431833','Yes', 'Ha', 'Да');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c8b86ad4-0564-46b1-abff-f007c64a25bd', null, '3e7b6153-727d-4731-b09e-db5a94431833','No', 'Yoq', 'Нет');
 
-
+--Houses, Dachas... attribute values(Rental/Purchase)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b20850a6-8aec-493f-9bc3-ba8355eda7c8', null, 'ef876c49-996d-4e2d-995e-4d7b06d742fd','For Rent', 'Ijaraga', 'Аренда');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8db5304c-80ae-4ab1-850e-a1b95fdbd644', null, 'ef876c49-996d-4e2d-995e-4d7b06d742fd','For Sale', 'Sotuvga', 'Продажа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('05f9de49-f9bb-4a1b-a114-9dc52e8e0925', null, 'ef876c49-996d-4e2d-995e-4d7b06d742fd','Rent-to-Own', 'Ijaradan sotib olish', 'Аренда с правом выкупа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6b2320aa-7400-44f5-8f80-d2daa9eb6769', null, 'ef876c49-996d-4e2d-995e-4d7b06d742fd','Lease', 'Ijara', 'Лизинг');
 
 
 
@@ -294,7 +309,11 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('27963651-0729-4a96-9dc9-9d553c226158', null, '300144da-74e3-4565-bc76-4773f46e8eaf','Workshop', 'Ustalikhona', 'Мастерская');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('415dbcea-abca-499c-8f39-19ffc938628f', null, '300144da-74e3-4565-bc76-4773f46e8eaf','Bathhouse/Sauna', 'Hammom/Sauna', 'Баня/Сауна');
 
-
+--Land plots attribute values(Rental/Purchase)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9ecf4966-fe10-4730-8680-406df345763e', null, '013a5871-dc3c-4235-bef7-77d041118f96','For Rent', 'Ijaraga', 'Аренда');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('516a7701-4ff7-400e-8d36-ac8b467628fe', null, '013a5871-dc3c-4235-bef7-77d041118f96','For Sale', 'Sotuvga', 'Продажа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c8de88a7-88fc-406d-94bf-beab71f9e061', null, '013a5871-dc3c-4235-bef7-77d041118f96','Rent-to-Own', 'Ijaradan sotib olish', 'Аренда с правом выкупа');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e5678fc9-227e-4b2c-909c-6d2bbe5ac98b', null, '013a5871-dc3c-4235-bef7-77d041118f96','Lease', 'Ijara', 'Лизинг');
 
 
 
