@@ -4,8 +4,6 @@ import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.search.dto.FoundPublicationsDTO;
-import com.igriss.ListIn.search.dto.PublicationNode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
