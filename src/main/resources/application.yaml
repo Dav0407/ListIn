@@ -50,9 +50,6 @@ spring:
             enable: true
 
 application:
-  bot:
-    username: ${TELEGRAM_BOT_USERNAME}
-    token: ${TELEGRAM_BOT_TOKEN}
   security:
     jwt:
       secret-key: ${JWT_SECRET_KEY}
