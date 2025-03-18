@@ -540,65 +540,15 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 
 
 
---Real Estate Abroad attribute values(countries)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('008c8a17-a3f7-440a-8470-2b1bd32f9599', null, '20d40c1f-1835-4f84-b651-666db7e37562','Kazakhstan', 'Qozog‘iston', 'Казахстан');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('636a4fa1-bde8-47fa-9bde-4a52fc810b14', null, '20d40c1f-1835-4f84-b651-666db7e37562','Kyrgyzstan', 'Qirg‘iziston', 'Киргизия');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7805e101-afd3-4a9a-aaa0-944df2c9bc38', null, '20d40c1f-1835-4f84-b651-666db7e37562','Tajikistan', 'Tojikiston', 'Таджикистан');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('92a2783d-3ab7-421c-8cd6-b07609ecda7d', null, '20d40c1f-1835-4f84-b651-666db7e37562','Turkmenistan', 'Turkmaniston', 'Туркменистан');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('fae0d461-94aa-45f8-b04d-7d3fe46890b8', null, '20d40c1f-1835-4f84-b651-666db7e37562','Uzbekistan', 'O‘zbekiston', 'Узбекистан');
 
---Real Estate Abroad attributes values(cities Kazakhstan)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('567664e3-f371-4729-a54c-8b10031132cd', '008c8a17-a3f7-440a-8470-2b1bd32f9599', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Almaty', 'Almati', 'Алматы');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('06f1f488-65c2-4eed-a6ea-d6b0bcc80634', '008c8a17-a3f7-440a-8470-2b1bd32f9599', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Nur-Sultan', 'Nur-Sulton', 'Нур-Султан');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('502b7ade-c2fb-425b-af17-aa83cac4e90e', '008c8a17-a3f7-440a-8470-2b1bd32f9599', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Shymkent', 'Shymkent', 'Шымкент');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9510ad6d-417e-4aaf-872e-d2055cfb94ca', '008c8a17-a3f7-440a-8470-2b1bd32f9599', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Karaganda', 'Qarag‘anda', 'Караганда');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('41b3c251-cc99-459b-bd40-0855db7205d3', '008c8a17-a3f7-440a-8470-2b1bd32f9599', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Aktobe', 'Aqtobe', 'Актобе');
-
-
---Real Estate Abroad attributes values(cities Kyrgyzstan)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7a4302ac-36b7-451d-b9bb-4e23b0a13720', '636a4fa1-bde8-47fa-9bde-4a52fc810b14', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Bishkek', 'Bishkek', 'Бишкек');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a3732db2-3a08-45f8-b42d-abbd52284493', '636a4fa1-bde8-47fa-9bde-4a52fc810b14', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Osh', 'O‘sh', 'Ош');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('66718553-ede7-4f8f-8be6-5058b25f20f0', '636a4fa1-bde8-47fa-9bde-4a52fc810b14', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Jalal-Abad', 'Jalolobod', 'Джалал-Абад');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c707a33b-c38a-4850-b76a-34c08f448056', '636a4fa1-bde8-47fa-9bde-4a52fc810b14', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Karakol', 'Qarako‘l', 'Каракол');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('589fef25-2cc2-4f5f-b0d4-63a8f2940573', '636a4fa1-bde8-47fa-9bde-4a52fc810b14', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Tokmok', 'To‘qmoq', 'Токмок');
-
---Real Estate Abroad attributes values(cities Tajikistan)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('29f82722-a28b-4cc3-982c-b78c86e24b4a', '7805e101-afd3-4a9a-aaa0-944df2c9bc38', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Dushanbe', 'Dushanbe', 'Душанбе');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('83255c7d-a6e8-42eb-a794-343b76b75bd8', '7805e101-afd3-4a9a-aaa0-944df2c9bc38', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Khujand', 'Xo‘jand', 'Худжанд');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('69c6a33f-7f27-4c05-b12a-ec8a9bd35979', '7805e101-afd3-4a9a-aaa0-944df2c9bc38', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Bokhtar', 'Boxtar', 'Бохтар');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('cfe140ee-d366-4b35-a183-5e0f6d4bd9d3', '7805e101-afd3-4a9a-aaa0-944df2c9bc38', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Kulob', 'Kulob', 'Куляб');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3a0772f1-ab7d-48f9-a578-0411522e2e19', '7805e101-afd3-4a9a-aaa0-944df2c9bc38', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Istaravshan', 'Istaravshan', 'Истаравшан');
-
---Real Estate Abroad attributes values(cities Turkmenistan)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('de84e9dc-4bb2-4614-806b-e128566ff480', '92a2783d-3ab7-421c-8cd6-b07609ecda7d', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Ashgabat', 'Ashxobod', 'Ашхабад');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5d67a74a-eeed-4392-a200-33ce43a9f304', '92a2783d-3ab7-421c-8cd6-b07609ecda7d', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Turkmenabat', 'Turkmanobod', 'Туркменабат');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('746d1b25-a8e0-4911-a612-e352154c1b19', '92a2783d-3ab7-421c-8cd6-b07609ecda7d', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Dashoguz', 'Dashog‘uz', 'Дашогуз');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('df87bcac-2cf7-444e-8ddd-19cff9e13bdd', '92a2783d-3ab7-421c-8cd6-b07609ecda7d', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Mary', 'Mari', 'Мары');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b0a97925-0a9a-45fc-9488-c85ad621731e', '92a2783d-3ab7-421c-8cd6-b07609ecda7d', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Balkanabat', 'Balkanabat', 'Балканабат');
-
---Real Estate Abroad attributes values(cities Uzbekistan)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('09a7c824-d8ee-446b-b91d-72737ec9bd8d', 'fae0d461-94aa-45f8-b04d-7d3fe46890b8', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Tashkent', 'Toshkent', 'Ташкент');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b8477e3c-3ac3-4c48-9ea0-45024d015450', 'fae0d461-94aa-45f8-b04d-7d3fe46890b8', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Samarkand', 'Samarqand', 'Самарканд');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8b7cc672-0d5d-4213-9521-1189cee8b0e6', 'fae0d461-94aa-45f8-b04d-7d3fe46890b8', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Bukhara', 'Buxoro', 'Бухара');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e1248214-239e-4036-851c-bbaebb1e2e9e', 'fae0d461-94aa-45f8-b04d-7d3fe46890b8', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Andijan', 'Andijon', 'Андижан');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('dc3facec-e55e-4278-8b10-d3b2e762ba08', 'fae0d461-94aa-45f8-b04d-7d3fe46890b8', 'bd4177b0-4cde-4d05-b3b5-cad4a08ba621','Namangan', 'Namangan', 'Наманган');
 
 --Real Estate Abroad attributes values(properties)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2f19bbf4-70b9-402d-82bf-3ce37ba8c196', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Apartment', 'Kvartira', 'Квартира');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f428ce8f-9129-4413-bbdf-0c51a65cbd92', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','House', 'Uy', 'Дом');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6ef62173-24dd-421e-a65e-bf3885343d25', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Villa', 'Villa', 'Вилла');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7eb42805-fb78-4bfb-9a58-d04d345172ff', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Cottage', 'Kottedj', 'Коттедж');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('fd0fed55-45a0-45ab-812f-e352853ec41d', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Townhouse', 'Taunxaus', 'Таунхаус');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ef25c2a8-f1df-424f-bdfa-ca96b0160136', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Penthouse', 'Pentxaus', 'Пентхаус');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ca238604-f63d-430c-903e-463a7c0eaa45', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Office Space', 'Ofis maydoni', 'Офисное помещение');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c40bd7b1-0d4f-404c-8c76-389aa02eef49', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Retail Space', 'Savdo maydoni', 'Торговое помещение');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d042b6dc-e1ca-4b46-943b-dfa55ee23f72', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Warehouse', 'Omborxona', 'Склад');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('65c5c2f4-5126-475a-bbe1-25790b966043', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Industrial Property', 'Sanoat mulki', 'Промышленная недвижимость');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b54b6e37-3a16-44b6-ac72-eaf5c8396e69', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Hotel', 'Mehmonxona', 'Отель');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('88d3da4b-b138-47c8-967d-5f822009e625', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Resort', 'Dam olish maskani', 'Курорт');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('db07f89e-4171-4a41-9544-9b677043d0ad', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Agricultural Land', 'Qishloq xo‘jaligi yeri', 'Сельскохозяйственная земля');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('73593c10-32dd-4b4a-bb71-59d55f039f24', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Land Plot', 'Yer uchastkasi', 'Земельный участок');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2c35d45a-6e85-4a17-98ff-8c79d6563393', null, '152e7df4-0aab-48ff-a354-46cd6eb723ce','Commercial Building', 'Tijorat binosi', 'Коммерческое здание');
 
 --Real Estate Abroad attributes values(Parking Availability)
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c4fc196a-0ccf-4b05-9a7b-9d02224acf36', null, 'c6236007-391f-443b-a53f-2f36a0c630de','Underground Parking', 'Yer osti avtoturargohi', 'Подземная парковка');
@@ -626,20 +576,56 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('262eb687-48da-4d71-9720-84529b779be9', null, '881d7be0-d9e8-4c3e-8c90-582c6e8332b5','No Cooling', 'Sovutish yo‘q', 'Без охлаждения');
 
 --Real Estate Abroad attributes values(Electricity Supply)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b78dffb3-64d1-4154-b47e-e86fed8e87df', null, 'aea1a7d7-c07d-4d6b-91f7-5f5a598581e4','Yes', 'Ha', 'Да');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9584526b-7d5c-4c08-bd61-25debce051c6', null, 'aea1a7d7-c07d-4d6b-91f7-5f5a598581e4','No', 'Yoq', 'Нет');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b78dffb3-64d1-4154-b47e-e86fed8e87df', null, '2dd7ab00-7415-4bea-88d6-29aa2546e1d0','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9584526b-7d5c-4c08-bd61-25debce051c6', null, '2dd7ab00-7415-4bea-88d6-29aa2546e1d0','No', 'Yoq', 'Нет');
 
 --Real Estate Abroad attributes values(Water Supply)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4b5fd569-7871-44a5-86c0-09fb0da28961', null, 'a2b708c4-b47b-4eb9-b3b3-c40d8cd40ef7','Yes', 'Ha', 'Да');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d46da067-3d5b-4957-a182-bb37cddac840', null, 'a2b708c4-b47b-4eb9-b3b3-c40d8cd40ef7','No', 'Yoq', 'Нет');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4b5fd569-7871-44a5-86c0-09fb0da28961', null, 'effe01cd-e5b0-49bf-9bdc-0cb14aa7af84','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d46da067-3d5b-4957-a182-bb37cddac840', null, 'effe01cd-e5b0-49bf-9bdc-0cb14aa7af84','No', 'Yoq', 'Нет');
 
 --Real Estate Abroad attributes values(Gas Supply)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d1bca4f7-f131-43be-baa3-1461ff85824f', null, 'e151ddcf-4bad-48ed-b370-7fe9d1778b60','Yes', 'Ha', 'Да');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ee2bd66e-a2c5-448d-88b2-2c5c3d757e0b', null, 'e151ddcf-4bad-48ed-b370-7fe9d1778b60','No', 'Yoq', 'Нет');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d1bca4f7-f131-43be-baa3-1461ff85824f', null, 'ca223ca7-b78f-4121-82c3-1a8b4bda85b4','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ee2bd66e-a2c5-448d-88b2-2c5c3d757e0b', null, 'ca223ca7-b78f-4121-82c3-1a8b4bda85b4','No', 'Yoq', 'Нет');
 
 --Real Estate Abroad attributes values(Sewerage)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('328cc946-9389-436d-8ebc-2d829cf17da6', null, '50f13124-592c-4340-8f3c-d04276af9acc','Yes', 'Ha', 'Да');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('83f2447e-c18c-47dd-b19c-4c3c6fb76cbc', null, '50f13124-592c-4340-8f3c-d04276af9acc','No', 'Yoq', 'Нет');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('328cc946-9389-436d-8ebc-2d829cf17da6', null, '1ff074cd-ff6b-41e0-bcc7-a52170cbfeca','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('83f2447e-c18c-47dd-b19c-4c3c6fb76cbc', null, '1ff074cd-ff6b-41e0-bcc7-a52170cbfeca','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Pool)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1fbba6db-6838-4b92-929e-6f1ab124f089', null, 'e9a93799-258b-4d93-aec8-9c86bb1fb7d1','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6267754f-3fb3-4dee-b9b0-b426527935aa', null, 'e9a93799-258b-4d93-aec8-9c86bb1fb7d1','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Sauna)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('58764fee-657e-49a0-8599-c6466e9c36a2', null, '5741f1f9-64f5-4104-a261-7454cca766e4','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e3952655-0c9f-40b0-a96e-71e0e85b8e81', null, '5741f1f9-64f5-4104-a261-7454cca766e4','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Garden)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('07dc0735-7b8a-4ce3-96c9-28bc438d2287', null, 'b71c576b-0806-41a7-b32b-0f0f9fcc48c8','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3bb6f2f4-a8d7-48ba-9ed1-10d82a2052d2', null, 'b71c576b-0806-41a7-b32b-0f0f9fcc48c8','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Balcony)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d9aed151-6ecf-4123-8007-f8a0026505c9', null, 'bc2330b9-adbe-46ec-b2f7-0677add7d06c','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c1e50d72-ad3f-4495-a0e1-837aa60faae8', null, 'bc2330b9-adbe-46ec-b2f7-0677add7d06c','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Terrace)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b4476163-f4b8-4638-9b90-50122cc1a5f8', null, '7145bf82-f114-4d54-978b-250d098e5115','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('aebb4626-d559-47e5-b738-804f6ea683e1', null, '7145bf82-f114-4d54-978b-250d098e5115','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Garage)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e4b992fc-259b-43c2-949c-691df4f64783', null, 'f9b184ac-d7f7-46e3-b10b-1f8e593d517c','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3b8688b0-0299-4438-bbe3-8884e971d4f9', null, 'f9b184ac-d7f7-46e3-b10b-1f8e593d517c','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Tapchan)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0a17dfce-dfc9-4fa0-99a4-6c28b8713a7d', null, 'ee3a3197-69c5-43d6-9f68-ad1d8545d33f','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0ed8753b-69d0-420b-9da8-06ae508c5d33', null, 'ee3a3197-69c5-43d6-9f68-ad1d8545d33f','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Playground)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('79c9bb16-5067-46a2-b07d-ddfed127cd32', null, 'cf72dc11-d2cf-4878-8e01-40f971cc04ca','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c9e72492-c2f4-4f54-9bee-6394a4b7caa4', null, 'cf72dc11-d2cf-4878-8e01-40f971cc04ca','No', 'Yoq', 'Нет');
+
+--Real Estate Abroad attributes values(Internet Connection)
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6c0c2b83-3855-445d-8f1d-f4a9858efd36', null, 'e9c2f147-8fb7-46cd-93fd-7d53a2b92e16','Yes', 'Ha', 'Да');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f64079ff-9894-4c9b-8149-9b6b37759e3b', null, 'e9c2f147-8fb7-46cd-93fd-7d53a2b92e16','No', 'Yoq', 'Нет');
 
 --Real Estate Abroad attributes values(Ventilation System)
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('29bfe710-ee01-40ae-95ba-c854328970a2', null, 'e34e399b-00c5-4bc6-bf05-57788ab23292','Natural Ventilation', 'Tabiiy shamollatish', 'Естественная вентиляция');
@@ -657,10 +643,6 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('32fe8a39-5619-4634-86c9-8f9afb005bb3', null, '50dd6372-3b39-4dcf-a3c0-6539e88b0ba7','Fire Alarm System', 'Yong‘in signalizatsiyasi', 'Пожарная сигнализация');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('161c9e60-ca73-4a0a-be69-cf1fca9728c6', null, '50dd6372-3b39-4dcf-a3c0-6539e88b0ba7','Access Control System', 'Kirish nazorati tizimi', 'Система контроля доступа');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('1294cc45-ca5c-4359-b899-300490e42fc0', null, '50dd6372-3b39-4dcf-a3c0-6539e88b0ba7','On-Site Security Personnel', 'Joyida xavfsizlik xodimlari', 'Охранный персонал на объекте');
-
---Real Estate Abroad attributes values(Internet Connection)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9665678f-7c84-4c39-a149-bd2cc0219596', null, '3785090c-c479-411c-9c59-176d57d0a33e','Yes', 'Ha', 'Да');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('48ac4cf1-f9fc-4d87-aeec-4868a2b218a6', null, '3785090c-c479-411c-9c59-176d57d0a33e','No', 'Yoq', 'Нет');
 
 --Real Estate Abroad attributes values(Proximity to Public Transport)
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0aa0e959-6cbc-4680-bbb4-013dd206a1af', null, 'aa83b907-9705-40d9-9079-73290585f60a','Near Metro Station', 'Metro bekatiga yaqin', 'Рядом с метро');
@@ -688,37 +670,16 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('94a83a60-1cce-4453-9dcf-87a2c1294993', null, '8f7296ba-c020-4977-9aef-9f994b861d4c','Well-Maintained', 'Yaxshi saqlangan', 'Хорошо сохранившееся');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7fbcdbb2-69a5-4ce0-842c-f5d2f331e955', null, '8f7296ba-c020-4977-9aef-9f994b861d4c','Dilapidated', 'Yaroqsiz holatda', 'Ветхое здание');
 
---Real Estate Abroad attributes values(Furniture Availability)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('9a85fa14-39b1-4883-9da3-e08fa1a35936', null, '46f7585e-71b6-4b5d-8563-d392f6d2e8e4','Fully Furnished', 'To''liq jihozlangan', 'Полностью меблировано');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('68a20d7d-2f83-4543-ab6d-2e589db6fbc6', null, '46f7585e-71b6-4b5d-8563-d392f6d2e8e4','Partially Furnished', 'Qisman jihozlangan', 'Частично меблировано');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('6f0f814b-7232-44eb-8414-4b570dffae65', null, '46f7585e-71b6-4b5d-8563-d392f6d2e8e4','Unfurnished', 'Jihozlanmagan', 'Без мебели');
-
 --Real Estate Abroad attributes values(Ownership Type)
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('43c25935-f726-43cc-bc1c-76843a235fe2', null, 'f93e5e23-135e-457d-9e3a-a7159f751b55','Private Ownership', 'Shaxsiy mulk', 'Частная собственность');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('146df830-4e2b-4bd4-b79e-da6d431d2a06', null, 'f93e5e23-135e-457d-9e3a-a7159f751b55','Joint Ownership', 'Qo''shma mulk', 'Совместная собственность');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('3295276a-078d-4d26-ae8d-3c7195216526', null, 'f93e5e23-135e-457d-9e3a-a7159f751b55','Corporate Ownership', 'Korporativ mulk', 'Корпоративная собственность');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ab902c26-a8f7-4502-906a-cca3c3b5073b', null, 'f93e5e23-135e-457d-9e3a-a7159f751b55','State Ownership', 'Davlat mulki', 'Государственная собственность');
 
---Real Estate Abroad attributes values(Rental/Purchase Option)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e61a77bb-83c6-4efd-b8b3-b477413a2a24', null, '5c0caac9-4e93-4b00-8dc6-55386921af74','For Rent', 'Ijaraga', 'В аренду');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b50eaf3f-3ca1-4df0-b9b2-378b92c8cb15', null, '5c0caac9-4e93-4b00-8dc6-55386921af74','For Sale', 'Sotish uchun', 'На продажу');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('56a85a1c-7127-4bcc-ba92-56a5ea44b8c2', null, '5c0caac9-4e93-4b00-8dc6-55386921af74','Rent-to-Own', 'Ijara orqali sotib olish', 'Аренда с правом выкупа');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c7b7e86e-80c5-4cf6-a2e9-b3fe2a2b1832', null, '5c0caac9-4e93-4b00-8dc6-55386921af74','Lease', 'Ijara', 'Лизинг');
-
---Real Estate Abroad attributes values(Residence Permit Availability)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('5c8fe0cb-9f7e-4b0e-906e-934179dc7c71', null, '9226ac66-bcb4-4232-b6fb-76a0c7e0d1d3','Available', 'Mavjud', 'Доступно');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('52633c52-3441-464e-a221-0bf60a87f51b', null, '9226ac66-bcb4-4232-b6fb-76a0c7e0d1d3','Not Available', 'Mavjud emas', 'Недоступно');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f4a9dfc1-054c-460a-9886-e49276b95b61', null, '9226ac66-bcb4-4232-b6fb-76a0c7e0d1d3','Conditional', 'Shartli', 'Условно');
-
 ----Real Estate Abroad attributes values(Residence Permit Availability)
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('da7d226b-33be-447c-a26d-4920eee888a8', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Swimming Pool', 'Suv havzasi', 'Бассейн');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('39124fec-ae29-4dc4-97dc-585335982dcd', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Garden', 'Bog''', 'Сад');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0ea9f01a-18da-40d4-a768-8fe9f3a53adf', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Balcony', 'Balkon', 'Балкон');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2d2c9a17-b9de-47d3-bfe5-8b199920c67c', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Terrace', 'Teras', 'Терраса');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('ce7840ce-430b-4f28-8906-75e5b452ac03', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Garage', 'Garaj', 'Гараж');
+INSERT INTO attribute_values ( attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru) VALUES ('d3b2c81b-b56c-4393-bb4d-32ec946fd818', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Billiard', 'Bilyard', 'Бильярд');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c2a1b70a-a49b-4282-aa3c-21db835fc707', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Gym', 'Sport zali', 'Спортзал');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('31a4cd50-6969-4149-9c3d-6f2e6453bdfc', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Basement', 'Podval', 'Подвал');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('4d8ae40c-f2b2-457e-b5f3-df904cc2d826', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Elevator', 'Lift', 'Лифт');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('c2a1b70a-a49b-4282-aa3c-21db835fc707', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Gym', 'Sport zali', 'Спортзал');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('a8fad45a-3de5-4a2c-a0aa-0575843d46bc', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Playground', 'Bolalar maydonchasi', 'Детская площадка');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('352a3c22-a4a5-4eed-bf43-ac8b9c276df3', null, 'c5f14a26-a705-45bf-835c-ee21226c6cbd','Security System', 'Xavfsizlik tizimi', 'Система безопасности');
+
 

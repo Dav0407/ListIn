@@ -9,6 +9,10 @@ import com.igriss.ListIn.search.dto.InputPredictionResponseDTO;
 import com.igriss.ListIn.search.service.InputPredictionService;
 import com.igriss.ListIn.search.service.PublicationSearchService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +39,7 @@ public class PublicationSearchController {
     private final InputPredictionService inputPredictionService;
 
     @Operation(summary = "${search-controller.deepSearch.summary}", description = "${search-controller.deepSearch.description}")
-    @GetMapping({"", "/{pCategory}", "/{pCategory}/{category}"})
+    @GetMapping(value = {"", "/{pCategory}", "/{pCategory}/{category}"}, produces = "application/json")
     public PageResponse<PublicationResponseDTO> deepSearch(@PathVariable(required = false) UUID pCategory,
                                                    @PathVariable(required = false) UUID category,
                                                    @RequestParam(required = false) String query,
@@ -58,13 +62,13 @@ public class PublicationSearchController {
     }
 
     @Operation(summary = "${search-controller.inputPrediction.summary}", description = "${search-controller.inputPrediction.description}")
-    @GetMapping("/input-predict")
+    @GetMapping(value = "/input-predict", produces = "application/json")
     public ResponseEntity<List<InputPredictionResponseDTO>> inputPrediction(@RequestParam String query) throws SearchQueryException {
         return ResponseEntity.ok(inputPredictionService.getInputPredictions(query));
     }
 
     @Operation(summary = "${search-controller.elasticIndexation.summary}", description = "${search-controller.elasticIndexation.description}")
-    @GetMapping("/elastic/indexing-documents")
+    @GetMapping(value = "/elastic/indexing-documents", produces = "application/text")
     public ResponseEntity<String> elasticIndexation() {
         return ResponseEntity.ok(inputPredictionService.indexInputPredictionDocuments());
     }
@@ -85,7 +89,7 @@ public class PublicationSearchController {
         return ResponseEntity.ok(searchService.findAllLatestPublications(page, size, bargain, productCondition, from, to, locationName, filters, numericFilter, connectedUser));
     }
 
-    @GetMapping({"/count", "/count/{pCategory}", "/count/{pCategory}/{category}"})
+    @GetMapping(value = {"/count", "/count/{pCategory}", "/count/{pCategory}/{category}"}, produces = "application/json")
     public ResponseEntity<FoundPublicationsDTO> getFoundPublicationsCount(@PathVariable(required = false) UUID pCategory,
                                                                           @PathVariable(required = false) UUID category,
                                                                           @RequestParam(required = false) String query,
@@ -106,7 +110,7 @@ public class PublicationSearchController {
                 productCondition, from, to, locationName, isFree, sellerType, locationIds, filters, numericFilter));
     }
 
-    @GetMapping("/last-queried")
+    @GetMapping(value = "/last-queried", produces = "application/json")
     public ResponseEntity<List<String>> getLastQueriedValues(Authentication connectedUser) {
         return ResponseEntity.of(Optional.ofNullable(searchService.getLastQueriedValues(connectedUser)));
     }
