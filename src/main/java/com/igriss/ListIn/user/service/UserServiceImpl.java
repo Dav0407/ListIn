@@ -33,6 +33,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    private final Map<String, String> phoneTokenMap = new HashMap<>();
 
     @Override // todo -> will be fixed the logical bug
     public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
@@ -234,5 +237,15 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO getUserDetails(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return userMapper.toUserResponseDTO(user);
+    }
+
+    public String storePhoneNumber(String userId, String phoneNumber) {
+        String token = UUID.randomUUID().toString();
+        phoneTokenMap.put(token, phoneNumber);
+        return token;
+    }
+
+    public String getPhoneNumberByToken(String token) {
+        return phoneTokenMap.get(token);
     }
 }

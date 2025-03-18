@@ -39,4 +39,6 @@ public interface UserService {
     UserResponseDTO followToUser(UUID followingUserId, Authentication authentication) throws BadRequestException;
 
     UserResponseDTO unFollowFromUser(UUID followedUserId, Authentication authentication) throws BadRequestException;
+
+    String storePhoneNumber(String userId, String phoneNumber);
 }
