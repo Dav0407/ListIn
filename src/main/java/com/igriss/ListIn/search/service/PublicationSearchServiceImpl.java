@@ -63,6 +63,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
     private final NumericValueService numericValueService;
 
     private final UserService userService;
+    private final RedisTemplate<UUID, String> redisHistoryTemplate;
 
 
     @Override
@@ -185,7 +186,6 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         }
     }
 
-    private final RedisTemplate<UUID, String> redisHistoryTemplate;
 
 
     @Override
