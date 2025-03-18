@@ -50,6 +50,11 @@ spring:
             enable: true
 
 application:
+  bot:
+    token: ${TELEGRAM_BOT_TOKEN}
+    username: ${TELEGRAM_BOT_USERNAME}
+  deeplink:
+    base_url: ${DEEP_LINK}
   security:
     jwt:
       secret-key: ${JWT_SECRET_KEY}

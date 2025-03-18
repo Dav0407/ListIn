@@ -240,9 +240,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public String storePhoneNumber(String userId, String phoneNumber) {
-        String token = UUID.randomUUID().toString();
-        phoneTokenMap.put(token, phoneNumber);
-        return token;
+
+        phoneTokenMap.put(userId, phoneNumber);
+        return userId;
     }
 
     public String getPhoneNumberByToken(String token) {
