@@ -42,6 +42,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/auto/attribute_values.sql",
             "/database_sql_scripts/real_estate/attribute_keys.sql",
             "/database_sql_scripts/real_estate/attribute_values.sql",
+            "/database_sql_scripts/clothes/attribute_keys.sql",
+            "/database_sql_scripts/clothes/attribute_values.sql",
             "/database_sql_scripts/category_attributes.sql",
 
 
