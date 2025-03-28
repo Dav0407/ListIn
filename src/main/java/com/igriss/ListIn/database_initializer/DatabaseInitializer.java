@@ -1,6 +1,9 @@
 package com.igriss.ListIn.database_initializer;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.entity.Country;
+import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
@@ -8,6 +11,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +35,7 @@ public class DatabaseInitializer {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final LocationService locationService;
 
     @Value("${elasticsearch.index-name}")
     private String indexName;
@@ -65,6 +71,7 @@ public class DatabaseInitializer {
             "/database_sql_scripts/models/electronics/laptop_gpu_models.sql",
             "/database_sql_scripts/models/electronics/pc_gpu_models.sql",
             "/database_sql_scripts/models/electronics/pc_brand_models.sql",
+            "/database_sql_scripts/models/clothes/sizes.sql",
 
             "/database_sql_scripts/numerics/auto_numeric_fields.sql",
             "/database_sql_scripts/numerics/real_estate_numeric_fields.sql",
@@ -85,12 +92,38 @@ public class DatabaseInitializer {
         log.info("#Redis cache successfully cleared");
     }*/
 
+
+
     @PostConstruct
     public void init() {
         clearDatabase();
         for (String script : scripts) {
             executeScript(script);
         }
+
+        LocationDTO locationDTO = locationService.getLocation("Узбекистан", "Ташкент","Яккасарай", "ru");
+        userRepository.saveAll(
+                List.of(
+                        User.builder().nickName("Davron").enableCalling(true).phoneNumber("+998 90 000 00 09").email("d.no_replay@listin.uz").biography("Admin")
+                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true)
+                                .country(locationDTO.getCountry())
+                                .county(locationDTO.getCounty())
+                                .country(locationDTO.getCountry())
+                                .locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
+                        User.builder().nickName("Qobil").enableCalling(true).phoneNumber("+998 90 000 00 09").email("q.no_replay@listin.uz").biography("Admin")
+                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
+                                .country(locationDTO.getCountry())
+                                .county(locationDTO.getCounty())
+                                .country(locationDTO.getCountry())
+                                .longitude(1234.1234).latitude(-43.234234).build(),
+                        User.builder().nickName("Abdulaxad").enableCalling(true).phoneNumber("+998 90 000 00 09").email("a.no_replay@listin.uz").biography("Admin")
+                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
+                                .country(locationDTO.getCountry())
+                                .county(locationDTO.getCounty())
+                                .country(locationDTO.getCountry())
+                                .longitude(1234.1234).latitude(-43.234234).build()
+                )
+        );
     }
 
     private void clearDatabase() {

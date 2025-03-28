@@ -298,3 +298,99 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('38bbc4d1-9599-45a0-979e-d57ff4027313','8f7296ba-c020-4977-9aef-9f994b861d4c','225853b7-67d9-4248-a5f1-96386f6d9784');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('1f37a17d-c682-4a50-9c2a-86c73cc18549','f93e5e23-135e-457d-9e3a-a7159f751b55','225853b7-67d9-4248-a5f1-96386f6d9784');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('653ac29c-6607-458e-8f6b-25d2347c910e','c5f14a26-a705-45bf-835c-ee21226c6cbd','225853b7-67d9-4248-a5f1-96386f6d9784');
+
+
+
+
+
+--Women's clothes
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('1ae238fa-4f7a-4371-9efb-af495f59eb6d','b997b6b7-b724-4aa5-8995-938145df08a2','93e23e28-e0f8-427e-aa39-81a32d447285');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('d2d1a39c-742a-4485-8619-a670b7ac1a79','d7d51d07-0571-477f-ba0e-8df3313e4522','93e23e28-e0f8-427e-aa39-81a32d447285');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('d0f1e7d0-a3d5-4e5e-a816-d045cc08d69f','567c7924-3001-4250-912b-b5f0cffae7cf','93e23e28-e0f8-427e-aa39-81a32d447285');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('96b9cd82-247a-4cf6-b62c-e71d266fd2fb','7fe20188-86af-4291-b0ad-7eefc3f1883b','93e23e28-e0f8-427e-aa39-81a32d447285');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ca3fba62-5812-46d8-ba41-fb7730992e34','dccfe044-95b8-46a7-a003-a99c52d727a5','93e23e28-e0f8-427e-aa39-81a32d447285');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('0677028e-6ba0-4191-a510-8a4305b835ab','9d4aa071-b882-4c27-9686-3383e75fb56e','93e23e28-e0f8-427e-aa39-81a32d447285');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('02ad556a-2cf8-4edc-a67b-147557204f88','77721417-9ce6-49ee-a2cb-5fd6d67a8d11','93e23e28-e0f8-427e-aa39-81a32d447285');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6b3db11c-cebe-4f2a-80e8-fca61069a012','728314b2-6a4b-4049-9221-e96b4cb43825','93e23e28-e0f8-427e-aa39-81a32d447285');
+
+--Men's clothes
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('9cf7e175-b898-4475-8ee0-2fbe5446905f','c9651d9e-a57e-42d5-91c4-ed60dd813347','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('d0da1446-bdc8-473b-b430-4740d183af4d','944738cd-8d39-4420-b789-a35ac376651c','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('93a69c06-fa8a-4890-adb5-6a119758eabd','88fe4c4b-e5c9-4fad-8be6-c0437d0654ef','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b3e87d1b-2bd7-4583-937a-9f28a8894f7d','715dff40-10ba-4e3a-80fe-03945a37dbff','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('8fc46085-a6ed-4bc9-98dd-641ba44a81f7','315eff5f-2175-4206-920b-d8885afc01bc','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('fc65f098-e17e-4320-84e6-d7634f11b328','ba5d9e33-0a7a-488a-93e3-6aa166d84c87','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b3a8fc48-2053-4e14-809c-ed3ea430cbfe','734402cb-6162-44eb-8e2b-7ded4b44d8a5','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('95d47223-89c4-4583-abe9-6dd46bdfcba7','fc62811b-5b2c-457d-88eb-fb52679cb843','a018b62e-c220-4d97-b013-5ce405c7e3b3');
+
+-- --Boy's clothes
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b649410c-e9ab-4340-82be-9e57b654198b','9e45aed6-29ae-4536-840c-252f59b61ba1','bdeda60d-5daf-44ec-a1ab-768bca529851');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('04df7a5a-8123-4651-bbd0-43b5684db978','2936156e-475c-43d4-b6a5-92f393d994b5','bdeda60d-5daf-44ec-a1ab-768bca529851');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('882a578d-2779-43b9-b3ea-ccc403a3472b','e2b39531-200e-4c7e-aad9-48f3084b20af','bdeda60d-5daf-44ec-a1ab-768bca529851');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('bb3b4a58-e109-4c7f-a450-9c3369dd5b60','44311f7d-88ef-477d-b7e1-f9cc855f3b7d','bdeda60d-5daf-44ec-a1ab-768bca529851');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('3560645d-50cf-465e-b376-e6fb2620a6ed','622528e2-8f72-4c8f-a070-f55a18bba9bf','bdeda60d-5daf-44ec-a1ab-768bca529851');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('04d32e9f-7221-4c81-9c43-11380dc19988','5b33331d-aa98-42ba-87b8-98533bf1c8b3','bdeda60d-5daf-44ec-a1ab-768bca529851');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('847f957e-933d-41a3-ae0e-ea01c7af5bf9','c5dc034a-a9bf-4bdc-915b-fb89def270ad','bdeda60d-5daf-44ec-a1ab-768bca529851');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a05a0d75-245c-4f9e-92e4-901a4b956b6c','619e668f-571b-4b15-857b-9308bce04efb','bdeda60d-5daf-44ec-a1ab-768bca529851');
+--
+-- --Girl's clothes
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f3c7307b-79b5-4176-bcba-e9cb9610ca35','10eaeaf7-8133-4894-96fb-fb12e10caed7','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('bf02babf-99a4-44ce-9157-bc17b96ad16a','7d753767-f2c6-468f-9219-4dfb67824326','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('885af630-b24f-4857-bc59-325603350505','773b1d3c-6ba5-4459-903b-64835dc292b1','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c1911b41-741d-4c6a-b128-e13926cb99be','e535cbde-bbbc-40cf-89c4-a999ef38b049','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('af0f1c37-c144-4948-b6b0-01f5fb36b57f','974b6467-1ef6-420c-8863-d696f452ed92','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('eb5db56d-75b0-49af-aa35-3b92a4f6ed64','07cba891-64b9-4c55-b6a8-5a59641c9aed','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('510d59be-72ff-45d7-bd64-2cce4dcb9d99','d0cba259-0f36-4fa1-8c6b-97d24b8c9174','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('5cb78c9b-ab92-4da6-a9cb-7a3c40225afd','9a684d4a-3c12-4dbe-8c3a-cbee4acc1244','9d5b6dfd-9a41-411f-bff9-e09959c4c689');
+
+--Kids' clothe
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('bea73482-a478-4ba7-bc9e-8adfa40c1a27','cb06a05a-9d28-44e7-898c-0a35b30d088c','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('11b65c27-108a-4e7e-b3a8-40c5769cecb6','b0b6c9ff-1ad5-44b7-84f9-879c280e4b1b','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f5cb3868-d380-40f3-b0be-f46d1bfad66e','c29cc9bc-b003-4a7f-9a09-f5f296c32102','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('75907c16-2431-42be-a11e-bd10d00920e8','49108bdc-7640-484f-a8e5-dae1df6bbc22','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('fc8bb708-cba8-4d48-af96-a1daf95dd604','cc82b4a9-92c7-42fc-9951-9119a321cf6d','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('74f9deab-2d77-4160-a251-9aa81972b89b','c1bef85d-7529-4b4b-9f2f-917d8cbe7ac5','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2354766b-99dc-4e4d-ad9c-d17f0c53ee97','6601ef69-5703-40f5-9038-8744257f1e65','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2038483e-77cf-4aef-a3fe-6226fce9e9d7','d8c0c32e-fb81-44f1-ab1e-88d65fb3c81b','34d7f2b8-9c6a-4f4b-a5d8-2e7b6a9d3c1f');
+
+--Women's shoe
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a93d5eca-82b6-4624-97f0-b34095588e5c','f8b9f9fa-5f48-4c17-a916-49e08ee0ee52','67b9d2b6-da2d-4e7a-bf72-9b859e898037');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('9d3ba2da-5946-42ea-8cce-b8b17e196bea','b7fb9481-93e6-4299-8f58-17419c8a861e','67b9d2b6-da2d-4e7a-bf72-9b859e898037');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('135f5e1c-195d-41a5-8b3a-b1b7f34daa4f','6926e3d7-6bf1-4aac-bf41-69f2c13474a1','67b9d2b6-da2d-4e7a-bf72-9b859e898037');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('4cbeeb9b-2c91-43ed-a6d5-c24b5aa7d4f6','bab2371c-f3ec-467c-bd4e-867643822380','67b9d2b6-da2d-4e7a-bf72-9b859e898037');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6e85972d-a47d-4589-8c77-1c3f74e93d53','f774dc19-3e92-41e2-863d-642a7524c035','67b9d2b6-da2d-4e7a-bf72-9b859e898037');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b67481e6-8cef-4075-adaf-75c9b41753aa','bd5f13a0-030a-45ef-b92f-3dff9b50f7ff','67b9d2b6-da2d-4e7a-bf72-9b859e898037');
+
+--Men's shoe
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('934faa2c-28b4-4249-bb95-4b0b464e37d1','548bed87-d533-4cf5-b316-9f86d6dcc062','d92163d5-c8da-4368-8dcd-9872d2c61e33');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f12d4570-d623-426f-a965-4e83808f6908','8c31e007-ca20-48e1-9b37-9c11ff2bbd86','d92163d5-c8da-4368-8dcd-9872d2c61e33');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('976c380a-c682-4cbd-8106-2c52dfffc28f','afefad53-0e6b-4bb9-9ed6-e6d225942c24','d92163d5-c8da-4368-8dcd-9872d2c61e33');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c83f72da-b0e0-4f05-acbb-ee69c5591366','9026f767-1ab8-46ef-9829-620aad90163e','d92163d5-c8da-4368-8dcd-9872d2c61e33');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2e3066fd-4f29-458b-9b12-fefe90cd15fe','b7470420-a997-4915-9b10-78a7a043f752','d92163d5-c8da-4368-8dcd-9872d2c61e33');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c1080d75-f0ad-486b-8ba4-01e6b277aa57','07caf0fe-0bfb-46be-b1cd-16add90a7e24','d92163d5-c8da-4368-8dcd-9872d2c61e33');
+
+-- --Boys' shoe
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f50b8c00-715b-46b7-98ff-189aa440e461','451c7bcf-f183-4d12-8bec-5f36b3da9b91','d98310ac-1890-4863-aa2c-e3b7b513dd43');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('064216d0-69e7-4677-8c34-28c3795bc703','18011a4c-762a-44f5-aeff-a950a972a48d','d98310ac-1890-4863-aa2c-e3b7b513dd43');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ad02e69a-4199-42c8-b2a1-49622d6d1166','f156b5d9-cba7-4422-946f-1a81f3ceaa80','d98310ac-1890-4863-aa2c-e3b7b513dd43');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('eb24417b-4d9c-4349-99a7-6b7e9cffced0','f0c6a5d3-0622-435b-8ba2-1d2886b7c3ad','d98310ac-1890-4863-aa2c-e3b7b513dd43');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('89de3089-1399-4ea9-9599-26ce3f62ead9','30853a47-ea9f-419f-871c-e21c2181fc19','d98310ac-1890-4863-aa2c-e3b7b513dd43');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a0722441-a1a6-4c9e-ac0f-4692eb4abd59','c03fe0ab-09c1-45e9-beb8-f3300c0378ce','d98310ac-1890-4863-aa2c-e3b7b513dd43');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e0a72859-a0f4-4d75-bb73-2ea1eb0cff22','2c3fc2f0-a077-4afd-9a33-9754605110b6','d98310ac-1890-4863-aa2c-e3b7b513dd43');
+--
+-- --Girls' shoe
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2c6a816b-82ad-4495-b462-21fea8f75c8d','42630722-814e-4f61-a390-1cbe0348b8dc','7d29ac4b-c699-43f1-8f29-80fb70807305');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('d03b748b-0249-4cfd-b9ae-f88bae922da2','d72e5806-e40b-4016-ad59-bb2641fc7cb6','7d29ac4b-c699-43f1-8f29-80fb70807305');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('4a2512b3-3aaa-4a7d-a227-b1932a131b93','d3324a29-b1cb-498e-93bb-82613653ce3b','7d29ac4b-c699-43f1-8f29-80fb70807305');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('28240ebc-657b-45d6-b0df-da5b7780807d','e412da95-3267-4f77-8878-4caff85b0b68','7d29ac4b-c699-43f1-8f29-80fb70807305');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b7f84f0e-9fcb-4265-a3b5-b001e3dc7e9c','a70ebb6f-4e5c-43b3-8c71-ba8e8d86e9ed','7d29ac4b-c699-43f1-8f29-80fb70807305');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('aba34619-04de-4b2c-9061-c359b70ddcf8','452008c2-09c4-4bda-b5ad-8b3632c275c5','7d29ac4b-c699-43f1-8f29-80fb70807305');
+-- INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('002d7e5a-b299-46fc-bde4-f0448191be0b','739911a6-ae37-4453-8d9a-695fb49a968c','7d29ac4b-c699-43f1-8f29-80fb70807305');
+
+--Kid's shoe
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('04759302-2fdb-4499-a2e3-0a0603f0c536','2b6e65bb-bd48-4a33-99f5-272c0325ece2','2e35799c-a116-4edf-9559-1285180ba9ad');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a50b12b8-9ba8-4df7-a00c-0b0e0df6fd6c','3dc059b1-fd23-4d7a-9cfa-d4de81213f03','2e35799c-a116-4edf-9559-1285180ba9ad');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('5f7e3ffd-c5d8-401a-9075-6285e7f34c8a','d36a7916-a78c-4c52-afc7-667c575624ba','2e35799c-a116-4edf-9559-1285180ba9ad');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('cb83a000-885b-472d-844c-35b09ef0c647','34f43cc4-f824-472a-a8c2-6766a8802c39','2e35799c-a116-4edf-9559-1285180ba9ad');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('4cf8e332-f5b3-4fed-92f5-8746c5e3e5fe','02678fbd-fefb-43e9-816b-4fa51a8c17e1','2e35799c-a116-4edf-9559-1285180ba9ad');
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('5ff6faca-7253-4160-a5dd-c40314ac4a41','d46dd804-eeea-45bf-8d88-322597e6da02','2e35799c-a116-4edf-9559-1285180ba9ad');
