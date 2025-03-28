@@ -1,11 +1,18 @@
 package com.igriss.ListIn.database_initializer;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.entity.Country;
 import com.igriss.ListIn.location.service.LocationService;
+import com.igriss.ListIn.security.roles.Role;
+import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,16 +50,6 @@ public class DatabaseInitializer {
             "/database_sql_scripts/real_estate/attribute_values.sql",
             "/database_sql_scripts/clothes/attribute_keys.sql",
             "/database_sql_scripts/clothes/attribute_values.sql",
-            "/database_sql_scripts/home_&_garden/attribute_keys.sql",
-            "/database_sql_scripts/home_&_garden/attribute_values.sql",
-            "/database_sql_scripts/beauty_&_health/attribute_keys.sql",
-            "/database_sql_scripts/beauty_&_health/attribute_values.sql",
-            "/database_sql_scripts/luxurious_accessories/attribute_keys.sql",
-            "/database_sql_scripts/luxurious_accessories/attribute_values.sql",
-            "/database_sql_scripts/flowers_&_gifts/attribute_keys.sql",
-            "/database_sql_scripts/flowers_&_gifts/attribute_values.sql",
-            "/database_sql_scripts/animals/attribute_keys.sql",
-            "/database_sql_scripts/animals/attribute_values.sql",
             "/database_sql_scripts/category_attributes.sql",
 
 
@@ -83,8 +80,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/location-tree/states.sql",
             "/database_sql_scripts/location-tree/counties.sql"
     );
-/*
-  @PostConstruct
+
+/*   @PostConstruct
     public void flushRedis() {
         Objects.requireNonNull(redisTemplate
                         .getConnectionFactory()
@@ -97,7 +94,7 @@ public class DatabaseInitializer {
 
 
 
-    /*@PostConstruct
+    @PostConstruct
     public void init() {
         clearDatabase();
         for (String script : scripts) {
@@ -112,25 +109,22 @@ public class DatabaseInitializer {
                                 .country(locationDTO.getCountry())
                                 .county(locationDTO.getCounty())
                                 .country(locationDTO.getCountry())
-                                .state(locationDTO.getState())
                                 .locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
                         User.builder().nickName("Qobil").enableCalling(true).phoneNumber("+998 90 000 00 09").email("q.no_replay@listin.uz").biography("Admin")
                                 .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
                                 .country(locationDTO.getCountry())
                                 .county(locationDTO.getCounty())
-                                .state(locationDTO.getState())
                                 .country(locationDTO.getCountry())
                                 .longitude(1234.1234).latitude(-43.234234).build(),
                         User.builder().nickName("Abdulaxad").enableCalling(true).phoneNumber("+998 90 000 00 09").email("a.no_replay@listin.uz").biography("Admin")
                                 .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
                                 .country(locationDTO.getCountry())
                                 .county(locationDTO.getCounty())
-                                .state(locationDTO.getState())
                                 .country(locationDTO.getCountry())
                                 .longitude(1234.1234).latitude(-43.234234).build()
                 )
         );
-    }*/
+    }
 
     private void clearDatabase() {
         try {
@@ -170,7 +164,7 @@ public class DatabaseInitializer {
     }
 
 
-/*  @PostConstruct
+/*   @PostConstruct
     public void clearElasticsearchData() {
         try {
             if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
