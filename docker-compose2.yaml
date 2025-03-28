@@ -43,7 +43,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     networks:
-      - app-network
+      - list-in-network
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
     healthcheck:
@@ -76,8 +76,6 @@ services:
         condition: service_healthy
     ports:
       - "80:80"
-    env_file:
-      - .env
     environment:
       - SMTP_USERNAME=${SMTP_USERNAME}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
