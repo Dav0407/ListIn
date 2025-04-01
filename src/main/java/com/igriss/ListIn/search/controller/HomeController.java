@@ -6,10 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class HomeController {
-    @GetMapping
+
+    @GetMapping("/")
     public String homePage(){
+        return "privacyPolicy";
+    }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicyPage(){
         return "index";
     }
 

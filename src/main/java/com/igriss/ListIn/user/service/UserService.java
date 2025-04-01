@@ -4,6 +4,7 @@ package com.igriss.ListIn.user.service;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.user.dto.FollowsDTO;
+import com.igriss.ListIn.user.dto.FollowsResponseDTO;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
@@ -20,7 +21,7 @@ public interface UserService {
 
     void changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
 
-    Boolean isFollowingToUser(User followedUser, User followingUser);
+    Boolean isFollowingToUser(UUID followedUser, UUID followingUser);
 
     User findByEmail(String username);
 

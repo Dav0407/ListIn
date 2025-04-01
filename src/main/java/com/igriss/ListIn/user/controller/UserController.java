@@ -1,7 +1,9 @@
 package com.igriss.ListIn.user.controller;
 
 
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.user.dto.FollowsDTO;
+import com.igriss.ListIn.user.dto.FollowsResponseDTO;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
@@ -39,16 +41,16 @@ public class UserController {
     }
 
     @GetMapping("/followers/{userId}")
-    public ResponseEntity<Page<FollowsDTO>> getFollowers(@PathVariable UUID userId,
-                                                         @RequestParam(defaultValue = "0") int page,
-                                                         @RequestParam(defaultValue = "5") int size) {
+    public ResponseEntity<PageResponse<FollowsResponseDTO>> getFollowers(@PathVariable UUID userId,
+                                                                         @RequestParam(defaultValue = "0") int page,
+                                                                         @RequestParam(defaultValue = "5") int size) {
         return ResponseEntity.ok(userService.getFollowers(userId, page, size));
     }
 
     @GetMapping("/followings/{userId}")
-    public ResponseEntity<Page<FollowsDTO>> getFollowings(@PathVariable UUID userId,
-                                                          @RequestParam(defaultValue = "0") int page,
-                                                          @RequestParam(defaultValue = "5") int size) {
+    public ResponseEntity<PageResponse<FollowsResponseDTO>> getFollowings(@PathVariable UUID userId,
+                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "5") int size) {
         return ResponseEntity.ok(userService.getFollowings(userId, page, size));
     }
 

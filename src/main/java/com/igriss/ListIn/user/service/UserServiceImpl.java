@@ -5,10 +5,12 @@ import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.location.dto.LocationDTO;
 import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.security.roles.Role;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.security.service.AuthenticationServiceImpl;
 import com.igriss.ListIn.user.dto.FollowsDTO;
+import com.igriss.ListIn.user.dto.FollowsResponseDTO;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
@@ -34,8 +36,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -137,14 +142,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<FollowsDTO> getFollowers(UUID userId, int page, int size) {
-        return userFollowerRepository.findAllFollowers(userId, PageRequest.of(page, size));
+    public PageResponse<FollowsResponseDTO> getFollowers(UUID userId, int page, int size) {
+
+        Page<FollowsDTO> allFollowers = userFollowerRepository.findAllFollowers(userId, PageRequest.of(page, size));
+
+        return getFollowsDTOPageResponse(userId, allFollowers);
     }
 
     @Override
-    public Page<FollowsDTO> getFollowings(UUID userId, int page, int size) {
-        return userFollowerRepository.findAllFollowings(userId, PageRequest.of(page, size));
+    public PageResponse<FollowsResponseDTO> getFollowings(UUID userId, int page, int size) {
+
+        Page<FollowsDTO> allFollowings = userFollowerRepository.findAllFollowings(userId, PageRequest.of(page, size));
+
+        return getFollowsDTOPageResponse(userId, allFollowings);
     }
+
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
@@ -154,6 +166,7 @@ public class UserServiceImpl implements UserService {
         if (connectedUser.getUserId().equals(followingUserId)) {
             throw new BadRequestException("User cannot follow themselves");
         }
+
 
         User userToBeFollowed = userRepository.findById(followingUserId)
                 .orElseThrow(() -> new UserNotFoundException("User to follow not found"));
@@ -175,7 +188,7 @@ public class UserServiceImpl implements UserService {
         UserFollower userFollower = new UserFollower(connectedUser, userToBeFollowed);
         userFollowerRepository.save(userFollower);
 
-        return userMapper.toUserResponseDTO(userToBeFollowed, isFollowingToUser(connectedUser, userToBeFollowed));
+        return userMapper.toUserResponseDTO(userToBeFollowed, isFollowingToUser(connectedUser.getUserId(), userToBeFollowed.getUserId()));
     }
 
     @Override
@@ -206,12 +219,12 @@ public class UserServiceImpl implements UserService {
 
         userFollowerRepository.deleteById(id);
 
-        return userMapper.toUserResponseDTO(userToBeUnFollowed, isFollowingToUser(connectedUser, userToBeUnFollowed));
+        return userMapper.toUserResponseDTO(userToBeUnFollowed, isFollowingToUser(connectedUser.getUserId(), userToBeUnFollowed.getUserId()));
     }
 
     @Override
-    public Boolean isFollowingToUser(User sourceUser, User targetUser){
-        return userFollowerRepository.existsByFollower_UserIdAndFollowing_UserId(sourceUser.getUserId(), targetUser.getUserId());
+    public Boolean isFollowingToUser(UUID sourceUser, UUID targetUser) {
+        return userFollowerRepository.existsByFollower_UserIdAndFollowing_UserId(sourceUser, targetUser);
     }
 
     @Override
@@ -228,7 +241,7 @@ public class UserServiceImpl implements UserService {
 
         User connectedUser = (User) authentication.getPrincipal();
 
-        Boolean followingToUser = isFollowingToUser(followedUser, connectedUser);
+        Boolean followingToUser = isFollowingToUser(followedUser.getUserId(), connectedUser.getUserId());
 
         return userMapper.toUserResponseDTO(userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found")), followingToUser);
@@ -247,5 +260,29 @@ public class UserServiceImpl implements UserService {
 
     public String getPhoneNumberByToken(String token) {
         return phoneTokenMap.get(token);
+    }
+
+    private PageResponse<FollowsResponseDTO> getFollowsDTOPageResponse(UUID userId, Page<FollowsDTO> allFollowings) {
+
+        List<FollowsResponseDTO> followsResponseDTOS = allFollowings.getContent().stream()
+                .map(followsDTO -> FollowsResponseDTO.builder()
+                        .userId(followsDTO.getUserId())
+                        .nickName(followsDTO.getNickName())
+                        .profileImagePath(followsDTO.getProfileImagePath())
+                        .following(followsDTO.getFollowing())
+                        .followers(followsDTO.getFollowers())
+                        .isFollowing(isFollowingToUser(userId, followsDTO.getUserId()))
+                        .build()
+                ).toList();
+
+        return PageResponse.<FollowsResponseDTO>builder()
+                .content(followsResponseDTOS)
+                .number(allFollowings.getNumber())
+                .size(allFollowings.getSize())
+                .totalElements(allFollowings.getTotalElements())
+                .totalPages(allFollowings.getTotalPages())
+                .first(allFollowings.isFirst())
+                .last(allFollowings.isLast())
+                .build();
     }
 }

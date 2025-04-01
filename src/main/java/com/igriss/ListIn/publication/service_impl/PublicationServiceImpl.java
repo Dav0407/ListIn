@@ -212,7 +212,7 @@ public class PublicationServiceImpl implements PublicationService {
                                     productFileService.findImagesByPublicationId(publication.getId()),
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
                                     numericValueService.findNumericFields(publication.getId()),
-                                    true, userService.isFollowingToUser(user, publication.getSeller()));
+                                    true, userService.isFollowingToUser(user.getUserId(), publication.getSeller().getUserId()));
 
                             publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
 
@@ -289,7 +289,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(
                 updatedPublication, images, videoUrl, numericValueService.findNumericFields(publication.getId()),
-                false, userService.isFollowingToUser(connectedUser, publication.getSeller())
+                false, userService.isFollowingToUser(connectedUser.getUserId(), publication.getSeller().getUserId())
         );
 
         publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
@@ -349,7 +349,7 @@ public class PublicationServiceImpl implements PublicationService {
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
                                     numericValueService.findNumericFields(publication.getId()),
                                     publicationLikeService.isLiked(user.getUserId(), publication.getId()),
-                                    userService.isFollowingToUser(user, publication.getSeller()));
+                                    userService.isFollowingToUser(user.getUserId(), publication.getSeller().getUserId()));
 
                             publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
 
@@ -358,7 +358,6 @@ public class PublicationServiceImpl implements PublicationService {
                             return publicationResponseDTO;
                         }
                 ).toList();
-
     }
 
 }

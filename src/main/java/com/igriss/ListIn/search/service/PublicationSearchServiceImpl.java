@@ -283,7 +283,7 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 productFileService.findVideoUrlByPublicationId(publication.getId()),
                 numericValueService.findNumericFields(publication.getId()),
                 publicationLikeService.isLiked(user.getUserId(), publication.getId()),
-                userService.isFollowingToUser(user, publication.getSeller()));
+                userService.isFollowingToUser(user.getUserId(), publication.getSeller().getUserId()));
 
         publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
         publicationResponseDTO.setIsViewed(publicationViewService.isViewed(user.getUserId(), publication.getId()));
