@@ -1,5 +1,9 @@
 package com.igriss.ListIn.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.igriss.ListIn.security.roles.Role;
+import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
+import com.igriss.ListIn.security.service.JwtService;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.ServletException;
@@ -13,35 +17,50 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+    private final JwtService jwtService;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (authentication.getPrincipal() instanceof OAuth2User oAuth2User) {
             String email = oAuth2User.getAttribute("email");
-            String nickName = oAuth2User.getAttribute("family_name");
-            log.info("Authenticated OAuth2 user logged in:\n [{}],\n Email: [{}],\n Name: [{}]",
-                    authentication.getAuthorities().toString(), email, nickName);
+            String name = oAuth2User.getAttribute("name");
+            log.info("Authenticated OAuth2 user logged in: [{}], Email: [{}], Name: [{}]",
+                    authentication.getAuthorities().toString(), email, name);
 
-            Optional<User> existingUser = repository.findByEmail(email);
-            if (existingUser.isPresent())
-                log.info("User already exists. Proceeding with login.");
-             else {
-                User newUser = new User();
-                newUser.setEmail(email);
-                newUser.setNickName(nickName);
-                repository.save(newUser);
-                log.info("New user created and saved: [{}] [{}]", nickName, email);
-            }
+            // Find existing user or create new one
+            assert email != null;
+            User user = userRepository.findByEmail(email.toLowerCase())
+                    .orElseGet(() -> createNewUser(email, name));
+
+            // Generate JWT tokens
+            String accessToken = jwtService.generateToken(user);
+            String refreshToken = jwtService.generateRefreshToken(user);
+
+            // Return tokens in the response
+            response.setContentType("application/json");
+            AuthenticationResponseDTO authResponse = AuthenticationResponseDTO.builder()
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .build();
+
+            objectMapper.writeValue(response.getOutputStream(), authResponse);
         }
-        response.sendRedirect("/");
-        super.onAuthenticationSuccess(request, response, authentication);
+    }
+
+    private User createNewUser(String email, String name) {
+        User newUser = User.builder()
+                .email(email.toLowerCase())
+                .nickName(name)
+                .role(Role.INDIVIDUAL_SELLER) // Default role
+                .build();
+
+        return userRepository.save(newUser);
     }
 }
