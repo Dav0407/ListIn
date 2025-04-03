@@ -85,16 +85,6 @@ public class DatabaseInitializer {
 
     @PostConstruct
     public void init() {
-        userRepository.saveAll(
-                List.of(
-                        User.builder().nickName("Davron").enableCalling(true).phoneNumber("+998 90 000 00 09").email("d.no_replay@listin.uz").biography("Admin")
-                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
-                        User.builder().nickName("Qobil").enableCalling(true).phoneNumber("+998 90 000 00 09").email("q.no_replay@listin.uz").biography("Admin")
-                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
-                        User.builder().nickName("Abdulaxad").enableCalling(true).phoneNumber("+998 90 000 00 09").email("a.no_replay@listin.uz").biography("Admin")
-                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build()
-                )
-        );
         clearDatabase();
         for (String script : scripts) {
             executeScript(script);

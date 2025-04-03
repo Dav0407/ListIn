@@ -2,6 +2,7 @@ package com.igriss.ListIn.user.service;
 
 
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.security.security_dto.ChangePasswordRequestDTO;
 import com.igriss.ListIn.user.dto.FollowsDTO;
 import com.igriss.ListIn.user.dto.FollowsResponseDTO;
@@ -33,9 +34,9 @@ public interface UserService {
 
     UpdateResponseDTO updateUserDetails(UserRequestDTO userRequestDTO, HttpServletRequest request, Authentication authentication);
 
-    Page<FollowsDTO> getFollowers(UUID userId, int page, int size);
+    PageResponse<FollowsResponseDTO> getFollowers(UUID userId, int page, int size);
 
-    Page<FollowsDTO> getFollowings(UUID userId, int page, int size);
+    PageResponse<FollowsResponseDTO> getFollowings(UUID userId, int page, int size);
 
     UserResponseDTO followToUser(UUID followingUserId, Authentication authentication) throws BadRequestException;
 
