@@ -143,3 +143,171 @@ INSERT INTO categories (category_id, parent_id, category_name, category_name_uz,
 --Child category "Kids' Shoes"
 INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('2e35799c-a116-4edf-9559-1285180ba9ad', 'a27c8ffe-8d08-4578-bd7c-de336f4ff8d1', 'Kids'' Shoes', 'Bolalar poyabzali', 'Детская обувь','Soft Soles, Pre-Walkers, Booties, First Walkers', 'Yumshoq taglik, yangi yuruvchilar uchun poyabzal, botinka, birinchi qadamlar uchun','Мягкая подошва, первая обувь, ботиночки, обувь для первых шагов','https://listin-app-images.s3.eu-north-1.amazonaws.com/kids-shoes.png');
 
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+--Child category "Furniture"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('0a69208f-cfbd-4f0d-91cd-9ab881754bd5', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Furniture', 'Mebel', 'Мебель','Sofas, Armchairs, Cabinets...', 'Divanlar, Armchairlar, Shkaflar...','Диваны, Кресла, Шкафы...','https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-furniture.png');
+
+--Child category "Decor & Interior"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('d44dca07-782e-4bd1-834f-d65679fc1dd1', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Decor & Interior', 'Dekor va Ichki', 'Декор и Интерьер','Chandeliers, Paintings, Posters...', 'Lyustralar, Rasmlar, Plakatlar...', 'Люстры, Картины, Постеры...','https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-decor.png');
+
+--Child category "Garden, Outdoor & Tools"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('5d24781c-2982-4b76-a5d7-dd38da237873', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Garden, Outdoor & Tools', 'Bogʻ, Ochiq havo va Asboblar', 'Сад, Открытый воздух и Инструменты','Garden Tables, Plants, Flower Pots...', 'Bog‘ stollari, O‘simliklari, Gul qozonlari...', 'Садовые столы, растения, Горшки для цветов...','https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-garden.png');
+
+--Child category "Household Appliances"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('1763002e-fc2b-48b0-a064-d4f601599745', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Household Appliances', 'Maishiy Texnika', 'Бытовая Техника','Refrigerators, Cookers, Ovens...', 'Muzlatgichlar, Pishirish plitalari, Pechlar...', 'Холодильники'', Плиты, Духовки...', 'https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-household.png');
+
+--Child category "Tools & Hardware"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('38b08c9f-9f8b-4cbe-8f87-f9eee616771b', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Tools & Hardware', 'Asboblar va Jihozlar', 'Инструменты и Оборудование','Drills, Screwdrivers, Sanders...', 'Borchilar, Vidalar, Sanderlar...', 'Дрели, Отвёртки, Шлифовальные машины...','https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-tools.png');
+
+--Child category "Doors, Windows & Finishes"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('ce6053c5-b1a2-4cce-8245-ea6d6e1821a7', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Doors, Windows & Finishes', 'Eshiklar, Derazalar va Yoqimsizlar', 'Двери, Окна и Отделка','Windows, Door Handles, Sealants...', 'Derazalar, Eshik tutqichlari, Yopishtiruvchilar...', 'Окна, Ручки дверей, Уплотнители...','https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-windows.png');
+
+--Child category "Cleaning & Maintenance"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('a4fad764-769e-4d9f-9bdb-94612c3bd9a4', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Cleaning & Maintenance', 'Tozalash va Xizmat koʻrsatish', 'Чистка и Уход','Detergents, Brooms, Dustpans...', 'Yuvish vositalari, Metlalar, Changqopqichlar...', 'Моющее средство, Метлы, Совки...','https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-maintenance.png');
+
+--Child category "Organization & Storage"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('95550d53-2fcc-44e1-9e86-d7418010a77e', '37a2eb83-8373-4ee1-9034-6fd60ed6e5b2', 'Organization & Storage', 'Tashkil qilish va Saqlash', 'Организация и Хранение','Shelves, Storage Boxes, Closet Organizers...', 'Raflar, Saqlash qutilari, Kiyim tokchasi tashkilotchilari...', 'Полки, Коробки для хранения, Органайзеры для шкафов...', 'https://listin-app-images.s3.eu-north-1.amazonaws.com/garden-storage.jpg');
+
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+--Child category "Cosmetics"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('ffbfba77-d321-49e9-950f-abad7421f363', 'e7a956ed-dc77-461e-9f29-a0a49bf35826', 'Cosmetics', 'Kosmetika', 'Косметика','Foundation, Concealer, Powder...', 'Tonal krem, Yashiruvchi krem, Pudra...', 'Тональный крем, Консилер, Пудра...','https://listin-app-images.s3.eu-north-1.amazonaws.com/health-cosmetics.png');
+
+--Child category "Skin Care"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('351cf2e8-e302-44bd-af63-248f84170bb1', 'e7a956ed-dc77-461e-9f29-a0a49bf35826', 'Skin Care', 'Teri parvarishi', 'Уход за кожей','Face Cleansers, Face Creams, Eye Creams...', 'Yuz tozalagichlar, Yuz kremlari, Ko‘z kremlari...', 'Очищающие средства для лица, Кремы для лица, Кремы для глаз...','https://listin-app-images.s3.eu-north-1.amazonaws.com/health-skin_care.png');
+
+--Child category "Hair Care"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('54988502-0b93-4aaa-ae0c-aa0e4cbfc626', 'e7a956ed-dc77-461e-9f29-a0a49bf35826', 'Hair Care', 'Soch parvarishi', 'Уход за волосами','Shampoos, Conditioners, Hair Oils...', 'Shampunlar, Konditsionerlar, Soch yog‘lari...', 'Шампуни, Кондиционеры, Масла для волос...','https://listin-app-images.s3.eu-north-1.amazonaws.com/health-hair_care.png');
+
+--Child category "Personal Care"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('4d90aef7-c386-43c8-b4a2-3d25ef521c8f', 'e7a956ed-dc77-461e-9f29-a0a49bf35826', 'Personal Care', 'Shaxsiy parvarish', 'Личная гигиена','Body Lotions, Toothpaste, Toothbrushes...', 'Tana losonlari, Tish pastasi, Tish cho‘tkalari...', 'Лосьоны для тела, Зубная паста, Зубные щетки...','https://listin-app-images.s3.eu-north-1.amazonaws.com/health-personal_care.png');
+
+--Child category "Fitness & Health"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('46f06372-12f2-43df-af9c-2df790af030a', 'e7a956ed-dc77-461e-9f29-a0a49bf35826', 'Fitness & Health', 'Fitness va sog‘liq', 'Фитнес и здоровье','Dumbbells, Thermometers, Protein Powders...', 'Dumbbellar, Termometrlar, Protein kukunlari...', 'Гантели, Термометры, Протеиновые порошки...','https://listin-app-images.s3.eu-north-1.amazonaws.com/health-fitness.png');
+
+--Child category "Natural & Organic Products"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('bd35fd2d-a13e-47a6-95b2-8b82a1a85b29', 'e7a956ed-dc77-461e-9f29-a0a49bf35826', 'Natural & Organic Products', 'Tabiiy va organik mahsulotlar', 'Натуральные и органические продукты','Organic Face Creams, Detox Teas, Herbal Capsules...', 'Organik yuz kremlari, Detoks choylari, O‘simlik kapsulalari...', 'Органические кремы для лица, Детокс чаи, Травяные капсулы...','https://listin-app-images.s3.eu-north-1.amazonaws.com/health-natoural.png');
+
+--Child category "Spa & Relaxation"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('15da1929-9d9d-4430-8360-d1b71ceb8eb3', 'e7a956ed-dc77-461e-9f29-a0a49bf35826', 'Spa & Relaxation', 'Spa va dam olish', 'Спа и расслабление','Essential Oils, Diffusers, Scented Candles...', 'Efir moylari, Difuzorlar, Hidli chiroqlar...', 'Эфирные масла, Диффузоры, Ароматные свечи...','https://listin-app-images.s3.eu-north-1.amazonaws.com/health-relaxation.png');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+--Child category "Handbags and Wallets"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('e427c633-e3d7-4f8a-be4f-ce01c9c87b1a', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Handbags and Wallets', 'Sumkalar va hamyonlar', 'Сумки и кошельки','', '','','');
+
+--Child category "Eyewear"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('8fb5813f-c079-41ed-84f8-10b0b6cfce1d', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Eyewear', 'Ko‘zoynaklar', 'Очки','', '','','');
+
+--Child category "Watches"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('c00e4be5-6b24-4c3f-a62b-c71cd697083b', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Watches', 'Soatlar', 'Часы','', '','','');
+
+--Child category "Fine Jewelry"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('8471acec-c683-4b6e-9976-1523a329878c', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Fine Jewelry', 'Nozik zargarlik buyumlari', 'Ювелирные изделия','', '','','');
+
+--Child category "Scarves and Shawls"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('f784ff5f-4d21-4b27-b4d8-275ec903e1f2', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Scarves and Shawls', 'Sharf va shaldirlar', 'Шарфы и платки','', '','','');
+
+--Child category "Hats and Caps"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('14acaaa8-861f-43b1-b249-9a992e8fb4a4', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Hats and Caps', 'Shapkalar va kepkalar', 'Шляпы и кепки','', '','','');
+
+--Child category "Gloves and Belts"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('2671d2c0-6bcc-4f3e-9c1d-7a7ba55ca42b', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Gloves and Belts', 'Qo‘lqoplar va kamarlar', 'Перчатки и ремни','', '','','');
+
+--Child category "Home Accessories"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('9f616b91-4866-4f22-b894-47d85cbb57a3', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Home Accessories', 'Uy aksessuarlar', 'Аксессуары для дома','', '','','');
+
+--Child category "Business Accessories"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('dff120dd-06f2-4a6b-b2f4-f80ce9bde510', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Business Accessories', 'Biznes aksessuarlar', 'Аксессуары для бизнеса','', '','','');
+
+--Child category "Special Occasion Accessories"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('f6a74a33-9e23-452b-b2f5-b9499b4692c5', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Special Occasion Accessories', 'Maxsus tadbir aksessuarlar', 'Аксессуары для особых случаев','', '','','');
+
+--Child category "Luggage and Travel"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('847c6503-8395-428d-b453-7cef6ced4b09', 'd24a6a1a-09ee-4e6b-9de6-6c50d8cb9c9b', 'Luggage and Travel', 'Yo‘l chelaklari va sayohat', 'Багаж и путешествия','', '','','');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+--Child category "Fresh Flowers"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('be5f9ff1-25d2-4099-8699-5fc8c8389a89', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Fresh Flowers', 'Yangi gullar', 'Свежие цветы','', '','','');
+
+--Child category "Flower Bouquets"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('5db84b99-5da6-4475-a7d0-e546dc126b83', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Flower Bouquets', 'Gul guldastalari', 'Букеты цветов','', '','','');
+
+--Child category "Artificial Flowers"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('656c93ac-2b91-4f44-89cc-807d17b3834d', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Artificial Flowers', 'Sunʻiy gullar', 'Искусственные цветы','', '','','');
+
+--Child category "Flower Arrangements"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('51d43b08-cd3d-4fb0-b6ec-e91a26cff88b', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Flower Arrangements', 'Gul bezaklari', 'Цветочные композиции','', '','','');
+
+--Child category "Gift Sets"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('58f80859-d0fa-48cd-ac45-2cd8b09ba4e4', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Gift Sets', 'Sovg‘a to‘plamlari', 'Подарочные наборы','', '','','');
+
+--Child category "Indoor Plants"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('14b9f73f-6074-43b0-a8b3-415e2521f0e3', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Indoor Plants', 'Ichki o‘simliklar', 'Комнатные растения','', '','','');
+
+--Child category "Outdoor Plants"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('6d7e90d6-8e52-4d5c-82c0-35e4db3e9006', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Outdoor Plants', 'Tashqi o‘simliklar', 'Уличные растения','', '','','');
+
+--Child category "Potted Plants"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('8eac01d7-b47a-462d-a83a-def4bc6a9fdf', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Potted Plants', 'Gul tuvaklari', 'Растения в горшках','', '','','');
+
+--Child category "Garden Plants"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('fa5819b4-4d31-47a7-af6f-e9ff1668cf2f', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Garden Plants', 'Bog‘ o‘simliklari', 'Садовые растения','', '','','');
+
+--Child category "Plush Toys"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('7db20eed-535a-4c2e-930e-39e4bee256a3', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Plush Toys', 'Yumshoq o‘yinchoqlar', 'Мягкие игрушки','', '','','');
+
+--Child category "Toy Cars and Vehicles"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('705c6b44-9b4b-4a5a-9aa2-7d11c1370935', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Toy Cars and Vehicles', 'O‘yinchoq mashinalar va transport vositalari', 'Игрушечные машинки и транспорт','', '','','');
+
+--Child category "Creative Toys"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('41d39552-5252-431e-bd19-0808d13b492d', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Creative Toys', 'Ijodiy o‘yinchoqlar', 'Творческие игрушки','', '','','');
+
+--Child category "Baby Toys"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('30e1ecd3-d3e6-4329-b969-f175eb9cf254', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Baby Toys', 'Chaqaloq o‘yinchoqlari', 'Детские игрушки','', '','','');
+
+--Child category "Educational Toys"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('099f3060-d6fd-4c30-b831-8fbbe7354269', '180b0b2d-4956-420e-8f44-8542e17f883b', 'Educational Toys', 'Ta’limiy o‘yinchoqlar', 'Образовательные игрушки','', '','','');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+--Child category "Dogs"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('20414607-6ede-43be-a935-fef2323aeeec', '16198ad8-3e13-4ef6-bf8b-9d295eab2967', 'Dogs', 'Itlar', 'Собаки','', '','','');
+
+--Child category "Cats"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('ab72f660-f1a3-4f73-b9ee-8f850aeed59f', '16198ad8-3e13-4ef6-bf8b-9d295eab2967', 'Cats', 'Mushuklar', 'Кошки','', '','','');
+
+--Child category "Birds"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('d395deed-f761-4fd1-9a4f-b243cba346a3', '16198ad8-3e13-4ef6-bf8b-9d295eab2967', 'Birds', 'Qushlar', 'Птицы','', '','','');
+
+--Child category "Horses"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('b4f57a0a-5761-4e92-98ce-cd362fafae71', '16198ad8-3e13-4ef6-bf8b-9d295eab2967', 'Horses', 'Otlar', 'Лошади','', '','','');
+
+--Child category "Reptiles"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('54741423-5718-48ec-941a-a0f909b51c5c', '16198ad8-3e13-4ef6-bf8b-9d295eab2967', 'Reptiles', 'Reptiliya hayvonlari', 'Пресмыкающиеся','', '','','');
+
+--Child category "Farm Animals"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('c7f3d0fe-70e3-428b-bf1c-02659530d45d', '16198ad8-3e13-4ef6-bf8b-9d295eab2967', 'Farm Animals', 'Ferma hayvonlari', 'Сельскохозяйственные животные','', '','','');
+
+--Child category "Pet Accessories"
+INSERT INTO categories (category_id, parent_id, category_name, category_name_uz, category_name_ru, description, description_uz, description_ru, image_url) VALUES ('a397264b-0ae6-4ab8-b64e-29578b7565ed', '16198ad8-3e13-4ef6-bf8b-9d295eab2967', 'Pet Accessories', 'Uy hayvonlari aksessuarlar', 'Аксессуары для домашних животных','', '','','');
+
