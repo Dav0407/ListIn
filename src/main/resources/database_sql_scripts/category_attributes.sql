@@ -96,7 +96,7 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES('0d0bd8bc-61ee-47aa-b4d9-3c880531987a','3fc333c3-096d-4762-a60e-e0a2368ec8c8','d856497c-3a0a-43a8-9630-3b023f76115d');
 
 
-
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 --Cars category-attributes
@@ -300,7 +300,7 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('653ac29c-6607-458e-8f6b-25d2347c910e','c5f14a26-a705-45bf-835c-ee21226c6cbd','225853b7-67d9-4248-a5f1-96386f6d9784');
 
 
-
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 --Women's clothes
@@ -394,3 +394,177 @@ INSERT INTO category_attributes (category_attribute_id, attribute_id, category_i
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('cb83a000-885b-472d-844c-35b09ef0c647','34f43cc4-f824-472a-a8c2-6766a8802c39','2e35799c-a116-4edf-9559-1285180ba9ad');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('4cf8e332-f5b3-4fed-92f5-8746c5e3e5fe','02678fbd-fefb-43e9-816b-4fa51a8c17e1','2e35799c-a116-4edf-9559-1285180ba9ad');
 INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('5ff6faca-7253-4160-a5dd-c40314ac4a41','d46dd804-eeea-45bf-8d88-322597e6da02','2e35799c-a116-4edf-9559-1285180ba9ad');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+--Furniture
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('d7ba6a5c-7667-4fe3-8337-1863468f5519','bb5db617-cba2-452d-96bc-5083186ad6a4','0a69208f-cfbd-4f0d-91cd-9ab881754bd5');
+
+
+--Decor & Interior
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f8c6749c-ed4a-4218-a4aa-5aeb44be892a','9939789d-37fc-4bca-b934-5b58ce4f77af','d44dca07-782e-4bd1-834f-d65679fc1dd1');
+
+
+--Garden, Outdoor & Tools
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('5d93aacc-e10f-41d6-bf7d-0de2430988ba','9da92663-075d-4660-8ba9-87b7ac267eb8','5d24781c-2982-4b76-a5d7-dd38da237873');
+
+
+--Household Appliances
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('367c81bf-0498-4c32-8d70-51b4a598db58','cc77cadc-14b2-4f88-9e1f-2cbdfc008c5b','1763002e-fc2b-48b0-a064-d4f601599745');
+
+
+--Tools & Hardware
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('3160b10e-e9d0-4fdb-be8e-ed3d0c1ab41a','9be6d781-abfd-4802-8a8a-2def50b5bcc9','38b08c9f-9f8b-4cbe-8f87-f9eee616771b');
+
+
+--Doors, Windows & Finishes
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e260726d-3968-4448-b2f0-a3a4a21edc72','44067889-c6ba-4058-a398-8440e124929a','ce6053c5-b1a2-4cce-8245-ea6d6e1821a7');
+
+
+--Cleaning & Maintenance
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('a88e81fb-c1f6-45d0-aa34-7a687f391fc4','b15f75f3-ba45-4a3a-97dd-c50ab6459e74','a4fad764-769e-4d9f-9bdb-94612c3bd9a4');
+
+
+--Organization & Storage
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('8b7e2bd9-4798-48e5-9b55-460f3501b698','7a6a14e3-cd68-482d-bbcf-62dfbbba3ec2','95550d53-2fcc-44e1-9e86-d7418010a77e');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+--Cosmetics attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('dedc8474-e371-41be-ad02-e90eb2da0002','b508d5fb-ecbc-41e6-aff5-dea5be9725e9','ffbfba77-d321-49e9-950f-abad7421f363');
+
+--Skin Care attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('85eeb56b-6970-4f47-8fde-3220bd6b4426','3f16a36e-0d88-48e6-9b35-cabb5f82f6e8','351cf2e8-e302-44bd-af63-248f84170bb1');
+
+
+--Hair Care attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('4c5cdacb-7328-4bee-90e3-3b37b6ffa115','6ee971b8-05d9-4d05-bc16-7bb373de099d','54988502-0b93-4aaa-ae0c-aa0e4cbfc626');
+
+
+--Personal Care attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('40c54c06-8b40-4201-8b64-dde52708b0be','045fa0c3-f73b-480a-bad0-f29a1ac0512d','4d90aef7-c386-43c8-b4a2-3d25ef521c8f');
+
+
+--Fitness & Health attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ac21bf84-4086-450f-b716-3860b438da50','dd1cad61-2862-43a0-94a4-e9fdd060909f','46f06372-12f2-43df-af9c-2df790af030a');
+
+
+--Natural & Organic Products attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('bbadccfa-6137-48e0-810d-8c126aa24258','6087c667-30cc-4abf-9bcb-875a646474eb','bd35fd2d-a13e-47a6-95b2-8b82a1a85b29');
+
+
+--Spa & Relaxation attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ceefafd8-d368-48d3-914c-8faad94d1a4e','b9aa3457-8011-4139-a02e-f17b20b55f80','15da1929-9d9d-4430-8360-d1b71ceb8eb3');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+--Handbags and Wallets attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('33c568be-8ac6-41ab-897a-b712f16f1024','20bd13e0-aa75-45e8-ba89-c4a906662084','e427c633-e3d7-4f8a-be4f-ce01c9c87b1a');
+
+--Eyewear attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('716a7b71-1bfe-4e8d-8318-285b418bdc2f','75ef8d0d-82fc-4ef3-bb24-9afa2e60eac4','8fb5813f-c079-41ed-84f8-10b0b6cfce1d');
+
+--Watches attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('72ced1d0-ef7a-433c-ba3a-9fb40d3f816b','3546a25b-73da-47d8-83c0-19ab7997ec7b','c00e4be5-6b24-4c3f-a62b-c71cd697083b');
+
+--Fine Jewelry attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('ab25a1cd-3984-4e83-ad9b-bb93c1783eac','be7737a1-df40-4429-8c9d-13d8701bf1db','8471acec-c683-4b6e-9976-1523a329878c');
+
+--Scarves and Shawls attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('7242bcc6-230e-4178-ab62-798c3e5580c3','37f85bf4-92b9-4e5b-98ab-62aa51881268','f784ff5f-4d21-4b27-b4d8-275ec903e1f2');
+
+--Hats and Caps attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('f0cce3c3-150b-4254-948b-30f05518b705','2fb7e41d-1705-40c0-81ca-b51cc0a5fe9a','14acaaa8-861f-43b1-b249-9a992e8fb4a4');
+
+--Gloves and Belts attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b7f13399-ab73-4ede-8045-58f6a27cad9c','a77d6a9a-f5a7-4743-8b3e-d8a3e0487347','2671d2c0-6bcc-4f3e-9c1d-7a7ba55ca42b');
+
+--Home Accessories attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('0954178c-943f-41c4-b332-7d66dbe4e9ca','62b828c8-bcb2-426d-aafc-7d89f12a1ae0','9f616b91-4866-4f22-b894-47d85cbb57a3');
+
+--Business Accessories attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6e748475-9881-4e86-9b2e-38f03a9809fa','c0cd4984-af87-4e2f-93f3-a87e80e7d6b5','dff120dd-06f2-4a6b-b2f4-f80ce9bde510');
+
+--Special Occasion Accessories attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('9c571946-f8ce-4724-8efc-cceead37a13a','99c23474-ba7a-4815-b062-bc05c8d35cc2','f6a74a33-9e23-452b-b2f5-b9499b4692c5');
+
+--Luggage and Travel attribute keys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c0bf975b-1b5f-4af3-b022-d0ad89bacb5a','892eb9c0-37b5-4984-8c67-c7f5ea4877d0','847c6503-8395-428d-b453-7cef6ced4b09');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+--Fresh Flowers
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('93cbc6ac-a357-427f-a34f-95b1a2d3daa1', '85c07b95-e2e2-4f78-a598-73be698de708','be5f9ff1-25d2-4099-8699-5fc8c8389a89');
+
+--Flower Bouquets
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e5a7f680-c91e-46d6-a950-2b1e2b171818','710a071e-a788-4529-8c3e-e1727c56ab04','be5f9ff1-25d2-4099-8699-5fc8c8389a89');
+
+--Artificial Flowers
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e60b60f3-3de1-403c-8a65-5c4cca3b9ad6','9adf1059-8fd9-4851-9a93-2dfe295a6c44','5db84b99-5da6-4475-a7d0-e546dc126b83');
+
+--Flower Arrangements
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('80827bab-7735-4748-82d2-7649b151a4a7','3b34c28c-fe95-4f2a-ae1f-40ef7bd3e70b','656c93ac-2b91-4f44-89cc-807d17b3834d');
+
+--Gift Sets
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('083e865f-dc5e-4e27-8944-db02b32b7f11','5b734047-3b87-4089-bf16-ad651ebef889','51d43b08-cd3d-4fb0-b6ec-e91a26cff88b');
+
+--Indoor Plants
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6e479c82-ab66-416c-a378-9991fc576db6','b1d56ac8-0130-46fa-8f95-e5577ad90fa7','58f80859-d0fa-48cd-ac45-2cd8b09ba4e4');
+
+--Outdoor Plants
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('9ead73d0-f5f6-4f0d-a504-7b7b2c4d479c','fc98d8e8-a18c-43f3-9ade-0f82b0ef95f5','14b9f73f-6074-43b0-a8b3-415e2521f0e3');
+
+--Potted Plants
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b1eb6582-f834-43ec-bb1a-76e4d9a5e4d1','9bcdd793-edd4-436a-b3f5-3992043408e7','6d7e90d6-8e52-4d5c-82c0-35e4db3e9006');
+
+--Garden Plants
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('15577c7e-5ab4-4e17-b854-d088f815241e','fa5d3ba5-f81d-4eba-bcd6-eb3e105a4171','8eac01d7-b47a-462d-a83a-def4bc6a9fdf');
+
+--Plush Toys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('c711dd02-2a1c-4df7-985a-fefbd70e0ce3','de336309-3943-4fdd-b551-5d0430b39da0','fa5819b4-4d31-47a7-af6f-e9ff1668cf2f');
+
+--Toy Cars and Vehicles
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('b492ca28-a41c-4fe0-a08e-d044e068f323','b883ce65-b784-40db-b94b-e97c7b02686f','7db20eed-535a-4c2e-930e-39e4bee256a3');
+
+--Creative Toys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('32d23b83-d1c7-419c-8d63-800e32efb51d','94a7bd16-dfa0-4a76-a3bc-f8db010c5d30','705c6b44-9b4b-4a5a-9aa2-7d11c1370935');
+
+--Baby Toys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2ecd2475-3395-4c4e-beda-730cde410ac4','48e63d64-1b03-47c6-8c62-5fd70ead5530','41d39552-5252-431e-bd19-0808d13b492d');
+
+--Educational Toys
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('e1e79533-cf0b-4501-a1e8-403c185ac98b','3754d4cc-bff6-420b-95d0-23aa5b9cf776','099f3060-d6fd-4c30-b831-8fbbe7354269');
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+--"Dogs"
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('3faa8886-9655-4570-b6f9-601f6a39dbdc','9aea0433-7a18-458c-b09b-5d5e0fdedf68','20414607-6ede-43be-a935-fef2323aeeec');
+
+--"Cats"
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('491d0d24-5c38-4aa8-97c1-7b1a88d6f428','d64d365f-98f3-414d-b445-a86a43784d1e','ab72f660-f1a3-4f73-b9ee-8f850aeed59f');
+
+--"Birds"
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('1bc7067d-eaf6-4d08-ba07-90b42b221427','a51ee319-debe-41ee-b812-b3aa33e32303','d395deed-f761-4fd1-9a4f-b243cba346a3');
+
+--"Horses"
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('629dc7ab-2507-4fb2-aa8f-95f500ea3a84','85fc0ce6-8060-4570-88bb-a6c726aa2fec','b4f57a0a-5761-4e92-98ce-cd362fafae71');
+
+--"Reptiles"
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('6e985cea-2d94-40b4-bd77-56395b747e8a','886f6276-6213-4faf-b251-ddd14872f414','54741423-5718-48ec-941a-a0f909b51c5c');
+
+--"Farm Animals"
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('2ff49ba5-7555-4775-9c80-46df7a476a57','809ed874-dde8-4998-af29-8f6a238226cd','c7f3d0fe-70e3-428b-bf1c-02659530d45d');
+
+--"Pet Accessories"
+INSERT INTO category_attributes (category_attribute_id, attribute_id, category_id ) VALUES ('93deacaa-8989-4f33-922c-6d25d9479996','d39b9536-a6ab-4078-bbe0-1beed4946751','a397264b-0ae6-4ab8-b64e-29578b7565ed');
+
