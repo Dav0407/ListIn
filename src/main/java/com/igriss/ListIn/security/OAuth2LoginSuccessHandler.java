@@ -20,7 +20,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
     private final UserRepository repository;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (authentication.getPrincipal() instanceof OAuth2User oAuth2User) {
