@@ -32,7 +32,7 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 
 -- Fine Jewelry
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('f2db8664-114f-46ca-a2a3-a532db7bbf59', null, 'be7737a1-df40-4429-8c9d-13d8701bf1db','Necklaces and Pendants', 'Marjonlar va ilichlar', 'Ожерелья и подвески');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('51ae1539-b278-4b2c-bd5a-9c36e3d5b018', null, 'be7737a1-df40-4429-8c9d-13d8701bf1db','Diamond Necklaces', 'Boshqa marjonlar', 'Алмазные ожерелья');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('51ae1539-b278-4b2c-bd5a-9c36e3d5b018', null, 'be7737a1-df40-4429-8c9d-13d8701bf1db','Diamond Necklaces', 'Brilliant marjonlar', 'Алмазные ожерелья');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('8a48004d-619d-46c8-92aa-7f03459b9dd8', null, 'be7737a1-df40-4429-8c9d-13d8701bf1db','Gold Necklaces', 'Oltin marjonlar', 'Золотые ожерелья');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('023af38a-51e4-4bec-b6fc-58102585cd56', null, 'be7737a1-df40-4429-8c9d-13d8701bf1db','Pearl Necklaces', 'Marjon marjonlar', 'Жемчужные ожерелья');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('527440ba-2e58-48ee-88f6-8f67f91c7f16', null, 'be7737a1-df40-4429-8c9d-13d8701bf1db','Pendant Chains', 'Ilich zanjirlari', 'Цепочки с подвесками');
@@ -124,7 +124,7 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('d31e1314-911d-4a0f-8e74-6ff2070d532b', null, '99c23474-ba7a-4815-b062-bc05c8d35cc2','Couture Handbags', 'Koutur sumkalar', 'Кутюрные сумки');
 
 --Luggage and Travel
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2e26f7a4-bbfd-4834-987e-849e4a41122c', null, '892eb9c0-37b5-4984-8c67-c7f5ea4877d0','Designer Suitcases', 'Dizayner yelkanlari', 'Дизайнерские чемоданы');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2e26f7a4-bbfd-4834-987e-849e4a41122c', null, '892eb9c0-37b5-4984-8c67-c7f5ea4877d0','Designer Suitcases', 'Dizayner sumkalari', 'Дизайнерские чемоданы');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('0c4b3722-245d-4602-9acc-fd494191a8e6', null, '892eb9c0-37b5-4984-8c67-c7f5ea4877d0','Travel Organizers', 'Sayohat tashkilotchilari', 'Органайзеры для путешествий');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e00c841c-c16b-4034-aa30-1db28af91b80', null, '892eb9c0-37b5-4984-8c67-c7f5ea4877d0','Weekend Bags', 'Hafta oxiri sumkalari', 'Сумки для выходных');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e174bc24-546a-4596-9491-d9ae66d924ec', null, '892eb9c0-37b5-4984-8c67-c7f5ea4877d0','Carry-Ons', 'Qaytarib olib yuriladigan sumkalar', 'Ручная кладь');

@@ -14,9 +14,12 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
+
+    Boolean existsByEmail(String email);
 
     void changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
 
@@ -41,4 +44,6 @@ public interface UserService {
     UserResponseDTO unFollowFromUser(UUID followedUserId, Authentication authentication) throws BadRequestException;
 
     String storePhoneNumber(String userId, String phoneNumber);
+
+    Optional<User> findUserByEmail(String email);
 }

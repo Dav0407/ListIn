@@ -1,6 +1,7 @@
 package com.igriss.ListIn.user.mapper;
 
 import com.igriss.ListIn.location.mapper.LocationMapper;
+import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;

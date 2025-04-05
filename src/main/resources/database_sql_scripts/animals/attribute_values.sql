@@ -14,7 +14,7 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('7a4b6872-e3b3-418d-a8ca-fb29a91de3bd', null, '9aea0433-7a18-458c-b09b-5d5e0fdedf68','Dog care', 'Itni parvarishlash', 'Уход за собаками');
 
 --Cats
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e51a7068-e82e-4958-a778-ad55b218e821', null, 'd64d365f-98f3-414d-b445-a86a43784d1e','Apartment cats', 'Kvartira mushuklari', 'Кошки для квартиры');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e51a7068-e82e-4958-a778-ad55b218e821', null, 'd64d365f-98f3-414d-b445-a86a43784d1e','Apartment cats', 'Uy mushuklari', 'Кошки для квартиры');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('60419c13-85cd-4453-aafa-7a6182e02764', null, 'd64d365f-98f3-414d-b445-a86a43784d1e','Outdoor cats', 'Koʻcha mushuklari', 'Уличные кошки');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('19d3b1b9-b123-4670-846c-5caea37ffd1b', null, 'd64d365f-98f3-414d-b445-a86a43784d1e','Cats for children', 'Bolalar uchun mushuklar', 'Кошки для детей');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('57b9a91d-6702-49cb-b608-e36f27fbb43f', null, 'd64d365f-98f3-414d-b445-a86a43784d1e','Pedigree cats', 'Naslli mushuklar', 'Породистые кошки');
@@ -52,7 +52,7 @@ INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value
 
 --Reptiles
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('59647100-618b-4eea-bf4b-8ad814e81158', null, '886f6276-6213-4faf-b251-ddd14872f414','Snakes', 'Ilonlar', 'Змеи');
-INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('24180a4b-eeef-4d40-8541-8479027201e5', null, '886f6276-6213-4faf-b251-ddd14872f414','Lizards', 'Kapalaklar', 'Ящерицы');
+INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('24180a4b-eeef-4d40-8541-8479027201e5', null, '886f6276-6213-4faf-b251-ddd14872f414','Lizards', 'Kaltakesaklar', 'Ящерицы');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('b62622bd-c33c-4147-acd3-fa7a1f34e623', null, '886f6276-6213-4faf-b251-ddd14872f414','Turtles', 'Kaplumbağalar', 'Черепахи');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('2e96d507-1418-4207-b3c7-81ba12ed4cb3', null, '886f6276-6213-4faf-b251-ddd14872f414','Amphibians', 'Amfibiya hayvonlari', 'Амфибии');
 INSERT INTO attribute_values (attribute_value_id, parent_id, attribute_id, value, value_uz, value_ru ) VALUES ('e304190b-6675-4855-b891-97603c009424', null, '886f6276-6213-4faf-b251-ddd14872f414','Terrariums', 'Terrariumlar', 'Террариумы');

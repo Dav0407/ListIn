@@ -38,9 +38,8 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -55,6 +54,11 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final Map<String, String> phoneTokenMap = new HashMap<>();
+
+    @Override
+    public Boolean existsByEmail(String email) {
+       return userRepository.existsByEmail(email);
+    }
 
     @Override // todo -> will be fixed the logical bug
     public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
@@ -231,6 +235,11 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String username) {
         return userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Override
+    public Optional<User> findUserByEmail(String username) {
+        return userRepository.findByEmail(username);
     }
 
     @Override

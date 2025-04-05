@@ -149,5 +149,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
             WHERE user_id = :userId
             """, nativeQuery = true)
     Integer decrementFollowingColumn(UUID userId);
+
+    boolean existsByEmail(String email);
 }
 
