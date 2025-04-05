@@ -90,8 +90,8 @@ public class DatabaseInitializer {
             "/database_sql_scripts/location-tree/states.sql",
             "/database_sql_scripts/location-tree/counties.sql"
     );
-/*
-  @PostConstruct
+
+/*  @PostConstruct
     public void flushRedis() {
         Objects.requireNonNull(redisTemplate
                         .getConnectionFactory()
@@ -103,7 +103,6 @@ public class DatabaseInitializer {
     }*/
 
 
-
     @PostConstruct
     public void init() {
         clearDatabase();
@@ -111,7 +110,7 @@ public class DatabaseInitializer {
             executeScript(script);
         }
 
-        LocationDTO locationDTO = locationService.getLocation("Узбекистан", "Ташкент","Яккасарай", "ru");
+        LocationDTO locationDTO = locationService.getLocation("Узбекистан", "Ташкент", "Яккасарай", "ru");
         userRepository.saveAll(
                 List.of(
                         User.builder().nickName("Davron").enableCalling(true).phoneNumber("+998 90 000 00 09").email("d.no_replay@listin.uz").biography("Admin")
@@ -177,7 +176,7 @@ public class DatabaseInitializer {
     }
 
 
-  @PostConstruct
+    @PostConstruct
     public void clearElasticsearchData() {
         try {
             if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {

@@ -17,6 +17,10 @@ public class NumericFieldDTO implements Serializable {
 
     private String fieldName;
 
+    private String fieldNameUz;
+
+    private String fieldNameRu;
+
     private String description;
 
     private String descriptionUz;

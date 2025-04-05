@@ -2,7 +2,6 @@ package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
-import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.location.dto.LocationDTO;
 import com.igriss.ListIn.location.service.LocationService;
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
@@ -40,7 +39,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 

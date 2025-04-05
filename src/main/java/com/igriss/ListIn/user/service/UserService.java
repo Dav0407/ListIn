@@ -8,7 +8,6 @@ import com.igriss.ListIn.user.dto.FollowsResponseDTO;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
-import com.igriss.ListIn.user.dto.WSUserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.BadRequestException;

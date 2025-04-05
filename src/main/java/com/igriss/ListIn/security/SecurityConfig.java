@@ -41,7 +41,7 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/",
             "/zohoverify/verifyforzoho.html",
-            "/oauth2/**"
+            "/api/v1/oauth/**"
     };
 
     @Bean
@@ -60,11 +60,12 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(oAuth2UserService)
-                        ).successHandler(oAuth2LoginSuccessHandler)
-                )
+
+//                .oauth2Login(oauth2 -> oauth2
+//                        .userInfoEndpoint(userInfo -> userInfo
+//                                .userService(oAuth2UserService)
+//                        ).successHandler(oAuth2LoginSuccessHandler)
+//                )
                 .logout(logout ->
                         logout.logoutUrl("/api/v1/auth/logout")
                                 .addLogoutHandler(logoutHandler)
