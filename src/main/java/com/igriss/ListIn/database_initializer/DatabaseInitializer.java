@@ -91,52 +91,52 @@ public class DatabaseInitializer {
             "/database_sql_scripts/location-tree/counties.sql"
     );
 
-/*  @PostConstruct
-    public void flushRedis() {
-        Objects.requireNonNull(redisTemplate
-                        .getConnectionFactory()
-                )
-                .getConnection()
-                .serverCommands()
-                .flushAll();
-        log.info("#Redis cache successfully cleared");
-    }*/
+//  @PostConstruct
+//    public void flushRedis() {
+//        Objects.requireNonNull(redisTemplate
+//                        .getConnectionFactory()
+//                )
+//                .getConnection()
+//                .serverCommands()
+//                .flushAll();
+//        log.info("#Redis cache successfully cleared");
+//    }
 
 
-    @PostConstruct
-    public void init() {
-        clearDatabase();
-        for (String script : scripts) {
-            executeScript(script);
-        }
-
-        LocationDTO locationDTO = locationService.getLocation("Узбекистан", "Ташкент", "Яккасарай", "ru");
-        userRepository.saveAll(
-                List.of(
-                        User.builder().nickName("Davron").enableCalling(true).phoneNumber("+998 90 000 00 09").email("d.no_replay@listin.uz").biography("Admin")
-                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true)
-                                .country(locationDTO.getCountry())
-                                .county(locationDTO.getCounty())
-                                .country(locationDTO.getCountry())
-                                .state(locationDTO.getState())
-                                .locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
-                        User.builder().nickName("Qobil").enableCalling(true).phoneNumber("+998 90 000 00 09").email("q.no_replay@listin.uz").biography("Admin")
-                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
-                                .country(locationDTO.getCountry())
-                                .county(locationDTO.getCounty())
-                                .state(locationDTO.getState())
-                                .country(locationDTO.getCountry())
-                                .longitude(1234.1234).latitude(-43.234234).build(),
-                        User.builder().nickName("Abdulaxad").enableCalling(true).phoneNumber("+998 90 000 00 09").email("a.no_replay@listin.uz").biography("Admin")
-                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
-                                .country(locationDTO.getCountry())
-                                .county(locationDTO.getCounty())
-                                .state(locationDTO.getState())
-                                .country(locationDTO.getCountry())
-                                .longitude(1234.1234).latitude(-43.234234).build()
-                )
-        );
-    }
+//    @PostConstruct
+//    public void init() {
+//        clearDatabase();
+//        for (String script : scripts) {
+//            executeScript(script);
+//        }
+//
+//        LocationDTO locationDTO = locationService.getLocation("Узбекистан", "Ташкент", "Яккасарай", "ru");
+//        userRepository.saveAll(
+//                List.of(
+//                        User.builder().nickName("Davron").enableCalling(true).phoneNumber("+998 90 000 00 09").email("d.no_replay@listin.uz").biography("Admin")
+//                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true)
+//                                .country(locationDTO.getCountry())
+//                                .county(locationDTO.getCounty())
+//                                .country(locationDTO.getCountry())
+//                                .state(locationDTO.getState())
+//                                .locationName("Tashkent").longitude(1234.1234).latitude(-43.234234).build(),
+//                        User.builder().nickName("Qobil").enableCalling(true).phoneNumber("+998 90 000 00 09").email("q.no_replay@listin.uz").biography("Admin")
+//                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
+//                                .country(locationDTO.getCountry())
+//                                .county(locationDTO.getCounty())
+//                                .state(locationDTO.getState())
+//                                .country(locationDTO.getCountry())
+//                                .longitude(1234.1234).latitude(-43.234234).build(),
+//                        User.builder().nickName("Abdulaxad").enableCalling(true).phoneNumber("+998 90 000 00 09").email("a.no_replay@listin.uz").biography("Admin")
+//                                .password(passwordEncoder.encode("string")).role(Role.ADMIN).isGrantedForPreciseLocation(true).locationName("Tashkent")
+//                                .country(locationDTO.getCountry())
+//                                .county(locationDTO.getCounty())
+//                                .state(locationDTO.getState())
+//                                .country(locationDTO.getCountry())
+//                                .longitude(1234.1234).latitude(-43.234234).build()
+//                )
+//        );
+//    }
 
     private void clearDatabase() {
         try {
@@ -176,17 +176,17 @@ public class DatabaseInitializer {
     }
 
 
-    @PostConstruct
-    public void clearElasticsearchData() {
-        try {
-            if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
-                elasticsearchClient.indices().delete(d -> d.index(indexName));
-                log.info("#Index deleted: {}", indexName);
-            }
-        } catch (Exception e) {
-            log.error("#Exception while clearing elastic search data: {}", e.getMessage());
-        }
-    }
+//    @PostConstruct
+//    public void clearElasticsearchData() {
+//        try {
+//            if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
+//                elasticsearchClient.indices().delete(d -> d.index(indexName));
+//                log.info("#Index deleted: {}", indexName);
+//            }
+//        } catch (Exception e) {
+//            log.error("#Exception while clearing elastic search data: {}", e.getMessage());
+//        }
+//    }
 }
 
 
