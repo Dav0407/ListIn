@@ -18,7 +18,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -26,34 +28,41 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
+@ToString
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "messages")
+@Table(name = "chat_messages")
 @EntityListeners(AuditingEntityListener.class)
-public class Message {
+public class ChatMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "chat_id", nullable = false)
-    private Chat chat;
+    @JoinColumn(name = "chat_room_id", nullable = false)
+    private ChatRoom chatRoom;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
+    @ManyToOne
+    @JoinColumn(name = "recipient_id", nullable = false)
+    private User recipient;
+
     @Column(nullable = false)
     private String content;
 
-    @CreatedDate
-    @Column(name = "sent_at", nullable = false, updatable = false)
-    private LocalDateTime sentAt;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "delivery_status", nullable = false)
-    private DeliveryStatus deliveryStatus;
+    @Column(nullable = false)
+    private DeliveryStatus status;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 }

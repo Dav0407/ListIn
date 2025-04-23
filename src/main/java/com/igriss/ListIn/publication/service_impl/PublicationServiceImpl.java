@@ -195,6 +195,12 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public Publication getById(UUID publicationId) {
+        return publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException("No such Publication found with ID: " + publicationId));
+    }
+
+    @Override
     public PageResponse<PublicationResponseDTO> findAllLikedPublications(Integer page, Integer size, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
 

@@ -8,12 +8,14 @@ import com.igriss.ListIn.user.dto.FollowsResponseDTO;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
+import com.igriss.ListIn.user.dto.WSUserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.BadRequestException;
 import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
@@ -21,6 +23,8 @@ public interface UserService {
     void changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
 
     Boolean isFollowingToUser(UUID followedUser, UUID followingUser);
+
+    User getById(UUID id);
 
     User findByEmail(String username);
 
@@ -41,4 +45,10 @@ public interface UserService {
     UserResponseDTO unFollowFromUser(UUID followedUserId, Authentication authentication) throws BadRequestException;
 
     String storePhoneNumber(String userId, String phoneNumber);
+
+    WSUserResponseDTO connect(String userEmail);
+
+    WSUserResponseDTO disconnect(String userEmail);
+
+    List<WSUserResponseDTO> findConnectedUsers();
 }

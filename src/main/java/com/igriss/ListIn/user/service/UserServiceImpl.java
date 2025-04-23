@@ -14,8 +14,10 @@ import com.igriss.ListIn.user.dto.FollowsResponseDTO;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
+import com.igriss.ListIn.user.dto.WSUserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.entity.UserFollower;
+import com.igriss.ListIn.user.enums.Status;
 import com.igriss.ListIn.user.mapper.UserMapper;
 import com.igriss.ListIn.user.repository.UserFollowerRepository;
 import com.igriss.ListIn.user.repository.UserRepository;
@@ -228,6 +230,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Override
     public User findByEmail(String username) {
         return userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -256,6 +263,27 @@ public class UserServiceImpl implements UserService {
 
         phoneTokenMap.put(userId, phoneNumber);
         return userId;
+    }
+
+    @Override
+    public WSUserResponseDTO connect(String userEmail) {
+        User savedUser = userRepository.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User not found"));
+        savedUser.setStatus(Status.ONLINE);
+        userRepository.save(savedUser);
+        return userMapper.toWSUserResponseDTO(savedUser);
+    }
+
+    @Override
+    public WSUserResponseDTO disconnect(String userEmail) {
+        User savedUser = userRepository.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User not found"));
+        savedUser.setStatus(Status.OFFLINE);
+        userRepository.save(savedUser);
+        return userMapper.toWSUserResponseDTO(savedUser);
+    }
+
+    @Override
+    public List<WSUserResponseDTO> findConnectedUsers() {
+        return userRepository.findByStatus(Status.ONLINE).stream().map(userMapper::toWSUserResponseDTO).toList();
     }
 
     public String getPhoneNumberByToken(String token) {

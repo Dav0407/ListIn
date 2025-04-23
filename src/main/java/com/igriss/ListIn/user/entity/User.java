@@ -6,8 +6,24 @@ import com.igriss.ListIn.location.entity.Country;
 import com.igriss.ListIn.location.entity.County;
 import com.igriss.ListIn.location.entity.State;
 import com.igriss.ListIn.security.roles.Role;
-import jakarta.persistence.*;
-import lombok.*;
+import com.igriss.ListIn.user.enums.Status;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -98,6 +114,9 @@ public class User implements UserDetails { // Agar UserDetails dan implement qil
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @CreatedDate
     private LocalDateTime dateCreated;
