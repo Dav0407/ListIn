@@ -19,20 +19,20 @@ public class ChatUserController {
     private final UserService userService;
 
     @MessageMapping("/user.connectUser")
-    @SendTo("/user/public")
+    @SendTo("/user/public") // todo -> to be modified for custom channel per user
     public WSUserResponseDTO connectUser(@Payload WSUserResponseDTO user) {
 
         return userService.connect(user.getEmail());
     }
 
     @MessageMapping("/user.disconnectUser")
-    @SendTo("/user/public")
+    @SendTo("/user/public") // todo -> to be modified for custom channel per user
     public WSUserResponseDTO disconnectUser(@Payload WSUserResponseDTO user) {
 
         return userService.disconnect(user.getEmail());
     }
 
-    @GetMapping("/connected-users") // todo -> to be modified for custom channel per user
+    @GetMapping("/connected-users") // todo -> to be modified for custom collection of users that have mutual chat room
     public ResponseEntity<List<WSUserResponseDTO>> getConnectedUsers() {
         return ResponseEntity.ok(userService.findConnectedUsers());
     }

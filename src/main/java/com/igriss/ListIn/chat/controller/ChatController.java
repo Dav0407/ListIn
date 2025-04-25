@@ -4,6 +4,7 @@ import com.igriss.ListIn.chat.dto.ChatMessageRequestDTO;
 import com.igriss.ListIn.chat.dto.ChatMessageResponseDTO;
 import com.igriss.ListIn.chat.entity.ChatMessage;
 import com.igriss.ListIn.chat.service.ChatMessageService;
+import com.igriss.ListIn.chat.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -41,7 +42,7 @@ public class ChatController {
     }
 
     @GetMapping("/messages/{publicationId}/{senderId}/{recipientId}")
-    public ResponseEntity<List<ChatMessage>> findChatMessages(@PathVariable UUID publicationId, @PathVariable UUID senderId, @PathVariable UUID recipientId) {
+    public ResponseEntity<List<ChatMessageResponseDTO>> findChatMessages(@PathVariable UUID publicationId, @PathVariable UUID senderId, @PathVariable UUID recipientId) {
         return ResponseEntity.ok(chatMessageService.findChatMessages(publicationId, senderId, recipientId));
     }
 

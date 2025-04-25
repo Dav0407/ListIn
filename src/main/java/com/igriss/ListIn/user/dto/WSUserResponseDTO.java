@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class WSUserResponseDTO {
+public class WSUserResponseDTO { //todo -> adding profile image, email removed user_id added,
     private String nickName;
     private String email;
     private Status status;

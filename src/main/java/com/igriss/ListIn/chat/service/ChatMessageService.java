@@ -1,21 +1,25 @@
 package com.igriss.ListIn.chat.service;
 
 import com.igriss.ListIn.chat.dto.ChatMessageRequestDTO;
+import com.igriss.ListIn.chat.dto.ChatMessageResponseDTO;
 import com.igriss.ListIn.chat.entity.ChatMessage;
 import com.igriss.ListIn.chat.entity.ChatRoom;
 import com.igriss.ListIn.chat.enums.DeliveryStatus;
+import com.igriss.ListIn.chat.mapper.ChatMessageMapper;
 import com.igriss.ListIn.chat.repository.ChatMessageRepository;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ChatMessageService {
 
+    private final ChatMessageMapper chatMessageMapper;
     private final ChatMessageRepository chatMessageRepository;
     private final ChatRoomService chatRoomService;
 
@@ -38,12 +42,17 @@ public class ChatMessageService {
         return chatMessageRepository.save(chatMessage);
     }
 
-    public List<ChatMessage> findChatMessages(UUID publicationId, UUID senderId, UUID recipientId) {
+    public List<ChatMessageResponseDTO> findChatMessages(UUID publicationId, UUID senderId, UUID recipientId) {
 
         ChatRoom chatRoom = chatRoomService.getChatRoom(publicationId, senderId, recipientId, false)
                 .orElseThrow(() -> new ResourceNotFoundException("Chat room not found"));
 
-        return chatMessageRepository.findByChatRoom_ChatRoomId(chatRoom.getChatRoomId());
+        return chatMessageRepository.findByChatRoom_ChatRoomId(chatRoom.getChatRoomId())
+                .stream().map(chatMessageMapper::toDTO).toList();
+    }
+
+    public Optional<ChatMessage> findLastMessage(String chatRoomId) {
+        return chatMessageRepository.findTopByChatRoom_ChatRoomIdOrderByCreatedAtDesc(chatRoomId);
     }
 
 }
