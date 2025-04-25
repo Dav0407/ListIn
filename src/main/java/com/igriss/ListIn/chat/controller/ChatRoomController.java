@@ -1,7 +1,6 @@
 package com.igriss.ListIn.chat.controller;
 
 import com.igriss.ListIn.chat.dto.ChatRoomResponseDTO;
-import com.igriss.ListIn.chat.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,10 +14,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ChatRoomController {
 
-    private final ChatRoomService chatRoomService;
+    private final UserChatRoomsService userChatRoomsService;
 
     @GetMapping("/chat-rooms/{userId}")
     public ResponseEntity<List<ChatRoomResponseDTO>> getChatRooms(@PathVariable UUID userId) {
-        return ResponseEntity.ok(chatRoomService.getUserChatRooms(userId));
+        return ResponseEntity.ok(userChatRoomsService.getUserChatRooms(userId));
     }
 }

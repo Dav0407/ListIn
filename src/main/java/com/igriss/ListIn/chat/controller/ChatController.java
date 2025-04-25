@@ -4,7 +4,6 @@ import com.igriss.ListIn.chat.dto.ChatMessageRequestDTO;
 import com.igriss.ListIn.chat.dto.ChatMessageResponseDTO;
 import com.igriss.ListIn.chat.entity.ChatMessage;
 import com.igriss.ListIn.chat.service.ChatMessageService;
-import com.igriss.ListIn.chat.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
