@@ -17,4 +17,5 @@ public interface JwtService {
         boolean isValidRefreshToken(String token, UserDetails userDetails);
         boolean isAccessTokenValid(String token, UserDetails userDetails);
         void blackListToken(String token);
+        public boolean validateToken(String token);
 }

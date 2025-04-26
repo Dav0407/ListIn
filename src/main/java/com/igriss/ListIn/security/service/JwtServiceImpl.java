@@ -139,4 +139,17 @@ public class JwtServiceImpl implements JwtService {
     public boolean isValidRefreshToken(String token, UserDetails userDetails) {
         return isTokenValid(token, userDetails) && isRefreshToken(token);
     }
+
+    @Override
+    public boolean validateToken(String token) {
+        if (isTokenBlacklisted(token)) {
+            return false;
+        }
+        try {
+            return isTokenNotExpired(token) && !isRefreshToken(token);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

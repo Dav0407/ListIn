@@ -104,7 +104,7 @@ public class DatabaseInitializer {
 
 
 
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         clearDatabase();
         for (String script : scripts) {
@@ -137,7 +137,7 @@ public class DatabaseInitializer {
                                 .longitude(1234.1234).latitude(-43.234234).build()
                 )
         );
-    }
+    }*/
 
     private void clearDatabase() {
         try {
@@ -177,7 +177,7 @@ public class DatabaseInitializer {
     }
 
 
-  @PostConstruct
+/*  @PostConstruct
     public void clearElasticsearchData() {
         try {
             if (elasticsearchClient.indices().exists(e -> e.index(indexName)).value()) {
@@ -187,7 +187,7 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             log.error("#Exception while clearing elastic search data: {}", e.getMessage());
         }
-    }
+    }*/
 }
 
 
