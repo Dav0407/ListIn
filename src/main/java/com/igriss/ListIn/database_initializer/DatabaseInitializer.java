@@ -1,18 +1,11 @@
 package com.igriss.ListIn.database_initializer;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import com.igriss.ListIn.location.dto.LocationDTO;
-import com.igriss.ListIn.location.entity.Country;
 import com.igriss.ListIn.location.service.LocationService;
-import com.igriss.ListIn.security.roles.Role;
-import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
