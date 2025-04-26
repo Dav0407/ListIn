@@ -8,6 +8,7 @@ import com.igriss.ListIn.user.dto.FollowsResponseDTO;
 import com.igriss.ListIn.user.dto.UpdateResponseDTO;
 import com.igriss.ListIn.user.dto.UserRequestDTO;
 import com.igriss.ListIn.user.dto.UserResponseDTO;
+import com.igriss.ListIn.user.dto.WSUserResponseDTO;
 import com.igriss.ListIn.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.BadRequestException;
@@ -15,9 +16,12 @@ import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
+
+    Boolean existsByEmail(String email);
 
     void changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
 
@@ -50,4 +54,6 @@ public interface UserService {
     WSUserResponseDTO disconnect(String userEmail);
 
     List<WSUserResponseDTO> findConnectedUsers();
+
+    Optional<User> findUserByEmail(String email);
 }
