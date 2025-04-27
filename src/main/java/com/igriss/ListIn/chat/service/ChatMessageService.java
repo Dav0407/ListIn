@@ -8,6 +8,7 @@ import com.igriss.ListIn.chat.enums.DeliveryStatus;
 import com.igriss.ListIn.chat.mapper.ChatMessageMapper;
 import com.igriss.ListIn.chat.repository.ChatMessageRepository;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
+import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +32,29 @@ public class ChatMessageService {
         ChatRoom chatRoom = chatRoomService.getChatRoom(request.getPublicationId(), senderId, recipientId, true)
                 .orElseThrow(() -> new ResourceNotFoundException("Chat room not found"));
 
+        ChatRoom chatRoomReflection = chatRoomService.getChatRoom(request.getPublicationId(), recipientId, senderId, true)
+                .orElseThrow(() -> new ResourceNotFoundException("Chat room not found"));
+
+        User originalSender = chatRoom.getSender();
+        User originalRecipient = chatRoom.getRecipient();
+
         ChatMessage chatMessage = ChatMessage.builder()
                 .chatRoom(chatRoom)
-                .sender(chatRoom.getSender())
-                .recipient(chatRoom.getRecipient())
+                .sender(originalSender)
+                .recipient(originalRecipient)
                 .content(request.getContent())
                 .status(DeliveryStatus.DELIVERED)
                 .build();
 
+        ChatMessage chatMessageReflection = ChatMessage.builder()
+                .chatRoom(chatRoomReflection)
+                .sender(originalSender)
+                .recipient(originalRecipient)
+                .content(request.getContent())
+                .status(DeliveryStatus.DELIVERED)
+                .build();
+
+        chatMessageRepository.save(chatMessageReflection);
         return chatMessageRepository.save(chatMessage);
     }
 
