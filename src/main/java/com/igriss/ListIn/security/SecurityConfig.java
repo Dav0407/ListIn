@@ -41,7 +41,8 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/",
             "/zohoverify/verifyforzoho.html",
-            "/api/v1/oauth/**"
+            "/api/v1/oauth/**",
+            "/ws/**"
     };
 
     @Bean
