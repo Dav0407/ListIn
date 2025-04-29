@@ -33,7 +33,7 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String chatRoomId; //publicationId + senderId + recipientId
 
     @ManyToOne
