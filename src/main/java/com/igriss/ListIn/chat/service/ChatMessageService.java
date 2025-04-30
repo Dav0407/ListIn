@@ -11,9 +11,13 @@ import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,16 +58,41 @@ public class ChatMessageService {
                 .build();
 
         chatMessageRepository.save(chatMessageReflection);
+        chatRoomService.incrementUnreadCount(chatRoomReflection);
+
         return chatMessageRepository.save(chatMessage);
     }
 
+    // Add a method to update a batch of messages as VIEWED
+    public void markMessagesAsViewed(List<UUID> messageIds) {
+        if (messageIds == null || messageIds.isEmpty()) return;
+
+        List<ChatMessage> messages = chatMessageRepository.findAllById(messageIds);
+        messages.forEach(message -> message.setStatus(DeliveryStatus.VIEWED));
+        chatMessageRepository.saveAll(messages);
+
+        // Group messages by chatRoomId
+        Map<UUID, Long> countByChatRoom = messages.stream()
+                .collect(Collectors.groupingBy(m -> m.getChatRoom().getId(), Collectors.counting()));
+
+        countByChatRoom.forEach((chatRoomId, count) ->
+                chatRoomService.getChatRoomById(chatRoomId)
+                        .ifPresent(chatRoom ->
+                                chatRoomService.decrementUnreadCount(chatRoom, count)
+                        )
+        );
+    }
+
     public List<ChatMessageResponseDTO> findChatMessages(UUID publicationId, UUID senderId, UUID recipientId) {
+        Optional<ChatRoom> chatRoomOptional = chatRoomService.getChatRoom(publicationId, senderId, recipientId, false);
 
-        ChatRoom chatRoom = chatRoomService.getChatRoom(publicationId, senderId, recipientId, false)
-                .orElseThrow(() -> new ResourceNotFoundException("Chat room not found"));
+        if (chatRoomOptional.isEmpty()) {
+            return Collections.emptyList();
+        }
 
-        return chatMessageRepository.findByChatRoom_ChatRoomId(chatRoom.getChatRoomId())
-                .stream().map(chatMessageMapper::toDTO).toList();
+        ChatRoom chatRoom = chatRoomOptional.get();
+        return chatMessageRepository.findByChatRoom_ChatRoomId(chatRoom.getChatRoomId()).stream()
+                .map(chatMessageMapper::toDTO).toList();
     }
 
     public Optional<ChatMessage> findLastMessage(String chatRoomId) {

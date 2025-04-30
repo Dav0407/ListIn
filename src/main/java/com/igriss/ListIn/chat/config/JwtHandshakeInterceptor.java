@@ -17,7 +17,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtHandshakeInterceptor implements HandshakeInterceptor {
 
-
     private final JwtService jwtService; // Your custom service to parse/validate JWT
 
     @Override

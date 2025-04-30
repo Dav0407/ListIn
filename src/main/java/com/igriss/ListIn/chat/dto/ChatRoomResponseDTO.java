@@ -25,5 +25,6 @@ public class ChatRoomResponseDTO {
     private String recipientImagePath;
     private String recipientNickname;
 
+    private Long unreadMessages;
     private ChatMessageResponseDTO lastMessage;
 }

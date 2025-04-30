@@ -21,6 +21,7 @@ public class ChatRoomMapper {
                 .recipientId(recipient.getUserId())
                 .recipientImagePath(recipient.getProfileImagePath())
                 .recipientNickname(recipient.getNickName())
+                .unreadMessages(chatRoom.getUnreadMessagesCount())
                 .build();
     }
 }

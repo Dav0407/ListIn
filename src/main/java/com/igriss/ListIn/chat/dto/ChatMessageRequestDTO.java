@@ -17,7 +17,6 @@ public class ChatMessageRequestDTO {
     private UUID id;
     private UUID senderId;
     private UUID recipientId;
-    private String recipientEmail;
     private UUID publicationId;
     private String content;
 }

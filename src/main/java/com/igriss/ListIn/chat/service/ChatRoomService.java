@@ -8,6 +8,7 @@ import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -60,5 +61,23 @@ public class ChatRoomService {
         return senderRecipient;
 
     }
+
+    public Optional<ChatRoom> getChatRoomById(UUID chatRoomId) {
+        return chatRoomRepository.findById(chatRoomId);
+    }
+
+    @Transactional
+    public void incrementUnreadCount(ChatRoom chatRoom) {
+        chatRoom.setUnreadMessagesCount(chatRoom.getUnreadMessagesCount() + 1);
+        chatRoomRepository.save(chatRoom);
+    }
+
+    @Transactional
+    public void decrementUnreadCount(ChatRoom chatRoom, long count) {
+        long updatedCount = Math.max(0, chatRoom.getUnreadMessagesCount() - count);
+        chatRoom.setUnreadMessagesCount(updatedCount);
+        chatRoomRepository.save(chatRoom);
+    }
+
 
 }

@@ -2,7 +2,10 @@ package com.igriss.ListIn.chat.controller;
 
 import com.igriss.ListIn.chat.dto.ChatMessageRequestDTO;
 import com.igriss.ListIn.chat.dto.ChatMessageResponseDTO;
+import com.igriss.ListIn.chat.dto.DeliveryStatusUpdateDTO;
+import com.igriss.ListIn.chat.dto.ViewConfirmationDTO;
 import com.igriss.ListIn.chat.entity.ChatMessage;
+import com.igriss.ListIn.chat.enums.DeliveryStatus;
 import com.igriss.ListIn.chat.service.ChatMessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +35,7 @@ public class ChatController {
                 .id(savedMsg.getId())
                 .senderId(savedMsg.getSender().getUserId())
                 .recipientId(savedMsg.getRecipient().getUserId())
+                .publicationId(savedMsg.getChatRoom().getPublication().getId())
                 .content(savedMsg.getContent())
                 .status(savedMsg.getStatus())
                 .sentAt(savedMsg.getCreatedAt())
@@ -39,6 +44,24 @@ public class ChatController {
 
         messagingTemplate.convertAndSendToUser(request.getRecipientId().toString(), "/queue/messages", response);
     }
+
+    // New endpoint to mark messages as viewed
+    @MessageMapping("/chat/view")
+    public void markMessagesAsViewed(@Payload ViewConfirmationDTO confirmation) {
+        chatMessageService.markMessagesAsViewed(confirmation.getMessageIds());
+
+        // Notify the original sender that their messages were viewed
+        // First, create a response object
+        DeliveryStatusUpdateDTO response = DeliveryStatusUpdateDTO.builder()
+                .messageIds(confirmation.getMessageIds())
+                .status(DeliveryStatus.VIEWED)
+                .updatedAt(LocalDateTime.now())
+                .build();
+
+        // Send the viewed confirmation to the original sender
+        messagingTemplate.convertAndSendToUser(confirmation.getSenderId().toString(), "/queue/messages/status", response);
+    }
+
 
     @GetMapping("/messages/{publicationId}/{senderId}/{recipientId}")
     public ResponseEntity<List<ChatMessageResponseDTO>> findChatMessages(@PathVariable UUID publicationId, @PathVariable UUID senderId, @PathVariable UUID recipientId) {

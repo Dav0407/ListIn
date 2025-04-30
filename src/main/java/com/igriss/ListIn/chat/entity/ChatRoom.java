@@ -47,4 +47,7 @@ public class ChatRoom {
     @ManyToOne
     @JoinColumn(name = "publication_id", nullable = false)
     private Publication publication;
+
+    @Column(nullable = false)
+    private Long unreadMessagesCount = 0L;
 }
