@@ -12,6 +12,7 @@ public class ChatMessageMapper {
                 .id(chatMessage.getId())
                 .senderId(chatMessage.getSender().getUserId())
                 .recipientId(chatMessage.getRecipient().getUserId())
+                .publicationId(chatMessage.getChatRoom().getPublication().getId())
                 .content(chatMessage.getContent())
                 .status(chatMessage.getStatus())
                 .sentAt(chatMessage.getCreatedAt())

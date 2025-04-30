@@ -46,6 +46,7 @@ public class ChatRoomService {
                 .sender(sender)
                 .recipient(recipient)
                 .publication(publication)
+                .unreadMessagesCount(0L)
                 .build();
 
         ChatRoom recipientSender = ChatRoom.builder()
@@ -53,6 +54,7 @@ public class ChatRoomService {
                 .sender(recipient)
                 .recipient(sender)
                 .publication(publication)
+                .unreadMessagesCount(0L)
                 .build();
 
         chatRoomRepository.save(senderRecipient);

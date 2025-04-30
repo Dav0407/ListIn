@@ -91,7 +91,7 @@ public class ChatMessageService {
         }
 
         ChatRoom chatRoom = chatRoomOptional.get();
-        return chatMessageRepository.findByChatRoom_ChatRoomId(chatRoom.getChatRoomId()).stream()
+        return chatMessageRepository.findByChatRoom_Id(chatRoom.getId()).stream()
                 .map(chatMessageMapper::toDTO).toList();
     }
 

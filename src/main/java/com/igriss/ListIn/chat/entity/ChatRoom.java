@@ -49,5 +49,5 @@ public class ChatRoom {
     private Publication publication;
 
     @Column(nullable = false)
-    private Long unreadMessagesCount = 0L;
+    private Long unreadMessagesCount;
 }
