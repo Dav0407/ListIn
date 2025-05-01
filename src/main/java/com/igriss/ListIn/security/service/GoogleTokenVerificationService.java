@@ -8,6 +8,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.igriss.ListIn.exceptions.Oauth2VerificationFailedException;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.mapper.UserMapper;
 import com.igriss.ListIn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GoogleTokenVerificationService {
 
+    private final UserMapper userMapper;
     private final UserService userService;
     private final JwtService jwtService;
 
@@ -51,7 +53,8 @@ public class GoogleTokenVerificationService {
 
             authenticationResponseDTO
                     .accessToken(accessToken)
-                    .refreshToken(refreshToken);
+                    .refreshToken(refreshToken)
+                    .userResponseDTO(userMapper.toUserResponseDTO(user.get()));
         }
 
         return authenticationResponseDTO.build();

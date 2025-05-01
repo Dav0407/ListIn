@@ -1,6 +1,7 @@
 package com.igriss.ListIn.security.security_dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.igriss.ListIn.user.dto.UserResponseDTO;
 import lombok.*;
 
 @Data
@@ -12,4 +13,6 @@ public class AuthenticationResponseDTO {
     private String accessToken;
     @JsonProperty("refresh_token")
     private String refreshToken;
+
+    private UserResponseDTO userResponseDTO;
 }

@@ -9,6 +9,7 @@ import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;
 import com.igriss.ListIn.security.security_dto.AuthenticationResponseDTO;
 import com.igriss.ListIn.security.security_dto.RegisterRequestDTO;
 import com.igriss.ListIn.user.entity.User;
+import com.igriss.ListIn.user.mapper.UserMapper;
 import com.igriss.ListIn.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,6 +32,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserMapper userMapper;
     private final LocationService locationService;
 
     public AuthenticationResponseDTO register(RegisterRequestDTO request, String language) throws UserHasAccountException {
@@ -63,6 +65,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return AuthenticationResponseDTO.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
+                    .userResponseDTO(userMapper.toUserResponseDTO(user))
                     .build();
 
         } catch (Exception exception) {
@@ -87,6 +90,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return AuthenticationResponseDTO.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
+                    .userResponseDTO(userMapper.toUserResponseDTO(user))
                     .build();
         } catch (Exception exception) {
             log.warn("User with credentials: email '{}' and password '{}' does not exist",request.getEmail(), request.getPassword());
@@ -100,6 +104,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return AuthenticationResponseDTO.builder()
                 .accessToken(jwtService.generateToken(updatedUser))
                 .refreshToken(jwtService.generateRefreshToken(updatedUser))
+                .userResponseDTO(userMapper.toUserResponseDTO(updatedUser))
                 .build();
     }
 
@@ -133,6 +138,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 var authResponse = AuthenticationResponseDTO.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
+                        .userResponseDTO(userMapper.toUserResponseDTO(user))
                         .build();
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
