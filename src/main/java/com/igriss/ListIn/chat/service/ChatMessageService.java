@@ -42,6 +42,7 @@ public class ChatMessageService {
         User originalRecipient = chatRoom.getRecipient();
 
         ChatMessage chatMessage = ChatMessage.builder()
+                .id(request.getId())
                 .chatRoom(chatRoom)
                 .sender(originalSender)
                 .recipient(originalRecipient)
@@ -50,6 +51,7 @@ public class ChatMessageService {
                 .build();
 
         ChatMessage chatMessageReflection = ChatMessage.builder()
+                .id(UUID.randomUUID())
                 .chatRoom(chatRoomReflection)
                 .sender(originalSender)
                 .recipient(originalRecipient)

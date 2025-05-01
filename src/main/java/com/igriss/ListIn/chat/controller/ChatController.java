@@ -8,6 +8,7 @@ import com.igriss.ListIn.chat.entity.ChatMessage;
 import com.igriss.ListIn.chat.enums.DeliveryStatus;
 import com.igriss.ListIn.chat.service.ChatMessageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class ChatController {
@@ -43,6 +45,10 @@ public class ChatController {
                 .build();
 
         messagingTemplate.convertAndSendToUser(request.getRecipientId().toString(), "/queue/messages", response);
+        log.info("Sent message: {}", response);
+
+        messagingTemplate.convertAndSendToUser(request.getSenderId().toString(), "/queue/messages/delivered", response);
+        log.info("Sent message back to the sender: {}", response);
     }
 
     // New endpoint to mark messages as viewed
@@ -60,6 +66,7 @@ public class ChatController {
 
         // Send the viewed confirmation to the original sender
         messagingTemplate.convertAndSendToUser(confirmation.getSenderId().toString(), "/queue/messages/status", response);
+        log.info("Marked viewed messages as viewed: {}", confirmation.getMessageIds());
     }
 
 
