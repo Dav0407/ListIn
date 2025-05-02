@@ -68,8 +68,8 @@ public class ChatMessageService {
     }
 
 
-    public List<UUID> markMessagesAsViewed(List<UUID> messageIds) {
-        if (messageIds == null || messageIds.isEmpty()) return Collections.emptyList();
+    public void markMessagesAsViewed(List<UUID> messageIds) {
+        if (messageIds == null || messageIds.isEmpty()) return;
 
         // Mark original messages as VIEWED
         List<ChatMessage> messages = chatMessageRepository.findAllById(messageIds);
@@ -96,8 +96,6 @@ public class ChatMessageService {
                                 chatRoomService.decrementUnreadCount(chatRoom, count)
                         )
         );
-
-        return reflectionIds;
     }
 
 
