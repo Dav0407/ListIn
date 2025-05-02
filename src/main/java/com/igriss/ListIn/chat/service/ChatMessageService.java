@@ -71,18 +71,22 @@ public class ChatMessageService {
     public List<UUID> markMessagesAsViewed(List<UUID> messageIds) {
         if (messageIds == null || messageIds.isEmpty()) return Collections.emptyList();
 
+        // Mark original messages as VIEWED
         List<ChatMessage> messages = chatMessageRepository.findAllById(messageIds);
         messages.forEach(message -> message.setStatus(DeliveryStatus.VIEWED));
         chatMessageRepository.saveAll(messages);
 
+        // Generate reflection IDs from original IDs
+        List<UUID> reflectionIds = messageIds.stream()
+                .map(this::generateReflectionId)
+                .toList();
 
-        List<UUID> originalIdFromReflection = getOriginalIdFromReflection(messageIds);
+        // Mark reflection messages as VIEWED
+        List<ChatMessage> reflectionMessages = chatMessageRepository.findAllById(reflectionIds);
+        reflectionMessages.forEach(reflection -> reflection.setStatus(DeliveryStatus.VIEWED));
+        chatMessageRepository.saveAll(reflectionMessages);
 
-        List<ChatMessage> messagesReflections = chatMessageRepository.findAllById(originalIdFromReflection);
-        messagesReflections.forEach(messagesReflection -> messagesReflection.setStatus(DeliveryStatus.VIEWED));
-        chatMessageRepository.saveAll(messagesReflections);
-
-        // Group messages by chatRoomId
+        // Decrement unread count for original messages' chat rooms
         Map<UUID, Long> countByChatRoom = messages.stream()
                 .collect(Collectors.groupingBy(m -> m.getChatRoom().getId(), Collectors.counting()));
 
@@ -93,8 +97,9 @@ public class ChatMessageService {
                         )
         );
 
-        return originalIdFromReflection;
+        return reflectionIds;
     }
+
 
     public List<ChatMessageResponseDTO> findChatMessages(UUID publicationId, UUID senderId, UUID recipientId) {
         Optional<ChatRoom> chatRoomOptional = chatRoomService.getChatRoom(publicationId, senderId, recipientId, false);
@@ -118,18 +123,6 @@ public class ChatMessageService {
         String reflectionIdStr = originalIdStr + "-reflection";
 
         return UUID.nameUUIDFromBytes(reflectionIdStr.getBytes());
-    }
-
-    private List<UUID> getOriginalIdFromReflection(List<UUID> reflectionIds) {
-        try {
-            return reflectionIds.stream()
-                    .map(id -> UUID.fromString(
-                            id.toString().replace("-reflection", "")))
-                    .toList();
-        } catch (IllegalArgumentException e) {
-            log.warn(e.getMessage());
-            return Collections.emptyList();
-        }
     }
 
 }
