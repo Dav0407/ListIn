@@ -10,6 +10,7 @@ import com.igriss.ListIn.chat.repository.ChatMessageRepository;
 import com.igriss.ListIn.exceptions.ResourceNotFoundException;
 import com.igriss.ListIn.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChatMessageService {
@@ -51,7 +53,7 @@ public class ChatMessageService {
                 .build();
 
         ChatMessage chatMessageReflection = ChatMessage.builder()
-                .id(UUID.randomUUID())
+                .id(generateReflectionId(request.getId()))
                 .chatRoom(chatRoomReflection)
                 .sender(originalSender)
                 .recipient(originalRecipient)
@@ -65,13 +67,20 @@ public class ChatMessageService {
         return chatMessageRepository.save(chatMessage);
     }
 
-    // Add a method to update a batch of messages as VIEWED
-    public void markMessagesAsViewed(List<UUID> messageIds) {
-        if (messageIds == null || messageIds.isEmpty()) return;
+
+    public List<UUID> markMessagesAsViewed(List<UUID> messageIds) {
+        if (messageIds == null || messageIds.isEmpty()) return Collections.emptyList();
 
         List<ChatMessage> messages = chatMessageRepository.findAllById(messageIds);
         messages.forEach(message -> message.setStatus(DeliveryStatus.VIEWED));
         chatMessageRepository.saveAll(messages);
+
+
+        List<UUID> originalIdFromReflection = getOriginalIdFromReflection(messageIds);
+
+        List<ChatMessage> messagesReflections = chatMessageRepository.findAllById(originalIdFromReflection);
+        messagesReflections.forEach(messagesReflection -> messagesReflection.setStatus(DeliveryStatus.VIEWED));
+        chatMessageRepository.saveAll(messagesReflections);
 
         // Group messages by chatRoomId
         Map<UUID, Long> countByChatRoom = messages.stream()
@@ -83,6 +92,8 @@ public class ChatMessageService {
                                 chatRoomService.decrementUnreadCount(chatRoom, count)
                         )
         );
+
+        return originalIdFromReflection;
     }
 
     public List<ChatMessageResponseDTO> findChatMessages(UUID publicationId, UUID senderId, UUID recipientId) {
@@ -99,6 +110,26 @@ public class ChatMessageService {
 
     public Optional<ChatMessage> findLastMessage(String chatRoomId) {
         return chatMessageRepository.findTopByChatRoom_ChatRoomIdOrderByCreatedAtDesc(chatRoomId);
+    }
+
+
+    private UUID generateReflectionId(UUID originalId) {
+        String originalIdStr = originalId.toString();
+        String reflectionIdStr = originalIdStr + "-reflection";
+
+        return UUID.nameUUIDFromBytes(reflectionIdStr.getBytes());
+    }
+
+    private List<UUID> getOriginalIdFromReflection(List<UUID> reflectionIds) {
+        try {
+            return reflectionIds.stream()
+                    .map(id -> UUID.fromString(
+                            id.toString().replace("-reflection", "")))
+                    .toList();
+        } catch (IllegalArgumentException e) {
+            log.warn(e.getMessage());
+            return Collections.emptyList();
+        }
     }
 
 }

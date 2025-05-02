@@ -54,12 +54,12 @@ public class ChatController {
     // New endpoint to mark messages as viewed
     @MessageMapping("/chat/view")
     public void markMessagesAsViewed(@Payload ViewConfirmationDTO confirmation) {
-        chatMessageService.markMessagesAsViewed(confirmation.getMessageIds());
+        List<UUID> messagesReflectionIds = chatMessageService.markMessagesAsViewed(confirmation.getMessageIds());
 
         // Notify the original sender that their messages were viewed
         // First, create a response object
         DeliveryStatusUpdateDTO response = DeliveryStatusUpdateDTO.builder()
-                .messageIds(confirmation.getMessageIds())
+                .messageIds(messagesReflectionIds)
                 .status(DeliveryStatus.VIEWED)
                 .updatedAt(LocalDateTime.now())
                 .build();
