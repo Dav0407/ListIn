@@ -13,9 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,15 +52,17 @@ public class ChatMessageService {
                 .recipient(originalRecipient)
                 .content(request.getContent())
                 .status(DeliveryStatus.DELIVERED)
+                .createdAt(LocalDateTime.now())
                 .build();
 
         ChatMessage chatMessageReflection = ChatMessage.builder()
-                .id(generateReflectionId(request.getId()))
+                .id(UUID.randomUUID())
                 .chatRoom(chatRoomReflection)
                 .sender(originalSender)
                 .recipient(originalRecipient)
                 .content(request.getContent())
                 .status(DeliveryStatus.DELIVERED)
+                .createdAt(chatMessage.getCreatedAt())
                 .build();
 
         chatMessageRepository.save(chatMessageReflection);
@@ -76,13 +80,24 @@ public class ChatMessageService {
         messages.forEach(message -> message.setStatus(DeliveryStatus.VIEWED));
         chatMessageRepository.saveAll(messages);
 
-        // Generate reflection IDs from original IDs
-        List<UUID> reflectionIds = messageIds.stream()
-                .map(this::generateReflectionId)
+        // Mark reflection messages as VIEWED
+        List<ChatMessage> reflectionMessages = messages.stream()
+                .map(message -> {
+                    List<ChatMessage> pair = chatMessageRepository
+                            .findByContentAndCreatedAtAndSenderAndRecipient(
+                                    message.getContent(),
+                                    message.getCreatedAt(),
+                                    message.getSender(),
+                                    message.getRecipient()
+                            );
+                    return pair.stream()
+                            .filter(m -> !m.getId().equals(message.getId()))
+                            .findFirst()
+                            .orElse(null);
+                })
+                .filter(Objects::nonNull)
                 .toList();
 
-        // Mark reflection messages as VIEWED
-        List<ChatMessage> reflectionMessages = chatMessageRepository.findAllById(reflectionIds);
         reflectionMessages.forEach(reflection -> reflection.setStatus(DeliveryStatus.VIEWED));
         chatMessageRepository.saveAll(reflectionMessages);
 
@@ -114,13 +129,4 @@ public class ChatMessageService {
     public Optional<ChatMessage> findLastMessage(String chatRoomId) {
         return chatMessageRepository.findTopByChatRoom_ChatRoomIdOrderByCreatedAtDesc(chatRoomId);
     }
-
-
-    private UUID generateReflectionId(UUID originalId) {
-        String originalIdStr = originalId.toString();
-        String reflectionIdStr = originalIdStr + "-reflection";
-
-        return UUID.nameUUIDFromBytes(reflectionIdStr.getBytes());
-    }
-
 }

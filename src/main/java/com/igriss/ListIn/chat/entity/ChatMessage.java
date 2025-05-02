@@ -60,7 +60,7 @@ public class ChatMessage {
     @Column(nullable = false)
     private DeliveryStatus status;
 
-    @CreatedDate
+    //@CreatedDate
     private LocalDateTime createdAt;
 
     @LastModifiedDate
