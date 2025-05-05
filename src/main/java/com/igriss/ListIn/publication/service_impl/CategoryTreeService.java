@@ -71,6 +71,8 @@ public class CategoryTreeService {
         return numericFields.stream().map(numericField -> NumericFieldDTO.builder()
                 .id(numericField.getId())
                 .fieldName(numericField.getFieldName())
+                .fieldNameUz(numericField.getFieldNameUz())
+                .fieldNameRu(numericField.getFieldNameRu())
                 .description(numericField.getDescription())
                 .descriptionUz(numericField.getDescriptionUz())
                 .descriptionRu(numericField.getDescriptionRu())

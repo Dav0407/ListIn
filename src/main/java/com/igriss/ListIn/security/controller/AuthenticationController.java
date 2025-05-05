@@ -41,6 +41,7 @@ public class AuthenticationController {
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         authenticationService.refreshToken(request, response);
     }
+
     @PostMapping("/send/mail")
     public ResponseEntity<EmailVerificationRequestDTO> sendEmail(@RequestBody EmailVerificationRequestDTO verificationRequestDTO) throws  EmailNotFoundException {
         return ResponseEntity.ok(emailService.sendEmail(verificationRequestDTO));

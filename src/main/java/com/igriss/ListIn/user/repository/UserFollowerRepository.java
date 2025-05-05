@@ -1,7 +1,6 @@
 package com.igriss.ListIn.user.repository;
 
 import com.igriss.ListIn.user.dto.FollowsDTO;
-import com.igriss.ListIn.user.entity.User;
 import com.igriss.ListIn.user.entity.UserFollower;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,9 @@ public interface UserFollowerRepository extends JpaRepository<UserFollower, User
             SELECT
                 u.user_id AS userId,
                 u.nick_name AS nickName,
-                u.profile_image_path AS profileImagePath
+                u.profile_image_path AS profileImagePath,
+                u.following AS following,
+                u.followers AS followers
             FROM user_followers uf
             JOIN users u ON uf.follower_id = u.user_id
             WHERE uf.following_id = :userId
@@ -35,7 +36,9 @@ public interface UserFollowerRepository extends JpaRepository<UserFollower, User
             SELECT
                 u.user_id AS userId,
                 u.nick_name AS nickName,
-                u.profile_image_path AS profileImagePath
+                u.profile_image_path AS profileImagePath,
+                u.following AS following,
+                u.followers AS followers
             FROM user_followers uf
             JOIN users u ON uf.following_id = u.user_id
             WHERE uf.follower_id = :userId

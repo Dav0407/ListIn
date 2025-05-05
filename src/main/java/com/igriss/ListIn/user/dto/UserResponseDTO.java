@@ -5,6 +5,7 @@ import com.igriss.ListIn.location.dto.CountryDTO;
 import com.igriss.ListIn.location.dto.CountyDTO;
 import com.igriss.ListIn.location.dto.StateDTO;
 import com.igriss.ListIn.security.roles.Role;
+import com.igriss.ListIn.user.enums.Status;
 import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Getter;
@@ -63,6 +64,8 @@ public class UserResponseDTO {
     private Double latitude;
 
     private Role role;
+
+    private Status status;
 
     private LocalDateTime dateCreated;
 

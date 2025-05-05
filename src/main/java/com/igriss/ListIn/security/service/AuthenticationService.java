@@ -1,7 +1,6 @@
 package com.igriss.ListIn.security.service;
 
 
-import com.igriss.ListIn.exceptions.EmailNotFoundException;
 import com.igriss.ListIn.exceptions.UserHasAccountException;
 import com.igriss.ListIn.exceptions.UserNotFoundException;
 import com.igriss.ListIn.security.security_dto.AuthenticationRequestDTO;

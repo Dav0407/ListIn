@@ -4,6 +4,7 @@ import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.page.PageResponse;
+import com.igriss.ListIn.publication.entity.Publication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
@@ -29,4 +30,6 @@ public interface PublicationService {
     UUID unLikePublication(UUID publicationId, Authentication connectedUser);
 
     UUID viewPublication(UUID publicationId, Authentication connectedUser);
+
+    Publication getById(UUID publicationId);
 }

@@ -12,13 +12,13 @@ spring:
     name: ListIn
   jpa:
     hibernate:
-      ddl-auto: create
-    show-sql: true
+      ddl-auto: update
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: off
   security:
     oauth2:
       client:
@@ -48,6 +48,7 @@ spring:
           auth: true
           starttls:
             enable: true
+
 application:
   security:
     jwt:

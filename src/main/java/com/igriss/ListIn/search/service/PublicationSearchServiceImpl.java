@@ -5,17 +5,16 @@ import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.igriss.ListIn.exceptions.SearchQueryException;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
+import com.igriss.ListIn.publication.dto.page.PageResponse;
 import com.igriss.ListIn.publication.entity.Publication;
 import com.igriss.ListIn.publication.mapper.PublicationMapper;
-import com.igriss.ListIn.publication.repository.*;
+import com.igriss.ListIn.publication.repository.PublicationRepository;
 import com.igriss.ListIn.publication.service.NumericValueService;
 import com.igriss.ListIn.publication.service.ProductFileService;
 import com.igriss.ListIn.publication.service.PublicationLikeService;
 import com.igriss.ListIn.publication.service.PublicationViewService;
-import com.igriss.ListIn.publication.service_impl.PublicationNodeHandler;
 import com.igriss.ListIn.search.document.PublicationDocument;
 import com.igriss.ListIn.search.dto.FoundPublicationsDTO;
-import com.igriss.ListIn.search.dto.PublicationNode;
 import com.igriss.ListIn.search.repository.SearchParamMapper;
 import com.igriss.ListIn.search.service.supplier.QueryRepository;
 import com.igriss.ListIn.search.service.supplier.SearchParams;
@@ -34,7 +33,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -56,28 +62,27 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
 
     private final NumericValueService numericValueService;
 
-    private final PublicationNodeHandler publicationNodeHandler1;
-    private final PublicationNodeHandler publicationNodeHandler2;
-
     private final UserService userService;
+    private final RedisTemplate<UUID, String> redisHistoryTemplate;
 
 
     @Override
-    public List<PublicationNode> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
-                                                          Integer page, Integer size, Boolean bargain, String productCondition,
-                                                          Float from, Float to, String locationName, Boolean isFree, String sellerType,
-                                                          String locationIds, String searchText, List<String> filters, List<String> numericFilter, Authentication connectedUser)
+    public PageResponse<PublicationResponseDTO> searchWithAdvancedFilter(UUID pCategory, UUID category, String query,
+                                                                         Integer page, Integer size, Boolean bargain, String productCondition,
+                                                                         Float from, Float to, String locationName, Boolean isFree, String sellerType,
+                                                                         String locationIds, String searchText, List<String> filters, List<String> numericFilter, Authentication connectedUser)
             throws SearchQueryException {
 
         User user = (User) connectedUser.getPrincipal();
 
         Map<String, String> locations = locationIds != null ? parseLocations(locationIds) : new HashMap<>();
 
-        Map<String, List<String>> attributeFilter = !(filters == null || filters.isEmpty()) ? parseAttributeFilter(filters) : new HashMap<>();
+        Map<String, List<String>> attributeFilter = (filters != null && !filters.isEmpty()) ? parseAttributeFilter(filters) : new HashMap<>();
 
-        Map<String, String[]> numericFilters = !(numericFilter == null || numericFilter.isEmpty()) ? parseNumericFilter(numericFilter) : new HashMap<>();
+        Map<String, String[]> numericFilters = (numericFilter != null && !numericFilter.isEmpty()) ? parseNumericFilter(numericFilter) : new HashMap<>();
 
         List<PublicationDocument> publicationDocuments = new ArrayList<>();
+        long totalElements = 0;
 
         SearchResponse<PublicationDocument> response;
         try {
@@ -86,33 +91,51 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                             pCategory, category, query, bargain, productCondition, from, to, locationName, isFree, locations, sellerType, attributeFilter, numericFilters)
             );
 
-
             if (response.hits().hits() != null) {
                 for (var hit : response.hits().hits()) {
                     publicationDocuments.add(hit.source());
                 }
+                totalElements = (response.hits().total() != null) ? response.hits().total().value() : 0;  // Extract total elements from search response
             }
         } catch (IOException ioException) {
             log.error("Exception occurred: ", ioException);
             throw new SearchQueryException("Exception on search query: " + ioException.getMessage());
         }
 
-        long totalElements = response.hits().total() != null ? response.hits().total().value() : 0;
-        boolean isLast = ((long) (page + 1) * size) >= totalElements;
-
         if (searchText != null)
             saveIntoSearchHistory(user, searchText);
 
-        return publicationNodeHandler1.handlePublicationNodes(editQuery(publicationDocuments, user), isLast);
+        List<PublicationResponseDTO> publicationResponseList = editQuery(publicationDocuments, user);
+
+        return new PageResponse<>(
+                publicationResponseList,
+                page,
+                size,
+                totalElements,
+                (int) Math.ceil((double) totalElements / size),
+                page == 0,
+                (long) (page + 1) * size >= totalElements
+        );
     }
 
+
     @Override
-    public List<PublicationNode> findAllLatestPublications(Integer page, Integer size, Boolean bargain, String productCondition, Float from, Float to, String locationName, List<String> filters, List<String> numericFilter, Authentication connectedUser) {
+    public PageResponse<PublicationResponseDTO> findAllLatestPublications(Integer page, Integer size, Boolean bargain, String productCondition, Float from, Float to, String locationName, List<String> filters, List<String> numericFilter, Authentication connectedUser) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("datePosted").descending());
 
         Page<Publication> publicationPage = publicationRepository.findAllByOrderByDatePostedDesc(pageable);
 
-        return getPublicationNodes(connectedUser, publicationPage, publicationNodeHandler2);
+        List<PublicationResponseDTO> publicationsDTOList = getPublicationNodes(connectedUser, publicationPage);
+
+        return new PageResponse<>(
+                publicationsDTOList,
+                publicationPage.getNumber(),
+                publicationPage.getSize(),
+                publicationPage.getTotalElements(),
+                publicationPage.getTotalPages(),
+                publicationPage.isFirst(),
+                publicationPage.isLast()
+        );
     }
 
     @Override
@@ -163,7 +186,6 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
         }
     }
 
-    private final RedisTemplate<UUID, String> redisHistoryTemplate;
 
 
     @Override
@@ -245,15 +267,13 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 .toList();
     }
 
-    private List<PublicationNode> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage, PublicationNodeHandler publicationNodeHandler1) {
+    private List<PublicationResponseDTO> getPublicationNodes(Authentication connectedUser, Page<Publication> publicationPage) {
         User user = (User) connectedUser.getPrincipal();
 
-        List<PublicationResponseDTO> publications = publicationPage
+        return publicationPage
                 .getContent()
                 .stream()
                 .map(publication -> mapToPublicationDTO(publication, user)).toList();
-
-        return publicationNodeHandler1.handlePublicationNodes(publications, publicationPage.isLast());
     }
 
     private PublicationResponseDTO mapToPublicationDTO(Publication publication, User user) {
@@ -262,7 +282,8 @@ public class PublicationSearchServiceImpl implements PublicationSearchService {
                 productFileService.findImagesByPublicationId(publication.getId()),
                 productFileService.findVideoUrlByPublicationId(publication.getId()),
                 numericValueService.findNumericFields(publication.getId()),
-                publicationLikeService.isLiked(user.getUserId(), publication.getId()), userService.isFollowingToUser(user, publication.getSeller()));
+                publicationLikeService.isLiked(user.getUserId(), publication.getId()),
+                userService.isFollowingToUser(user.getUserId(), publication.getSeller().getUserId()));
 
         publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
         publicationResponseDTO.setIsViewed(publicationViewService.isViewed(user.getUserId(), publication.getId()));

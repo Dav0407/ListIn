@@ -2,6 +2,10 @@ package com.igriss.ListIn.publication.service_impl;
 
 import com.igriss.ListIn.exceptions.PublicationNotFoundException;
 import com.igriss.ListIn.exceptions.UnauthorizedAccessException;
+
+import com.igriss.ListIn.location.dto.LocationDTO;
+import com.igriss.ListIn.location.service.LocationService;
+
 import com.igriss.ListIn.publication.dto.PublicationRequestDTO;
 import com.igriss.ListIn.publication.dto.PublicationResponseDTO;
 import com.igriss.ListIn.publication.dto.UpdatePublicationRequestDTO;
@@ -53,6 +57,8 @@ public class PublicationServiceImpl implements PublicationService {
     private final PublicationDocumentService publicationDocumentService;
     private final PublicationMapper publicationMapper;
 
+    private final LocationService locationService;
+
     private final NumericValueService numericValueService;
 
     private final PublicationAttributeValueService publicationAttributeValueService;
@@ -67,8 +73,14 @@ public class PublicationServiceImpl implements PublicationService {
 
         userService.updateContactDetails(request, connectedUser);
 
+        log.info("Country: {}", request.getCountryName());
+        log.info("State: {}", request.getStateName());
+        log.info("County: {}", request.getCountyName());
+
+        LocationDTO location = locationService.getLocation(request.getCountryName(), request.getStateName(), request.getCountyName(), "ru");
+
         // Map and save publication
-        Publication publication = publicationMapper.toPublication(request, connectedUser);
+        Publication publication = publicationMapper.toPublication(request, connectedUser, location);
         publication = publicationRepository.save(publication);
 
         // Save images //todo -> then removed the assignment
@@ -183,6 +195,12 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public Publication getById(UUID publicationId) {
+        return publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new PublicationNotFoundException("No such Publication found with ID: " + publicationId));
+    }
+
+    @Override
     public PageResponse<PublicationResponseDTO> findAllLikedPublications(Integer page, Integer size, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
 
@@ -201,7 +219,7 @@ public class PublicationServiceImpl implements PublicationService {
                                     productFileService.findImagesByPublicationId(publication.getId()),
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
                                     numericValueService.findNumericFields(publication.getId()),
-                                    true, userService.isFollowingToUser(user, publication.getSeller()));
+                                    true, userService.isFollowingToUser(user.getUserId(), publication.getSeller().getUserId()));
 
                             publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
 
@@ -278,7 +296,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         PublicationResponseDTO publicationResponseDTO = publicationMapper.toPublicationResponseDTO(
                 updatedPublication, images, videoUrl, numericValueService.findNumericFields(publication.getId()),
-                false, userService.isFollowingToUser(connectedUser, publication.getSeller())
+                false, userService.isFollowingToUser(connectedUser.getUserId(), publication.getSeller().getUserId())
         );
 
         publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
@@ -338,7 +356,7 @@ public class PublicationServiceImpl implements PublicationService {
                                     productFileService.findVideoUrlByPublicationId(publication.getId()),
                                     numericValueService.findNumericFields(publication.getId()),
                                     publicationLikeService.isLiked(user.getUserId(), publication.getId()),
-                                    userService.isFollowingToUser(user, publication.getSeller()));
+                                    userService.isFollowingToUser(user.getUserId(), publication.getSeller().getUserId()));
 
                             publicationResponseDTO.setViews(publicationViewService.views(publication.getId()));
 
@@ -347,7 +365,6 @@ public class PublicationServiceImpl implements PublicationService {
                             return publicationResponseDTO;
                         }
                 ).toList();
-
     }
 
 }

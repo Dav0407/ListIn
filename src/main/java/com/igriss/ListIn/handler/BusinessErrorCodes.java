@@ -18,7 +18,7 @@ public enum BusinessErrorCodes {
     USER_HAS_ACCOUNT(409, CONFLICT, "User has account"),
     ATTRIBUTE_VALUES_NOT_FOUND(500, INTERNAL_SERVER_ERROR, "Validation failed"),
     NO_PUBLICATION(204,NO_CONTENT,"Publication does not exist"),
-    USER_NOT_FOUND(404,NOT_FOUND,"Wrong credentials"),;
+    USER_NOT_FOUND(404,NOT_FOUND,"Wrong credentials");
 
     private final int code;
 
