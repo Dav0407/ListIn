@@ -4,7 +4,9 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+
 import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -14,6 +16,7 @@ import java.util.UUID;
 public class CountryNode implements Serializable {
 
     private UUID countryId;
+
     private String value;
     private String valueUz;
     private String valueRu;

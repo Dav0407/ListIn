@@ -1,4 +1,5 @@
 --Andijan counties
+
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('07f10cf9-bd4b-4d0b-8e5e-b0cf970e5c39','64cd814e-6069-497a-9da4-2dc3a9f5583b','Andijan','Андижан','Andijon'); --done ru
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4621c8ab-aaef-489a-97dd-867e2ae557cd','64cd814e-6069-497a-9da4-2dc3a9f5583b','Asaka District','Асакинский район','Asaka tumani'); --done ru
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('dc042241-9711-482e-99ad-8552f8e99b1a','64cd814e-6069-497a-9da4-2dc3a9f5583b','Ulugʻnor District','Улугнорский район','Ulugʻnor tumani'); -- done ru
@@ -73,6 +74,8 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('4e83c524
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('ad000df3-b124-4580-a5e1-b635ecab37a0','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Qanlikoʻl District','Канлыкульский район','Qanlikoʻl tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('e04fbd49-a4ea-44a8-8c99-af90815c822c','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Ellikqala District','Элликкалинский район','Ellikqala tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('88761025-6aa0-4049-9c60-e73a8748461c','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Kegeyli District','Кегейлийский район','Kegeyli tumani');
+
+INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('a813f417-6ca7-4e5d-aaab-bfe204c39163','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Boʻzatov District','Бозатовский район','Boʻzatov tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('84459f4b-2e37-4f7d-b8c0-e30a0034e11f','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Taxtakoʻpir District','Тахтакупырский район','Taxtakoʻpir tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('0201a85a-c3f7-4e88-88c2-d3a346e4c8dd','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Shumanay District','Шуманайский район','Shumanay tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('cf959dc7-d894-439a-b1ab-04e67c5d1f12','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Qoʻngʻirot District','Кунградский район','Qoʻngʻirot tumani');
@@ -80,6 +83,7 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('7c67ed6b
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('7d99a70e-2707-425a-9cd1-33f895058317','e60e6c32-c02f-420f-b765-4c6aef8d90b4','Nukus District','Нукусский район','Nukus tumani');
 
 --Namangan counties
+
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('69ca44b3-a03a-489d-80c4-4e5bfac8bd16','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Namangan','Наманган','Namangan');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('5759a3a3-856c-40b6-9f87-c42f0ce37509','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Chortoq District','Чартакский район','Chortoq tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('f8270dac-7b59-4c2a-b727-84733489b40e','4fe313b2-38c1-4085-a122-72fb7a0cd07a','Chust District','Чустский район','Chust tumani');
@@ -96,6 +100,7 @@ INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('68ce0518
 
 --Navoiy counties
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('065daa48-0045-4c76-9af8-e31bb12ada1d','a6b204d9-fae8-41a3-9663-a9b137246eca','Navai','Навои','Navoiy');
+
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('12927509-f31b-44dd-800e-18c91b1ad7f8','a6b204d9-fae8-41a3-9663-a9b137246eca','Navbahor District','Навбахорский район','Navbahor tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('ce90d7a9-4636-4b37-9b49-c1b45568595a','a6b204d9-fae8-41a3-9663-a9b137246eca','Qiziltepa District','Кызылтепинский район','Qiziltepa tumani');
 INSERT INTO counties (id, state_id, value, value_ru, value_uz) VALUES ('dda9b8b0-f23a-4d8f-896d-86b721744d8a','a6b204d9-fae8-41a3-9663-a9b137246eca','Konimex District','Канимехский район','Konimex tumani');

@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -14,7 +16,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class CountyDTO {
+  
     private UUID countyId;
+
     private String value;
     private String valueUz;
     private String valueRu;

@@ -3,7 +3,9 @@ package com.igriss.ListIn.location.dto.node;
 import lombok.*;
 
 import java.io.Serializable;
+
 import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -16,5 +18,4 @@ public class CountyNode  implements Serializable {
     private String value;
     private String valueUz;
     private String valueRu;
-
 }

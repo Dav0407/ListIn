@@ -8,13 +8,16 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class StateDTO {
+
     private UUID stateId;
+
     private String value;
     private String valueUz;
     private String valueRu;
